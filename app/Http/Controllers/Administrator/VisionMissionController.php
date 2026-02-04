@@ -90,6 +90,7 @@ class VisionMissionController extends Controller
         if ($request->boolean($removeKey) && $model->image_path) {
             Storage::disk(self::IMAGE_DISK)->delete($model->image_path);
             $model->image_path = null;
+
             return;
         }
 

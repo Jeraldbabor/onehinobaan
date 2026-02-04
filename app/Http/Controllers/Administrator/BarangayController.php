@@ -95,9 +95,10 @@ class BarangayController extends Controller
     private function mapBarangaysForFrontend(array $list): array
     {
         return array_map(function ($item) {
+            $path = $item['image_path'] ?? '';
             return [
                 'id' => $item['id'] ?? '',
-                'image_url' => Storage::disk('public')->url($item['image_path'] ?? ''),
+                'image_url' => $path ? '/storage/'.$path : '',
             ];
         }, $list);
     }

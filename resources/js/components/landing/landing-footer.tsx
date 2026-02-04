@@ -13,10 +13,19 @@ const footerSections = [
     {
         title: 'Transparency',
         links: [
-            { label: "Citizen's Charter", href: '/transparency/citizens-charter' },
+            {
+                label: "Citizen's Charter",
+                href: '/transparency/citizens-charter',
+            },
             { label: 'Full Disclosure', href: '/transparency/full-disclosure' },
-            { label: 'Invitation to Bid', href: '/transparency/invitation-to-bid' },
-            { label: 'Notice of Awards', href: '/transparency/notice-of-awards' },
+            {
+                label: 'Invitation to Bid',
+                href: '/transparency/invitation-to-bid',
+            },
+            {
+                label: 'Notice of Awards',
+                href: '/transparency/notice-of-awards',
+            },
         ],
     },
     {
@@ -44,17 +53,27 @@ export function LandingFooter() {
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
                     {/* Brand + contact */}
                     <div className="lg:col-span-2">
-                        <Link href="/" className="inline-block text-lg font-semibold text-white">
+                        <Link
+                            href="/"
+                            className="inline-block text-lg font-semibold text-white"
+                        >
                             Municipality of Hinobaan
                         </Link>
                         <p className="mt-3 max-w-sm text-sm leading-relaxed text-neutral-400">
-                            Official website of the Municipal Government of Hinobaan, Negros Occidental. Serving our
-                            community with transparency and dedication.
+                            Official website of the Municipal Government of
+                            Hinobaan, Negros Occidental. Serving our community
+                            with transparency and dedication.
                         </p>
                         <ul className="mt-6 space-y-3">
                             {contactInfo.map(({ icon: Icon, label }) => (
-                                <li key={label} className="flex items-start gap-3 text-sm">
-                                    <Icon className="mt-0.5 size-4 shrink-0 text-neutral-500" aria-hidden />
+                                <li
+                                    key={label}
+                                    className="flex items-start gap-3 text-sm"
+                                >
+                                    <Icon
+                                        className="mt-0.5 size-4 shrink-0 text-neutral-500"
+                                        aria-hidden
+                                    />
                                     <span>{label}</span>
                                 </li>
                             ))}
@@ -63,7 +82,7 @@ export function LandingFooter() {
                     {/* Link columns */}
                     {footerSections.map((section) => (
                         <div key={section.title}>
-                            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+                            <h3 className="text-sm font-semibold tracking-wider text-white uppercase">
                                 {section.title}
                             </h3>
                             <ul className="mt-4 space-y-2">
@@ -84,13 +103,20 @@ export function LandingFooter() {
                 {/* Bottom bar */}
                 <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-neutral-800 pt-8 sm:flex-row">
                     <p className="text-sm text-neutral-500">
-                        © {currentYear} Municipality of Hinobaan. All rights reserved.
+                        © {currentYear} Municipality of Hinobaan. All rights
+                        reserved.
                     </p>
                     <div className="flex gap-6 text-sm">
-                        <Link href="/privacy" className="text-neutral-500 transition hover:text-neutral-400">
+                        <Link
+                            href="/privacy"
+                            className="text-neutral-500 transition hover:text-neutral-400"
+                        >
                             Privacy
                         </Link>
-                        <Link href="/accessibility" className="text-neutral-500 transition hover:text-neutral-400">
+                        <Link
+                            href="/accessibility"
+                            className="text-neutral-500 transition hover:text-neutral-400"
+                        >
                             Accessibility
                         </Link>
                     </div>

@@ -54,18 +54,39 @@ const primaryNavItems: NavItem[] = [
             {
                 sectionTitle: 'Transparency',
                 links: [
-                    { label: "Citizen's Charter", href: '/transparency/citizens-charter' },
-                    { label: 'Full Disclosure Policy', href: '/transparency/full-disclosure' },
-                    { label: 'Invitation to Bid', href: '/transparency/invitation-to-bid' },
-                    { label: 'Notice of Awards', href: '/transparency/notice-of-awards' },
+                    {
+                        label: "Citizen's Charter",
+                        href: '/transparency/citizens-charter',
+                    },
+                    {
+                        label: 'Full Disclosure Policy',
+                        href: '/transparency/full-disclosure',
+                    },
+                    {
+                        label: 'Invitation to Bid',
+                        href: '/transparency/invitation-to-bid',
+                    },
+                    {
+                        label: 'Notice of Awards',
+                        href: '/transparency/notice-of-awards',
+                    },
                 ],
             },
             {
                 sectionTitle: 'Services',
                 links: [
-                    { label: 'Business Permits', href: '/services/business-permits' },
-                    { label: 'Civil Registry', href: '/services/civil-registry' },
-                    { label: 'Social Welfare', href: '/services/social-welfare' },
+                    {
+                        label: 'Business Permits',
+                        href: '/services/business-permits',
+                    },
+                    {
+                        label: 'Civil Registry',
+                        href: '/services/civil-registry',
+                    },
+                    {
+                        label: 'Social Welfare',
+                        href: '/services/social-welfare',
+                    },
                 ],
             },
         ],
@@ -87,10 +108,22 @@ const mobileNavItems: NavItem[] = [
     {
         label: 'Transparency',
         children: [
-            { label: "Citizen's Charter", href: '/transparency/citizens-charter' },
-            { label: 'Full Disclosure Policy', href: '/transparency/full-disclosure' },
-            { label: 'Invitation to Bid', href: '/transparency/invitation-to-bid' },
-            { label: 'Notice of Awards', href: '/transparency/notice-of-awards' },
+            {
+                label: "Citizen's Charter",
+                href: '/transparency/citizens-charter',
+            },
+            {
+                label: 'Full Disclosure Policy',
+                href: '/transparency/full-disclosure',
+            },
+            {
+                label: 'Invitation to Bid',
+                href: '/transparency/invitation-to-bid',
+            },
+            {
+                label: 'Notice of Awards',
+                href: '/transparency/notice-of-awards',
+            },
         ],
     },
     {
@@ -114,15 +147,19 @@ const mobileNavItems: NavItem[] = [
 ];
 
 function hasChildren(item: NavItem): item is NavItemWithChildren {
-    return 'children' in item && Array.isArray((item as NavItemWithChildren).children) && (item as NavItemWithChildren).children.length > 0;
+    return (
+        'children' in item &&
+        Array.isArray((item as NavItemWithChildren).children) &&
+        (item as NavItemWithChildren).children.length > 0
+    );
 }
 function hasGroups(item: NavItem): item is NavItemWithGroups {
-    return 'groups' in item && Array.isArray((item as NavItemWithGroups).groups) && (item as NavItemWithGroups).groups.length > 0;
+    return (
+        'groups' in item &&
+        Array.isArray((item as NavItemWithGroups).groups) &&
+        (item as NavItemWithGroups).groups.length > 0
+    );
 }
-function isDropdown(item: NavItem): item is NavItemWithChildren | NavItemWithGroups {
-    return hasChildren(item) || hasGroups(item);
-}
-
 export function LandingHeader() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -144,12 +181,12 @@ export function LandingHeader() {
     };
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-neutral-200/80 bg-white/98 backdrop-blur-sm shadow-sm shadow-neutral-200/50">
+        <header className="sticky top-0 z-50 w-full border-b border-neutral-200/80 bg-white/98 shadow-sm shadow-neutral-200/50 backdrop-blur-sm">
             <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
                 {/* Left: logos + name — slightly smaller for less visual weight */}
                 <Link
                     href="/"
-                    className="flex shrink-0 items-center gap-2.5 transition opacity-90 hover:opacity-100 sm:gap-3"
+                    className="flex shrink-0 items-center gap-2.5 opacity-90 transition hover:opacity-100 sm:gap-3"
                     aria-label="Municipality of Hinoba-an - Home"
                 >
                     <img
@@ -168,7 +205,10 @@ export function LandingHeader() {
                 </Link>
 
                 {/* Desktop nav — only on xl+ so bar isn't crammed */}
-                <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Main">
+                <nav
+                    className="hidden items-center gap-0.5 xl:flex"
+                    aria-label="Main"
+                >
                     {primaryNavItems.map((item) => {
                         if (hasGroups(item)) {
                             const id = `nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`;
@@ -184,7 +224,9 @@ export function LandingHeader() {
                                         type="button"
                                         className={cn(
                                             'flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 transition-colors duration-150',
-                                            isOpen ? 'bg-neutral-100 text-neutral-900' : 'hover:bg-neutral-50 hover:text-neutral-900'
+                                            isOpen
+                                                ? 'bg-neutral-100 text-neutral-900'
+                                                : 'hover:bg-neutral-50 hover:text-neutral-900',
                                         )}
                                         aria-expanded={isOpen}
                                         aria-haspopup="true"
@@ -193,22 +235,38 @@ export function LandingHeader() {
                                     >
                                         {item.label}
                                         <ChevronDown
-                                            className={cn('size-3.5 shrink-0 transition-transform duration-200', isOpen && 'rotate-180')}
+                                            className={cn(
+                                                'size-3.5 shrink-0 transition-transform duration-200',
+                                                isOpen && 'rotate-180',
+                                            )}
                                             aria-hidden
                                         />
                                     </button>
-                                    <div className={cn('absolute left-0 right-0 top-full h-1', isOpen ? 'block' : 'pointer-events-none')} aria-hidden />
+                                    <div
+                                        className={cn(
+                                            'absolute top-full right-0 left-0 h-1',
+                                            isOpen
+                                                ? 'block'
+                                                : 'pointer-events-none',
+                                        )}
+                                        aria-hidden
+                                    />
                                     <div
                                         id={`${id}-menu`}
                                         role="menu"
                                         className={cn(
-                                            'absolute right-0 top-full mt-0 w-[280px] rounded-lg border border-neutral-200/90 bg-white py-3 shadow-lg transition-all duration-200 ease-out',
-                                            isOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-1 opacity-0 pointer-events-none'
+                                            'absolute top-full right-0 mt-0 w-[280px] rounded-lg border border-neutral-200/90 bg-white py-3 shadow-lg transition-all duration-200 ease-out',
+                                            isOpen
+                                                ? 'visible translate-y-0 opacity-100'
+                                                : 'pointer-events-none invisible -translate-y-1 opacity-0',
                                         )}
                                     >
                                         {item.groups.map((group) => (
-                                            <div key={group.sectionTitle} className="border-b border-neutral-100 last:border-0 last:pb-0">
-                                                <p className="mb-1.5 px-4 pt-2 first:pt-0 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                                            <div
+                                                key={group.sectionTitle}
+                                                className="border-b border-neutral-100 last:border-0 last:pb-0"
+                                            >
+                                                <p className="mb-1.5 px-4 pt-2 text-xs font-semibold tracking-wider text-neutral-500 uppercase first:pt-0">
                                                     {group.sectionTitle}
                                                 </p>
                                                 {group.links.map((link) => (
@@ -241,7 +299,9 @@ export function LandingHeader() {
                                         type="button"
                                         className={cn(
                                             'flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 transition-colors duration-150',
-                                            isOpen ? 'bg-neutral-100 text-neutral-900' : 'hover:bg-neutral-50 hover:text-neutral-900'
+                                            isOpen
+                                                ? 'bg-neutral-100 text-neutral-900'
+                                                : 'hover:bg-neutral-50 hover:text-neutral-900',
                                         )}
                                         aria-expanded={isOpen}
                                         aria-haspopup="true"
@@ -250,17 +310,30 @@ export function LandingHeader() {
                                     >
                                         {item.label}
                                         <ChevronDown
-                                            className={cn('size-3.5 shrink-0 transition-transform duration-200', isOpen && 'rotate-180')}
+                                            className={cn(
+                                                'size-3.5 shrink-0 transition-transform duration-200',
+                                                isOpen && 'rotate-180',
+                                            )}
                                             aria-hidden
                                         />
                                     </button>
-                                    <div className={cn('absolute left-0 right-0 top-full h-1', isOpen ? 'block' : 'pointer-events-none')} aria-hidden />
+                                    <div
+                                        className={cn(
+                                            'absolute top-full right-0 left-0 h-1',
+                                            isOpen
+                                                ? 'block'
+                                                : 'pointer-events-none',
+                                        )}
+                                        aria-hidden
+                                    />
                                     <div
                                         id={`${id}-menu`}
                                         role="menu"
                                         className={cn(
-                                            'absolute left-0 top-full mt-0 min-w-[200px] rounded-lg border border-neutral-200/90 bg-white py-2 shadow-lg transition-all duration-200 ease-out',
-                                            isOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-1 opacity-0 pointer-events-none'
+                                            'absolute top-full left-0 mt-0 min-w-[200px] rounded-lg border border-neutral-200/90 bg-white py-2 shadow-lg transition-all duration-200 ease-out',
+                                            isOpen
+                                                ? 'visible translate-y-0 opacity-100'
+                                                : 'pointer-events-none invisible -translate-y-1 opacity-0',
                                         )}
                                     >
                                         {item.children.map((child) => (
@@ -307,11 +380,26 @@ export function LandingHeader() {
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                         <span className="sr-only">Toggle menu</span>
-                        <svg className="size-5 sm:size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg
+                            className="size-5 sm:size-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
                             {mobileMenuOpen ? (
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
                             ) : (
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                />
                             )}
                         </svg>
                     </button>
@@ -323,26 +411,39 @@ export function LandingHeader() {
                 id="mobile-menu"
                 className={cn(
                     'border-t border-neutral-200/80 bg-white xl:hidden',
-                    mobileMenuOpen ? 'block' : 'hidden'
+                    mobileMenuOpen ? 'block' : 'hidden',
                 )}
             >
-                <nav className="flex flex-col gap-1 px-4 py-4" aria-label="Mobile main">
+                <nav
+                    className="flex flex-col gap-1 px-4 py-4"
+                    aria-label="Mobile main"
+                >
                     {mobileNavItems.map((item) => {
                         if (hasGroups(item)) {
                             return (
-                                <div key={item.label} className="flex flex-col gap-1">
-                                    <span className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                                <div
+                                    key={item.label}
+                                    className="flex flex-col gap-1"
+                                >
+                                    <span className="px-3 py-2 text-xs font-semibold tracking-wider text-neutral-500 uppercase">
                                         {item.label}
                                     </span>
                                     {item.groups.map((group) => (
-                                        <div key={group.sectionTitle} className="flex flex-col gap-0.5 pl-2">
-                                            <span className="px-2 py-1 text-xs font-medium text-neutral-500">{group.sectionTitle}</span>
+                                        <div
+                                            key={group.sectionTitle}
+                                            className="flex flex-col gap-0.5 pl-2"
+                                        >
+                                            <span className="px-2 py-1 text-xs font-medium text-neutral-500">
+                                                {group.sectionTitle}
+                                            </span>
                                             {group.links.map((link) => (
                                                 <Link
                                                     key={link.href}
                                                     href={link.href}
                                                     className="rounded-md px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50"
-                                                    onClick={() => setMobileMenuOpen(false)}
+                                                    onClick={() =>
+                                                        setMobileMenuOpen(false)
+                                                    }
                                                 >
                                                     {link.label}
                                                 </Link>
@@ -354,8 +455,11 @@ export function LandingHeader() {
                         }
                         if (hasChildren(item)) {
                             return (
-                                <div key={item.label} className="flex flex-col gap-1">
-                                    <span className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                                <div
+                                    key={item.label}
+                                    className="flex flex-col gap-1"
+                                >
+                                    <span className="px-3 py-2 text-xs font-semibold tracking-wider text-neutral-500 uppercase">
                                         {item.label}
                                     </span>
                                     {item.children.map((child) => (
@@ -363,7 +467,9 @@ export function LandingHeader() {
                                             key={child.href}
                                             href={child.href}
                                             className="rounded-md px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50"
-                                            onClick={() => setMobileMenuOpen(false)}
+                                            onClick={() =>
+                                                setMobileMenuOpen(false)
+                                            }
                                         >
                                             {child.label}
                                         </Link>

@@ -8,7 +8,7 @@ type OfficialsPageProps = {
     officials?: OfficialItem[];
 };
 
-export default function OfficialsPage(props: OfficialsPageProps) {
+export default function OfficialsPage() {
     const { props: pageProps } = usePage();
     const officials = (pageProps as OfficialsPageProps).officials ?? [];
     const hasAny = officials.length > 0;
@@ -38,7 +38,7 @@ export default function OfficialsPage(props: OfficialsPageProps) {
             <section className="bg-neutral-50 py-10 sm:py-14">
                 <div className="mx-auto w-full max-w-6xl px-6 sm:px-10 lg:px-14">
                     {hasAny ? (
-                        <ul className="flex flex-wrap justify-center items-center gap-12">
+                        <ul className="flex flex-wrap items-center justify-center gap-12">
                             {officials.map((official) => (
                                 <li key={official.id}>
                                     <img
@@ -54,7 +54,8 @@ export default function OfficialsPage(props: OfficialsPageProps) {
                     ) : (
                         <div className="rounded-xl border border-dashed border-neutral-300 bg-white px-8 py-16 text-center">
                             <p className="text-neutral-600">
-                                Key Officials are not yet available. Please check back later.
+                                Key Officials are not yet available. Please
+                                check back later.
                             </p>
                             <Link
                                 href="/"

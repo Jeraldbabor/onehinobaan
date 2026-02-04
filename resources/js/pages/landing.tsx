@@ -1,7 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
-import type { SharedData } from '@/types';
 import LandingLayout from '@/layouts/landing-layout';
+import type { SharedData } from '@/types';
 
 export default function Landing() {
     const { auth } = usePage<SharedData>().props;
@@ -17,12 +17,14 @@ export default function Landing() {
                         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
                             Know more about
                         </h1>
-                        <p className="mt-4 text-2xl font-light italic text-emerald-100 sm:text-3xl">
+                        <p className="mt-4 text-2xl font-light text-emerald-100 italic sm:text-3xl">
                             the Municipality of Hinobaan
                         </p>
                         <p className="mt-6 max-w-xl text-lg leading-relaxed text-emerald-50/90">
-                            Your gateway to local government services, transparency, and community updates. Hinobaan,
-                            Negros Occidental — committed to serving our citizens.
+                            Your gateway to local government services,
+                            transparency, and community updates. Hinobaan,
+                            Negros Occidental — committed to serving our
+                            citizens.
                         </p>
                         <div className="mt-10 flex flex-wrap gap-4">
                             {auth?.user && (
@@ -45,22 +47,48 @@ export default function Landing() {
             </section>
             {/* Quick links / features */}
             <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-                <h2 className="text-center text-2xl font-semibold text-neutral-800">Quick links</h2>
+                <h2 className="text-center text-2xl font-semibold text-neutral-800">
+                    Quick links
+                </h2>
                 <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {[
-                        { title: 'History', desc: 'History of Hinoba-an', href: '/about/history' },
-                        { title: 'Transparency', desc: 'Citizen\'s Charter, bids & awards', href: '/transparency/citizens-charter' },
-                        { title: 'Services', desc: 'Permits, registry & welfare', href: '/services/business-permits' },
-                        { title: 'Officials', desc: 'Local government leaders', href: '/about/officials' },
-                        { title: 'Jobs', desc: 'Career opportunities', href: '/jobs' },
+                        {
+                            title: 'History',
+                            desc: 'History of Hinoba-an',
+                            href: '/about/history',
+                        },
+                        {
+                            title: 'Transparency',
+                            desc: "Citizen's Charter, bids & awards",
+                            href: '/transparency/citizens-charter',
+                        },
+                        {
+                            title: 'Services',
+                            desc: 'Permits, registry & welfare',
+                            href: '/services/business-permits',
+                        },
+                        {
+                            title: 'Officials',
+                            desc: 'Local government leaders',
+                            href: '/about/officials',
+                        },
+                        {
+                            title: 'Jobs',
+                            desc: 'Career opportunities',
+                            href: '/jobs',
+                        },
                     ].map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
                             className="group rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-emerald-200 hover:shadow-md"
                         >
-                            <h3 className="font-semibold text-neutral-900 group-hover:text-emerald-700">{item.title}</h3>
-                            <p className="mt-1 text-sm text-neutral-600">{item.desc}</p>
+                            <h3 className="font-semibold text-neutral-900 group-hover:text-emerald-700">
+                                {item.title}
+                            </h3>
+                            <p className="mt-1 text-sm text-neutral-600">
+                                {item.desc}
+                            </p>
                         </Link>
                     ))}
                 </div>

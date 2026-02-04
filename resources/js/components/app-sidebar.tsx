@@ -1,5 +1,12 @@
 import { Link } from '@inertiajs/react';
-import { Building2, ChevronDown, History, LayoutGrid, Target, Users } from 'lucide-react';
+import {
+    Building2,
+    ChevronDown,
+    History,
+    LayoutGrid,
+    Target,
+    Users,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -36,7 +43,7 @@ export function AppSidebar() {
     const { currentUrl, isCurrentUrl } = useCurrentUrl();
 
     useEffect(() => {
-        if (
+        const isAboutPage =
             currentUrl === editHistoryUrl ||
             currentUrl.startsWith(editHistoryUrl + '/') ||
             currentUrl === editVisionMissionUrl ||
@@ -44,9 +51,10 @@ export function AppSidebar() {
             currentUrl === editOfficialsUrl ||
             currentUrl.startsWith(editOfficialsUrl + '/') ||
             currentUrl === editBarangayUrl ||
-            currentUrl.startsWith(editBarangayUrl + '/')
-        ) {
-            setAboutOpen(true);
+            currentUrl.startsWith(editBarangayUrl + '/');
+        if (isAboutPage) {
+            const id = setTimeout(() => setAboutOpen(true), 0);
+            return () => clearTimeout(id);
         }
     }, [currentUrl]);
 
@@ -69,7 +77,11 @@ export function AppSidebar() {
                     <SidebarGroupLabel>Platform</SidebarGroupLabel>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton asChild isActive={isCurrentUrl(dashboardUrl)} tooltip={{ children: 'Dashboard' }}>
+                            <SidebarMenuButton
+                                asChild
+                                isActive={isCurrentUrl(dashboardUrl)}
+                                tooltip={{ children: 'Dashboard' }}
+                            >
                                 <Link href={dashboardUrl} prefetch>
                                     <LayoutGrid className="size-4" />
                                     <span>Dashboard</span>
@@ -82,7 +94,10 @@ export function AppSidebar() {
                 <SidebarGroup className="px-2 py-0">
                     <SidebarGroupLabel>Page content editor</SidebarGroupLabel>
                     <SidebarMenu>
-                        <Collapsible open={aboutOpen} onOpenChange={setAboutOpen}>
+                        <Collapsible
+                            open={aboutOpen}
+                            onOpenChange={setAboutOpen}
+                        >
                             <SidebarMenuItem>
                                 <CollapsibleTrigger asChild>
                                     <SidebarMenuButton
@@ -91,39 +106,78 @@ export function AppSidebar() {
                                     >
                                         <span>About Us</span>
                                         <ChevronDown
-                                            className={cn('ml-auto size-4 shrink-0 transition-transform', aboutOpen && 'rotate-180')}
+                                            className={cn(
+                                                'ml-auto size-4 shrink-0 transition-transform',
+                                                aboutOpen && 'rotate-180',
+                                            )}
                                         />
                                     </SidebarMenuButton>
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
                                         <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton asChild isActive={isCurrentUrl(editHistoryUrl)}>
-                                                <Link href={editHistoryUrl} prefetch>
+                                            <SidebarMenuSubButton
+                                                asChild
+                                                isActive={isCurrentUrl(
+                                                    editHistoryUrl,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={editHistoryUrl}
+                                                    prefetch
+                                                >
                                                     <History className="size-4" />
                                                     <span>Edit History</span>
                                                 </Link>
                                             </SidebarMenuSubButton>
                                         </SidebarMenuSubItem>
                                         <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton asChild isActive={isCurrentUrl(editVisionMissionUrl)}>
-                                                <Link href={editVisionMissionUrl} prefetch>
+                                            <SidebarMenuSubButton
+                                                asChild
+                                                isActive={isCurrentUrl(
+                                                    editVisionMissionUrl,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={editVisionMissionUrl}
+                                                    prefetch
+                                                >
                                                     <Target className="size-4" />
-                                                    <span>Edit Vision & Mission</span>
+                                                    <span>
+                                                        Edit Vision & Mission
+                                                    </span>
                                                 </Link>
                                             </SidebarMenuSubButton>
                                         </SidebarMenuSubItem>
                                         <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton asChild isActive={isCurrentUrl(editOfficialsUrl)}>
-                                                <Link href={editOfficialsUrl} prefetch>
+                                            <SidebarMenuSubButton
+                                                asChild
+                                                isActive={isCurrentUrl(
+                                                    editOfficialsUrl,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={editOfficialsUrl}
+                                                    prefetch
+                                                >
                                                     <Users className="size-4" />
-                                                    <span>Edit Key Officials</span>
+                                                    <span>
+                                                        Edit Key Officials
+                                                    </span>
                                                 </Link>
                                             </SidebarMenuSubButton>
                                         </SidebarMenuSubItem>
                                         <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton asChild isActive={isCurrentUrl(editBarangayUrl)}>
-                                                <Link href={editBarangayUrl} prefetch>
+                                            <SidebarMenuSubButton
+                                                asChild
+                                                isActive={isCurrentUrl(
+                                                    editBarangayUrl,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={editBarangayUrl}
+                                                    prefetch
+                                                >
                                                     <Building2 className="size-4" />
                                                     <span>Edit Barangay</span>
                                                 </Link>

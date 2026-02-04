@@ -11,7 +11,7 @@ export default function AppLogo() {
             <span
                 className={cn(
                     'truncate text-sm font-semibold text-sidebar-foreground',
-                    'group-data-[collapsible=icon]:hidden'
+                    'group-data-[collapsible=icon]:hidden',
                 )}
             >
                 Hinoba-an
@@ -22,7 +22,7 @@ export default function AppLogo() {
                 className={cn(
                     'h-8 w-auto shrink-0 object-contain align-middle',
                     'hidden sm:block',
-                    'group-data-[collapsible=icon]:hidden'
+                    'group-data-[collapsible=icon]:hidden',
                 )}
             />
         </div>

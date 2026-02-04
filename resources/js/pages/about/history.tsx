@@ -43,11 +43,13 @@ export default function HistoryPage({ history }: HistoryPageProps) {
                         <div className="rounded-xl border border-neutral-200 bg-white px-6 py-8 shadow-sm sm:px-10 sm:py-10">
                             {isHtml ? (
                                 <article
-                                    className="history-content max-w-none text-left text-base text-neutral-800 [&_a]:font-medium [&_a]:text-emerald-700 [&_a]:underline [&_a]:decoration-emerald-300 [&_a]:underline-offset-2 [&_a]:hover:text-emerald-800 [&_blockquote]:border-l-4 [&_blockquote]:border-emerald-200 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-neutral-600 [&_h2]:mb-4 [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:leading-snug [&_h2]:text-neutral-900 [&_h2]:first:mt-0 [&_h3]:mb-3 [&_h3]:mt-6 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-neutral-800 [&_p]:mb-6 [&_p]:leading-[1.65] [&_p]:text-neutral-700 [&_strong]:font-semibold [&_strong]:text-neutral-900 [&_ul]:mb-6 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:leading-[1.6]"
-                                    dangerouslySetInnerHTML={{ __html: content }}
+                                    className="history-content max-w-none text-left text-base text-neutral-800 [&_a]:font-medium [&_a]:text-emerald-700 [&_a]:underline [&_a]:decoration-emerald-300 [&_a]:underline-offset-2 [&_a]:hover:text-emerald-800 [&_blockquote]:border-l-4 [&_blockquote]:border-emerald-200 [&_blockquote]:pl-4 [&_blockquote]:text-neutral-600 [&_blockquote]:italic [&_h2]:mt-8 [&_h2]:mb-4 [&_h2]:text-lg [&_h2]:leading-snug [&_h2]:font-semibold [&_h2]:text-neutral-900 [&_h2]:first:mt-0 [&_h3]:mt-6 [&_h3]:mb-3 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-neutral-800 [&_p]:mb-6 [&_p]:leading-[1.65] [&_p]:text-neutral-700 [&_strong]:font-semibold [&_strong]:text-neutral-900 [&_ul]:mb-6 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:leading-[1.6]"
+                                    dangerouslySetInnerHTML={{
+                                        __html: content,
+                                    }}
                                 />
                             ) : (
-                                <div className="whitespace-pre-wrap text-base leading-[1.6] text-neutral-800">
+                                <div className="text-base leading-[1.6] whitespace-pre-wrap text-neutral-800">
                                     {content}
                                 </div>
                             )}
@@ -55,7 +57,8 @@ export default function HistoryPage({ history }: HistoryPageProps) {
                     ) : (
                         <div className="rounded-xl border border-dashed border-neutral-300 bg-white px-8 py-16 text-center">
                             <p className="text-neutral-600">
-                                History content is not yet available. Please check back later.
+                                History content is not yet available. Please
+                                check back later.
                             </p>
                             <Link
                                 href="/"

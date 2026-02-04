@@ -1,11 +1,17 @@
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
 import { BookOpen, Check } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InputError from '@/components/input-error';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Toast } from '@/components/ui/toast';
 import AppLayout from '@/layouts/app-layout';
@@ -29,14 +35,12 @@ const textareaClass =
     'border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 min-h-[320px] w-full rounded-lg border bg-transparent px-3 py-2.5 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:opacity-50 md:text-sm resize-y';
 
 export default function HistoryEditPage({ history }: HistoryEditPageProps) {
-    const { data, setData, put, processing, errors, recentlySuccessful } = useForm({
-        content: history?.content ?? '',
-    });
+    const { data, setData, put, processing, errors, recentlySuccessful } =
+        useForm({
+            content: history?.content ?? '',
+        });
 
     const [showToast, setShowToast] = useState(false);
-    useEffect(() => {
-        if (recentlySuccessful) setShowToast(true);
-    }, [recentlySuccessful]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -47,19 +51,28 @@ export default function HistoryEditPage({ history }: HistoryEditPageProps) {
                     <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
                         Municipality history
                     </h2>
-                    <p className="text-muted-foreground text-sm max-w-2xl">
-                        Edit the history content shown on the public About → History page. You can
-                        use HTML for formatting (e.g.{' '}
-                        <code className="rounded bg-muted px-1 py-0.5 text-xs">&lt;p&gt;</code>,{' '}
-                        <code className="rounded bg-muted px-1 py-0.5 text-xs">&lt;strong&gt;</code>
-                        , <code className="rounded bg-muted px-1 py-0.5 text-xs">&lt;h2&gt;</code>).
+                    <p className="max-w-2xl text-sm text-muted-foreground">
+                        Edit the history content shown on the public About →
+                        History page. You can use HTML for formatting (e.g.{' '}
+                        <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                            &lt;p&gt;
+                        </code>
+                        ,{' '}
+                        <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                            &lt;strong&gt;
+                        </code>
+                        ,{' '}
+                        <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                            &lt;h2&gt;
+                        </code>
+                        ).
                     </p>
                 </header>
 
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        put(historyEditUrl);
+                        put(historyEditUrl, { onSuccess: () => setShowToast(true) });
                     }}
                     className="space-y-6"
                 >
@@ -69,10 +82,13 @@ export default function HistoryEditPage({ history }: HistoryEditPageProps) {
                                 <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
                                     <BookOpen className="size-4" aria-hidden />
                                 </span>
-                                <CardTitle className="text-base">History content</CardTitle>
+                                <CardTitle className="text-base">
+                                    History content
+                                </CardTitle>
                             </div>
                             <CardDescription>
-                                The main text displayed on the About → History page.
+                                The main text displayed on the About → History
+                                page.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
@@ -84,7 +100,9 @@ export default function HistoryEditPage({ history }: HistoryEditPageProps) {
                                 name="content"
                                 rows={20}
                                 value={data.content}
-                                onChange={(e) => setData('content', e.target.value)}
+                                onChange={(e) =>
+                                    setData('content', e.target.value)
+                                }
                                 className={textareaClass}
                                 placeholder="Enter the history of Hinoba-an..."
                             />
@@ -105,7 +123,10 @@ export default function HistoryEditPage({ history }: HistoryEditPageProps) {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Badge variant="secondary" className="gap-1.5 font-normal">
+                            <Badge
+                                variant="secondary"
+                                className="gap-1.5 font-normal"
+                            >
                                 <Check className="size-3.5" />
                                 Saved
                             </Badge>

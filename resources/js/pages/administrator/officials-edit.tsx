@@ -1,11 +1,17 @@
 import { Transition } from '@headlessui/react';
 import { Head, router, useForm } from '@inertiajs/react';
 import { Check, ImagePlus, Trash2, Users } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InputError from '@/components/input-error';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import { Toast } from '@/components/ui/toast';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
@@ -25,12 +31,16 @@ type OfficialsEditPageProps = {
     officials: OfficialItem[];
 };
 
-export default function OfficialsEditPage({ officials }: OfficialsEditPageProps) {
-    const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
-        image: null as File | null,
-    });
+export default function OfficialsEditPage({
+    officials,
+}: OfficialsEditPageProps) {
+    const { data, setData, post, processing, errors, recentlySuccessful } =
+        useForm({
+            image: null as File | null,
+        });
 
-    const imagePreview = data.image instanceof File ? URL.createObjectURL(data.image) : null;
+    const imagePreview =
+        data.image instanceof File ? URL.createObjectURL(data.image) : null;
 
     const handleRemove = (id: string) => {
         if (confirm('Remove this official?')) {
@@ -39,9 +49,6 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
     };
 
     const [showToast, setShowToast] = useState(false);
-    useEffect(() => {
-        if (recentlySuccessful) setShowToast(true);
-    }, [recentlySuccessful]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -52,9 +59,10 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
                     <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
                         Key Officials
                     </h2>
-                    <p className="text-muted-foreground text-sm max-w-2xl">
-                        Upload images for Key Officials. They appear on the public About → Key
-                        Officials page. Order is by upload order.
+                    <p className="max-w-2xl text-sm text-muted-foreground">
+                        Upload images for Key Officials. They appear on the
+                        public About → Key Officials page. Order is by upload
+                        order.
                     </p>
                 </header>
 
@@ -65,7 +73,9 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
                             <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground">
                                 <ImagePlus className="size-4" aria-hidden />
                             </span>
-                            <CardTitle className="text-base">Add official</CardTitle>
+                            <CardTitle className="text-base">
+                                Add official
+                            </CardTitle>
                         </div>
                         <CardDescription>
                             Upload an image. JPEG, PNG, GIF or WebP, max 100 MB.
@@ -76,23 +86,31 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 if (!data.image) return;
-                                post(officialsStoreUrl, {
-                                    forceFormData: true,
-                                    onSuccess: () => setData('image', null),
-                                });
+                            post(officialsStoreUrl, {
+                                forceFormData: true,
+                                onSuccess: () => {
+                                    setData('image', null);
+                                    setShowToast(true);
+                                },
+                            });
                             }}
                             className="flex flex-col gap-4 sm:flex-row sm:items-start"
                         >
                             <label
                                 htmlFor="official_image"
-                                className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/30 px-6 py-8 text-center transition-colors hover:border-muted-foreground/40 hover:bg-muted/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 min-w-0 flex-1 sm:max-w-xs"
+                                className="flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/30 px-6 py-8 text-center transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 hover:border-muted-foreground/40 hover:bg-muted/50 sm:max-w-xs"
                             >
                                 <input
                                     id="official_image"
                                     type="file"
                                     accept="image/jpeg,image/png,image/gif,image/webp"
                                     className="sr-only"
-                                    onChange={(e) => setData('image', e.target.files?.[0] ?? null)}
+                                    onChange={(e) =>
+                                        setData(
+                                            'image',
+                                            e.target.files?.[0] ?? null,
+                                        )
+                                    }
                                 />
                                 <ImagePlus className="mb-2 size-8 text-muted-foreground" />
                                 <span className="text-sm font-medium text-muted-foreground">
@@ -128,7 +146,7 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
                             </Button>
                         </form>
                         {!imagePreview && (
-                            <p className="text-muted-foreground text-sm">
+                            <p className="text-sm text-muted-foreground">
                                 Select an image above, then click Add official.
                             </p>
                         )}
@@ -142,7 +160,10 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Badge variant="secondary" className="gap-1.5 font-normal w-fit">
+                            <Badge
+                                variant="secondary"
+                                className="w-fit gap-1.5 font-normal"
+                            >
                                 <Check className="size-3.5" />
                                 Added
                             </Badge>
@@ -157,7 +178,9 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
                             <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
                                 <Users className="size-4" aria-hidden />
                             </span>
-                            <CardTitle className="text-base">Current officials</CardTitle>
+                            <CardTitle className="text-base">
+                                Current officials
+                            </CardTitle>
                         </div>
                         <CardDescription>
                             {officials.length === 0
@@ -169,8 +192,9 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
                         {officials.length === 0 ? (
                             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed bg-muted/20 py-12 text-center">
                                 <Users className="mb-2 size-10 text-muted-foreground/50" />
-                                <p className="text-muted-foreground text-sm">
-                                    No officials yet. Add one using the form above.
+                                <p className="text-sm text-muted-foreground">
+                                    No officials yet. Add one using the form
+                                    above.
                                 </p>
                             </div>
                         ) : (
@@ -190,7 +214,9 @@ export default function OfficialsEditPage({ officials }: OfficialsEditPageProps)
                                                 type="button"
                                                 variant="destructive"
                                                 size="sm"
-                                                onClick={() => handleRemove(official.id)}
+                                                onClick={() =>
+                                                    handleRemove(official.id)
+                                                }
                                                 className="gap-1.5"
                                             >
                                                 <Trash2 className="size-4" />

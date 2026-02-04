@@ -1,11 +1,17 @@
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
 import { Check, Flag, ImagePlus, Target, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InputError from '@/components/input-error';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Toast } from '@/components/ui/toast';
 import AppLayout from '@/layouts/app-layout';
@@ -33,25 +39,23 @@ export default function VisionMissionEditPage({
     mission,
     vision_mission_image_url,
 }: VisionMissionEditPageProps) {
-    const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
-        _method: 'PUT',
-        vision: vision?.content ?? '',
-        mission: mission?.content ?? '',
-        vision_mission_image: null as File | null,
-        remove_vision_mission_image: false,
-    });
+    const { data, setData, post, processing, errors, recentlySuccessful } =
+        useForm({
+            _method: 'PUT',
+            vision: vision?.content ?? '',
+            mission: mission?.content ?? '',
+            vision_mission_image: null as File | null,
+            remove_vision_mission_image: false,
+        });
 
     const imagePreview =
         data.vision_mission_image instanceof File
             ? URL.createObjectURL(data.vision_mission_image)
             : data.remove_vision_mission_image
               ? null
-              : vision_mission_image_url ?? null;
+              : (vision_mission_image_url ?? null);
 
     const [showToast, setShowToast] = useState(false);
-    useEffect(() => {
-        if (recentlySuccessful) setShowToast(true);
-    }, [recentlySuccessful]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -63,16 +67,28 @@ export default function VisionMissionEditPage({
                     <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
                         Vision & Mission
                     </h2>
-                    <p className="text-muted-foreground text-sm max-w-2xl">
-                        Edit the vision and mission shown on the public About → Vision & Mission
-                        page. You can use HTML for formatting (e.g. <code className="rounded bg-muted px-1 py-0.5 text-xs">&lt;p&gt;</code>, <code className="rounded bg-muted px-1 py-0.5 text-xs">&lt;strong&gt;</code>). Optionally add a photo below.
+                    <p className="max-w-2xl text-sm text-muted-foreground">
+                        Edit the vision and mission shown on the public About →
+                        Vision & Mission page. You can use HTML for formatting
+                        (e.g.{' '}
+                        <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                            &lt;p&gt;
+                        </code>
+                        ,{' '}
+                        <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                            &lt;strong&gt;
+                        </code>
+                        ). Optionally add a photo below.
                     </p>
                 </header>
 
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        post(visionMissionEditUrl, { forceFormData: true });
+                        post(visionMissionEditUrl, {
+                            forceFormData: true,
+                            onSuccess: () => setShowToast(true),
+                        });
                     }}
                     className="space-y-6"
                     encType="multipart/form-data"
@@ -83,11 +99,18 @@ export default function VisionMissionEditPage({
                             <CardHeader className="pb-3">
                                 <div className="flex items-center gap-2">
                                     <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                        <Target className="size-4" aria-hidden />
+                                        <Target
+                                            className="size-4"
+                                            aria-hidden
+                                        />
                                     </span>
-                                    <CardTitle className="text-base">Vision</CardTitle>
+                                    <CardTitle className="text-base">
+                                        Vision
+                                    </CardTitle>
                                 </div>
-                                <CardDescription>Text shown as the vision (optional)</CardDescription>
+                                <CardDescription>
+                                    Text shown as the vision (optional)
+                                </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-2">
                                 <Label htmlFor="vision" className="sr-only">
@@ -98,7 +121,9 @@ export default function VisionMissionEditPage({
                                     name="vision"
                                     rows={10}
                                     value={data.vision}
-                                    onChange={(e) => setData('vision', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('vision', e.target.value)
+                                    }
                                     className={textareaClass}
                                     placeholder="Enter the vision..."
                                 />
@@ -112,9 +137,13 @@ export default function VisionMissionEditPage({
                                     <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
                                         <Flag className="size-4" aria-hidden />
                                     </span>
-                                    <CardTitle className="text-base">Mission</CardTitle>
+                                    <CardTitle className="text-base">
+                                        Mission
+                                    </CardTitle>
                                 </div>
-                                <CardDescription>Text shown as the mission (optional)</CardDescription>
+                                <CardDescription>
+                                    Text shown as the mission (optional)
+                                </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-2">
                                 <Label htmlFor="mission" className="sr-only">
@@ -125,7 +154,9 @@ export default function VisionMissionEditPage({
                                     name="mission"
                                     rows={10}
                                     value={data.mission}
-                                    onChange={(e) => setData('mission', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('mission', e.target.value)
+                                    }
                                     className={textareaClass}
                                     placeholder="Enter the mission..."
                                 />
@@ -141,17 +172,20 @@ export default function VisionMissionEditPage({
                                 <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground">
                                     <ImagePlus className="size-4" aria-hidden />
                                 </span>
-                                <CardTitle className="text-base">Photo</CardTitle>
+                                <CardTitle className="text-base">
+                                    Photo
+                                </CardTitle>
                             </div>
                             <CardDescription>
-                                One image for Vision & Mission. JPEG, PNG, GIF or WebP, max 100 MB.
+                                One image for Vision & Mission. JPEG, PNG, GIF
+                                or WebP, max 100 MB.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
                                 <label
                                     htmlFor="vision_mission_image"
-                                    className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/30 px-6 py-8 text-center transition-colors hover:border-muted-foreground/40 hover:bg-muted/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20"
+                                    className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/30 px-6 py-8 text-center transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 hover:border-muted-foreground/40 hover:bg-muted/50"
                                 >
                                     <input
                                         id="vision_mission_image"
@@ -159,8 +193,14 @@ export default function VisionMissionEditPage({
                                         accept="image/jpeg,image/png,image/gif,image/webp"
                                         className="sr-only"
                                         onChange={(e) => {
-                                            setData('vision_mission_image', e.target.files?.[0] ?? null);
-                                            setData('remove_vision_mission_image', false);
+                                            setData(
+                                                'vision_mission_image',
+                                                e.target.files?.[0] ?? null,
+                                            );
+                                            setData(
+                                                'remove_vision_mission_image',
+                                                false,
+                                            );
                                         }}
                                     />
                                     <ImagePlus className="mb-2 size-8 text-muted-foreground" />
@@ -181,10 +221,16 @@ export default function VisionMissionEditPage({
                                         <button
                                             type="button"
                                             onClick={() => {
-                                                setData('vision_mission_image', null);
-                                                setData('remove_vision_mission_image', true);
+                                                setData(
+                                                    'vision_mission_image',
+                                                    null,
+                                                );
+                                                setData(
+                                                    'remove_vision_mission_image',
+                                                    true,
+                                                );
                                             }}
-                                            className="absolute -right-2 -top-2 flex size-8 items-center justify-center rounded-full border bg-background text-muted-foreground shadow-md transition-colors hover:bg-destructive hover:text-destructive-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                                            className="absolute -top-2 -right-2 flex size-8 items-center justify-center rounded-full border bg-background text-muted-foreground shadow-md transition-colors hover:bg-destructive hover:text-destructive-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                                             aria-label="Remove photo"
                                         >
                                             <X className="size-4" />
@@ -210,7 +256,10 @@ export default function VisionMissionEditPage({
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Badge variant="secondary" className="gap-1.5 font-normal">
+                            <Badge
+                                variant="secondary"
+                                className="gap-1.5 font-normal"
+                            >
                                 <Check className="size-3.5" />
                                 Saved
                             </Badge>
