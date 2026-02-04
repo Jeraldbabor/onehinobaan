@@ -19,24 +19,30 @@ export type UseCurrentUrlReturn = {
     whenCurrentUrl: WhenCurrentUrlFn;
 };
 
+function normalizePath(path: string): string {
+    const p = path.replace(/\/+$/, '') || '/';
+    return p;
+}
+
 export function useCurrentUrl(): UseCurrentUrlReturn {
     const page = usePage();
-    const currentUrlPath = new URL(page.url, window?.location.origin).pathname;
+    const rawPath = new URL(page.url, window?.location.origin).pathname;
+    const currentUrlPath = normalizePath(rawPath);
 
     const isCurrentUrl: IsCurrentUrlFn = (
         urlToCheck: NonNullable<InertiaLinkProps['href']>,
         currentUrl?: string,
     ) => {
-        const urlToCompare = currentUrl ?? currentUrlPath;
-        const urlString = toUrl(urlToCheck);
-
+        const urlToCompare = normalizePath(currentUrl ?? currentUrlPath);
+        let urlString = toUrl(urlToCheck);
         if (!urlString.startsWith('http')) {
+            urlString = normalizePath(urlString);
             return urlString === urlToCompare;
         }
 
         try {
             const absoluteUrl = new URL(urlString);
-            return absoluteUrl.pathname === urlToCompare;
+            return normalizePath(absoluteUrl.pathname) === urlToCompare;
         } catch {
             return false;
         }
