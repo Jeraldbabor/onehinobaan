@@ -16,6 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
+        $middleware->redirectGuestsTo('/portal-admin-1x6114');
+
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+        ]);
+
         $middleware->web(append: [
             HandleAppearance::class,
             HandleInertiaRequests::class,

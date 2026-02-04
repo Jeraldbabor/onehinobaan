@@ -14,7 +14,7 @@ class AuthenticationTest extends TestCase
 
     public function test_login_screen_can_be_rendered()
     {
-        $response = $this->get(route('login'));
+        $response = $this->get(route('login.portal'));
 
         $response->assertOk();
     }
@@ -51,7 +51,7 @@ class AuthenticationTest extends TestCase
             'two_factor_confirmed_at' => now(),
         ])->save();
 
-        $response = $this->post(route('login'), [
+        $response = $this->post(route('login.store'), [
             'email' => $user->email,
             'password' => 'password',
         ]);

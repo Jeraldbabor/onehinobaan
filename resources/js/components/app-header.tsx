@@ -31,10 +31,11 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, toUrl } from '@/lib/utils';
-import { dashboard } from '@/routes';
 import type { BreadcrumbItem, NavItem, SharedData } from '@/types';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
+
+const dashboardUrl = '/dashboard';
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];
@@ -43,7 +44,7 @@ type Props = {
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: dashboardUrl,
         icon: LayoutGrid,
     },
 ];
@@ -135,7 +136,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                     </div>
 
                     <Link
-                        href={dashboard()}
+                        href={dashboardUrl}
                         prefetch
                         className="flex items-center space-x-2"
                     >

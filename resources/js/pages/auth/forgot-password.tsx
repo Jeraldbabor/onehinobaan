@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
-import { login } from '@/routes';
+import { PORTAL_LOGIN_URL } from '@/lib/portal';
 import { email } from '@/routes/password';
 
 export default function ForgotPassword({ status }: { status?: string }) {
@@ -60,7 +60,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                 <div className="space-x-1 text-center text-sm text-muted-foreground">
                     <span>Or, return to</span>
-                    <TextLink href={login()}>log in</TextLink>
+                    <TextLink href={PORTAL_LOGIN_URL}>log in</TextLink>
                 </div>
             </div>
         </AuthLayout>
