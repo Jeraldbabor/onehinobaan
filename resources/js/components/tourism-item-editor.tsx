@@ -46,6 +46,8 @@ export type TourismItemRow = {
     contact_number: string | null;
     social_media_url: string | null;
     map_embed_url: string | null;
+    map_latitude: number | null;
+    map_longitude: number | null;
     image_url: string | null;
     image_urls: TourismItemImageRow[];
     order_column: number;
@@ -101,6 +103,8 @@ export function TourismItemEditor({
         contact_number: '',
         social_media_url: '',
         map_embed_url: '',
+        map_latitude: '',
+        map_longitude: '',
         images: [] as File[],
     });
     const editForm = useForm({
@@ -111,6 +115,8 @@ export function TourismItemEditor({
         contact_number: '',
         social_media_url: '',
         map_embed_url: '',
+        map_latitude: '',
+        map_longitude: '',
         images: [] as File[],
     });
     const [showAddToast, setShowAddToast] = useState(false);
@@ -127,6 +133,8 @@ export function TourismItemEditor({
             contact_number: item.contact_number ?? '',
             social_media_url: item.social_media_url ?? '',
             map_embed_url: item.map_embed_url ?? '',
+            map_latitude: item.map_latitude != null ? String(item.map_latitude) : '',
+            map_longitude: item.map_longitude != null ? String(item.map_longitude) : '',
             images: [],
         });
         setEditItem(item);
@@ -150,6 +158,8 @@ export function TourismItemEditor({
         formData.set('contact_number', addForm.data.contact_number);
         formData.set('social_media_url', addForm.data.social_media_url);
         formData.set('map_embed_url', addForm.data.map_embed_url);
+        if (addForm.data.map_latitude) formData.set('map_latitude', addForm.data.map_latitude);
+        if (addForm.data.map_longitude) formData.set('map_longitude', addForm.data.map_longitude);
         addForm.data.images.forEach((file) => formData.append('images[]', file));
         router.post(baseUrl, formData, {
             forceFormData: true,
@@ -173,6 +183,8 @@ export function TourismItemEditor({
             formData.set('contact_number', editForm.data.contact_number);
             formData.set('social_media_url', editForm.data.social_media_url);
             formData.set('map_embed_url', editForm.data.map_embed_url);
+            if (editForm.data.map_latitude) formData.set('map_latitude', editForm.data.map_latitude);
+            if (editForm.data.map_longitude) formData.set('map_longitude', editForm.data.map_longitude);
             formData.set('_method', 'PUT');
             editForm.data.images.forEach((file) =>
                 formData.append('images[]', file),
@@ -512,6 +524,51 @@ export function TourismItemEditor({
                                             }
                                         />
                                     </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="add-map-lat">
+                                                Map latitude (optional)
+                                            </Label>
+                                            <input
+                                                id="add-map-lat"
+                                                type="text"
+                                                inputMode="decimal"
+                                                value={addForm.data.map_latitude}
+                                                onChange={(e) =>
+                                                    addForm.setData(
+                                                        'map_latitude',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                                placeholder="e.g. 9.62"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="add-map-lng">
+                                                Map longitude (optional)
+                                            </Label>
+                                            <input
+                                                id="add-map-lng"
+                                                type="text"
+                                                inputMode="decimal"
+                                                value={addForm.data.map_longitude}
+                                                onChange={(e) =>
+                                                    addForm.setData(
+                                                        'map_longitude',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                                placeholder="e.g. 122.47"
+                                            />
+                                        </div>
+                                    </div>
+                                    <p className="text-muted-foreground text-xs">
+                                        Set the pin location for the map. In
+                                        Google Maps: right-click the place →
+                                        click the coordinates to copy.
+                                    </p>
                                 </>
                             )}
                             <div className="flex flex-wrap items-center gap-3">
@@ -803,6 +860,51 @@ export function TourismItemEditor({
                                         message={editForm.errors.map_embed_url}
                                     />
                                 </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit-map-lat">
+                                            Map latitude (optional)
+                                        </Label>
+                                        <input
+                                            id="edit-map-lat"
+                                            type="text"
+                                            inputMode="decimal"
+                                            value={editForm.data.map_latitude}
+                                            onChange={(e) =>
+                                                editForm.setData(
+                                                    'map_latitude',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                            placeholder="e.g. 9.62"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit-map-lng">
+                                            Map longitude (optional)
+                                        </Label>
+                                        <input
+                                            id="edit-map-lng"
+                                            type="text"
+                                            inputMode="decimal"
+                                            value={editForm.data.map_longitude}
+                                            onChange={(e) =>
+                                                editForm.setData(
+                                                    'map_longitude',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                            placeholder="e.g. 122.47"
+                                        />
+                                    </div>
+                                </div>
+                                <p className="text-muted-foreground text-xs">
+                                    Pin location for the map. In Google Maps:
+                                    right-click the place → click coordinates
+                                    to copy.
+                                </p>
                             </>
                         )}
                         {editItem && editItem.image_urls.length > 0 && (

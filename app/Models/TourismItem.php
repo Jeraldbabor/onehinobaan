@@ -22,11 +22,15 @@ class TourismItem extends Model
         'contact_number',
         'social_media_url',
         'map_embed_url',
+        'map_latitude',
+        'map_longitude',
         'order_column',
     ];
 
     protected $casts = [
         'order_column' => 'integer',
+        'map_latitude' => 'float',
+        'map_longitude' => 'float',
     ];
 
     public function images(): HasMany

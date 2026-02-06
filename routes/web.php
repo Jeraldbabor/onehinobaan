@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\ActivityListController;
+use App\Http\Controllers\Administrator\ActivityController as AdminActivityController;
 use App\Http\Controllers\Administrator\AnnouncementController;
 use App\Http\Controllers\Administrator\BarangayController;
+use App\Http\Controllers\Administrator\ContactController;
 use App\Http\Controllers\Administrator\HistoryController;
 use App\Http\Controllers\Administrator\OfficialsController;
 use App\Http\Controllers\Administrator\TourismController as AdminTourismController;
@@ -22,8 +25,31 @@ Route::get('/portal-admin-1x6114', function (Request $request) {
 })->name('login.portal')->middleware(['web', 'guest']);
 
 Route::get('/', function () {
+    $officials = app(OfficialsController::class)->getOfficialsForFrontend();
+    $activities = \App\Models\Activity::published()
+        ->orderByRaw('COALESCE(published_at, created_at) DESC')
+        ->take(5)
+        ->get()
+        ->map(fn (\App\Models\Activity $a) => [
+            'id' => $a->id,
+            'title' => $a->title,
+            'content' => $a->content,
+            'link_url' => $a->link_url,
+            'image_url' => $a->image_path ? '/storage/'.$a->image_path : null,
+            'published_at' => $a->published_at?->toISOString(),
+        ])
+        ->values()
+        ->all();
+    $contact = \App\Models\SiteContent::getContact();
     return Inertia::render('landing', [
         'canRegister' => Features::enabled(Features::registration()),
+        'mayor' => $officials['mayor'],
+        'viceMayor' => $officials['vice_mayor'],
+        'sbMembers' => $officials['sb_members'],
+        'activities' => $activities,
+        'announcements' => \App\Models\Announcement::forSidebar(),
+        'facebookMunicipalityUrl' => $contact['facebook_municipality_url'] ?? '',
+        'facebookMayorUrl' => $contact['facebook_mayor_url'] ?? '',
     ]);
 })->name('home');
 
@@ -33,11 +59,16 @@ Route::get('about/history', [HistoryController::class, 'show'])->name('history.s
 // Public: Vision & Mission page (content from database)
 Route::get('about/vision-mission', [VisionMissionController::class, 'show'])->name('vision-mission.show');
 
-// Public: Key Officials page (images from database)
-Route::get('about/officials', [OfficialsController::class, 'show'])->name('officials.show');
+// Public: Key Officials page (optional section: mayor, vice-mayor, sb-member)
+Route::get('about/officials/{section?}', [OfficialsController::class, 'show'])
+    ->where('section', 'mayor|vice-mayor|sb-member')
+    ->name('officials.show');
 
 // Public: Barangay page (images from database)
 Route::get('about/barangay', [BarangayController::class, 'show'])->name('barangay.show');
+
+// Public: Contact Us (address, phone, email, map from database)
+Route::get('contact', [ContactController::class, 'show'])->name('contact.show');
 
 // Public: News, Updates, Announcements (full list per type)
 Route::get('news', [AnnouncementListController::class, 'news'])->name('news.index');
@@ -46,6 +77,8 @@ Route::get('updates', [AnnouncementListController::class, 'updates'])->name('upd
 Route::get('updates/{id}', [AnnouncementListController::class, 'showUpdate'])->name('updates.show')->whereNumber('id');
 Route::get('announcements', [AnnouncementListController::class, 'announcements'])->name('announcements.list');
 Route::get('announcements/{id}', [AnnouncementListController::class, 'showAnnouncement'])->name('announcements.show')->whereNumber('id');
+Route::get('activities', [ActivityListController::class, 'index'])->name('activities.index');
+Route::get('activities/{id}', [ActivityListController::class, 'show'])->name('activities.show')->whereNumber('id');
 
 // Public: Tourism list and item detail (detail route first so {id} is not eaten by {type})
 Route::get('tourism/{type}/{id}', [TourismController::class, 'showItem'])
@@ -83,11 +116,16 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/vision-mission', [VisionMissionController::class, 'edit'])->name('vision-mission.edit');
     Route::put('dashboard/vision-mission', [VisionMissionController::class, 'update'])->name('vision-mission.update');
     Route::get('dashboard/officials', [OfficialsController::class, 'index'])->name('officials.index');
-    Route::post('dashboard/officials', [OfficialsController::class, 'store'])->name('officials.store');
-    Route::delete('dashboard/officials/{id}', [OfficialsController::class, 'destroy'])->name('officials.destroy');
+    Route::put('dashboard/officials/mayor', [OfficialsController::class, 'updateMayor'])->name('officials.updateMayor');
+    Route::put('dashboard/officials/vice-mayor', [OfficialsController::class, 'updateViceMayor'])->name('officials.updateViceMayor');
+    Route::post('dashboard/officials/sb-members', [OfficialsController::class, 'storeSbMember'])->name('officials.storeSbMember');
+    Route::put('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'updateSbMember'])->name('officials.updateSbMember');
+    Route::delete('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'destroySbMember'])->name('officials.destroySbMember');
     Route::get('dashboard/barangay', [BarangayController::class, 'index'])->name('barangay.index');
     Route::post('dashboard/barangay', [BarangayController::class, 'store'])->name('barangay.store');
     Route::delete('dashboard/barangay/{id}', [BarangayController::class, 'destroy'])->name('barangay.destroy');
+    Route::get('dashboard/contact', [ContactController::class, 'edit'])->name('contact.edit');
+    Route::put('dashboard/contact', [ContactController::class, 'update'])->name('contact.update');
 
     // News & Announcements
     Route::get('dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
@@ -96,6 +134,14 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/announcements/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
     Route::put('dashboard/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
     Route::delete('dashboard/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+
+    // Municipality Activities (separate from News & Announcements)
+    Route::get('dashboard/activities', [AdminActivityController::class, 'index'])->name('activities.manage.index');
+    Route::get('dashboard/activities/create', [AdminActivityController::class, 'create'])->name('activities.manage.create');
+    Route::post('dashboard/activities', [AdminActivityController::class, 'store'])->name('activities.manage.store');
+    Route::get('dashboard/activities/{id}/edit', [AdminActivityController::class, 'edit'])->name('activities.manage.edit');
+    Route::put('dashboard/activities/{id}', [AdminActivityController::class, 'update'])->name('activities.manage.update');
+    Route::delete('dashboard/activities/{id}', [AdminActivityController::class, 'destroy'])->name('activities.manage.destroy');
 });
 
 require __DIR__.'/settings.php';

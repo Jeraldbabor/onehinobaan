@@ -38,26 +38,32 @@ export default function TourismShowPage({
     return (
         <LandingLayout>
             <Head title={`${title} - Tourism · Municipality of Hinobaan`} />
-            {/* Government-style header */}
-            <section className="border-b-4 border-blue-800 bg-slate-800 text-white">
-                <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-                    <nav className="mb-4 text-sm text-slate-300">
-                        <Link href="/" className="hover:text-white">
-                            Home
-                        </Link>
-                        <span className="mx-2">/</span>
-                        <Link href="/tourism" className="hover:text-white">
-                            Tourism
-                        </Link>
-                        <span className="mx-2">/</span>
-                        <span className="text-white">{title}</span>
-                    </nav>
-                    <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                        {title}
-                    </h1>
-                    <p className="mt-1 text-sm text-slate-300">
-                        Municipality of Hinobaan · Province of Negros Occidental
-                    </p>
+            {/* Government-style header with banner */}
+            <section className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: "url('/hinobaan-banner/banner2.png')" }}
+                />
+                <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto w-full max-w-5xl [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]">
+                        <nav className="mb-4 text-sm text-slate-200">
+                            <Link href="/" className="hover:text-white">
+                                Home
+                            </Link>
+                            <span className="mx-2">/</span>
+                            <Link href="/tourism" className="hover:text-white">
+                                Tourism
+                            </Link>
+                            <span className="mx-2">/</span>
+                            <span className="text-white">{title}</span>
+                        </nav>
+                        <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                            {title}
+                        </h1>
+                        <p className="mt-1 text-sm text-slate-200">
+                            Municipality of Hinobaan · Province of Negros Occidental
+                        </p>
+                    </div>
                 </div>
             </section>
 

@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    /*
+     * Optional default Google Maps embed URL for Contact Us page.
+     * Get from Google Maps: Share → Embed a map → copy the iframe src (must contain /maps/embed).
+     */
+    'contact_map_embed_url' => env('CONTACT_MAP_EMBED_URL', ''),
+
 ];

@@ -65,6 +65,13 @@ export function AnnouncementsSidebar({ items }: AnnouncementsSidebarProps) {
                     >
                         Announcements
                     </Link>
+                    <span className="text-slate-400" aria-hidden>·</span>
+                    <Link
+                        href="/activities"
+                        className="font-medium text-blue-800 hover:underline"
+                    >
+                        Activities
+                    </Link>
                 </nav>
             </div>
             {items.length === 0 ? (
