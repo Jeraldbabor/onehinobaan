@@ -49,7 +49,8 @@ export default function AnnouncementsIndexPage({
     const [deletingId, setDeletingId] = useState<number | null>(null);
 
     const handleDelete = (id: number) => {
-        if (!confirm('Remove this item? It will no longer appear on the site.')) return;
+        if (!confirm('Remove this item? It will no longer appear on the site.'))
+            return;
         setDeletingId(id);
         router.delete(`${announcementsUrl}/${id}`, {
             onSuccess: () => setShowToast(true),
@@ -67,8 +68,8 @@ export default function AnnouncementsIndexPage({
                             News & Announcements
                         </h1>
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Post news, updates, and announcements. They appear in
-                            the right sidebar on About and Tourism pages.
+                            Post news, updates, and announcements. They appear
+                            in the right sidebar on About and Tourism pages.
                         </p>
                     </div>
                     <Button asChild>
@@ -107,7 +108,8 @@ export default function AnnouncementsIndexPage({
                                             </CardTitle>
                                             <CardDescription className="mt-1 flex flex-wrap items-center gap-2">
                                                 <span className="capitalize">
-                                                    {typeLabel[a.type] ?? a.type}
+                                                    {typeLabel[a.type] ??
+                                                        a.type}
                                                 </span>
                                                 <span>·</span>
                                                 <span>
@@ -144,7 +146,9 @@ export default function AnnouncementsIndexPage({
                                             <Button
                                                 variant="destructive"
                                                 size="sm"
-                                                onClick={() => handleDelete(a.id)}
+                                                onClick={() =>
+                                                    handleDelete(a.id)
+                                                }
                                                 disabled={deletingId === a.id}
                                             >
                                                 <Trash2 className="size-3.5" />
@@ -155,7 +159,9 @@ export default function AnnouncementsIndexPage({
                                     {a.content && (
                                         <CardContent className="border-t py-3">
                                             <p className="line-clamp-2 text-sm text-muted-foreground">
-                                                {a.content.replace(/<[^>]*>/g, ' ').trim()}
+                                                {a.content
+                                                    .replace(/<[^>]*>/g, ' ')
+                                                    .trim()}
                                             </p>
                                         </CardContent>
                                     )}
@@ -165,11 +171,7 @@ export default function AnnouncementsIndexPage({
                     </ul>
                 )}
             </div>
-            <Toast
-                open={showToast}
-                onOpenChange={setShowToast}
-                title="Done"
-            />
+            <Toast open={showToast} onOpenChange={setShowToast} title="Done" />
         </AppLayout>
     );
 }

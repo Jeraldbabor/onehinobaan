@@ -42,7 +42,7 @@ function OfficialProfileCard({
     return (
         <article className="overflow-hidden border border-slate-200 bg-white shadow-md">
             <div className="border-b-4 border-blue-800 bg-slate-50 px-4 py-3">
-                <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-blue-800">
+                <p className="text-center text-xs font-bold tracking-[0.2em] text-blue-800 uppercase">
                     {roleLabel}
                 </p>
                 <p className="mt-0.5 text-center text-xs text-slate-600">
@@ -50,7 +50,7 @@ function OfficialProfileCard({
                 </p>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-stretch">
-                <div className="flex shrink-0 justify-center border-b border-slate-100 bg-slate-50/50 p-6 sm:border-b-0 sm:border-r sm:min-w-[240px]">
+                <div className="flex shrink-0 justify-center border-b border-slate-100 bg-slate-50/50 p-6 sm:min-w-[240px] sm:border-r sm:border-b-0">
                     {item.image_url ? (
                         <img
                             src={item.image_url}
@@ -75,11 +75,12 @@ function OfficialProfileCard({
                         </p>
                     )}
                     <div className="mt-4 border-t border-slate-200 pt-4">
-                        <p className="text-xs uppercase tracking-wider text-slate-500">
+                        <p className="text-xs tracking-wider text-slate-500 uppercase">
                             Local Government Unit
                         </p>
                         <p className="mt-0.5 text-sm text-slate-700">
-                            Province of Negros Occidental · Republic of the Philippines
+                            Province of Negros Occidental · Republic of the
+                            Philippines
                         </p>
                     </div>
                 </div>
@@ -99,7 +100,7 @@ function OfficialCard({
     return (
         <article className="flex flex-col border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
             <div className="border-b-2 border-blue-800 bg-blue-50/80 px-3 py-2 text-center">
-                <p className="text-xs font-bold uppercase tracking-wider text-blue-800">
+                <p className="text-xs font-bold tracking-wider text-blue-800 uppercase">
                     {roleLabel}
                 </p>
             </div>
@@ -140,7 +141,9 @@ export default function OfficialsPage() {
     const announcements = props.announcements ?? [];
 
     const config = section ? SECTION_CONFIG[section] : null;
-    const pageTitle = config ? `${config.title} - Key Officials` : 'Key Officials';
+    const pageTitle = config
+        ? `${config.title} - Key Officials`
+        : 'Key Officials';
     const breadcrumbLabel = config ? config.breadcrumbLabel : 'Key Officials';
 
     const hasMayor = mayor && (mayor.image_url || mayor.name);
@@ -166,26 +169,45 @@ export default function OfficialsPage() {
             <header className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: "url('/hinobaan-banner/banner2.png')" }}
+                    style={{
+                        backgroundImage: "url('/hinobaan-banner/banner2.png')",
+                    }}
                 />
                 <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto w-full max-w-5xl [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]">
-                        <nav className="mb-4 text-sm text-slate-200" aria-label="Breadcrumb">
+                        <nav
+                            className="mb-4 text-sm text-slate-200"
+                            aria-label="Breadcrumb"
+                        >
                             <Link href="/" className="hover:text-white">
                                 Home
                             </Link>
-                            <span className="mx-2" aria-hidden>/</span>
-                            <Link href="/about/officials" className="hover:text-white">
+                            <span className="mx-2" aria-hidden>
+                                /
+                            </span>
+                            <Link
+                                href="/about/officials"
+                                className="hover:text-white"
+                            >
                                 About Us
                             </Link>
-                            <span className="mx-2" aria-hidden>/</span>
-                            <Link href="/about/officials" className="hover:text-white">
+                            <span className="mx-2" aria-hidden>
+                                /
+                            </span>
+                            <Link
+                                href="/about/officials"
+                                className="hover:text-white"
+                            >
                                 Key Officials
                             </Link>
                             {section && (
                                 <>
-                                    <span className="mx-2" aria-hidden>/</span>
-                                    <span className="text-white">{breadcrumbLabel}</span>
+                                    <span className="mx-2" aria-hidden>
+                                        /
+                                    </span>
+                                    <span className="text-white">
+                                        {breadcrumbLabel}
+                                    </span>
                                 </>
                             )}
                         </nav>
@@ -193,9 +215,10 @@ export default function OfficialsPage() {
                             {config ? config.title : 'Key Officials'}
                         </h1>
                         <p className="mt-1 text-sm text-slate-200">
-                            Municipality of Hinobaan · Province of Negros Occidental
+                            Municipality of Hinobaan · Province of Negros
+                            Occidental
                         </p>
-                        <p className="mt-1 text-xs uppercase tracking-wider text-slate-300">
+                        <p className="mt-1 text-xs tracking-wider text-slate-300 uppercase">
                             Republic of the Philippines
                         </p>
                     </div>
@@ -211,7 +234,8 @@ export default function OfficialsPage() {
                                     <>
                                         {section && (
                                             <h2 className={sectionTitleClass}>
-                                                {config?.title ?? 'Key Officials'}
+                                                {config?.title ??
+                                                    'Key Officials'}
                                             </h2>
                                         )}
                                         <div className="border border-slate-200 bg-white px-8 py-16 text-center shadow-sm">
@@ -221,7 +245,8 @@ export default function OfficialsPage() {
                                                     : 'Key Officials are not yet available.'}
                                             </p>
                                             <p className="mt-2 text-sm text-slate-500">
-                                                Please check back later or view other sections.
+                                                Please check back later or view
+                                                other sections.
                                             </p>
                                             <div className="mt-6 flex flex-wrap justify-center gap-4">
                                                 {section ? (
@@ -230,7 +255,8 @@ export default function OfficialsPage() {
                                                             href="/about/officials"
                                                             className="text-sm font-medium text-blue-800 hover:underline"
                                                         >
-                                                            View all Key Officials
+                                                            View all Key
+                                                            Officials
                                                         </Link>
                                                         <Link
                                                             href="/"
@@ -256,11 +282,19 @@ export default function OfficialsPage() {
                                         {showMayor && hasMayor && mayor && (
                                             <div>
                                                 {!section && (
-                                                    <h2 className={sectionTitleClass}>
+                                                    <h2
+                                                        className={
+                                                            sectionTitleClass
+                                                        }
+                                                    >
                                                         Our Mayor
                                                     </h2>
                                                 )}
-                                                <div className={section ? '' : 'mt-4'}>
+                                                <div
+                                                    className={
+                                                        section ? '' : 'mt-4'
+                                                    }
+                                                >
                                                     <OfficialProfileCard
                                                         item={mayor}
                                                         roleLabel="Municipal Mayor"
@@ -270,31 +304,50 @@ export default function OfficialsPage() {
                                         )}
 
                                         {/* Vice Mayor */}
-                                        {showViceMayor && hasViceMayor && viceMayor && (
-                                            <div>
-                                                {!section && (
-                                                    <h2 className={sectionTitleClass}>
-                                                        Vice Mayor
-                                                    </h2>
-                                                )}
-                                                <div className={section ? '' : 'mt-4'}>
-                                                    <OfficialProfileCard
-                                                        item={viceMayor}
-                                                        roleLabel="Vice Mayor"
-                                                    />
+                                        {showViceMayor &&
+                                            hasViceMayor &&
+                                            viceMayor && (
+                                                <div>
+                                                    {!section && (
+                                                        <h2
+                                                            className={
+                                                                sectionTitleClass
+                                                            }
+                                                        >
+                                                            Vice Mayor
+                                                        </h2>
+                                                    )}
+                                                    <div
+                                                        className={
+                                                            section
+                                                                ? ''
+                                                                : 'mt-4'
+                                                        }
+                                                    >
+                                                        <OfficialProfileCard
+                                                            item={viceMayor}
+                                                            roleLabel="Vice Mayor"
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
+                                            )}
 
                                         {/* SB Members */}
                                         {showSbMembers && hasSbMembers && (
                                             <div>
                                                 {!section && (
-                                                    <h2 className={sectionTitleClass}>
-                                                        Sangguniang Bayan Members
+                                                    <h2
+                                                        className={
+                                                            sectionTitleClass
+                                                        }
+                                                    >
+                                                        Sangguniang Bayan
+                                                        Members
                                                     </h2>
                                                 )}
-                                                <div className={`grid gap-6 ${section ? 'sm:grid-cols-1' : 'mt-4 sm:grid-cols-2 lg:grid-cols-3'}`}>
+                                                <div
+                                                    className={`grid gap-6 ${section ? 'sm:grid-cols-1' : 'mt-4 sm:grid-cols-2 lg:grid-cols-3'}`}
+                                                >
                                                     {sbMembers.map((member) => (
                                                         <OfficialCard
                                                             key={member.id}

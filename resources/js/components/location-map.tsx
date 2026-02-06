@@ -30,12 +30,12 @@ export function LocationMap({
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
+        const id = setTimeout(() => setMounted(true), 0);
+        return () => clearTimeout(id);
     }, []);
 
     const markerPos = marker ?? center;
-    const heightStyle =
-        typeof height === 'number' ? `${height}px` : height;
+    const heightStyle = typeof height === 'number' ? `${height}px` : height;
 
     if (!mounted) {
         return (

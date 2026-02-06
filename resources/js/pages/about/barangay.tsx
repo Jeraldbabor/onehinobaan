@@ -27,7 +27,9 @@ export default function BarangayPage() {
             <section className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: "url('/hinobaan-banner/banner2.png')" }}
+                    style={{
+                        backgroundImage: "url('/hinobaan-banner/banner2.png')",
+                    }}
                 />
                 <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto w-full max-w-5xl [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]">
@@ -44,7 +46,8 @@ export default function BarangayPage() {
                             Barangay
                         </h1>
                         <p className="mt-1 text-sm text-slate-200">
-                            Municipality of Hinobaan · Province of Negros Occidental
+                            Municipality of Hinobaan · Province of Negros
+                            Occidental
                         </p>
                     </div>
                 </div>
@@ -75,7 +78,8 @@ export default function BarangayPage() {
                                 ) : (
                                     <div className="mt-4 border border-slate-200 bg-white px-8 py-16 text-center shadow-sm">
                                         <p className="text-slate-600">
-                                            Barangay images are not yet available.
+                                            Barangay images are not yet
+                                            available.
                                         </p>
                                         <Link
                                             href="/"

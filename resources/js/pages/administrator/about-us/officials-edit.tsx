@@ -13,8 +13,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Toast } from '@/components/ui/toast';
-import { cn } from '@/lib/utils';
 import AppLayout from '@/layouts/app-layout';
+import { cn } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
 
 const dashboardUrl = '/dashboard';
@@ -53,8 +53,9 @@ export default function OfficialsEditPage({
     const [editingSbId, setEditingSbId] = useState<string | null>(null);
     // Local preview URLs so preview works even if form doesn't preserve File refs
     const [mayorPreviewUrl, setMayorPreviewUrl] = useState<string | null>(null);
-    const [viceMayorPreviewUrl, setViceMayorPreviewUrl] =
-        useState<string | null>(null);
+    const [viceMayorPreviewUrl, setViceMayorPreviewUrl] = useState<
+        string | null
+    >(null);
     const [addSbPreviewUrl, setAddSbPreviewUrl] = useState<string | null>(null);
     const [mayorSaving, setMayorSaving] = useState(false);
     const [viceMayorSaving, setViceMayorSaving] = useState(false);
@@ -92,8 +93,7 @@ export default function OfficialsEditPage({
         };
     }, [mayorPreviewUrl, viceMayorPreviewUrl, addSbPreviewUrl]);
 
-    const mayorPreview =
-        mayorPreviewUrl ?? mayor?.image_url ?? null;
+    const mayorPreview = mayorPreviewUrl ?? mayor?.image_url ?? null;
     const viceMayorPreview =
         viceMayorPreviewUrl ?? viceMayor?.image_url ?? null;
     const addSbPreview = addSbPreviewUrl;
@@ -141,22 +141,29 @@ export default function OfficialsEditPage({
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 setMayorSaving(true);
-                                router.post(mayorUpdateUrl, {
-                                    _method: 'PUT',
-                                    name: mayorForm.data.name,
-                                    title: mayorForm.data.title,
-                                    image: mayorForm.data.image,
-                                }, {
-                                    forceFormData: true,
-                                    preserveScroll: true,
-                                    onSuccess: () => {
-                                        mayorForm.setData('image', null);
-                                        if (mayorPreviewUrl) URL.revokeObjectURL(mayorPreviewUrl);
-                                        setMayorPreviewUrl(null);
-                                        setShowToast(true);
+                                router.post(
+                                    mayorUpdateUrl,
+                                    {
+                                        _method: 'PUT',
+                                        name: mayorForm.data.name,
+                                        title: mayorForm.data.title,
+                                        image: mayorForm.data.image,
                                     },
-                                    onFinish: () => setMayorSaving(false),
-                                });
+                                    {
+                                        forceFormData: true,
+                                        preserveScroll: true,
+                                        onSuccess: () => {
+                                            mayorForm.setData('image', null);
+                                            if (mayorPreviewUrl)
+                                                URL.revokeObjectURL(
+                                                    mayorPreviewUrl,
+                                                );
+                                            setMayorPreviewUrl(null);
+                                            setShowToast(true);
+                                        },
+                                        onFinish: () => setMayorSaving(false),
+                                    },
+                                );
                             }}
                             className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6"
                         >
@@ -208,10 +215,23 @@ export default function OfficialsEditPage({
                                             accept="image/jpeg,image/png,image/gif,image/webp"
                                             className="sr-only"
                                             onChange={(e) => {
-                                                const file = e.target.files?.[0] ?? null;
-                                                mayorForm.setData('image', file);
-                                                if (mayorPreviewUrl) URL.revokeObjectURL(mayorPreviewUrl);
-                                                setMayorPreviewUrl(file ? URL.createObjectURL(file) : null);
+                                                const file =
+                                                    e.target.files?.[0] ?? null;
+                                                mayorForm.setData(
+                                                    'image',
+                                                    file,
+                                                );
+                                                if (mayorPreviewUrl)
+                                                    URL.revokeObjectURL(
+                                                        mayorPreviewUrl,
+                                                    );
+                                                setMayorPreviewUrl(
+                                                    file
+                                                        ? URL.createObjectURL(
+                                                              file,
+                                                          )
+                                                        : null,
+                                                );
                                             }}
                                         />
                                         {mayorPreviewUrl ? (
@@ -234,20 +254,25 @@ export default function OfficialsEditPage({
                             <div className="flex flex-col items-start gap-2">
                                 {(mayorPreview || mayor?.image_url) && (
                                     <img
-                                        src={mayorPreview ?? mayor?.image_url ?? ''}
+                                        src={
+                                            mayorPreview ??
+                                            mayor?.image_url ??
+                                            ''
+                                        }
                                         alt=""
                                         className="h-32 w-32 rounded-lg border bg-muted object-cover shadow-sm"
                                     />
                                 )}
-                                <Button
-                                    type="submit"
-                                    disabled={mayorSaving}
-                                >
+                                <Button type="submit" disabled={mayorSaving}>
                                     {mayorSaving ? 'Saving...' : 'Save Mayor'}
                                 </Button>
                             </div>
                         </form>
-                        <InputError message={mayorForm.errors.image ?? getError('image')} />
+                        <InputError
+                            message={
+                                mayorForm.errors.image ?? getError('image')
+                            }
+                        />
                     </CardContent>
                 </Card>
 
@@ -271,28 +296,41 @@ export default function OfficialsEditPage({
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 setViceMayorSaving(true);
-                                router.post(viceMayorUpdateUrl, {
-                                    _method: 'PUT',
-                                    name: viceMayorForm.data.name,
-                                    title: viceMayorForm.data.title,
-                                    image: viceMayorForm.data.image,
-                                }, {
-                                    forceFormData: true,
-                                    preserveScroll: true,
-                                    onSuccess: () => {
-                                        viceMayorForm.setData('image', null);
-                                        if (viceMayorPreviewUrl) URL.revokeObjectURL(viceMayorPreviewUrl);
-                                        setViceMayorPreviewUrl(null);
-                                        setShowToast(true);
+                                router.post(
+                                    viceMayorUpdateUrl,
+                                    {
+                                        _method: 'PUT',
+                                        name: viceMayorForm.data.name,
+                                        title: viceMayorForm.data.title,
+                                        image: viceMayorForm.data.image,
                                     },
-                                    onFinish: () => setViceMayorSaving(false),
-                                });
+                                    {
+                                        forceFormData: true,
+                                        preserveScroll: true,
+                                        onSuccess: () => {
+                                            viceMayorForm.setData(
+                                                'image',
+                                                null,
+                                            );
+                                            if (viceMayorPreviewUrl)
+                                                URL.revokeObjectURL(
+                                                    viceMayorPreviewUrl,
+                                                );
+                                            setViceMayorPreviewUrl(null);
+                                            setShowToast(true);
+                                        },
+                                        onFinish: () =>
+                                            setViceMayorSaving(false),
+                                    },
+                                );
                             }}
                             className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6"
                         >
                             <div className="flex min-w-0 flex-1 flex-col gap-4 sm:max-w-xs">
                                 <div className="space-y-2">
-                                    <Label htmlFor="vice_mayor_name">Name</Label>
+                                    <Label htmlFor="vice_mayor_name">
+                                        Name
+                                    </Label>
                                     <Input
                                         id="vice_mayor_name"
                                         value={viceMayorForm.data.name}
@@ -342,10 +380,23 @@ export default function OfficialsEditPage({
                                             accept="image/jpeg,image/png,image/gif,image/webp"
                                             className="sr-only"
                                             onChange={(e) => {
-                                                const file = e.target.files?.[0] ?? null;
-                                                viceMayorForm.setData('image', file);
-                                                if (viceMayorPreviewUrl) URL.revokeObjectURL(viceMayorPreviewUrl);
-                                                setViceMayorPreviewUrl(file ? URL.createObjectURL(file) : null);
+                                                const file =
+                                                    e.target.files?.[0] ?? null;
+                                                viceMayorForm.setData(
+                                                    'image',
+                                                    file,
+                                                );
+                                                if (viceMayorPreviewUrl)
+                                                    URL.revokeObjectURL(
+                                                        viceMayorPreviewUrl,
+                                                    );
+                                                setViceMayorPreviewUrl(
+                                                    file
+                                                        ? URL.createObjectURL(
+                                                              file,
+                                                          )
+                                                        : null,
+                                                );
                                             }}
                                         />
                                         {viceMayorPreviewUrl ? (
@@ -366,8 +417,7 @@ export default function OfficialsEditPage({
                                 </div>
                             </div>
                             <div className="flex flex-col items-start gap-2">
-                                {(viceMayorPreview ||
-                                    viceMayor?.image_url) && (
+                                {(viceMayorPreview || viceMayor?.image_url) && (
                                     <img
                                         src={
                                             viceMayorPreview ??
@@ -382,11 +432,17 @@ export default function OfficialsEditPage({
                                     type="submit"
                                     disabled={viceMayorSaving}
                                 >
-                                    {viceMayorSaving ? 'Saving...' : 'Save Vice Mayor'}
+                                    {viceMayorSaving
+                                        ? 'Saving...'
+                                        : 'Save Vice Mayor'}
                                 </Button>
                             </div>
                         </form>
-                        <InputError message={viceMayorForm.errors.image ?? getError('image')} />
+                        <InputError
+                            message={
+                                viceMayorForm.errors.image ?? getError('image')
+                            }
+                        />
                     </CardContent>
                 </Card>
 
@@ -420,7 +476,10 @@ export default function OfficialsEditPage({
                                         forceFormData: true,
                                         onSuccess: () => {
                                             addSbForm.reset();
-                                            if (addSbPreviewUrl) URL.revokeObjectURL(addSbPreviewUrl);
+                                            if (addSbPreviewUrl)
+                                                URL.revokeObjectURL(
+                                                    addSbPreviewUrl,
+                                                );
                                             setAddSbPreviewUrl(null);
                                             setShowToast(true);
                                         },
@@ -476,14 +535,29 @@ export default function OfficialsEditPage({
                                                 accept="image/jpeg,image/png,image/gif,image/webp"
                                                 className="sr-only"
                                                 onChange={(e) => {
-                                                    const file = e.target.files?.[0] ?? null;
-                                                    addSbForm.setData('image', file);
-                                                    if (addSbPreviewUrl) URL.revokeObjectURL(addSbPreviewUrl);
-                                                    setAddSbPreviewUrl(file ? URL.createObjectURL(file) : null);
+                                                    const file =
+                                                        e.target.files?.[0] ??
+                                                        null;
+                                                    addSbForm.setData(
+                                                        'image',
+                                                        file,
+                                                    );
+                                                    if (addSbPreviewUrl)
+                                                        URL.revokeObjectURL(
+                                                            addSbPreviewUrl,
+                                                        );
+                                                    setAddSbPreviewUrl(
+                                                        file
+                                                            ? URL.createObjectURL(
+                                                                  file,
+                                                              )
+                                                            : null,
+                                                    );
                                                 }}
                                             />
                                             {addSbForm.data.image
-                                                ? (addSbForm.data.image as File).name
+                                                ? (addSbForm.data.image as File)
+                                                      .name
                                                 : 'Photo *'}
                                         </label>
                                         <Button
@@ -550,11 +624,7 @@ export default function OfficialsEditPage({
                     </CardContent>
                 </Card>
             </div>
-            <Toast
-                open={showToast}
-                onOpenChange={setShowToast}
-                title="Saved"
-            />
+            <Toast open={showToast} onOpenChange={setShowToast} title="Saved" />
         </AppLayout>
     );
 }
@@ -591,21 +661,26 @@ function SbMemberCard({
                     onSubmit={(e) => {
                         e.preventDefault();
                         setSaving(true);
-                        router.post(updateUrl, {
-                            _method: 'PUT',
-                            name: form.data.name,
-                            title: form.data.title,
-                            image: form.data.image,
-                        }, {
-                            forceFormData: true,
-                            preserveScroll: true,
-                            onSuccess: () => {
-                                if (editPreviewUrl) URL.revokeObjectURL(editPreviewUrl);
-                                setEditPreviewUrl(null);
-                                onSaved();
+                        router.post(
+                            updateUrl,
+                            {
+                                _method: 'PUT',
+                                name: form.data.name,
+                                title: form.data.title,
+                                image: form.data.image,
                             },
-                            onFinish: () => setSaving(false),
-                        });
+                            {
+                                forceFormData: true,
+                                preserveScroll: true,
+                                onSuccess: () => {
+                                    if (editPreviewUrl)
+                                        URL.revokeObjectURL(editPreviewUrl);
+                                    setEditPreviewUrl(null);
+                                    onSaved();
+                                },
+                                onFinish: () => setSaving(false),
+                            },
+                        );
                     }}
                     className="space-y-3"
                 >
@@ -639,8 +714,11 @@ function SbMemberCard({
                                 onChange={(e) => {
                                     const file = e.target.files?.[0] ?? null;
                                     form.setData('image', file);
-                                    if (editPreviewUrl) URL.revokeObjectURL(editPreviewUrl);
-                                    setEditPreviewUrl(file ? URL.createObjectURL(file) : null);
+                                    if (editPreviewUrl)
+                                        URL.revokeObjectURL(editPreviewUrl);
+                                    setEditPreviewUrl(
+                                        file ? URL.createObjectURL(file) : null,
+                                    );
                                 }}
                             />
                             New photo (optional)
@@ -654,11 +732,7 @@ function SbMemberCard({
                         )}
                     </div>
                     <div className="flex gap-2">
-                        <Button
-                            type="submit"
-                            size="sm"
-                            disabled={saving}
-                        >
+                        <Button type="submit" size="sm" disabled={saving}>
                             {saving ? 'Saving...' : 'Save'}
                         </Button>
                         <Button
@@ -666,7 +740,8 @@ function SbMemberCard({
                             variant="outline"
                             size="sm"
                             onClick={() => {
-                                if (editPreviewUrl) URL.revokeObjectURL(editPreviewUrl);
+                                if (editPreviewUrl)
+                                    URL.revokeObjectURL(editPreviewUrl);
                                 setEditPreviewUrl(null);
                                 onCancelEdit();
                             }}

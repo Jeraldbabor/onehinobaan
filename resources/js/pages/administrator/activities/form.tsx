@@ -106,7 +106,7 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
                                     onChange={(e) =>
                                         setData('title', e.target.value)
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                     placeholder="e.g. LGU leads relief distribution"
                                     required
                                 />
@@ -123,13 +123,15 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
                                     onChange={(e) =>
                                         setData('link_url', e.target.value)
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                     placeholder="https://..."
                                 />
                                 <InputError message={errors.link_url} />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="image">Picture (optional)</Label>
+                                <Label htmlFor="image">
+                                    Picture (optional)
+                                </Label>
                                 <input
                                     id="image"
                                     type="file"
@@ -140,7 +142,7 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
                                             e.target.files?.[0] ?? null,
                                         )
                                     }
-                                    className="border-input focus-visible:ring-ring/50 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs outline-none focus-visible:ring-[3px] file:mr-2 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1 file:text-sm file:font-medium md:text-sm"
+                                    className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs outline-none file:mr-2 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1 file:text-sm file:font-medium focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                 />
                                 <p className="text-xs text-muted-foreground">
                                     JPEG, PNG, GIF or WebP. Max 5 MB.
@@ -162,11 +164,14 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
                                                 <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground">
                                                     <input
                                                         type="checkbox"
-                                                        checked={data.remove_image}
+                                                        checked={
+                                                            data.remove_image
+                                                        }
                                                         onChange={(e) =>
                                                             setData(
                                                                 'remove_image',
-                                                                e.target.checked,
+                                                                e.target
+                                                                    .checked,
                                                             )
                                                         }
                                                         className="rounded border-slate-300"
@@ -187,12 +192,9 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
                                     type="datetime-local"
                                     value={data.published_at}
                                     onChange={(e) =>
-                                        setData(
-                                            'published_at',
-                                            e.target.value,
-                                        )
+                                        setData('published_at', e.target.value)
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                 />
                                 <p className="text-xs text-muted-foreground">
                                     Leave empty to publish immediately.
@@ -230,11 +232,7 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
                     </div>
                 </form>
             </div>
-            <Toast
-                open={showToast}
-                onOpenChange={setShowToast}
-                title="Saved"
-            />
+            <Toast open={showToast} onOpenChange={setShowToast} title="Saved" />
         </AppLayout>
     );
 }

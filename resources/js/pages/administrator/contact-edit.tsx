@@ -149,30 +149,35 @@ export default function ContactEditPage({ contact }: ContactEditPageProps) {
                                     type="url"
                                     value={data.map_embed_url}
                                     onChange={(e) =>
-                                        setData(
-                                            'map_embed_url',
-                                            e.target.value,
-                                        )
+                                        setData('map_embed_url', e.target.value)
                                     }
                                     className={inputClass}
                                     placeholder="https://www.google.com/maps/embed?pb=..."
                                 />
                                 <InputError message={errors.map_embed_url} />
                                 {data.map_embed_url &&
-                                    data.map_embed_url.includes('google.com/maps') &&
-                                    !data.map_embed_url.includes('google.com/maps/embed') && (
+                                    data.map_embed_url.includes(
+                                        'google.com/maps',
+                                    ) &&
+                                    !data.map_embed_url.includes(
+                                        'google.com/maps/embed',
+                                    ) && (
                                         <p className="text-xs text-amber-600 dark:text-amber-500">
                                             This is a regular map link. Use the
                                             embed URL instead: In Google Maps
-                                            click Share → Embed a map → copy
-                                            the iframe src (must contain
+                                            click Share → Embed a map → copy the
+                                            iframe src (must contain
                                             /maps/embed).
                                         </p>
                                     )}
                                 <p className="text-xs text-muted-foreground">
                                     In Google Maps: Share → Embed a map → copy
                                     the iframe <strong>src</strong> URL only
-                                    (must contain <code className="rounded bg-muted px-0.5">/maps/embed</code>). The normal map link will not work here.
+                                    (must contain{' '}
+                                    <code className="rounded bg-muted px-0.5">
+                                        /maps/embed
+                                    </code>
+                                    ). The normal map link will not work here.
                                 </p>
                             </div>
                         </CardContent>
@@ -189,7 +194,9 @@ export default function ContactEditPage({ contact }: ContactEditPageProps) {
                                 </CardTitle>
                             </div>
                             <CardDescription>
-                                Full URLs to your Municipality and Mayor Facebook pages. They will be embedded on the right side of the homepage. Leave blank to hide.
+                                Full URLs to your Municipality and Mayor
+                                Facebook pages. They will be embedded on the
+                                right side of the homepage. Leave blank to hide.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
@@ -210,7 +217,9 @@ export default function ContactEditPage({ contact }: ContactEditPageProps) {
                                     className={inputClass}
                                     placeholder="https://www.facebook.com/MayorPage"
                                 />
-                                <InputError message={errors.facebook_mayor_url} />
+                                <InputError
+                                    message={errors.facebook_mayor_url}
+                                />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="facebook_municipality_url">
@@ -229,7 +238,9 @@ export default function ContactEditPage({ contact }: ContactEditPageProps) {
                                     className={inputClass}
                                     placeholder="https://www.facebook.com/YourMunicipalityPage"
                                 />
-                                <InputError message={errors.facebook_municipality_url} />
+                                <InputError
+                                    message={errors.facebook_municipality_url}
+                                />
                             </div>
                         </CardContent>
                     </Card>

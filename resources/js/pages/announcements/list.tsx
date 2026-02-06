@@ -35,7 +35,9 @@ export default function AnnouncementsListPage({
             <section className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: "url('/hinobaan-banner/banner2.png')" }}
+                    style={{
+                        backgroundImage: "url('/hinobaan-banner/banner2.png')",
+                    }}
                 />
                 <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto w-full max-w-5xl [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]">
@@ -50,7 +52,8 @@ export default function AnnouncementsListPage({
                             All {title}
                         </h1>
                         <p className="mt-1 text-sm text-slate-200">
-                            Municipality of Hinobaan · Province of Negros Occidental
+                            Municipality of Hinobaan · Province of Negros
+                            Occidental
                         </p>
                     </div>
                 </div>
@@ -92,7 +95,9 @@ export default function AnnouncementsListPage({
                                                 </h2>
                                                 {a.published_at && (
                                                     <time
-                                                        dateTime={a.published_at}
+                                                        dateTime={
+                                                            a.published_at
+                                                        }
                                                         className={`mt-1 block text-sm ${type === 'activity' ? 'font-semibold text-blue-800' : 'text-slate-500'}`}
                                                     >
                                                         {new Date(
@@ -100,7 +105,8 @@ export default function AnnouncementsListPage({
                                                         ).toLocaleDateString(
                                                             undefined,
                                                             {
-                                                                dateStyle: 'long',
+                                                                dateStyle:
+                                                                    'long',
                                                             },
                                                         )}
                                                     </time>
@@ -113,7 +119,10 @@ export default function AnnouncementsListPage({
                                                 />
                                                 <span className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-800">
                                                     Read full story
-                                                    <ExternalLink className="size-4" aria-hidden />
+                                                    <ExternalLink
+                                                        className="size-4"
+                                                        aria-hidden
+                                                    />
                                                 </span>
                                             </article>
                                         </Link>

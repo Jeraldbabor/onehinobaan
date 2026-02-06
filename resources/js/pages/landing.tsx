@@ -1,17 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
-import {
-    BookOpen,
-    Briefcase,
-    ChevronLeft,
-    ChevronRight,
-    FileText,
-    Landmark,
-    Scale,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, FileText, Landmark } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import LandingLayout from '@/layouts/landing-layout';
 import type { SharedData } from '@/types';
 
@@ -44,8 +36,13 @@ type LandingProps = SharedData & {
 const CAROUSEL_AUTOPLAY_MS = 5000;
 
 function stripHtml(html: string, maxLength: number): string {
-    const text = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-    return text.length <= maxLength ? text : text.slice(0, maxLength).trim() + '…';
+    const text = html
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    return text.length <= maxLength
+        ? text
+        : text.slice(0, maxLength).trim() + '…';
 }
 
 function FacebookPageEmbed({ url, title }: { url: string; title: string }) {
@@ -125,7 +122,7 @@ export default function Landing() {
                 isScrollingByUser.current = false;
             });
         },
-        [n, totalSlides],
+        [n, totalSlides, SCROLL_AMOUNT],
     );
 
     const smoothScrollToIndex = useCallback(
@@ -142,7 +139,7 @@ export default function Landing() {
                 isScrollingByUser.current = false;
             });
         },
-        [n],
+        [n, SCROLL_AMOUNT],
     );
 
     const goPrev = useCallback(() => {
@@ -175,15 +172,18 @@ export default function Landing() {
         index = Math.max(0, Math.min(n - 1, index));
         currentIndexRef.current = index;
         setCurrentIndex(index);
-    }, [n]);
+    }, [n, SCROLL_AMOUNT]);
 
     useEffect(() => {
         const el = scrollRef.current;
         if (!el) return;
-        updateCurrentIndexFromScroll();
+        const rafId = requestAnimationFrame(() =>
+            updateCurrentIndexFromScroll(),
+        );
         el.addEventListener('scroll', updateCurrentIndexFromScroll);
         window.addEventListener('resize', updateCurrentIndexFromScroll);
         return () => {
+            cancelAnimationFrame(rafId);
             el.removeEventListener('scroll', updateCurrentIndexFromScroll);
             window.removeEventListener('resize', updateCurrentIndexFromScroll);
         };
@@ -218,7 +218,7 @@ export default function Landing() {
         if (index >= n) index -= n;
         index = Math.max(0, Math.min(n - 1, index));
         smoothScrollToIndex(index);
-    }, [n, smoothScrollToIndex]);
+    }, [n, SCROLL_AMOUNT, smoothScrollToIndex]);
 
     const handleCarouselMouseDown = useCallback((e: React.MouseEvent) => {
         const el = scrollRef.current;
@@ -234,7 +234,13 @@ export default function Landing() {
         dragRafId.current = null;
         const el = scrollRef.current;
         if (el && isDragging.current) {
-            const target = Math.max(0, Math.min(el.scrollWidth - el.clientWidth, dragTargetScrollLeft.current));
+            const target = Math.max(
+                0,
+                Math.min(
+                    el.scrollWidth - el.clientWidth,
+                    dragTargetScrollLeft.current,
+                ),
+            );
             el.scrollLeft = target;
         }
     }, []);
@@ -258,21 +264,23 @@ export default function Landing() {
         snapToNearest();
     }, [endDrag, snapToNearest]);
 
-    const handleCarouselTouchStart = useCallback(
-        (e: React.TouchEvent) => {
-            const el = scrollRef.current;
-            if (!el || e.touches.length !== 1) return;
-            isDragging.current = true;
-            el.style.scrollSnapType = 'none';
-            dragStartX.current = e.touches[0].clientX;
-            dragStartScrollLeft.current = el.scrollLeft;
-        },
-        [],
-    );
+    const handleCarouselTouchStart = useCallback((e: React.TouchEvent) => {
+        const el = scrollRef.current;
+        if (!el || e.touches.length !== 1) return;
+        isDragging.current = true;
+        el.style.scrollSnapType = 'none';
+        dragStartX.current = e.touches[0].clientX;
+        dragStartScrollLeft.current = el.scrollLeft;
+    }, []);
 
     const handleCarouselTouchMove = useCallback(
         (e: React.TouchEvent) => {
-            if (!isDragging.current || !scrollRef.current || e.touches.length !== 1) return;
+            if (
+                !isDragging.current ||
+                !scrollRef.current ||
+                e.touches.length !== 1
+            )
+                return;
             e.preventDefault();
             const dx = e.touches[0].clientX - dragStartX.current;
             dragTargetScrollLeft.current = dragStartScrollLeft.current - dx;
@@ -297,7 +305,8 @@ export default function Landing() {
             window.removeEventListener('mousemove', handleCarouselMouseMove);
             window.removeEventListener('mouseup', handleCarouselMouseUp);
             window.removeEventListener('mouseleave', handleCarouselMouseUp);
-            if (dragRafId.current !== null) cancelAnimationFrame(dragRafId.current);
+            if (dragRafId.current !== null)
+                cancelAnimationFrame(dragRafId.current);
         };
     }, [handleCarouselMouseMove, handleCarouselMouseUp]);
 
@@ -320,13 +329,13 @@ export default function Landing() {
                 <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/40 via-neutral-800/30 to-neutral-900/40" />
                 <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 py-28 sm:px-6 sm:py-36 lg:px-8">
                     <div className="max-w-2xl">
-                        <p className="text-sm font-medium uppercase tracking-[0.2em] text-neutral-200/90">
+                        <p className="text-sm font-medium tracking-[0.2em] text-neutral-200/90 uppercase">
                             Negros Occidental
                         </p>
                         <h1 className="mt-2 text-4xl font-bold tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] sm:text-5xl lg:text-6xl xl:text-7xl">
                             Municipality of Hinobaan
                         </h1>
-                        <p className="mt-4 text-2xl font-light italic text-neutral-100 drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)] sm:text-3xl lg:text-4xl">
+                        <p className="mt-4 text-2xl font-light text-neutral-100 italic drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)] sm:text-3xl lg:text-4xl">
                             Your gateway to transparent governance and community
                         </p>
                         <p className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-50/95 drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]">
@@ -346,7 +355,7 @@ export default function Landing() {
                             )}
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center rounded-xl border-2 border-white/90 bg-white/5 px-6 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition hover:bg-white/15 hover:border-white active:scale-[0.98]"
+                                className="inline-flex items-center rounded-xl border-2 border-white/90 bg-white/5 px-6 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition hover:border-white hover:bg-white/15 active:scale-[0.98]"
                             >
                                 Contact Us
                             </Link>
@@ -362,8 +371,9 @@ export default function Landing() {
                         {/* Institutional header */}
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                             <div>
-                                <p className="text-xs font-semibold uppercase tracking-widest text-blue-800 sm:text-sm">
-                                    Republic of the Philippines · Municipality of Hinobaan
+                                <p className="text-xs font-semibold tracking-widest text-blue-800 uppercase sm:text-sm">
+                                    Republic of the Philippines · Municipality
+                                    of Hinobaan
                                 </p>
                                 <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                                     The Elected Officials
@@ -377,7 +387,7 @@ export default function Landing() {
                                         e.stopPropagation();
                                         goPrev();
                                     }}
-                                    className="flex size-10 items-center justify-center rounded border border-slate-300 bg-white text-slate-600 shadow-sm transition hover:border-blue-700 hover:bg-blue-50 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50"
+                                    className="flex size-10 items-center justify-center rounded border border-slate-300 bg-white text-slate-600 shadow-sm transition hover:border-blue-700 hover:bg-blue-50 hover:text-blue-800 focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none"
                                     aria-label="Previous officials"
                                 >
                                     <ChevronLeft className="size-5" />
@@ -389,7 +399,7 @@ export default function Landing() {
                                         e.stopPropagation();
                                         goNext();
                                     }}
-                                    className="flex size-10 items-center justify-center rounded border border-slate-300 bg-white text-slate-600 shadow-sm transition hover:border-blue-700 hover:bg-blue-50 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50"
+                                    className="flex size-10 items-center justify-center rounded border border-slate-300 bg-white text-slate-600 shadow-sm transition hover:border-blue-700 hover:bg-blue-50 hover:text-blue-800 focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none"
                                     aria-label="Next officials"
                                 >
                                     <ChevronRight className="size-5" />
@@ -407,56 +417,58 @@ export default function Landing() {
                                 onTouchMove={handleCarouselTouchMove}
                                 onTouchEnd={handleCarouselTouchEnd}
                                 onTouchCancel={handleCarouselTouchEnd}
-                                className="flex cursor-grab touch-pan-x select-none gap-4 overflow-x-auto overflow-y-hidden py-4 pb-2 active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                                className="flex cursor-grab touch-pan-x gap-4 overflow-x-auto overflow-y-hidden py-4 pb-2 select-none [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
                                 style={{
                                     scrollSnapType: 'x mandatory',
                                     WebkitOverflowScrolling: 'touch',
                                 }}
                             >
-                                {[...officialsList, ...officialsList].map(({ item, role }, slideIndex) => (
-                                    <div
-                                        key={`${item.id}-${slideIndex}`}
-                                        className="flex shrink-0 flex-col items-center overflow-hidden rounded-sm border border-slate-200 bg-white shadow"
-                                        style={{
-                                            scrollSnapAlign: 'center',
-                                            width: CARD_WIDTH,
-                                        }}
-                                    >
-                                        {/* Official role bar – government blue */}
-                                        <div className="w-full border-b-2 border-blue-800 bg-blue-800 px-2 py-2 text-center">
-                                            <p className="text-[11px] font-bold uppercase tracking-wider text-white">
-                                                {role}
-                                            </p>
-                                        </div>
-                                        {/* Official photo – formal frame */}
+                                {[...officialsList, ...officialsList].map(
+                                    ({ item, role }, slideIndex) => (
                                         <div
-                                            className="flex shrink-0 overflow-hidden border-x border-b border-slate-200 bg-slate-100"
+                                            key={`${item.id}-${slideIndex}`}
+                                            className="flex shrink-0 flex-col items-center overflow-hidden rounded-sm border border-slate-200 bg-white shadow"
                                             style={{
-                                                width: IMAGE_SIZE,
-                                                height: IMAGE_SIZE,
+                                                scrollSnapAlign: 'center',
+                                                width: CARD_WIDTH,
                                             }}
                                         >
-                                            {item.image_url ? (
-                                                <img
-                                                    src={item.image_url}
-                                                    alt=""
-                                                    className="pointer-events-none h-full w-full select-none object-cover object-top"
-                                                    draggable={false}
-                                                />
-                                            ) : (
-                                                <div className="flex h-full w-full items-center justify-center text-slate-400">
-                                                    <Landmark className="size-8" />
-                                                </div>
-                                            )}
+                                            {/* Official role bar – government blue */}
+                                            <div className="w-full border-b-2 border-blue-800 bg-blue-800 px-2 py-2 text-center">
+                                                <p className="text-[11px] font-bold tracking-wider text-white uppercase">
+                                                    {role}
+                                                </p>
+                                            </div>
+                                            {/* Official photo – formal frame */}
+                                            <div
+                                                className="flex shrink-0 overflow-hidden border-x border-b border-slate-200 bg-slate-100"
+                                                style={{
+                                                    width: IMAGE_SIZE,
+                                                    height: IMAGE_SIZE,
+                                                }}
+                                            >
+                                                {item.image_url ? (
+                                                    <img
+                                                        src={item.image_url}
+                                                        alt=""
+                                                        className="pointer-events-none h-full w-full object-cover object-top select-none"
+                                                        draggable={false}
+                                                    />
+                                                ) : (
+                                                    <div className="flex h-full w-full items-center justify-center text-slate-400">
+                                                        <Landmark className="size-8" />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            {/* Name – formal typography */}
+                                            <div className="w-full border-t border-slate-100 bg-slate-50/80 px-2 py-2.5 text-center">
+                                                <p className="text-xs font-semibold text-slate-800">
+                                                    {item.name || '—'}
+                                                </p>
+                                            </div>
                                         </div>
-                                        {/* Name – formal typography */}
-                                        <div className="w-full border-t border-slate-100 bg-slate-50/80 px-2 py-2.5 text-center">
-                                            <p className="text-xs font-semibold text-slate-800">
-                                                {item.name || '—'}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
+                                    ),
+                                )}
                             </div>
 
                             {/* Pagination – government blue active state */}
@@ -466,13 +478,17 @@ export default function Landing() {
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2.5 rounded-full transition focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 ${
+                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
                                             index === currentIndex
                                                 ? 'scale-125 bg-blue-800'
                                                 : 'bg-slate-300 hover:bg-slate-400'
                                         }`}
                                         aria-label={`Go to official ${index + 1}`}
-                                        aria-current={index === currentIndex ? 'true' : undefined}
+                                        aria-current={
+                                            index === currentIndex
+                                                ? 'true'
+                                                : undefined
+                                        }
                                     />
                                 ))}
                             </div>
@@ -487,14 +503,16 @@ export default function Landing() {
                     <div className="grid gap-8 lg:grid-cols-3">
                         {/* Left: Municipality Activities (wider – main focus) */}
                         <div className="lg:col-span-2">
-                            <p className="text-xs font-semibold uppercase tracking-widest text-blue-800 sm:text-sm">
-                                Republic of the Philippines · Municipality of Hinobaan
+                            <p className="text-xs font-semibold tracking-widest text-blue-800 uppercase sm:text-sm">
+                                Republic of the Philippines · Municipality of
+                                Hinobaan
                             </p>
                             <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                                 Municipality Activities
                             </h2>
                             <p className="mt-1 text-sm text-slate-600">
-                                Daily and weekly updates on activities carried out by the LGU
+                                Daily and weekly updates on activities carried
+                                out by the LGU
                             </p>
                             {activities.length === 0 ? (
                                 <p className="mt-6 text-slate-500">
@@ -512,7 +530,9 @@ export default function Landing() {
                                                     <div className="h-40 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52">
                                                         {a.image_url ? (
                                                             <img
-                                                                src={a.image_url}
+                                                                src={
+                                                                    a.image_url
+                                                                }
                                                                 alt=""
                                                                 className="h-full w-full object-cover object-center"
                                                             />
@@ -522,26 +542,39 @@ export default function Landing() {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className="min-w-0 flex-1 px-4 pb-4 pt-0 sm:px-0 sm:pb-0 sm:pt-2 sm:pr-2">
-                                                        <h3 className="text-base font-bold uppercase leading-snug text-blue-800 sm:text-lg">
+                                                    <div className="min-w-0 flex-1 px-4 pt-0 pb-4 sm:px-0 sm:pt-2 sm:pr-2 sm:pb-0">
+                                                        <h3 className="text-base leading-snug font-bold text-blue-800 uppercase sm:text-lg">
                                                             {a.title}
                                                         </h3>
                                                         {a.published_at && (
                                                             <p className="mt-1 text-sm">
-                                                                <span className="text-slate-500">Posted on </span>
+                                                                <span className="text-slate-500">
+                                                                    Posted
+                                                                    on{' '}
+                                                                </span>
                                                                 <time
-                                                                    dateTime={a.published_at}
+                                                                    dateTime={
+                                                                        a.published_at
+                                                                    }
                                                                     className="font-semibold text-blue-800"
                                                                 >
-                                                                    {new Date(a.published_at).toLocaleDateString(
+                                                                    {new Date(
+                                                                        a.published_at,
+                                                                    ).toLocaleDateString(
                                                                         undefined,
-                                                                        { dateStyle: 'long' },
+                                                                        {
+                                                                            dateStyle:
+                                                                                'long',
+                                                                        },
                                                                     )}
                                                                 </time>
                                                             </p>
                                                         )}
-                                                        <p className="mt-2 line-clamp-2 text-slate-700 text-sm">
-                                                            {stripHtml(a.content, 200)}
+                                                        <p className="mt-2 line-clamp-2 text-sm text-slate-700">
+                                                            {stripHtml(
+                                                                a.content,
+                                                                200,
+                                                            )}
                                                         </p>
                                                         <span className="mt-1 inline-block text-xs font-medium text-blue-800 underline underline-offset-2">
                                                             continue reading
