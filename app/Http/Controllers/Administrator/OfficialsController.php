@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Announcement;
 use App\Models\SiteContent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class OfficialsController extends Controller
 
         return Inertia::render('about/officials', [
             'officials' => $officials,
+            'announcements' => Announcement::forSidebar(),
         ]);
     }
 
@@ -36,7 +38,7 @@ class OfficialsController extends Controller
     {
         $officials = $this->mapOfficialsForFrontend(SiteContent::getOfficialsList());
 
-        return Inertia::render('administrator/officials-edit', [
+        return Inertia::render('administrator/about-us/officials-edit', [
             'officials' => $officials,
         ]);
     }
