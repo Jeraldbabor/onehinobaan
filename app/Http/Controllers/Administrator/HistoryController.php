@@ -22,6 +22,7 @@ class HistoryController extends Controller
             'history' => [
                 'content' => $content->content ?? '',
             ],
+            'announcements' => \App\Models\Announcement::forSidebar(),
         ]);
     }
 
@@ -32,7 +33,7 @@ class HistoryController extends Controller
     {
         $content = SiteContent::getByKey(SiteContent::KEY_HISTORY);
 
-        return Inertia::render('administrator/history-edit', [
+        return Inertia::render('administrator/about-us/history-edit', [
             'history' => [
                 'content' => $content->content ?? '',
             ],

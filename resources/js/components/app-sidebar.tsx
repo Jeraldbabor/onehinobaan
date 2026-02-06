@@ -3,9 +3,15 @@ import {
     Building2,
     ChevronDown,
     History,
+    Info,
+    Landmark,
     LayoutGrid,
+    MapPin,
+    Megaphone,
+    PartyPopper,
     Target,
     Users,
+    Waves,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavUser } from '@/components/nav-user';
@@ -37,9 +43,14 @@ const editHistoryUrl = '/dashboard/history';
 const editVisionMissionUrl = '/dashboard/vision-mission';
 const editOfficialsUrl = '/dashboard/officials';
 const editBarangayUrl = '/dashboard/barangay';
+const editTourismAttractionUrl = '/dashboard/tourism/attraction';
+const editTourismResortsUrl = '/dashboard/tourism/resorts';
+const editTourismFestivalsUrl = '/dashboard/tourism/festivals';
+const announcementsUrl = '/dashboard/announcements';
 
 export function AppSidebar() {
     const [aboutOpen, setAboutOpen] = useState(false);
+    const [tourismOpen, setTourismOpen] = useState(false);
     const { currentUrl, isCurrentUrl } = useCurrentUrl();
 
     useEffect(() => {
@@ -54,6 +65,20 @@ export function AppSidebar() {
             currentUrl.startsWith(editBarangayUrl + '/');
         if (isAboutPage) {
             const id = setTimeout(() => setAboutOpen(true), 0);
+            return () => clearTimeout(id);
+        }
+    }, [currentUrl]);
+
+    useEffect(() => {
+        const isTourismPage =
+            currentUrl === editTourismAttractionUrl ||
+            currentUrl.startsWith(editTourismAttractionUrl + '/') ||
+            currentUrl === editTourismResortsUrl ||
+            currentUrl.startsWith(editTourismResortsUrl + '/') ||
+            currentUrl === editTourismFestivalsUrl ||
+            currentUrl.startsWith(editTourismFestivalsUrl + '/');
+        if (isTourismPage) {
+            const id = setTimeout(() => setTourismOpen(true), 0);
             return () => clearTimeout(id);
         }
     }, [currentUrl]);
@@ -88,6 +113,18 @@ export function AppSidebar() {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                asChild
+                                isActive={isCurrentUrl(announcementsUrl)}
+                                tooltip={{ children: 'News & Announcements' }}
+                            >
+                                <Link href={announcementsUrl} prefetch>
+                                    <Megaphone className="size-4" />
+                                    <span>News & Announcements</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarGroup>
 
@@ -104,6 +141,7 @@ export function AppSidebar() {
                                         isActive={false}
                                         tooltip={{ children: 'About Us' }}
                                     >
+                                        <Info className="size-4" />
                                         <span>About Us</span>
                                         <ChevronDown
                                             className={cn(
@@ -180,6 +218,86 @@ export function AppSidebar() {
                                                 >
                                                     <Building2 className="size-4" />
                                                     <span>Edit Barangay</span>
+                                                </Link>
+                                            </SidebarMenuSubButton>
+                                        </SidebarMenuSubItem>
+                                    </SidebarMenuSub>
+                                </CollapsibleContent>
+                            </SidebarMenuItem>
+                        </Collapsible>
+                        <Collapsible
+                            open={tourismOpen}
+                            onOpenChange={setTourismOpen}
+                        >
+                            <SidebarMenuItem>
+                                <CollapsibleTrigger asChild>
+                                    <SidebarMenuButton
+                                        isActive={false}
+                                        tooltip={{ children: 'Tourism' }}
+                                    >
+                                        <Landmark className="size-4" />
+                                        <span>Tourism</span>
+                                        <ChevronDown
+                                            className={cn(
+                                                'ml-auto size-4 shrink-0 transition-transform',
+                                                tourismOpen && 'rotate-180',
+                                            )}
+                                        />
+                                    </SidebarMenuButton>
+                                </CollapsibleTrigger>
+                                <CollapsibleContent>
+                                    <SidebarMenuSub>
+                                        <SidebarMenuSubItem>
+                                            <SidebarMenuSubButton
+                                                asChild
+                                                isActive={isCurrentUrl(
+                                                    editTourismAttractionUrl,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={
+                                                        editTourismAttractionUrl
+                                                    }
+                                                    prefetch
+                                                >
+                                                    <MapPin className="size-4" />
+                                                    <span>Attraction</span>
+                                                </Link>
+                                            </SidebarMenuSubButton>
+                                        </SidebarMenuSubItem>
+                                        <SidebarMenuSubItem>
+                                            <SidebarMenuSubButton
+                                                asChild
+                                                isActive={isCurrentUrl(
+                                                    editTourismResortsUrl,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={
+                                                        editTourismResortsUrl
+                                                    }
+                                                    prefetch
+                                                >
+                                                    <Waves className="size-4" />
+                                                    <span>Resorts</span>
+                                                </Link>
+                                            </SidebarMenuSubButton>
+                                        </SidebarMenuSubItem>
+                                        <SidebarMenuSubItem>
+                                            <SidebarMenuSubButton
+                                                asChild
+                                                isActive={isCurrentUrl(
+                                                    editTourismFestivalsUrl,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={
+                                                        editTourismFestivalsUrl
+                                                    }
+                                                    prefetch
+                                                >
+                                                    <PartyPopper className="size-4" />
+                                                    <span>Festivals</span>
                                                 </Link>
                                             </SidebarMenuSubButton>
                                         </SidebarMenuSubItem>
