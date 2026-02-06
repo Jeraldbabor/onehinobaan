@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { ExternalLink, Megaphone, Pencil, Plus, Trash2 } from 'lucide-react';
+import { CalendarDays, Pencil, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,45 +14,42 @@ import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 
 const dashboardUrl = '/dashboard';
-const announcementsUrl = '/dashboard/announcements';
+const activitiesUrl = '/dashboard/activities';
 
-type AnnouncementRow = {
+type ActivityRow = {
     id: number;
     title: string;
     content: string;
     link_url: string | null;
     image_url: string | null;
-    type: string;
     published_at: string | null;
     created_at: string;
 };
 
-type AnnouncementsIndexPageProps = {
-    announcements: AnnouncementRow[];
+type ActivitiesIndexPageProps = {
+    activities: ActivityRow[];
 };
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: dashboardUrl },
-    { title: 'News & Announcements', href: announcementsUrl },
+    { title: 'Municipality Activities', href: activitiesUrl },
 ];
 
-const typeLabel: Record<string, string> = {
-    news: 'News',
-    update: 'Update',
-    announcement: 'Announcement',
-};
-
-export default function AnnouncementsIndexPage({
-    announcements,
-}: AnnouncementsIndexPageProps) {
+export default function ActivitiesIndexPage({
+    activities,
+}: ActivitiesIndexPageProps) {
     const [showToast, setShowToast] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
 
     const handleDelete = (id: number) => {
-        if (!confirm('Remove this item? It will no longer appear on the site.'))
+        if (
+            !confirm(
+                'Remove this activity? It will no longer appear on the site.',
+            )
+        )
             return;
         setDeletingId(id);
-        router.delete(`${announcementsUrl}/${id}`, {
+        router.delete(`${activitiesUrl}/${id}`, {
             onSuccess: () => setShowToast(true),
             onFinish: () => setDeletingId(null),
         });
@@ -60,45 +57,45 @@ export default function AnnouncementsIndexPage({
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="News & Announcements" />
+            <Head title="Municipality Activities" />
             <div className="flex flex-1 flex-col gap-6 overflow-x-auto px-4 py-6 md:px-6 lg:max-w-4xl">
                 <header className="flex flex-wrap items-center justify-between gap-4">
                     <div>
                         <h1 className="text-xl font-semibold tracking-tight md:text-2xl">
-                            News & Announcements
+                            Municipality Activities
                         </h1>
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Post news, updates, and announcements. They appear
-                            in the right sidebar on About and Tourism pages.
+                            Post daily or weekly activities carried out by the
+                            LGU. They appear on the homepage and at /activities.
                         </p>
                     </div>
                     <Button asChild>
-                        <Link href={`${announcementsUrl}/create`}>
+                        <Link href={`${activitiesUrl}/create`}>
                             <Plus className="size-4" />
-                            Add post
+                            Add activity
                         </Link>
                     </Button>
                 </header>
 
-                {announcements.length === 0 ? (
+                {activities.length === 0 ? (
                     <Card>
                         <CardContent className="flex flex-col items-center justify-center py-12">
-                            <Megaphone className="size-12 text-muted-foreground" />
+                            <CalendarDays className="size-12 text-muted-foreground" />
                             <p className="mt-4 text-sm text-muted-foreground">
-                                No posts yet. Add one to show on the public
-                                site.
+                                No activities yet. Add one to show on the
+                                homepage and activities page.
                             </p>
                             <Button asChild className="mt-4">
-                                <Link href={`${announcementsUrl}/create`}>
+                                <Link href={`${activitiesUrl}/create`}>
                                     <Plus className="size-4" />
-                                    Add post
+                                    Add activity
                                 </Link>
                             </Button>
                         </CardContent>
                     </Card>
                 ) : (
                     <ul className="space-y-3">
-                        {announcements.map((a) => (
+                        {activities.map((a) => (
                             <li key={a.id}>
                                 <Card>
                                     <CardHeader className="flex flex-row items-start justify-between gap-4 py-4">
@@ -107,11 +104,6 @@ export default function AnnouncementsIndexPage({
                                                 {a.title}
                                             </CardTitle>
                                             <CardDescription className="mt-1 flex flex-wrap items-center gap-2">
-                                                <span className="capitalize">
-                                                    {typeLabel[a.type] ??
-                                                        a.type}
-                                                </span>
-                                                <span>·</span>
                                                 <span>
                                                     {a.published_at
                                                         ? new Date(
@@ -122,10 +114,7 @@ export default function AnnouncementsIndexPage({
                                                 {a.link_url && (
                                                     <>
                                                         <span>·</span>
-                                                        <span className="inline-flex items-center gap-1">
-                                                            <ExternalLink className="size-3" />
-                                                            Link
-                                                        </span>
+                                                        <span>Has link</span>
                                                     </>
                                                 )}
                                             </CardDescription>
@@ -137,7 +126,7 @@ export default function AnnouncementsIndexPage({
                                                 asChild
                                             >
                                                 <Link
-                                                    href={`${announcementsUrl}/${a.id}/edit`}
+                                                    href={`${activitiesUrl}/${a.id}/edit`}
                                                 >
                                                     <Pencil className="size-3.5" />
                                                     Edit

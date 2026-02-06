@@ -50,7 +50,7 @@ export function TourismImageCarousel({
                         key={i}
                         type="button"
                         onClick={() => openPreview(i)}
-                        className="group overflow-hidden rounded-xl bg-neutral-900 shadow-md ring-1 ring-black/10 transition focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                        className="group overflow-hidden rounded-xl bg-neutral-900 shadow-md ring-1 ring-black/10 transition focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:outline-none"
                         aria-label={`View image ${i + 1} of ${count}`}
                     >
                         <img
@@ -74,7 +74,7 @@ export function TourismImageCarousel({
                     <button
                         type="button"
                         onClick={() => setLightboxOpen(false)}
-                        className="absolute right-4 top-4 z-10 flex size-12 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/25 focus:outline-none focus:ring-2 focus:ring-white sm:right-6 sm:top-6"
+                        className="absolute top-4 right-4 z-10 flex size-12 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/25 focus:ring-2 focus:ring-white focus:outline-none sm:top-6 sm:right-6"
                         aria-label="Close"
                     >
                         <X className="size-7" />

@@ -46,6 +46,8 @@ export type TourismItemRow = {
     contact_number: string | null;
     social_media_url: string | null;
     map_embed_url: string | null;
+    map_latitude: number | null;
+    map_longitude: number | null;
     image_url: string | null;
     image_urls: TourismItemImageRow[];
     order_column: number;
@@ -86,7 +88,10 @@ export function TourismItemEditor({
 }: TourismItemEditorProps) {
     const showSocialMedia =
         editorType === 'attraction' || editorType === 'resort';
-    const rawErrors = (usePage().props.errors as Record<string, string | string[]> | undefined) ?? {};
+    const rawErrors =
+        (usePage().props.errors as
+            | Record<string, string | string[]>
+            | undefined) ?? {};
     const pageErrors = Object.fromEntries(
         Object.entries(rawErrors).map(([k, v]) => [
             k,
@@ -101,6 +106,8 @@ export function TourismItemEditor({
         contact_number: '',
         social_media_url: '',
         map_embed_url: '',
+        map_latitude: '',
+        map_longitude: '',
         images: [] as File[],
     });
     const editForm = useForm({
@@ -111,6 +118,8 @@ export function TourismItemEditor({
         contact_number: '',
         social_media_url: '',
         map_embed_url: '',
+        map_latitude: '',
+        map_longitude: '',
         images: [] as File[],
     });
     const [showAddToast, setShowAddToast] = useState(false);
@@ -127,6 +136,10 @@ export function TourismItemEditor({
             contact_number: item.contact_number ?? '',
             social_media_url: item.social_media_url ?? '',
             map_embed_url: item.map_embed_url ?? '',
+            map_latitude:
+                item.map_latitude != null ? String(item.map_latitude) : '',
+            map_longitude:
+                item.map_longitude != null ? String(item.map_longitude) : '',
             images: [],
         });
         setEditItem(item);
@@ -150,7 +163,13 @@ export function TourismItemEditor({
         formData.set('contact_number', addForm.data.contact_number);
         formData.set('social_media_url', addForm.data.social_media_url);
         formData.set('map_embed_url', addForm.data.map_embed_url);
-        addForm.data.images.forEach((file) => formData.append('images[]', file));
+        if (addForm.data.map_latitude)
+            formData.set('map_latitude', addForm.data.map_latitude);
+        if (addForm.data.map_longitude)
+            formData.set('map_longitude', addForm.data.map_longitude);
+        addForm.data.images.forEach((file) =>
+            formData.append('images[]', file),
+        );
         router.post(baseUrl, formData, {
             forceFormData: true,
             onSuccess: () => {
@@ -173,6 +192,10 @@ export function TourismItemEditor({
             formData.set('contact_number', editForm.data.contact_number);
             formData.set('social_media_url', editForm.data.social_media_url);
             formData.set('map_embed_url', editForm.data.map_embed_url);
+            if (editForm.data.map_latitude)
+                formData.set('map_latitude', editForm.data.map_latitude);
+            if (editForm.data.map_longitude)
+                formData.set('map_longitude', editForm.data.map_longitude);
             formData.set('_method', 'PUT');
             editForm.data.images.forEach((file) =>
                 formData.append('images[]', file),
@@ -241,7 +264,9 @@ export function TourismItemEditor({
                             <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground">
                                 <ImagePlus className="size-4" aria-hidden />
                             </span>
-                            <CardTitle className="text-base">{addTitle}</CardTitle>
+                            <CardTitle className="text-base">
+                                {addTitle}
+                            </CardTitle>
                         </div>
                         <CardDescription>{addDescription}</CardDescription>
                     </CardHeader>
@@ -260,7 +285,7 @@ export function TourismItemEditor({
                                                 e.target.value,
                                             )
                                         }
-                                        className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                         placeholder="e.g. Beach View Point"
                                         required
                                     />
@@ -289,7 +314,8 @@ export function TourismItemEditor({
                                                 className="sr-only"
                                                 multiple
                                                 onChange={(e) => {
-                                                    const fileList = e.target.files;
+                                                    const fileList =
+                                                        e.target.files;
                                                     const newFiles = fileList
                                                         ? Array.from(fileList)
                                                         : [];
@@ -324,29 +350,39 @@ export function TourismItemEditor({
                                                                 >
                                                                     {url ? (
                                                                         <img
-                                                                            src={url}
+                                                                            src={
+                                                                                url
+                                                                            }
                                                                             alt={`Preview ${i + 1}`}
                                                                             className="h-20 w-20 rounded-md border object-cover"
                                                                         />
                                                                     ) : (
                                                                         <div className="flex h-20 w-20 items-center justify-center rounded-md border bg-muted text-xs text-muted-foreground">
-                                                                            {file.name}
+                                                                            {
+                                                                                file.name
+                                                                            }
                                                                         </div>
                                                                     )}
                                                                     <button
                                                                         type="button"
-                                                                        onClick={(e) => {
+                                                                        onClick={(
+                                                                            e,
+                                                                        ) => {
                                                                             e.preventDefault();
                                                                             e.stopPropagation();
                                                                             addForm.setData(
                                                                                 'images',
                                                                                 addForm.data.images.filter(
-                                                                                    (_, idx) =>
-                                                                                        idx !== i,
+                                                                                    (
+                                                                                        _,
+                                                                                        idx,
+                                                                                    ) =>
+                                                                                        idx !==
+                                                                                        i,
                                                                                 ),
                                                                             );
                                                                         }}
-                                                                        className="absolute -top-1 -right-1 z-10 flex size-6 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-destructive text-white shadow-md transition-transform hover:scale-110 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
+                                                                        className="absolute -top-1 -right-1 z-10 flex size-6 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-destructive text-white shadow-md transition-transform hover:scale-110 hover:opacity-90 focus:ring-2 focus:ring-ring focus:outline-none"
                                                                         aria-label="Remove from selection"
                                                                     >
                                                                         <X className="size-3.5 shrink-0 stroke-[2.5]" />
@@ -406,7 +442,7 @@ export function TourismItemEditor({
                                                 e.target.value,
                                             )
                                         }
-                                        className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                         placeholder="e.g. Brgy. Alimodian"
                                     />
                                 </div>
@@ -424,7 +460,7 @@ export function TourismItemEditor({
                                                 e.target.value,
                                             )
                                         }
-                                        className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                         placeholder="contact@example.com"
                                     />
                                     <InputError
@@ -448,7 +484,7 @@ export function TourismItemEditor({
                                                 e.target.value,
                                             )
                                         }
-                                        className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                         placeholder="e.g. +63 912 345 6789"
                                     />
                                 </div>
@@ -462,19 +498,22 @@ export function TourismItemEditor({
                                         <input
                                             id="add-social"
                                             type="url"
-                                            value={addForm.data.social_media_url}
+                                            value={
+                                                addForm.data.social_media_url
+                                            }
                                             onChange={(e) =>
                                                 addForm.setData(
                                                     'social_media_url',
                                                     e.target.value,
                                                 )
                                             }
-                                            className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                             placeholder="https://facebook.com/..."
                                         />
                                         <InputError
                                             message={
-                                                addForm.errors.social_media_url ??
+                                                addForm.errors
+                                                    .social_media_url ??
                                                 pageErrors.social_media_url
                                             }
                                         />
@@ -493,13 +532,14 @@ export function TourismItemEditor({
                                                     e.target.value,
                                                 )
                                             }
-                                            className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                             placeholder="https://www.google.com/maps/embed?pb=..."
                                         />
-                                        <p className="text-muted-foreground text-xs">
-                                            In Google Maps: open the place → Share
-                                            → Embed a map → copy the iframe{" "}
-                                            <strong>src</strong> URL (starts with
+                                        <p className="text-xs text-muted-foreground">
+                                            In Google Maps: open the place →
+                                            Share → Embed a map → copy the
+                                            iframe <strong>src</strong> URL
+                                            (starts with
                                             https://www.google.com/maps/embed).
                                             Or paste a Plus Code/address to show
                                             a &quot;View on Google Maps&quot;
@@ -512,6 +552,55 @@ export function TourismItemEditor({
                                             }
                                         />
                                     </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="add-map-lat">
+                                                Map latitude (optional)
+                                            </Label>
+                                            <input
+                                                id="add-map-lat"
+                                                type="text"
+                                                inputMode="decimal"
+                                                value={
+                                                    addForm.data.map_latitude
+                                                }
+                                                onChange={(e) =>
+                                                    addForm.setData(
+                                                        'map_latitude',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                                placeholder="e.g. 9.62"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="add-map-lng">
+                                                Map longitude (optional)
+                                            </Label>
+                                            <input
+                                                id="add-map-lng"
+                                                type="text"
+                                                inputMode="decimal"
+                                                value={
+                                                    addForm.data.map_longitude
+                                                }
+                                                onChange={(e) =>
+                                                    addForm.setData(
+                                                        'map_longitude',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                                placeholder="e.g. 122.47"
+                                            />
+                                        </div>
+                                    </div>
+                                    <p className="text-xs text-muted-foreground">
+                                        Set the pin location for the map. In
+                                        Google Maps: right-click the place →
+                                        click the coordinates to copy.
+                                    </p>
                                 </>
                             )}
                             <div className="flex flex-wrap items-center gap-3">
@@ -594,13 +683,14 @@ export function TourismItemEditor({
                                                 </div>
                                             )}
                                             {item.image_urls.length > 1 && (
-                                                <div className="absolute bottom-1 right-1 rounded bg-black/60 px-1.5 py-0.5 text-xs text-white">
-                                                    +{item.image_urls.length - 1}
+                                                <div className="absolute right-1 bottom-1 rounded bg-black/60 px-1.5 py-0.5 text-xs text-white">
+                                                    +
+                                                    {item.image_urls.length - 1}
                                                 </div>
                                             )}
                                         </div>
                                         <div className="space-y-2 p-3">
-                                            <h3 className="font-medium leading-tight line-clamp-2">
+                                            <h3 className="line-clamp-2 leading-tight font-medium">
                                                 {item.title}
                                             </h3>
                                             {item.description ? (
@@ -644,7 +734,10 @@ export function TourismItemEditor({
             </div>
 
             {/* Edit dialog */}
-            <Dialog open={editOpen} onOpenChange={(open) => !open && closeEdit()}>
+            <Dialog
+                open={editOpen}
+                onOpenChange={(open) => !open && closeEdit()}
+            >
                 <DialogContent className="flex max-h-[90vh] flex-col sm:max-w-lg">
                     <DialogHeader className="shrink-0">
                         <DialogTitle>Edit {currentLabel}</DialogTitle>
@@ -659,250 +752,311 @@ export function TourismItemEditor({
                         encType="multipart/form-data"
                     >
                         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-1">
-                        <div className="space-y-2">
-                            <Label htmlFor="edit-title">Title</Label>
-                            <input
-                                id="edit-title"
-                                type="text"
-                                value={editForm.data.title}
-                                onChange={(e) =>
-                                    editForm.setData('title', e.target.value)
-                                }
-                                className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
-                                required
-                            />
-                            <InputError message={editForm.errors.title} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="edit-description">
-                                Description (optional)
-                            </Label>
-                            <textarea
-                                id="edit-description"
-                                value={editForm.data.description}
-                                onChange={(e) =>
-                                    editForm.setData(
-                                        'description',
-                                        e.target.value,
-                                    )
-                                }
-                                className={textareaClass}
-                                rows={3}
-                            />
-                            <InputError
-                                message={editForm.errors.description}
-                            />
-                        </div>
-                        <div className="grid gap-4 sm:grid-cols-3">
                             <div className="space-y-2">
-                                <Label htmlFor="edit-address">
-                                    Address (optional)
-                                </Label>
+                                <Label htmlFor="edit-title">Title</Label>
                                 <input
-                                    id="edit-address"
+                                    id="edit-title"
                                     type="text"
-                                    value={editForm.data.address}
+                                    value={editForm.data.title}
                                     onChange={(e) =>
                                         editForm.setData(
-                                            'address',
+                                            'title',
                                             e.target.value,
                                         )
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
-                                    placeholder="e.g. Brgy. Alimodian"
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                    required
                                 />
+                                <InputError message={editForm.errors.title} />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="edit-email">
-                                    Email (optional)
+                                <Label htmlFor="edit-description">
+                                    Description (optional)
                                 </Label>
-                                <input
-                                    id="edit-email"
-                                    type="email"
-                                    value={editForm.data.email}
+                                <textarea
+                                    id="edit-description"
+                                    value={editForm.data.description}
                                     onChange={(e) =>
                                         editForm.setData(
-                                            'email',
+                                            'description',
                                             e.target.value,
                                         )
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
-                                    placeholder="contact@example.com"
+                                    className={textareaClass}
+                                    rows={3}
                                 />
                                 <InputError
-                                    message={editForm.errors.email}
+                                    message={editForm.errors.description}
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="edit-contact">
-                                    Contact number (optional)
-                                </Label>
-                                <input
-                                    id="edit-contact"
-                                    type="text"
-                                    value={editForm.data.contact_number}
-                                    onChange={(e) =>
-                                        editForm.setData(
-                                            'contact_number',
-                                            e.target.value,
-                                        )
-                                    }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
-                                    placeholder="e.g. +63 912 345 6789"
-                                />
-                            </div>
-                        </div>
-                        {showSocialMedia && (
-                            <>
+                            <div className="grid gap-4 sm:grid-cols-3">
                                 <div className="space-y-2">
-                                    <Label htmlFor="edit-social">
-                                        Social media link (optional)
+                                    <Label htmlFor="edit-address">
+                                        Address (optional)
                                     </Label>
                                     <input
-                                        id="edit-social"
-                                        type="url"
-                                        value={editForm.data.social_media_url}
-                                        onChange={(e) =>
-                                            editForm.setData(
-                                                'social_media_url',
-                                                e.target.value,
-                                            )
-                                        }
-                                        className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
-                                        placeholder="https://facebook.com/..."
-                                    />
-                                    <InputError
-                                        message={editForm.errors.social_media_url}
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="edit-map">
-                                        Google Map embed URL (optional)
-                                    </Label>
-                                    <input
-                                        id="edit-map"
+                                        id="edit-address"
                                         type="text"
-                                        value={editForm.data.map_embed_url}
+                                        value={editForm.data.address}
                                         onChange={(e) =>
                                             editForm.setData(
-                                                'map_embed_url',
+                                                'address',
                                                 e.target.value,
                                             )
                                         }
-                                        className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
-                                        placeholder="https://www.google.com/maps/embed?pb=..."
-                                    />
-                                    <p className="text-muted-foreground text-xs">
-                                        In Google Maps: open the place → Share →
-                                        Embed a map → copy the iframe{" "}
-                                        <strong>src</strong> URL. Or paste a
-                                        Plus Code/address for a &quot;View on
-                                        Google Maps&quot; link.
-                                    </p>
-                                    <InputError
-                                        message={editForm.errors.map_embed_url}
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                        placeholder="e.g. Brgy. Alimodian"
                                     />
                                 </div>
-                            </>
-                        )}
-                        {editItem && editItem.image_urls.length > 0 && (
-                            <div className="space-y-2">
-                                <Label>Current images</Label>
-                                <div className="flex flex-wrap gap-2">
-                                    {editItem.image_urls.map((img) => (
-                                        <div
-                                            key={img.id}
-                                            className="relative inline-block"
-                                        >
-                                            <img
-                                                src={img.image_url}
-                                                alt=""
-                                                className="h-20 w-20 rounded-md border object-cover"
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                    handleRemoveImage(img.id);
-                                                }}
-                                                className="absolute -top-1 -right-1 z-10 flex size-6 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-destructive text-white shadow-md transition-transform hover:scale-110 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
-                                                aria-label="Remove this image"
-                                            >
-                                                <X className="size-3.5 shrink-0 stroke-[2.5]" />
-                                            </button>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                        <div className="space-y-2">
-                            <Label>Add more images (optional)</Label>
-                            <div className="flex flex-wrap items-center gap-2">
-                                <label className="flex cursor-pointer items-center gap-2 rounded-md border border-input px-3 py-2 text-sm transition-colors hover:bg-muted/50">
-                                    <ImagePlus className="size-4" />
-                                    Choose new images
+                                <div className="space-y-2">
+                                    <Label htmlFor="edit-email">
+                                        Email (optional)
+                                    </Label>
                                     <input
-                                        type="file"
-                                        accept="image/jpeg,image/png,image/gif,image/webp"
-                                        className="sr-only"
-                                        multiple
-                                        onChange={(e) => {
-                                            const newFiles = Array.from(
-                                                e.target.files ?? [],
-                                            );
-                                            editForm.setData('images', [
-                                                ...editForm.data.images,
-                                                ...newFiles,
-                                            ]);
-                                            e.target.value = '';
-                                        }}
+                                        id="edit-email"
+                                        type="email"
+                                        value={editForm.data.email}
+                                        onChange={(e) =>
+                                            editForm.setData(
+                                                'email',
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                        placeholder="contact@example.com"
                                     />
-                                </label>
-                                {editForm.data.images.map((file, i) => {
-                                    const url =
-                                        file instanceof File
-                                            ? URL.createObjectURL(file)
-                                            : null;
-                                    return (
-                                        <div
-                                            key={`edit-new-${i}-${file.name}`}
-                                            className="relative"
-                                        >
-                                            {url ? (
-                                                <img
-                                                    src={url}
-                                                    alt={`New ${i + 1}`}
-                                                    className="h-16 w-16 rounded-md border object-cover"
-                                                />
-                                            ) : (
-                                                <div className="flex h-16 w-16 items-center justify-center rounded-md border bg-muted text-xs text-muted-foreground">
-                                                    {file.name}
-                                                </div>
-                                            )}
-                                            <button
-                                                type="button"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                    editForm.setData(
-                                                        'images',
-                                                        editForm.data.images.filter(
-                                                            (_, idx) =>
-                                                                idx !== i,
-                                                        ),
-                                                    );
-                                                }}
-                                                className="absolute -top-1 -right-1 z-10 flex size-5 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-destructive text-white shadow hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
-                                                aria-label="Remove from selection"
-                                            >
-                                                <X className="size-3 shrink-0 stroke-[2.5]" />
-                                            </button>
-                                        </div>
-                                    );
-                                })}
+                                    <InputError
+                                        message={editForm.errors.email}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="edit-contact">
+                                        Contact number (optional)
+                                    </Label>
+                                    <input
+                                        id="edit-contact"
+                                        type="text"
+                                        value={editForm.data.contact_number}
+                                        onChange={(e) =>
+                                            editForm.setData(
+                                                'contact_number',
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                        placeholder="e.g. +63 912 345 6789"
+                                    />
+                                </div>
                             </div>
-                        </div>
+                            {showSocialMedia && (
+                                <>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit-social">
+                                            Social media link (optional)
+                                        </Label>
+                                        <input
+                                            id="edit-social"
+                                            type="url"
+                                            value={
+                                                editForm.data.social_media_url
+                                            }
+                                            onChange={(e) =>
+                                                editForm.setData(
+                                                    'social_media_url',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                            placeholder="https://facebook.com/..."
+                                        />
+                                        <InputError
+                                            message={
+                                                editForm.errors.social_media_url
+                                            }
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit-map">
+                                            Google Map embed URL (optional)
+                                        </Label>
+                                        <input
+                                            id="edit-map"
+                                            type="text"
+                                            value={editForm.data.map_embed_url}
+                                            onChange={(e) =>
+                                                editForm.setData(
+                                                    'map_embed_url',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                            placeholder="https://www.google.com/maps/embed?pb=..."
+                                        />
+                                        <p className="text-xs text-muted-foreground">
+                                            In Google Maps: open the place →
+                                            Share → Embed a map → copy the
+                                            iframe <strong>src</strong> URL. Or
+                                            paste a Plus Code/address for a
+                                            &quot;View on Google Maps&quot;
+                                            link.
+                                        </p>
+                                        <InputError
+                                            message={
+                                                editForm.errors.map_embed_url
+                                            }
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="edit-map-lat">
+                                                Map latitude (optional)
+                                            </Label>
+                                            <input
+                                                id="edit-map-lat"
+                                                type="text"
+                                                inputMode="decimal"
+                                                value={
+                                                    editForm.data.map_latitude
+                                                }
+                                                onChange={(e) =>
+                                                    editForm.setData(
+                                                        'map_latitude',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                                placeholder="e.g. 9.62"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="edit-map-lng">
+                                                Map longitude (optional)
+                                            </Label>
+                                            <input
+                                                id="edit-map-lng"
+                                                type="text"
+                                                inputMode="decimal"
+                                                value={
+                                                    editForm.data.map_longitude
+                                                }
+                                                onChange={(e) =>
+                                                    editForm.setData(
+                                                        'map_longitude',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                                placeholder="e.g. 122.47"
+                                            />
+                                        </div>
+                                    </div>
+                                    <p className="text-xs text-muted-foreground">
+                                        Pin location for the map. In Google
+                                        Maps: right-click the place → click
+                                        coordinates to copy.
+                                    </p>
+                                </>
+                            )}
+                            {editItem && editItem.image_urls.length > 0 && (
+                                <div className="space-y-2">
+                                    <Label>Current images</Label>
+                                    <div className="flex flex-wrap gap-2">
+                                        {editItem.image_urls.map((img) => (
+                                            <div
+                                                key={img.id}
+                                                className="relative inline-block"
+                                            >
+                                                <img
+                                                    src={img.image_url}
+                                                    alt=""
+                                                    className="h-20 w-20 rounded-md border object-cover"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        handleRemoveImage(
+                                                            img.id,
+                                                        );
+                                                    }}
+                                                    className="absolute -top-1 -right-1 z-10 flex size-6 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-destructive text-white shadow-md transition-transform hover:scale-110 hover:opacity-90 focus:ring-2 focus:ring-ring focus:outline-none"
+                                                    aria-label="Remove this image"
+                                                >
+                                                    <X className="size-3.5 shrink-0 stroke-[2.5]" />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            <div className="space-y-2">
+                                <Label>Add more images (optional)</Label>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <label className="flex cursor-pointer items-center gap-2 rounded-md border border-input px-3 py-2 text-sm transition-colors hover:bg-muted/50">
+                                        <ImagePlus className="size-4" />
+                                        Choose new images
+                                        <input
+                                            type="file"
+                                            accept="image/jpeg,image/png,image/gif,image/webp"
+                                            className="sr-only"
+                                            multiple
+                                            onChange={(e) => {
+                                                const newFiles = Array.from(
+                                                    e.target.files ?? [],
+                                                );
+                                                editForm.setData('images', [
+                                                    ...editForm.data.images,
+                                                    ...newFiles,
+                                                ]);
+                                                e.target.value = '';
+                                            }}
+                                        />
+                                    </label>
+                                    {editForm.data.images.map((file, i) => {
+                                        const url =
+                                            file instanceof File
+                                                ? URL.createObjectURL(file)
+                                                : null;
+                                        return (
+                                            <div
+                                                key={`edit-new-${i}-${file.name}`}
+                                                className="relative"
+                                            >
+                                                {url ? (
+                                                    <img
+                                                        src={url}
+                                                        alt={`New ${i + 1}`}
+                                                        className="h-16 w-16 rounded-md border object-cover"
+                                                    />
+                                                ) : (
+                                                    <div className="flex h-16 w-16 items-center justify-center rounded-md border bg-muted text-xs text-muted-foreground">
+                                                        {file.name}
+                                                    </div>
+                                                )}
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        editForm.setData(
+                                                            'images',
+                                                            editForm.data.images.filter(
+                                                                (_, idx) =>
+                                                                    idx !== i,
+                                                            ),
+                                                        );
+                                                    }}
+                                                    className="absolute -top-1 -right-1 z-10 flex size-5 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-destructive text-white shadow hover:opacity-90 focus:ring-2 focus:ring-ring focus:outline-none"
+                                                    aria-label="Remove from selection"
+                                                >
+                                                    <X className="size-3 shrink-0 stroke-[2.5]" />
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
                         </div>
                         <DialogFooter className="shrink-0 border-t pt-4">
                             <Button

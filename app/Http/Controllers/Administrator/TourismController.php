@@ -59,6 +59,8 @@ class TourismController extends Controller
                 'contact_number' => $item->contact_number,
                 'social_media_url' => $item->social_media_url,
                 'map_embed_url' => $item->map_embed_url,
+                'map_latitude' => $item->map_latitude,
+                'map_longitude' => $item->map_longitude,
                 'image_url' => $item->image_url,
                 'image_urls' => $imageUrls,
                 'order_column' => $item->order_column,
@@ -87,6 +89,8 @@ class TourismController extends Controller
             'email' => ['nullable', 'email', 'max:255'],
             'contact_number' => ['nullable', 'string', 'max:50'],
             'social_media_url' => ['nullable', 'string', 'url', 'max:500'],
+            'map_latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'map_longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'images' => ['required', 'array', 'min:1'],
             'images.*' => ['image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
         ]);
@@ -101,6 +105,8 @@ class TourismController extends Controller
             'contact_number' => $request->input('contact_number'),
             'social_media_url' => $request->input('social_media_url'),
             'map_embed_url' => $request->input('map_embed_url'),
+            'map_latitude' => $request->input('map_latitude') ?: null,
+            'map_longitude' => $request->input('map_longitude') ?: null,
             'order_column' => $maxOrder + 1,
         ]);
 
@@ -131,6 +137,8 @@ class TourismController extends Controller
             'email' => ['nullable', 'email', 'max:255'],
             'contact_number' => ['nullable', 'string', 'max:50'],
             'social_media_url' => ['nullable', 'string', 'url', 'max:500'],
+            'map_latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'map_longitude' => ['nullable', 'numeric', 'between:-180,180'],
         ];
         if ($request->hasFile('images')) {
             $rules['images'] = ['array'];
@@ -146,6 +154,8 @@ class TourismController extends Controller
             'contact_number' => $request->input('contact_number'),
             'social_media_url' => $request->input('social_media_url'),
             'map_embed_url' => $request->input('map_embed_url'),
+            'map_latitude' => $request->input('map_latitude') ?: null,
+            'map_longitude' => $request->input('map_longitude') ?: null,
         ]);
 
         if ($request->hasFile('images')) {

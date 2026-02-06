@@ -19,43 +19,57 @@ export default function AnnouncementShowPage({
 }: AnnouncementShowPageProps) {
     return (
         <LandingLayout>
-            <Head title={`${item.title} - ${title} · Municipality of Hinobaan`} />
-            <section className="border-b-4 border-blue-800 bg-slate-800 text-white">
-                <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-                    <nav className="mb-4 text-sm text-slate-300">
-                        <Link href="/" className="hover:text-white">
-                            Home
-                        </Link>
-                        <span className="mx-2">/</span>
-                        <Link href={listPath} className="hover:text-white">
-                            {title}
-                        </Link>
-                        <span className="mx-2">/</span>
-                        <span className="text-white line-clamp-1">{item.title}</span>
-                    </nav>
-                    <Link
-                        href={listPath}
-                        className="mb-4 inline-block text-sm text-slate-300 hover:text-white"
-                    >
-                        Back to {title}
-                    </Link>
-                    <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                        {item.title}
-                    </h1>
-                    {item.published_at && (
-                        <time
-                            dateTime={item.published_at}
-                            className="mt-1 block text-sm text-slate-300"
+            <Head
+                title={`${item.title} - ${title} · Municipality of Hinobaan`}
+            />
+            {/* Government-style header with banner */}
+            <section className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{
+                        backgroundImage: "url('/hinobaan-banner/banner2.png')",
+                    }}
+                />
+                <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto w-full max-w-5xl [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]">
+                        <nav className="mb-4 text-sm text-slate-200">
+                            <Link href="/" className="hover:text-white">
+                                Home
+                            </Link>
+                            <span className="mx-2">/</span>
+                            <Link href={listPath} className="hover:text-white">
+                                {title}
+                            </Link>
+                            <span className="mx-2">/</span>
+                            <span className="line-clamp-1 text-white">
+                                {item.title}
+                            </span>
+                        </nav>
+                        <Link
+                            href={listPath}
+                            className="mb-2 inline-block text-sm text-slate-200 hover:text-white"
                         >
-                            {new Date(item.published_at).toLocaleDateString(
-                                undefined,
-                                { dateStyle: 'long' },
-                            )}
-                        </time>
-                    )}
-                    <p className="mt-1 text-sm text-slate-300">
-                        Municipality of Hinobaan · Province of Negros Occidental
-                    </p>
+                            Back to {title}
+                        </Link>
+                        <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                            {item.title}
+                        </h1>
+                        {item.published_at && (
+                            <time
+                                dateTime={item.published_at}
+                                className="mt-1 block text-sm font-semibold text-white"
+                            >
+                                {new Date(item.published_at).toLocaleDateString(
+                                    undefined,
+                                    { dateStyle: 'long' },
+                                )}
+                            </time>
+                        )}
+                        <p className="mt-1 text-sm text-slate-200">
+                            Municipality of Hinobaan · Province of Negros
+                            Occidental
+                        </p>
+                    </div>
                 </div>
             </section>
 
@@ -72,7 +86,9 @@ export default function AnnouncementShowPage({
                             )}
                             <div
                                 className="prose prose-slate max-w-none text-slate-700 [&_a]:font-medium [&_a]:text-blue-800 [&_a]:underline [&_a]:hover:text-blue-900 [&_blockquote]:border-l-4 [&_blockquote]:border-blue-800 [&_blockquote]:pl-4 [&_blockquote]:italic [&_h2]:mt-8 [&_h2]:text-xl [&_h3]:mt-6 [&_h3]:text-lg [&_p]:mb-4 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6"
-                                dangerouslySetInnerHTML={{ __html: item.content }}
+                                dangerouslySetInnerHTML={{
+                                    __html: item.content,
+                                }}
                             />
                             {item.link_url && (
                                 <a
@@ -82,7 +98,10 @@ export default function AnnouncementShowPage({
                                     className="mt-6 inline-flex items-center gap-2 font-medium text-blue-800 hover:underline"
                                 >
                                     Read more at source
-                                    <ExternalLink className="size-4" aria-hidden />
+                                    <ExternalLink
+                                        className="size-4"
+                                        aria-hidden
+                                    />
                                 </a>
                             )}
                         </article>

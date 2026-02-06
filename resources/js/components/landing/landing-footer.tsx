@@ -49,17 +49,34 @@ export function LandingFooter() {
 
     return (
         <footer className="border-t border-neutral-200 bg-neutral-900 text-neutral-300">
-            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
-                    {/* Brand + contact */}
+            <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+                    {/* Brand + logos + contact */}
                     <div className="lg:col-span-2">
                         <Link
                             href="/"
-                            className="inline-block text-lg font-semibold text-white"
+                            className="inline-flex flex-wrap items-center gap-3 sm:gap-4"
                         >
-                            Municipality of Hinobaan
+                            <img
+                                src="/hinobaan-logo/Hinobaan_logo.png"
+                                alt=""
+                                className="h-12 w-auto object-contain sm:h-14"
+                            />
+                            <img
+                                src="/hinobaan-logo/Onehinoba-an%20logo.png"
+                                alt=""
+                                className="h-10 w-auto object-contain sm:h-12"
+                            />
+                            <img
+                                src="/hinobaan-logo/BP_Logo.webp"
+                                alt=""
+                                className="h-8 w-auto object-contain opacity-90 sm:h-9"
+                            />
                         </Link>
-                        <p className="mt-3 max-w-sm text-sm leading-relaxed text-neutral-400">
+                        <p className="mt-4 text-base font-semibold text-white">
+                            Municipality of Hinobaan
+                        </p>
+                        <p className="mt-2 max-w-sm text-sm leading-relaxed text-neutral-400">
                             Official website of the Municipal Government of
                             Hinobaan, Negros Occidental. Serving our community
                             with transparency and dedication.
@@ -68,7 +85,7 @@ export function LandingFooter() {
                             {contactInfo.map(({ icon: Icon, label }) => (
                                 <li
                                     key={label}
-                                    className="flex items-start gap-3 text-sm"
+                                    className="flex items-start gap-3 text-sm text-neutral-400"
                                 >
                                     <Icon
                                         className="mt-0.5 size-4 shrink-0 text-neutral-500"
@@ -82,10 +99,10 @@ export function LandingFooter() {
                     {/* Link columns */}
                     {footerSections.map((section) => (
                         <div key={section.title}>
-                            <h3 className="text-sm font-semibold tracking-wider text-white uppercase">
+                            <h3 className="text-sm font-semibold tracking-wider text-white">
                                 {section.title}
                             </h3>
-                            <ul className="mt-4 space-y-2">
+                            <ul className="mt-4 space-y-3">
                                 {section.links.map((link) => (
                                     <li key={link.href}>
                                         <Link
@@ -101,8 +118,8 @@ export function LandingFooter() {
                     ))}
                 </div>
                 {/* Bottom bar */}
-                <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-neutral-800 pt-8 sm:flex-row">
-                    <p className="text-sm text-neutral-500">
+                <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-neutral-800 pt-8 sm:flex-row">
+                    <p className="text-center text-sm text-neutral-500 sm:text-left">
                         © {currentYear} Municipality of Hinobaan. All rights
                         reserved.
                     </p>
