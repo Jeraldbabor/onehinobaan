@@ -88,8 +88,8 @@ export default function AnnouncementFormPage({ announcement }: FormPageProps) {
                     </h1>
                     <p className="mt-1 text-sm text-muted-foreground">
                         {isEdit
-                            ? 'Update this news, update, or announcement.'
-                            : 'Add a news item, update, or announcement. It will appear in the sidebar on About and Tourism pages when published.'}
+                            ? 'Update this post.'
+                            : 'Add a news item, update, or announcement. They appear in the sidebar on About and Tourism pages when published.'}
                     </p>
                 </header>
 

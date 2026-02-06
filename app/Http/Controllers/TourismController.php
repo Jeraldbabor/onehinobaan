@@ -72,6 +72,8 @@ class TourismController extends Controller
             'contact_number' => $item->contact_number,
             'social_media_url' => $item->social_media_url,
             'map_embed_url' => $item->map_embed_url,
+            'map_latitude' => $item->map_latitude,
+            'map_longitude' => $item->map_longitude,
             'image_url' => $item->image_url,
             'image_urls' => $item->images->map(fn ($img) => $img->image_url)->values()->all(),
         ];

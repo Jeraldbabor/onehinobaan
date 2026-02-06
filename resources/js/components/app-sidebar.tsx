@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import {
     Building2,
+    CalendarDays,
     ChevronDown,
     History,
     Info,
@@ -9,6 +10,7 @@ import {
     MapPin,
     Megaphone,
     PartyPopper,
+    Phone,
     Target,
     Users,
     Waves,
@@ -43,10 +45,12 @@ const editHistoryUrl = '/dashboard/history';
 const editVisionMissionUrl = '/dashboard/vision-mission';
 const editOfficialsUrl = '/dashboard/officials';
 const editBarangayUrl = '/dashboard/barangay';
+const editContactUrl = '/dashboard/contact';
 const editTourismAttractionUrl = '/dashboard/tourism/attraction';
 const editTourismResortsUrl = '/dashboard/tourism/resorts';
 const editTourismFestivalsUrl = '/dashboard/tourism/festivals';
 const announcementsUrl = '/dashboard/announcements';
+const activitiesUrl = '/dashboard/activities';
 
 export function AppSidebar() {
     const [aboutOpen, setAboutOpen] = useState(false);
@@ -62,7 +66,9 @@ export function AppSidebar() {
             currentUrl === editOfficialsUrl ||
             currentUrl.startsWith(editOfficialsUrl + '/') ||
             currentUrl === editBarangayUrl ||
-            currentUrl.startsWith(editBarangayUrl + '/');
+            currentUrl.startsWith(editBarangayUrl + '/') ||
+            currentUrl === editContactUrl ||
+            currentUrl.startsWith(editContactUrl + '/');
         if (isAboutPage) {
             const id = setTimeout(() => setAboutOpen(true), 0);
             return () => clearTimeout(id);
@@ -122,6 +128,18 @@ export function AppSidebar() {
                                 <Link href={announcementsUrl} prefetch>
                                     <Megaphone className="size-4" />
                                     <span>News & Announcements</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                asChild
+                                isActive={isCurrentUrl(activitiesUrl)}
+                                tooltip={{ children: 'Municipality Activities' }}
+                            >
+                                <Link href={activitiesUrl} prefetch>
+                                    <CalendarDays className="size-4" />
+                                    <span>Municipality Activities</span>
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
@@ -218,6 +236,22 @@ export function AppSidebar() {
                                                 >
                                                     <Building2 className="size-4" />
                                                     <span>Edit Barangay</span>
+                                                </Link>
+                                            </SidebarMenuSubButton>
+                                        </SidebarMenuSubItem>
+                                        <SidebarMenuSubItem>
+                                            <SidebarMenuSubButton
+                                                asChild
+                                                isActive={isCurrentUrl(
+                                                    editContactUrl,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={editContactUrl}
+                                                    prefetch
+                                                >
+                                                    <Phone className="size-4" />
+                                                    <span>Edit Contact Us</span>
                                                 </Link>
                                             </SidebarMenuSubButton>
                                         </SidebarMenuSubItem>

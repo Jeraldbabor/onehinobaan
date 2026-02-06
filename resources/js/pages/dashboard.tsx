@@ -8,6 +8,7 @@ import {
     MapPin,
     Megaphone,
     PartyPopper,
+    Phone,
     Target,
     Users,
     Waves,
@@ -38,6 +39,7 @@ const quickLinks = [
             { label: 'Vision & Mission', href: '/dashboard/vision-mission', icon: Target },
             { label: 'Key Officials', href: '/dashboard/officials', icon: Users },
             { label: 'Barangay', href: '/dashboard/barangay', icon: Building2 },
+            { label: 'Contact Us', href: '/dashboard/contact', icon: Phone },
         ],
     },
     {

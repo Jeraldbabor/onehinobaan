@@ -19,89 +19,247 @@ class OfficialsController extends Controller
     private const IMAGE_DIR = 'officials';
 
     /**
-     * Show the public Key Officials page (images only).
+     * Get officials data for landing page (e.g. carousel).
+     *
+     * @return array{mayor: array|null, vice_mayor: array|null, sb_members: array}
      */
-    public function show(): Response
+    public function getOfficialsForFrontend(): array
     {
-        $officials = $this->mapOfficialsForFrontend(SiteContent::getOfficialsList());
+        return $this->mapOfficialsForFrontend(SiteContent::getOfficials());
+    }
+
+    /**
+     * Show the public Key Officials page (mayor, vice mayor, SB members).
+     * Optional $section: 'mayor' | 'vice-mayor' | 'sb-member' to show only that section.
+     */
+    public function show(?string $section = null): Response
+    {
+        $data = $this->mapOfficialsForFrontend(SiteContent::getOfficials());
 
         return Inertia::render('about/officials', [
-            'officials' => $officials,
+            'section' => $section,
+            'mayor' => $data['mayor'],
+            'viceMayor' => $data['vice_mayor'],
+            'sbMembers' => $data['sb_members'],
             'announcements' => Announcement::forSidebar(),
         ]);
     }
 
     /**
-     * Show the admin page to manage officials (upload / remove images).
+     * Show the admin page to manage officials (mayor, vice mayor, SB members).
      */
     public function index(): Response
     {
-        $officials = $this->mapOfficialsForFrontend(SiteContent::getOfficialsList());
+        $data = $this->mapOfficialsForFrontend(SiteContent::getOfficials());
 
         return Inertia::render('administrator/about-us/officials-edit', [
-            'officials' => $officials,
+            'mayor' => $data['mayor'],
+            'viceMayor' => $data['vice_mayor'],
+            'sbMembers' => $data['sb_members'],
         ]);
     }
 
     /**
-     * Store a new official (image upload only).
+     * Update mayor (name + optional image).
      */
-    public function store(Request $request): RedirectResponse
+    public function updateMayor(Request $request): RedirectResponse
     {
         $request->validate([
+            'name' => ['nullable', 'string', 'max:255'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
+        ]);
+
+        $officials = SiteContent::getOfficials();
+        $mayor = $officials['mayor'] ?? null;
+        if (! is_array($mayor)) {
+            $mayor = ['id' => Str::random(8), 'name' => '', 'title' => 'Municipal Mayor', 'image_path' => ''];
+        }
+
+        $mayor['name'] = $request->input('name', $mayor['name'] ?? '');
+        $mayor['title'] = $request->input('title', $mayor['title'] ?? 'Municipal Mayor');
+
+        if ($request->hasFile('image')) {
+            if (! empty($mayor['image_path'])) {
+                Storage::disk(self::IMAGE_DISK)->delete($mayor['image_path']);
+            }
+            $mayor['image_path'] = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        }
+
+        $officials['mayor'] = $mayor;
+        SiteContent::setOfficials($officials);
+
+        return back()->with('status', 'Mayor updated.');
+    }
+
+    /**
+     * Update vice mayor (name + optional image).
+     */
+    public function updateViceMayor(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['nullable', 'string', 'max:255'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
+        ]);
+
+        $officials = SiteContent::getOfficials();
+        $viceMayor = $officials['vice_mayor'] ?? null;
+        if (! is_array($viceMayor)) {
+            $viceMayor = ['id' => Str::random(8), 'name' => '', 'title' => 'Vice Mayor', 'image_path' => ''];
+        }
+
+        $viceMayor['name'] = $request->input('name', $viceMayor['name'] ?? '');
+        $viceMayor['title'] = $request->input('title', $viceMayor['title'] ?? 'Vice Mayor');
+
+        if ($request->hasFile('image')) {
+            if (! empty($viceMayor['image_path'])) {
+                Storage::disk(self::IMAGE_DISK)->delete($viceMayor['image_path']);
+            }
+            $viceMayor['image_path'] = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        }
+
+        $officials['vice_mayor'] = $viceMayor;
+        SiteContent::setOfficials($officials);
+
+        return back()->with('status', 'Vice Mayor updated.');
+    }
+
+    /**
+     * Add an SB member (name + image).
+     */
+    public function storeSbMember(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['nullable', 'string', 'max:255'],
+            'title' => ['nullable', 'string', 'max:255'],
             'image' => ['required', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
         ]);
 
-        $file = $request->file('image');
-        $path = $file->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        $officials = SiteContent::getOfficials();
+        $sbMembers = $officials['sb_members'];
+        $maxOrder = collect($sbMembers)->max('display_order') ?? 0;
 
-        $list = SiteContent::getOfficialsList();
-        $maxOrder = collect($list)->max('display_order') ?? 0;
-        $list[] = [
+        $path = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        $sbMembers[] = [
             'id' => Str::random(8),
+            'name' => $request->input('name', ''),
+            'title' => $request->input('title', 'SB Member'),
             'image_path' => $path,
             'display_order' => $maxOrder + 1,
         ];
-        SiteContent::setOfficialsList($list);
+        $officials['sb_members'] = $sbMembers;
+        SiteContent::setOfficials($officials);
 
-        return back()->with('status', 'Official added.');
+        return back()->with('status', 'SB Member added.');
     }
 
     /**
-     * Remove an official and delete its image.
+     * Update an SB member (name + optional image).
      */
-    public function destroy(string $id): RedirectResponse
+    public function updateSbMember(Request $request, string $id): RedirectResponse
     {
-        $list = SiteContent::getOfficialsList();
+        $request->validate([
+            'name' => ['nullable', 'string', 'max:255'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
+        ]);
+
+        $officials = SiteContent::getOfficials();
+        $sbMembers = $officials['sb_members'];
         $found = null;
+        $key = null;
+        foreach ($sbMembers as $i => $m) {
+            if (($m['id'] ?? '') === $id) {
+                $found = $m;
+                $key = $i;
+                break;
+            }
+        }
+        if ($found === null || $key === null) {
+            return back()->withErrors(['official' => 'SB Member not found.']);
+        }
+
+        $found['name'] = $request->input('name', $found['name'] ?? '');
+        $found['title'] = $request->input('title', $found['title'] ?? 'SB Member');
+
+        if ($request->hasFile('image')) {
+            if (! empty($found['image_path'])) {
+                Storage::disk(self::IMAGE_DISK)->delete($found['image_path']);
+            }
+            $found['image_path'] = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        }
+
+        $sbMembers[$key] = $found;
+        $officials['sb_members'] = $sbMembers;
+        SiteContent::setOfficials($officials);
+
+        return back()->with('status', 'SB Member updated.');
+    }
+
+    /**
+     * Remove an SB member.
+     */
+    public function destroySbMember(string $id): RedirectResponse
+    {
+        $officials = SiteContent::getOfficials();
+        $sbMembers = $officials['sb_members'];
         $filtered = [];
-        foreach ($list as $item) {
-            if (($item['id'] ?? '') === $id) {
-                $found = $item;
+        $found = null;
+        foreach ($sbMembers as $m) {
+            if (($m['id'] ?? '') === $id) {
+                $found = $m;
             } else {
-                $filtered[] = $item;
+                $filtered[] = $m;
             }
         }
         if ($found && ! empty($found['image_path'])) {
             Storage::disk(self::IMAGE_DISK)->delete($found['image_path']);
         }
-        SiteContent::setOfficialsList($filtered);
+        $officials['sb_members'] = $filtered;
+        SiteContent::setOfficials($officials);
 
-        return back()->with('status', 'Official removed.');
+        return back()->with('status', 'SB Member removed.');
     }
 
     /**
-     * @param  array<int, array{id: string, image_path: string, display_order: int}>  $list
-     * @return array<int, array{id: string, image_url: string}>
+     * Map stored officials to frontend shape (image_url, etc.).
+     *
+     * @param  array{mayor: array|null, vice_mayor: array|null, sb_members: array}  $data
+     * @return array{mayor: array|null, vice_mayor: array|null, sb_members: array}
      */
-    private function mapOfficialsForFrontend(array $list): array
+    private function mapOfficialsForFrontend(array $data): array
     {
-        return array_map(function ($item) {
+        $mapOne = function (?array $item): ?array {
+            if (! $item) {
+                return null;
+            }
             $path = $item['image_path'] ?? '';
+
             return [
                 'id' => $item['id'] ?? '',
+                'name' => $item['name'] ?? '',
+                'title' => $item['title'] ?? '',
                 'image_url' => $path ? '/storage/'.$path : '',
             ];
-        }, $list);
+        };
+
+        $sb = array_map(function ($m) {
+            $path = $m['image_path'] ?? '';
+
+            return [
+                'id' => $m['id'] ?? '',
+                'name' => $m['name'] ?? '',
+                'title' => $m['title'] ?? 'SB Member',
+                'image_url' => $path ? '/storage/'.$path : '',
+                'display_order' => $m['display_order'] ?? 0,
+            ];
+        }, $data['sb_members'] ?? []);
+
+        return [
+            'mayor' => $mapOne($data['mayor'] ?? null),
+            'vice_mayor' => $mapOne($data['vice_mayor'] ?? null),
+            'sb_members' => $sb,
+        ];
     }
 }
