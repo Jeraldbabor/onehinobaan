@@ -1,8 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import { LocationMap } from '@/components/location-map';
-import { Mail, MapPin, Phone } from 'lucide-react';
 import LandingLayout from '@/layouts/landing-layout';
 
 type ContactPageProps = {
@@ -56,7 +56,7 @@ export default function ContactPage({
 
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-8 py-10 sm:py-14 lg:grid-cols-3">
-                    <div className="lg:col-span-2 space-y-8">
+                    <div className="space-y-8 lg:col-span-2">
                         <section className="bg-slate-50 py-6 sm:py-8">
                             <div className="max-w-5xl">
                                 <h2 className={sectionTitleClass}>
@@ -144,17 +144,15 @@ export default function ContactPage({
 
                         <section className="bg-slate-50 py-6 sm:py-8">
                             <div className="max-w-5xl">
-                                <h2 className={sectionTitleClass}>
-                                    Location
-                                </h2>
+                                <h2 className={sectionTitleClass}>Location</h2>
                                 {hasMap ? (
                                     <>
-                                        <div className="mt-4 rounded-lg border border-slate-200 bg-slate-100 shadow-sm overflow-hidden">
-                                            <div className="relative w-full aspect-video min-h-[280px]">
+                                        <div className="mt-4 overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-sm">
+                                            <div className="relative aspect-video min-h-[280px] w-full">
                                                 <iframe
                                                     src={mapUrl}
                                                     title="Municipality of Hinobaan location map"
-                                                    className="absolute top-0 left-0 w-full h-full border-0 block"
+                                                    className="absolute top-0 left-0 block h-full w-full border-0"
                                                     allowFullScreen
                                                     loading="lazy"
                                                     referrerPolicy="no-referrer-when-downgrade"
@@ -172,8 +170,8 @@ export default function ContactPage({
                                             >
                                                 opening in Google Maps
                                             </a>
-                                            , or add your embed URL in
-                                            Dashboard → Contact Us.
+                                            , or add your embed URL in Dashboard
+                                            → Contact Us.
                                         </p>
                                     </>
                                 ) : (
@@ -195,8 +193,7 @@ export default function ContactPage({
                                         </a>
                                         <p className="text-xs text-slate-500">
                                             To show a custom embed here, add the
-                                            embed URL in Dashboard → Contact
-                                            Us.
+                                            embed URL in Dashboard → Contact Us.
                                         </p>
                                     </div>
                                 )}

@@ -1,7 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import type { LatLngExpression } from 'leaflet';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 // Fix default marker icon with Vite (so the marker image loads)
 const markerIcon = new L.Icon({

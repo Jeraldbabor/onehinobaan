@@ -72,7 +72,9 @@ export default function HistoryEditPage({ history }: HistoryEditPageProps) {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        put(historyEditUrl, { onSuccess: () => setShowToast(true) });
+                        put(historyEditUrl, {
+                            onSuccess: () => setShowToast(true),
+                        });
                     }}
                     className="space-y-6"
                 >

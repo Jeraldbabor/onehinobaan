@@ -135,7 +135,9 @@ export function AppSidebar() {
                             <SidebarMenuButton
                                 asChild
                                 isActive={isCurrentUrl(activitiesUrl)}
-                                tooltip={{ children: 'Municipality Activities' }}
+                                tooltip={{
+                                    children: 'Municipality Activities',
+                                }}
                             >
                                 <Link href={activitiesUrl} prefetch>
                                     <CalendarDays className="size-4" />
@@ -307,9 +309,7 @@ export function AppSidebar() {
                                                 )}
                                             >
                                                 <Link
-                                                    href={
-                                                        editTourismResortsUrl
-                                                    }
+                                                    href={editTourismResortsUrl}
                                                     prefetch
                                                 >
                                                     <Waves className="size-4" />

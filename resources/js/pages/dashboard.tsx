@@ -26,18 +26,28 @@ const quickLinks = [
     {
         title: 'News & Announcements',
         href: '/dashboard/announcements',
-        description: 'Post news, updates, and announcements for the public site.',
+        description:
+            'Post news, updates, and announcements for the public site.',
         icon: Megaphone,
     },
     {
         title: 'About Us',
         href: '/dashboard/history',
-        description: 'Edit History, Vision & Mission, Key Officials, and Barangay.',
+        description:
+            'Edit History, Vision & Mission, Key Officials, and Barangay.',
         icon: LayoutGrid,
         subLinks: [
             { label: 'History', href: '/dashboard/history', icon: History },
-            { label: 'Vision & Mission', href: '/dashboard/vision-mission', icon: Target },
-            { label: 'Key Officials', href: '/dashboard/officials', icon: Users },
+            {
+                label: 'Vision & Mission',
+                href: '/dashboard/vision-mission',
+                icon: Target,
+            },
+            {
+                label: 'Key Officials',
+                href: '/dashboard/officials',
+                icon: Users,
+            },
             { label: 'Barangay', href: '/dashboard/barangay', icon: Building2 },
             { label: 'Contact Us', href: '/dashboard/contact', icon: Phone },
         ],
@@ -48,9 +58,21 @@ const quickLinks = [
         description: 'Manage Attractions, Resorts, and Festivals.',
         icon: Landmark,
         subLinks: [
-            { label: 'Attraction', href: '/dashboard/tourism/attraction', icon: MapPin },
-            { label: 'Resorts', href: '/dashboard/tourism/resorts', icon: Waves },
-            { label: 'Festivals', href: '/dashboard/tourism/festivals', icon: PartyPopper },
+            {
+                label: 'Attraction',
+                href: '/dashboard/tourism/attraction',
+                icon: MapPin,
+            },
+            {
+                label: 'Resorts',
+                href: '/dashboard/tourism/resorts',
+                icon: Waves,
+            },
+            {
+                label: 'Festivals',
+                href: '/dashboard/tourism/festivals',
+                icon: PartyPopper,
+            },
         ],
     },
 ];
@@ -65,7 +87,8 @@ export default function Dashboard() {
                         Welcome to the admin
                     </h1>
                     <p className="mt-1 text-sm text-muted-foreground">
-                        Municipality of Hinobaan · Manage your site content from here.
+                        Municipality of Hinobaan · Manage your site content from
+                        here.
                     </p>
                 </header>
 

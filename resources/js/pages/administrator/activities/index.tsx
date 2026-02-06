@@ -66,8 +66,7 @@ export default function ActivitiesIndexPage({
                         </h1>
                         <p className="mt-1 text-sm text-muted-foreground">
                             Post daily or weekly activities carried out by the
-                            LGU. They appear on the homepage and at
-                            /activities.
+                            LGU. They appear on the homepage and at /activities.
                         </p>
                     </div>
                     <Button asChild>
@@ -161,11 +160,7 @@ export default function ActivitiesIndexPage({
                     </ul>
                 )}
             </div>
-            <Toast
-                open={showToast}
-                onOpenChange={setShowToast}
-                title="Done"
-            />
+            <Toast open={showToast} onOpenChange={setShowToast} title="Done" />
         </AppLayout>
     );
 }
