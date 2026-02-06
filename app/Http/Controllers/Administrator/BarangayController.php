@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Announcement;
 use App\Models\SiteContent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class BarangayController extends Controller
 
         return Inertia::render('about/barangay', [
             'barangays' => $barangays,
+            'announcements' => Announcement::forSidebar(),
         ]);
     }
 
@@ -36,7 +38,7 @@ class BarangayController extends Controller
     {
         $barangays = $this->mapBarangaysForFrontend(SiteContent::getBarangaysList());
 
-        return Inertia::render('administrator/barangay-edit', [
+        return Inertia::render('administrator/about-us/barangay-edit', [
             'barangays' => $barangays,
         ]);
     }
