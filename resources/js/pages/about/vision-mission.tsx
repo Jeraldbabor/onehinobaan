@@ -1,6 +1,5 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
-import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import LandingLayout from '@/layouts/landing-layout';
 
 type VisionMissionPageProps = {

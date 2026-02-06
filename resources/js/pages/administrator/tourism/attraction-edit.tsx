@@ -1,7 +1,7 @@
 import { MapPin } from 'lucide-react';
 import { TourismItemEditor } from '@/components/tourism-item-editor';
-import type { BreadcrumbItem } from '@/types';
 import type { TourismItemRow } from '@/components/tourism-item-editor';
+import type { BreadcrumbItem } from '@/types';
 
 const dashboardUrl = '/dashboard';
 const attractionEditUrl = '/dashboard/tourism/attraction';
