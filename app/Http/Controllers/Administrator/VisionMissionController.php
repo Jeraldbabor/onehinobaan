@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Announcement;
 use App\Models\SiteContent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class VisionMissionController extends Controller
             'vision_mission_image_url' => $visionMissionImage->image_path
                 ? $visionMissionImage->image_url
                 : null,
+            'announcements' => Announcement::forSidebar(),
         ]);
     }
 
@@ -47,7 +49,7 @@ class VisionMissionController extends Controller
         $mission = SiteContent::getByKey(SiteContent::KEY_MISSION);
         $visionMissionImage = SiteContent::getByKey(SiteContent::KEY_VISION_MISSION_IMAGE);
 
-        return Inertia::render('administrator/vision-mission-edit', [
+        return Inertia::render('administrator/about-us/vision-mission-edit', [
             'vision' => [
                 'content' => $vision->content ?? '',
             ],

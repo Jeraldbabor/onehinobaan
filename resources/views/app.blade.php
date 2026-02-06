@@ -30,7 +30,7 @@
             }
         </style>
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <title inertia>{{ config('app.name', 'Municipality of Hinobaan') }}</title>
 
         <link rel="icon" href="/hinobaan-logo/Hinobaan_logo.png" type="image/png" sizes="any">
         <link rel="apple-touch-icon" href="/hinobaan-logo/Hinobaan_logo.png">
