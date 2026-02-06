@@ -88,8 +88,8 @@ export default function AnnouncementFormPage({ announcement }: FormPageProps) {
                     </h1>
                     <p className="mt-1 text-sm text-muted-foreground">
                         {isEdit
-                            ? 'Update this news, update, or announcement.'
-                            : 'Add a news item, update, or announcement. It will appear in the sidebar on About and Tourism pages when published.'}
+                            ? 'Update this post.'
+                            : 'Add a news item, update, or announcement. They appear in the sidebar on About and Tourism pages when published.'}
                     </p>
                 </header>
 
@@ -108,7 +108,7 @@ export default function AnnouncementFormPage({ announcement }: FormPageProps) {
                                     onChange={(e) =>
                                         setData('title', e.target.value)
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                     placeholder="e.g. Holiday schedule"
                                     required
                                 />
@@ -122,7 +122,7 @@ export default function AnnouncementFormPage({ announcement }: FormPageProps) {
                                     onChange={(e) =>
                                         setData('type', e.target.value)
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                 >
                                     <option value="announcement">
                                         Announcement
@@ -142,11 +142,13 @@ export default function AnnouncementFormPage({ announcement }: FormPageProps) {
                                     onChange={(e) =>
                                         setData('link_url', e.target.value)
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                     placeholder="https://www.gmanetwork.com/news/..."
                                 />
                                 <p className="text-xs text-muted-foreground">
-                                    Add a URL to link to external news (e.g. GMA News, other sites). Opens in a new tab on the sidebar.
+                                    Add a URL to link to external news (e.g. GMA
+                                    News, other sites). Opens in a new tab on
+                                    the sidebar.
                                 </p>
                                 <InputError message={errors.link_url} />
                             </div>
@@ -159,33 +161,49 @@ export default function AnnouncementFormPage({ announcement }: FormPageProps) {
                                     type="file"
                                     accept="image/jpeg,image/png,image/gif,image/webp"
                                     onChange={(e) =>
-                                        setData('image', e.target.files?.[0] ?? null)
+                                        setData(
+                                            'image',
+                                            e.target.files?.[0] ?? null,
+                                        )
                                     }
-                                    className="border-input focus-visible:ring-ring/50 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs outline-none focus-visible:ring-[3px] file:mr-2 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1 file:text-sm file:font-medium md:text-sm"
+                                    className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs outline-none file:mr-2 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1 file:text-sm file:font-medium focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                 />
                                 <p className="text-xs text-muted-foreground">
-                                    JPEG, PNG, GIF or WebP. Max 5 MB. Shown in the sidebar when set.
+                                    JPEG, PNG, GIF or WebP. Max 5 MB. Shown in
+                                    the sidebar when set.
                                 </p>
                                 {(currentImageUrl || previewUrl) && (
                                     <div className="flex flex-wrap items-start gap-3 pt-1">
                                         <img
-                                            src={previewUrl ?? currentImageUrl ?? ''}
+                                            src={
+                                                previewUrl ??
+                                                currentImageUrl ??
+                                                ''
+                                            }
                                             alt=""
                                             className="h-24 w-auto rounded-md border border-slate-200 object-cover"
                                         />
-                                        {isEdit && currentImageUrl && !data.image && (
-                                            <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={data.remove_image}
-                                                    onChange={(e) =>
-                                                        setData('remove_image', e.target.checked)
-                                                    }
-                                                    className="rounded border-slate-300"
-                                                />
-                                                Remove picture
-                                            </label>
-                                        )}
+                                        {isEdit &&
+                                            currentImageUrl &&
+                                            !data.image && (
+                                                <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={
+                                                            data.remove_image
+                                                        }
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                'remove_image',
+                                                                e.target
+                                                                    .checked,
+                                                            )
+                                                        }
+                                                        className="rounded border-slate-300"
+                                                    />
+                                                    Remove picture
+                                                </label>
+                                            )}
                                     </div>
                                 )}
                                 <InputError message={errors.image} />
@@ -201,10 +219,13 @@ export default function AnnouncementFormPage({ announcement }: FormPageProps) {
                                     onChange={(e) =>
                                         setData('published_at', e.target.value)
                                     }
-                                    className="border-input focus-visible:ring-ring/50 flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] md:text-sm"
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                 />
                                 <p className="text-xs text-muted-foreground">
-                                    Leave empty to publish immediately. Set a future date to schedule. Published items appear in the sidebar on About and Tourism pages.
+                                    Leave empty to publish immediately. Set a
+                                    future date to schedule. Published items
+                                    appear in the sidebar on About and Tourism
+                                    pages.
                                 </p>
                                 <InputError message={errors.published_at} />
                             </div>
@@ -239,11 +260,7 @@ export default function AnnouncementFormPage({ announcement }: FormPageProps) {
                     </div>
                 </form>
             </div>
-            <Toast
-                open={showToast}
-                onOpenChange={setShowToast}
-                title="Saved"
-            />
+            <Toast open={showToast} onOpenChange={setShowToast} title="Saved" />
         </AppLayout>
     );
 }
