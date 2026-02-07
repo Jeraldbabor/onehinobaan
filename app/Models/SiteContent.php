@@ -63,16 +63,14 @@ class SiteContent extends Model
      */
     public static function setContact(array $data): void
     {
-        $current = self::getContact();
-        $merged = array_merge($current, array_filter($data, fn ($v) => $v !== null));
         $row = self::getByKey(self::KEY_CONTACT);
         $row->content = json_encode([
-            'address' => $merged['address'] ?? '',
-            'phone' => $merged['phone'] ?? '',
-            'email' => $merged['email'] ?? '',
-            'map_embed_url' => $merged['map_embed_url'] ?? '',
-            'facebook_municipality_url' => $merged['facebook_municipality_url'] ?? '',
-            'facebook_mayor_url' => $merged['facebook_mayor_url'] ?? '',
+            'address' => $data['address'] ?? '',
+            'phone' => $data['phone'] ?? '',
+            'email' => $data['email'] ?? '',
+            'map_embed_url' => $data['map_embed_url'] ?? '',
+            'facebook_municipality_url' => $data['facebook_municipality_url'] ?? '',
+            'facebook_mayor_url' => $data['facebook_mayor_url'] ?? '',
         ]);
         $row->save();
     }

@@ -79,8 +79,8 @@ class ContactController extends Controller
             'address' => ['nullable', 'string', 'max:500'],
             'phone' => ['nullable', 'string', 'max:100'],
             'email' => ['nullable', 'email', 'max:255'],
-            'facebook_municipality_url' => ['nullable', 'string', 'max:500', 'url'],
-            'facebook_mayor_url' => ['nullable', 'string', 'max:500', 'url'],
+            'facebook_municipality_url' => ['nullable', 'string', 'max:500'],
+            'facebook_mayor_url' => ['nullable', 'string', 'max:500'],
             'map_embed_url' => [
                 'nullable',
                 'string',

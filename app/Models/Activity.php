@@ -11,11 +11,13 @@ class Activity extends Model
         'content',
         'link_url',
         'image_path',
+        'other_images',
         'published_at',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'other_images' => 'array',
     ];
 
     public function scopePublished($query)
