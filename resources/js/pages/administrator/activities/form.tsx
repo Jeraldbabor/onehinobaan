@@ -17,6 +17,7 @@ type ActivityForm = {
     content: string;
     link_url?: string | null;
     image_url?: string | null;
+    other_images_urls?: string[];
     published_at: string | null;
     created_at?: string;
 };
@@ -47,6 +48,8 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
         link_url: activity?.link_url ?? '',
         image: null as File | null,
         remove_image: false,
+        other_images: [] as File[],
+        remove_other_images: [] as number[],
         published_at: activity?.published_at ?? '',
     });
 
@@ -183,6 +186,97 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
                                 )}
                                 <InputError message={errors.image} />
                             </div>
+                            {/* Other Pictures Section */}
+                            <div className="space-y-2">
+                                <Label htmlFor="other_images">
+                                    Other Pictures (optional)
+                                </Label>
+                                <input
+                                    id="other_images"
+                                    type="file"
+                                    accept="image/jpeg,image/png,image/gif,image/webp"
+                                    multiple
+                                    onChange={(e) => {
+                                        const files = e.target.files;
+                                        if (files) {
+                                            setData('other_images', [
+                                                ...data.other_images,
+                                                ...Array.from(files),
+                                            ]);
+                                        }
+                                        e.target.value = '';
+                                    }}
+                                    className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs outline-none file:mr-2 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1 file:text-sm file:font-medium focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                />
+                                <p className="text-xs text-muted-foreground">
+                                    Select multiple images. Max 10 images, 5 MB each.
+                                </p>
+                                {/* Existing images from server */}
+                                {activity?.other_images_urls && activity.other_images_urls.length > 0 && (
+                                    <div className="space-y-2 pt-1">
+                                        <p className="text-xs font-medium text-muted-foreground">Existing images:</p>
+                                        <div className="flex flex-wrap gap-3">
+                                            {activity.other_images_urls.map((url, index) => {
+                                                const isMarkedForRemoval = data.remove_other_images.includes(index);
+                                                return (
+                                                    <div key={url} className="relative group">
+                                                        <img
+                                                            src={url}
+                                                            alt=""
+                                                            className={`h-20 w-20 rounded-md border border-slate-200 object-cover transition-opacity ${isMarkedForRemoval ? 'opacity-40' : ''}`}
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                if (isMarkedForRemoval) {
+                                                                    setData('remove_other_images', data.remove_other_images.filter(i => i !== index));
+                                                                } else {
+                                                                    setData('remove_other_images', [...data.remove_other_images, index]);
+                                                                }
+                                                            }}
+                                                            className={`absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold shadow-sm transition-colors ${isMarkedForRemoval
+                                                                    ? 'bg-green-500 text-white hover:bg-green-600'
+                                                                    : 'bg-red-500 text-white hover:bg-red-600'
+                                                                }`}
+                                                            title={isMarkedForRemoval ? 'Undo removal' : 'Remove image'}
+                                                        >
+                                                            {isMarkedForRemoval ? '↺' : '×'}
+                                                        </button>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+                                {/* New images to upload */}
+                                {data.other_images.length > 0 && (
+                                    <div className="space-y-2 pt-1">
+                                        <p className="text-xs font-medium text-muted-foreground">New images to upload:</p>
+                                        <div className="flex flex-wrap gap-3">
+                                            {data.other_images.map((file, index) => (
+                                                <div key={`${file.name}-${index}`} className="relative group">
+                                                    <img
+                                                        src={URL.createObjectURL(file)}
+                                                        alt=""
+                                                        className="h-20 w-20 rounded-md border border-slate-200 object-cover"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setData('other_images', data.other_images.filter((_, i) => i !== index));
+                                                        }}
+                                                        className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white shadow-sm hover:bg-red-600"
+                                                        title="Remove"
+                                                    >
+                                                        ×
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                <InputError message={errors.other_images} />
+                            </div>
                             <div className="space-y-2">
                                 <Label htmlFor="published_at">
                                     Publish date & time (optional)
@@ -223,8 +317,8 @@ export default function ActivityFormPage({ activity }: FormPageProps) {
                             {processing
                                 ? 'Saving...'
                                 : isEdit
-                                  ? 'Save changes'
-                                  : 'Publish activity'}
+                                    ? 'Save changes'
+                                    : 'Publish activity'}
                         </Button>
                         <Button type="button" variant="outline" asChild>
                             <Link href={activitiesUrl}>Cancel</Link>

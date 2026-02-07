@@ -51,6 +51,8 @@ class ActivityController extends Controller
             'content' => ['required', 'string'],
             'link_url' => ['nullable', 'string', 'max:500', 'url'],
             'image' => ['nullable', 'image', 'max:5120', 'mimes:jpeg,png,gif,webp'],
+            'other_images' => ['nullable', 'array', 'max:10'],
+            'other_images.*' => ['image', 'max:5120', 'mimes:jpeg,png,gif,webp'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -63,11 +65,19 @@ class ActivityController extends Controller
             $imagePath = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
         }
 
+        $otherImages = [];
+        if ($request->hasFile('other_images')) {
+            foreach ($request->file('other_images') as $file) {
+                $otherImages[] = $file->store(self::IMAGE_DIR, self::IMAGE_DISK);
+            }
+        }
+
         Activity::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'link_url' => $request->filled('link_url') ? $request->input('link_url') : null,
             'image_path' => $imagePath,
+            'other_images' => $otherImages,
             'published_at' => $publishedAt,
         ]);
 
@@ -77,6 +87,10 @@ class ActivityController extends Controller
     public function edit(int $id): Response
     {
         $activity = Activity::findOrFail($id);
+        $otherImagesUrls = collect($activity->other_images ?? [])
+            ->map(fn ($path) => '/storage/'.$path)
+            ->values()
+            ->all();
 
         return Inertia::render('administrator/activities/form', [
             'activity' => [
@@ -85,6 +99,7 @@ class ActivityController extends Controller
                 'content' => $activity->content,
                 'link_url' => $activity->link_url ?? '',
                 'image_url' => $activity->image_path ? '/storage/'.$activity->image_path : null,
+                'other_images_urls' => $otherImagesUrls,
                 'published_at' => $activity->published_at?->format('Y-m-d\TH:i'),
                 'created_at' => $activity->created_at->toISOString(),
             ],
@@ -99,6 +114,10 @@ class ActivityController extends Controller
             'link_url' => ['nullable', 'string', 'max:500', 'url'],
             'image' => ['nullable', 'image', 'max:5120', 'mimes:jpeg,png,gif,webp'],
             'remove_image' => ['nullable', 'boolean'],
+            'other_images' => ['nullable', 'array', 'max:10'],
+            'other_images.*' => ['image', 'max:5120', 'mimes:jpeg,png,gif,webp'],
+            'remove_other_images' => ['nullable', 'array'],
+            'remove_other_images.*' => ['integer'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -119,11 +138,32 @@ class ActivityController extends Controller
             $imagePath = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
         }
 
+        // Handle other images
+        $existingOtherImages = $activity->other_images ?? [];
+        $removeIndices = $request->input('remove_other_images', []);
+        
+        // Remove specified images
+        foreach ($removeIndices as $index) {
+            if (isset($existingOtherImages[$index])) {
+                Storage::disk(self::IMAGE_DISK)->delete($existingOtherImages[$index]);
+                unset($existingOtherImages[$index]);
+            }
+        }
+        $existingOtherImages = array_values($existingOtherImages);
+
+        // Add new images
+        if ($request->hasFile('other_images')) {
+            foreach ($request->file('other_images') as $file) {
+                $existingOtherImages[] = $file->store(self::IMAGE_DIR, self::IMAGE_DISK);
+            }
+        }
+
         $activity->update([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'link_url' => $request->filled('link_url') ? $request->input('link_url') : null,
             'image_path' => $imagePath,
+            'other_images' => $existingOtherImages,
             'published_at' => $publishedAt,
         ]);
 
@@ -135,6 +175,10 @@ class ActivityController extends Controller
         $activity = Activity::findOrFail($id);
         if ($activity->image_path) {
             Storage::disk(self::IMAGE_DISK)->delete($activity->image_path);
+        }
+        // Delete other images
+        foreach ($activity->other_images ?? [] as $path) {
+            Storage::disk(self::IMAGE_DISK)->delete($path);
         }
         $activity->delete();
 

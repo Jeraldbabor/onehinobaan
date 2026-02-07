@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Administrator\OfficialsController;
 use App\Models\Activity;
 use App\Models\Announcement;
 use Inertia\Inertia;
@@ -42,20 +43,32 @@ class ActivityListController extends Controller
     public function show(int $id): Response
     {
         $activity = Activity::published()->findOrFail($id);
+        $otherImagesUrls = collect($activity->other_images ?? [])
+            ->map(fn ($path) => '/storage/'.$path)
+            ->values()
+            ->all();
+
         $item = [
             'id' => $activity->id,
             'title' => $activity->title,
             'content' => $activity->content,
             'link_url' => $activity->link_url,
             'image_url' => $activity->image_path ? '/storage/'.$activity->image_path : null,
+            'other_images_urls' => $otherImagesUrls,
             'published_at' => $activity->published_at?->toISOString(),
         ];
+
+        // Get officials data for the carousel
+        $officials = app(OfficialsController::class)->getOfficialsForFrontend();
 
         return Inertia::render('announcements/show', [
             'title' => 'Municipality Activities',
             'listPath' => '/activities',
             'item' => $item,
             'announcements' => Announcement::forSidebar(),
+            'mayor' => $officials['mayor'],
+            'viceMayor' => $officials['vice_mayor'],
+            'sbMembers' => $officials['sb_members'],
         ]);
     }
 }
