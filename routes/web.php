@@ -28,7 +28,7 @@ Route::get('/', function () {
     $officials = app(OfficialsController::class)->getOfficialsForFrontend();
     $activities = \App\Models\Activity::published()
         ->orderByRaw('COALESCE(published_at, created_at) DESC')
-        ->take(5)
+        ->take(3)
         ->get()
         ->map(fn (\App\Models\Activity $a) => [
             'id' => $a->id,
@@ -41,6 +41,33 @@ Route::get('/', function () {
         ->values()
         ->all();
     $contact = \App\Models\SiteContent::getContact();
+
+    // Fetch 3 of each tourism type
+    $tourismAttractions = \App\Models\TourismItem::ofType('attraction')->with('images')->take(3)->get()->map(fn ($item) => [
+        'id' => $item->id,
+        'title' => $item->title,
+        'description' => $item->description,
+        'address' => $item->address,
+        'image_url' => $item->image_url,
+        'image_urls' => $item->images->map(fn ($img) => $img->image_url)->values()->all(),
+    ]);
+    $tourismResorts = \App\Models\TourismItem::ofType('resort')->with('images')->take(3)->get()->map(fn ($item) => [
+        'id' => $item->id,
+        'title' => $item->title,
+        'description' => $item->description,
+        'address' => $item->address,
+        'image_url' => $item->image_url,
+        'image_urls' => $item->images->map(fn ($img) => $img->image_url)->values()->all(),
+    ]);
+    $tourismFestivals = \App\Models\TourismItem::ofType('festival')->with('images')->take(3)->get()->map(fn ($item) => [
+        'id' => $item->id,
+        'title' => $item->title,
+        'description' => $item->description,
+        'address' => $item->address,
+        'image_url' => $item->image_url,
+        'image_urls' => $item->images->map(fn ($img) => $img->image_url)->values()->all(),
+    ]);
+
     return Inertia::render('landing', [
         'canRegister' => Features::enabled(Features::registration()),
         'mayor' => $officials['mayor'],
@@ -50,6 +77,9 @@ Route::get('/', function () {
         'announcements' => \App\Models\Announcement::forSidebar(),
         'facebookMunicipalityUrl' => $contact['facebook_municipality_url'] ?? '',
         'facebookMayorUrl' => $contact['facebook_mayor_url'] ?? '',
+        'tourismAttractions' => $tourismAttractions,
+        'tourismResorts' => $tourismResorts,
+        'tourismFestivals' => $tourismFestivals,
     ]);
 })->name('home');
 

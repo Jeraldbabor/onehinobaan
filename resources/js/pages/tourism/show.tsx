@@ -39,7 +39,7 @@ export default function TourismShowPage({
         <LandingLayout>
             <Head title={`${title} - Tourism · Municipality of Hinobaan`} />
             {/* Government-style header with banner */}
-            <section className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
+            <section className="relative h-50 border-b-4 border-amber-500/80 text-white sm:h-60">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
@@ -91,7 +91,7 @@ export default function TourismShowPage({
                                                         href={`/tourism/${type}/${item.id}`}
                                                         className="group block border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-700 hover:shadow-md"
                                                     >
-                                                        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                                                        <div className="relative aspect-4/3 w-full overflow-hidden bg-slate-100">
                                                             {primaryImage(
                                                                 item,
                                                             ) ? (

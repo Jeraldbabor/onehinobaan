@@ -32,6 +32,7 @@ type OfficialItem = {
     id: string;
     name: string;
     title: string;
+    detail: string;
     image_url: string;
 };
 
@@ -71,16 +72,19 @@ export default function OfficialsEditPage({
     const mayorForm = useForm({
         name: mayor?.name ?? '',
         title: mayor?.title ?? 'Municipal Mayor',
+        detail: mayor?.detail ?? '',
         image: null as File | null,
     });
     const viceMayorForm = useForm({
         name: viceMayor?.name ?? '',
         title: viceMayor?.title ?? 'Vice Mayor',
+        detail: viceMayor?.detail ?? '',
         image: null as File | null,
     });
     const addSbForm = useForm({
         name: '',
         title: 'SB Member',
+        detail: '',
         image: null as File | null,
     });
 
@@ -147,6 +151,7 @@ export default function OfficialsEditPage({
                                         _method: 'PUT',
                                         name: mayorForm.data.name,
                                         title: mayorForm.data.title,
+                                        detail: mayorForm.data.detail,
                                         image: mayorForm.data.image,
                                     },
                                     {
@@ -199,11 +204,27 @@ export default function OfficialsEditPage({
                                     />
                                 </div>
                                 <div className="space-y-2">
+                                    <Label htmlFor="mayor_detail">Detail (optional)</Label>
+                                    <textarea
+                                        id="mayor_detail"
+                                        value={mayorForm.data.detail}
+                                        onChange={(e) =>
+                                            mayorForm.setData(
+                                                'detail',
+                                                e.target.value,
+                                            )
+                                        }
+                                        placeholder="Brief background or description..."
+                                        rows={3}
+                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                    />
+                                </div>
+                                <div className="space-y-2">
                                     <Label htmlFor="mayor_image">Photo</Label>
                                     <label
                                         htmlFor="mayor_image"
                                         className={cn(
-                                            'flex min-h-[120px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 text-center transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 hover:border-muted-foreground/40 hover:bg-muted/50',
+                                            'flex min-h-30 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 text-center transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 hover:border-muted-foreground/40 hover:bg-muted/50',
                                             mayorPreviewUrl
                                                 ? 'border-muted-foreground/25 p-1'
                                                 : 'border-muted-foreground/25 px-4 py-6',
@@ -302,6 +323,7 @@ export default function OfficialsEditPage({
                                         _method: 'PUT',
                                         name: viceMayorForm.data.name,
                                         title: viceMayorForm.data.title,
+                                        detail: viceMayorForm.data.detail,
                                         image: viceMayorForm.data.image,
                                     },
                                     {
@@ -362,13 +384,31 @@ export default function OfficialsEditPage({
                                     />
                                 </div>
                                 <div className="space-y-2">
+                                    <Label htmlFor="vice_mayor_detail">
+                                        Detail (optional)
+                                    </Label>
+                                    <textarea
+                                        id="vice_mayor_detail"
+                                        value={viceMayorForm.data.detail}
+                                        onChange={(e) =>
+                                            viceMayorForm.setData(
+                                                'detail',
+                                                e.target.value,
+                                            )
+                                        }
+                                        placeholder="Brief background or description..."
+                                        rows={3}
+                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                    />
+                                </div>
+                                <div className="space-y-2">
                                     <Label htmlFor="vice_mayor_image">
                                         Photo
                                     </Label>
                                     <label
                                         htmlFor="vice_mayor_image"
                                         className={cn(
-                                            'flex min-h-[120px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 text-center transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 hover:border-muted-foreground/40 hover:bg-muted/50',
+                                            'flex min-h-30 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 text-center transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 hover:border-muted-foreground/40 hover:bg-muted/50',
                                             viceMayorPreviewUrl
                                                 ? 'border-muted-foreground/25 p-1'
                                                 : 'border-muted-foreground/25 px-4 py-6',
@@ -528,6 +568,26 @@ export default function OfficialsEditPage({
                                             className="h-9"
                                         />
                                     </div>
+                                    <div className="min-w-0 flex-1 space-y-1">
+                                        <Label
+                                            htmlFor="sb_detail"
+                                            className="text-xs"
+                                        >
+                                            Detail (optional)
+                                        </Label>
+                                        <Input
+                                            id="sb_detail"
+                                            value={addSbForm.data.detail}
+                                            onChange={(e) =>
+                                                addSbForm.setData(
+                                                    'detail',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="Brief description..."
+                                            className="h-9"
+                                        />
+                                    </div>
                                     <div className="flex items-end gap-2">
                                         <label className="flex h-9 cursor-pointer items-center rounded-md border border-input bg-background px-3 py-1 text-sm">
                                             <input
@@ -650,6 +710,7 @@ function SbMemberCard({
     const form = useForm({
         name: member.name,
         title: member.title,
+        detail: member.detail ?? '',
         image: null as File | null,
     });
     const preview = editPreviewUrl ?? member.image_url ?? '';
@@ -667,6 +728,7 @@ function SbMemberCard({
                                 _method: 'PUT',
                                 name: form.data.name,
                                 title: form.data.title,
+                                detail: form.data.detail,
                                 image: form.data.image,
                             },
                             {
@@ -702,6 +764,17 @@ function SbMemberCard({
                             onChange={(e) =>
                                 form.setData('title', e.target.value)
                             }
+                            className="h-9"
+                        />
+                    </div>
+                    <div className="space-y-1">
+                        <Label className="text-xs">Detail (optional)</Label>
+                        <Input
+                            value={form.data.detail}
+                            onChange={(e) =>
+                                form.setData('detail', e.target.value)
+                            }
+                            placeholder="Brief description..."
                             className="h-9"
                         />
                     </div>
@@ -774,6 +847,11 @@ function SbMemberCard({
                 <p className="text-xs text-muted-foreground">
                     {member.title || 'SB Member'}
                 </p>
+                {member.detail && (
+                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                        {member.detail}
+                    </p>
+                )}
                 <div className="mt-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                     <Button
                         type="button"
