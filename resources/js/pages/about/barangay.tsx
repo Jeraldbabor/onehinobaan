@@ -24,7 +24,7 @@ export default function BarangayPage() {
         <LandingLayout>
             <Head title="Barangay - Municipality of Hinobaan" />
             {/* Government-style header with banner */}
-            <section className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
+            <section className="relative h-50 border-b-4 border-amber-500/80 text-white sm:h-60">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{

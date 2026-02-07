@@ -7,6 +7,7 @@ type OfficialItem = {
     id: string;
     name: string;
     title: string;
+    detail: string;
     image_url: string;
 };
 
@@ -50,7 +51,7 @@ function OfficialProfileCard({
                 </p>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-stretch">
-                <div className="flex shrink-0 justify-center border-b border-slate-100 bg-slate-50/50 p-6 sm:min-w-[240px] sm:border-r sm:border-b-0">
+                <div className="flex shrink-0 justify-center border-b border-slate-100 bg-slate-50/50 p-6 sm:min-w-60 sm:border-r sm:border-b-0">
                     {item.image_url ? (
                         <img
                             src={item.image_url}
@@ -72,6 +73,11 @@ function OfficialProfileCard({
                     {item.title && item.title !== roleLabel && (
                         <p className="mt-1 text-base text-slate-600">
                             {item.title}
+                        </p>
+                    )}
+                    {item.detail && (
+                        <p className="mt-3 text-sm text-slate-700 leading-relaxed">
+                            {item.detail}
                         </p>
                     )}
                     <div className="mt-4 border-t border-slate-200 pt-4">
@@ -126,6 +132,11 @@ function OfficialCard({
                         {item.title}
                     </p>
                 )}
+                {item.detail && (
+                    <p className="mt-2 text-center text-xs text-slate-600 line-clamp-3">
+                        {item.detail}
+                    </p>
+                )}
             </div>
         </article>
     );
@@ -166,7 +177,7 @@ export default function OfficialsPage() {
         <LandingLayout>
             <Head title={`${pageTitle} - Municipality of Hinobaan`} />
             {/* Government-style header with banner */}
-            <header className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
+            <header className="relative h-50 border-b-4 border-amber-500/80 text-white sm:h-60">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{

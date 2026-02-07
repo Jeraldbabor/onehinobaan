@@ -148,7 +148,7 @@ export default function ContactPage({
                                 {hasMap ? (
                                     <>
                                         <div className="mt-4 overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-sm">
-                                            <div className="relative aspect-video min-h-[280px] w-full">
+                                            <div className="relative aspect-video min-h-70 w-full">
                                                 <iframe
                                                     src={mapUrl}
                                                     title="Municipality of Hinobaan location map"

@@ -11,6 +11,7 @@ type OfficialItem = {
     id: string;
     name: string;
     title: string;
+    detail: string;
     image_url: string;
 };
 
@@ -23,6 +24,15 @@ type ActivityItem = {
     published_at: string | null;
 };
 
+type TourismItem = {
+    id: number;
+    title: string;
+    description: string | null;
+    address: string | null;
+    image_url: string | null;
+    image_urls: string[];
+};
+
 type LandingProps = SharedData & {
     mayor?: OfficialItem | null;
     viceMayor?: OfficialItem | null;
@@ -31,6 +41,9 @@ type LandingProps = SharedData & {
     announcements?: AnnouncementItem[];
     facebookMunicipalityUrl?: string;
     facebookMayorUrl?: string;
+    tourismAttractions?: TourismItem[];
+    tourismResorts?: TourismItem[];
+    tourismFestivals?: TourismItem[];
 };
 
 const CAROUSEL_AUTOPLAY_MS = 5000;
@@ -65,7 +78,7 @@ function FacebookPageEmbed({ url, title }: { url: string; title: string }) {
                     allowFullScreen
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     title={title}
-                    className="max-h-[500px] w-full"
+                    className="max-h-125 w-full"
                 />
             </div>
         </div>
@@ -82,6 +95,9 @@ export default function Landing() {
         announcements = [],
         facebookMunicipalityUrl = '',
         facebookMayorUrl = '',
+        tourismAttractions = [],
+        tourismResorts = [],
+        tourismFestivals = [],
     } = usePage<LandingProps>().props;
     const officialsList: { item: OfficialItem; role: string }[] = [];
     if (mayor && (mayor.image_url || mayor.name)) {
@@ -326,7 +342,7 @@ export default function Landing() {
                     <source src="/hinobaan-videos/daph.mp4" type="video/mp4" />
                 </video>
                 {/* Slight dark overlay for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/40 via-neutral-800/30 to-neutral-900/40" />
+                <div className="absolute inset-0 bg-linear-to-br from-neutral-900/40 via-neutral-800/30 to-neutral-900/40" />
                 <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 py-28 sm:px-6 sm:py-36 lg:px-8">
                     <div className="max-w-2xl">
                         <p className="text-sm font-medium tracking-[0.2em] text-neutral-200/90 uppercase">
@@ -530,9 +546,7 @@ export default function Landing() {
                                                     <div className="h-40 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52">
                                                         {a.image_url ? (
                                                             <img
-                                                                src={
-                                                                    a.image_url
-                                                                }
+                                                                src={a.image_url}
                                                                 alt=""
                                                                 className="h-full w-full object-cover object-center"
                                                             />
@@ -548,33 +562,14 @@ export default function Landing() {
                                                         </h3>
                                                         {a.published_at && (
                                                             <p className="mt-1 text-sm">
-                                                                <span className="text-slate-500">
-                                                                    Posted
-                                                                    on{' '}
-                                                                </span>
-                                                                <time
-                                                                    dateTime={
-                                                                        a.published_at
-                                                                    }
-                                                                    className="font-semibold text-blue-800"
-                                                                >
-                                                                    {new Date(
-                                                                        a.published_at,
-                                                                    ).toLocaleDateString(
-                                                                        undefined,
-                                                                        {
-                                                                            dateStyle:
-                                                                                'long',
-                                                                        },
-                                                                    )}
+                                                                <span className="text-slate-500">Posted on </span>
+                                                                <time dateTime={a.published_at} className="font-semibold text-blue-800">
+                                                                    {new Date(a.published_at).toLocaleDateString(undefined, { dateStyle: 'long' })}
                                                                 </time>
                                                             </p>
                                                         )}
                                                         <p className="mt-2 line-clamp-2 text-sm text-slate-700">
-                                                            {stripHtml(
-                                                                a.content,
-                                                                200,
-                                                            )}
+                                                            {stripHtml(a.content, 200)}
                                                         </p>
                                                         <span className="mt-1 inline-block text-xs font-medium text-blue-800 underline underline-offset-2">
                                                             continue reading
@@ -594,6 +589,93 @@ export default function Landing() {
                                     </div>
                                 </>
                             )}
+
+                            {/* Tourism Highlights */}
+                            <div className="mt-12 space-y-8">
+                                {/* Attractions */}
+                                <div>
+                                    <h4 className="text-lg font-bold text-blue-800 mb-3 border-b-2 border-blue-800 pb-1">Attractions</h4>
+                                    <div className="flex gap-4 overflow-x-auto pb-2">
+                                        {tourismAttractions?.map((item) => (
+                                            <Link
+                                                key={item.id}
+                                                href={`/tourism/attraction/${item.id}`}
+                                                className="shrink-0 w-56 border border-slate-200 bg-white rounded shadow-sm hover:shadow-md transition overflow-hidden"
+                                            >
+                                                <div className="h-32 bg-slate-100 overflow-hidden">
+                                                    {item.image_url ? (
+                                                        <img src={item.image_url} alt="" className="object-cover w-full h-full" />
+                                                    ) : (
+                                                        <div className="flex h-full w-full items-center justify-center text-slate-400">
+                                                            <FileText className="size-10" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="p-3">
+                                                    <div className="font-bold text-blue-800 truncate text-sm">{item.title}</div>
+                                                    <div className="text-xs text-slate-500 truncate">{item.address}</div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Resorts */}
+                                <div>
+                                    <h4 className="text-lg font-bold text-blue-800 mb-3 border-b-2 border-blue-800 pb-1">Resorts</h4>
+                                    <div className="flex gap-4 overflow-x-auto pb-2">
+                                        {tourismResorts?.map((item) => (
+                                            <Link
+                                                key={item.id}
+                                                href={`/tourism/resorts/${item.id}`}
+                                                className="shrink-0 w-56 border border-slate-200 bg-white rounded shadow-sm hover:shadow-md transition overflow-hidden"
+                                            >
+                                                <div className="h-32 bg-slate-100 overflow-hidden">
+                                                    {item.image_url ? (
+                                                        <img src={item.image_url} alt="" className="object-cover w-full h-full" />
+                                                    ) : (
+                                                        <div className="flex h-full w-full items-center justify-center text-slate-400">
+                                                            <FileText className="size-10" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="p-3">
+                                                    <div className="font-bold text-blue-800 truncate text-sm">{item.title}</div>
+                                                    <div className="text-xs text-slate-500 truncate">{item.address}</div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Festivals */}
+                                <div>
+                                    <h4 className="text-lg font-bold text-blue-800 mb-3 border-b-2 border-blue-800 pb-1">Festivals</h4>
+                                    <div className="flex gap-4 overflow-x-auto pb-2">
+                                        {tourismFestivals?.map((item) => (
+                                            <Link
+                                                key={item.id}
+                                                href={`/tourism/festivals/${item.id}`}
+                                                className="shrink-0 w-56 border border-slate-200 bg-white rounded shadow-sm hover:shadow-md transition overflow-hidden"
+                                            >
+                                                <div className="h-32 bg-slate-100 overflow-hidden">
+                                                    {item.image_url ? (
+                                                        <img src={item.image_url} alt="" className="object-cover w-full h-full" />
+                                                    ) : (
+                                                        <div className="flex h-full w-full items-center justify-center text-slate-400">
+                                                            <FileText className="size-10" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="p-3">
+                                                    <div className="font-bold text-blue-800 truncate text-sm">{item.title}</div>
+                                                    <div className="text-xs text-slate-500 truncate">{item.address}</div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Right: News & Updates + Facebook (narrower) */}

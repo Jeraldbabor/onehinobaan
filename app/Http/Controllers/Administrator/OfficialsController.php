@@ -67,17 +67,19 @@ class OfficialsController extends Controller
         $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
             'title' => ['nullable', 'string', 'max:255'],
+            'detail' => ['nullable', 'string', 'max:2000'],
             'image' => ['nullable', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
         ]);
 
         $officials = SiteContent::getOfficials();
         $mayor = $officials['mayor'] ?? null;
         if (! is_array($mayor)) {
-            $mayor = ['id' => Str::random(8), 'name' => '', 'title' => 'Municipal Mayor', 'image_path' => ''];
+            $mayor = ['id' => Str::random(8), 'name' => '', 'title' => 'Municipal Mayor', 'image_path' => '', 'detail' => ''];
         }
 
         $mayor['name'] = $request->input('name', $mayor['name'] ?? '');
         $mayor['title'] = $request->input('title', $mayor['title'] ?? 'Municipal Mayor');
+        $mayor['detail'] = $request->input('detail', $mayor['detail'] ?? '');
 
         if ($request->hasFile('image')) {
             if (! empty($mayor['image_path'])) {
@@ -100,17 +102,19 @@ class OfficialsController extends Controller
         $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
             'title' => ['nullable', 'string', 'max:255'],
+            'detail' => ['nullable', 'string', 'max:2000'],
             'image' => ['nullable', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
         ]);
 
         $officials = SiteContent::getOfficials();
         $viceMayor = $officials['vice_mayor'] ?? null;
         if (! is_array($viceMayor)) {
-            $viceMayor = ['id' => Str::random(8), 'name' => '', 'title' => 'Vice Mayor', 'image_path' => ''];
+            $viceMayor = ['id' => Str::random(8), 'name' => '', 'title' => 'Vice Mayor', 'image_path' => '', 'detail' => ''];
         }
 
         $viceMayor['name'] = $request->input('name', $viceMayor['name'] ?? '');
         $viceMayor['title'] = $request->input('title', $viceMayor['title'] ?? 'Vice Mayor');
+        $viceMayor['detail'] = $request->input('detail', $viceMayor['detail'] ?? '');
 
         if ($request->hasFile('image')) {
             if (! empty($viceMayor['image_path'])) {
@@ -133,6 +137,7 @@ class OfficialsController extends Controller
         $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
             'title' => ['nullable', 'string', 'max:255'],
+            'detail' => ['nullable', 'string', 'max:2000'],
             'image' => ['required', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
         ]);
 
@@ -145,6 +150,7 @@ class OfficialsController extends Controller
             'id' => Str::random(8),
             'name' => $request->input('name', ''),
             'title' => $request->input('title', 'SB Member'),
+            'detail' => $request->input('detail', ''),
             'image_path' => $path,
             'display_order' => $maxOrder + 1,
         ];
@@ -162,6 +168,7 @@ class OfficialsController extends Controller
         $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
             'title' => ['nullable', 'string', 'max:255'],
+            'detail' => ['nullable', 'string', 'max:2000'],
             'image' => ['nullable', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
         ]);
 
@@ -182,6 +189,7 @@ class OfficialsController extends Controller
 
         $found['name'] = $request->input('name', $found['name'] ?? '');
         $found['title'] = $request->input('title', $found['title'] ?? 'SB Member');
+        $found['detail'] = $request->input('detail', $found['detail'] ?? '');
 
         if ($request->hasFile('image')) {
             if (! empty($found['image_path'])) {
@@ -240,6 +248,7 @@ class OfficialsController extends Controller
                 'id' => $item['id'] ?? '',
                 'name' => $item['name'] ?? '',
                 'title' => $item['title'] ?? '',
+                'detail' => $item['detail'] ?? '',
                 'image_url' => $path ? '/storage/'.$path : '',
             ];
         };
@@ -251,6 +260,7 @@ class OfficialsController extends Controller
                 'id' => $m['id'] ?? '',
                 'name' => $m['name'] ?? '',
                 'title' => $m['title'] ?? 'SB Member',
+                'detail' => $m['detail'] ?? '',
                 'image_url' => $path ? '/storage/'.$path : '',
                 'display_order' => $m['display_order'] ?? 0,
             ];

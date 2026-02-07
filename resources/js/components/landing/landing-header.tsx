@@ -386,8 +386,8 @@ export function LandingHeader() {
                 className={cn(
                     'grid overflow-hidden border-b border-neutral-200/80 bg-neutral-100 transition-[grid-template-rows] duration-300 ease-in-out',
                     bannerVisible
-                        ? '[grid-template-rows:1fr]'
-                        : '[grid-template-rows:0fr]',
+                        ? 'grid-rows-[1fr]'
+                        : 'grid-rows-[0fr]',
                 )}
             >
                 <div className="min-h-0">
@@ -504,7 +504,7 @@ export function LandingHeader() {
                                             id={`${id}-menu`}
                                             role="menu"
                                             className={cn(
-                                                'absolute top-full right-0 mt-0 w-[300px] rounded-lg border border-neutral-200/90 bg-white py-3 shadow-lg transition-all duration-200 ease-out',
+                                                'absolute top-full right-0 mt-0 w-75 rounded-lg border border-neutral-200/90 bg-white py-3 shadow-lg transition-all duration-200 ease-out',
                                                 isOpen
                                                     ? 'visible translate-y-0 opacity-100'
                                                     : 'pointer-events-none invisible -translate-y-1 opacity-0',
@@ -581,7 +581,7 @@ export function LandingHeader() {
                                             id={`${id}-menu`}
                                             role="menu"
                                             className={cn(
-                                                'absolute top-full left-0 mt-0 min-w-[220px] rounded-lg border border-neutral-200/90 bg-white py-2.5 shadow-lg transition-all duration-200 ease-out',
+                                                'absolute top-full left-0 mt-0 min-w-55 rounded-lg border border-neutral-200/90 bg-white py-2.5 shadow-lg transition-all duration-200 ease-out',
                                                 isOpen
                                                     ? 'visible translate-y-0 opacity-100'
                                                     : 'pointer-events-none invisible -translate-y-1 opacity-0',
@@ -627,8 +627,8 @@ export function LandingHeader() {
                                                                         .children
                                                                         .length >
                                                                         5
-                                                                        ? 'grid min-w-[380px] grid-cols-2 gap-x-6 gap-y-0.5'
-                                                                        : 'flex min-w-[200px] flex-col gap-1',
+                                                                        ? 'grid min-w-95 grid-cols-2 gap-x-6 gap-y-0.5'
+                                                                        : 'flex min-w-50 flex-col gap-1',
                                                                     isSubOpen
                                                                         ? 'visible translate-y-0 opacity-100'
                                                                         : 'pointer-events-none invisible -translate-x-1 opacity-0',
