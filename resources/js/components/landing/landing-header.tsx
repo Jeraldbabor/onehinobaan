@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, ChevronRight, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import type { PageProps } from '@/types';
 
 const DROPDOWN_CLOSE_DELAY_MS = 120;
 const BANNER_SCROLL_THRESHOLD_PX = 60;
@@ -35,18 +36,18 @@ const primaryNavItems: NavItem[] = [
         children: [
             { label: 'History', href: '/about/history' },
             { label: 'Vision & Mission', href: '/about/vision-mission' },
-            {
-                label: 'Key Officials',
-                children: [
-                    { label: 'Our Mayor', href: '/about/officials/mayor' },
-                    {
-                        label: 'Vice Mayor',
-                        href: '/about/officials/vice-mayor',
-                    },
-                    { label: 'SB Member', href: '/about/officials/sb-member' },
-                ],
-            },
             { label: 'Barangay', href: '/about/barangay' },
+        ],
+    },
+    {
+        label: 'Officials',
+        children: [
+            { label: 'Our Mayor', href: '/about/officials/mayor' },
+            {
+                label: 'Vice Mayor',
+                href: '/about/officials/vice-mayor',
+            },
+            { label: 'SB Member', href: '/about/officials/sb-member' },
         ],
     },
     {
@@ -55,62 +56,6 @@ const primaryNavItems: NavItem[] = [
             { label: 'Attraction', href: '/tourism/attraction' },
             { label: 'Resorts', href: '/tourism/resorts' },
             { label: 'Festivals', href: '/tourism/festivals' },
-        ],
-    },
-    {
-        label: 'Governance',
-        children: [
-            {
-                label: 'Executive Section',
-                children: [
-                    {
-                        label: 'Executive Orders',
-                        href: '/executive/executive-orders',
-                    },
-                    { label: 'Resolutions', href: '/legislative/resolutions' },
-                ],
-            },
-            {
-                label: 'Legislative Section',
-                children: [
-                    { label: 'Ordinances', href: '/legislative/ordinances' },
-                    { label: 'Resolutions', href: '/legislative/resolutions' },
-                ],
-            },
-            {
-                label: 'Departments',
-                children: [
-                    {
-                        label: 'Budget Office',
-                        href: '/departments/budget-office',
-                    },
-                    {
-                        label: 'Accounting Office',
-                        href: '/departments/accounting-office',
-                    },
-                    { label: 'MPDO', href: '/departments/mpdo' },
-                    { label: 'HRMO', href: '/departments/hrmo' },
-                    {
-                        label: 'Legal Office',
-                        href: '/departments/municipal-legal-office',
-                    },
-                    {
-                        label: 'MSWDO',
-                        href: '/departments/municipal-social-welfare-and-development-office',
-                    },
-                    {
-                        label: 'MAO',
-                        href: '/departments/municipal-agriculture-office',
-                    },
-                    { label: 'PESO/TLDC', href: '/departments/peso-tldc' },
-                    { label: 'DRRMO', href: '/departments/drrmo' },
-                    { label: 'ENRO', href: '/departments/enro' },
-                    {
-                        label: 'Civil Registrar',
-                        href: '/departments/civil-registrar',
-                    },
-                ],
-            },
         ],
     },
 
@@ -172,18 +117,18 @@ const mobileNavItems: NavItem[] = [
         children: [
             { label: 'History', href: '/about/history' },
             { label: 'Vision & Mission', href: '/about/vision-mission' },
-            {
-                label: 'Key Officials',
-                children: [
-                    { label: 'Our Mayor', href: '/about/officials/mayor' },
-                    {
-                        label: 'Vice Mayor',
-                        href: '/about/officials/vice-mayor',
-                    },
-                    { label: 'SB Member', href: '/about/officials/sb-member' },
-                ],
-            },
             { label: 'Barangay', href: '/about/barangay' },
+        ],
+    },
+    {
+        label: 'Key Officials',
+        children: [
+            { label: 'Our Mayor', href: '/about/officials/mayor' },
+            {
+                label: 'Vice Mayor',
+                href: '/about/officials/vice-mayor',
+            },
+            { label: 'SB Member', href: '/about/officials/sb-member' },
         ],
     },
     {
@@ -192,62 +137,6 @@ const mobileNavItems: NavItem[] = [
             { label: 'Attraction', href: '/tourism/attraction' },
             { label: 'Resorts', href: '/tourism/resorts' },
             { label: 'Festivals', href: '/tourism/festivals' },
-        ],
-    },
-    {
-        label: 'Governance',
-        children: [
-            {
-                label: 'Executive Section',
-                children: [
-                    {
-                        label: 'Executive Orders',
-                        href: '/executive/executive-orders',
-                    },
-                    { label: 'Resolutions', href: '/legislative/resolutions' },
-                ],
-            },
-            {
-                label: 'Legislative Section',
-                children: [
-                    { label: 'Ordinances', href: '/legislative/ordinances' },
-                    { label: 'Resolutions', href: '/legislative/resolutions' },
-                ],
-            },
-            {
-                label: 'Departments',
-                children: [
-                    {
-                        label: 'Budget Office',
-                        href: '/departments/budget-office',
-                    },
-                    {
-                        label: 'Accounting Office',
-                        href: '/departments/accounting-office',
-                    },
-                    { label: 'MPDO', href: '/departments/mpdo' },
-                    { label: 'HRMO', href: '/departments/hrmo' },
-                    {
-                        label: 'Legal Office',
-                        href: '/departments/municipal-legal-office',
-                    },
-                    {
-                        label: 'MSWDO',
-                        href: '/departments/municipal-social-welfare-and-development-office',
-                    },
-                    {
-                        label: 'MAO',
-                        href: '/departments/municipal-agriculture-office',
-                    },
-                    { label: 'PESO/TLDC', href: '/departments/peso-tldc' },
-                    { label: 'DRRMO', href: '/departments/drrmo' },
-                    { label: 'ENRO', href: '/departments/enro' },
-                    {
-                        label: 'Civil Registrar',
-                        href: '/departments/civil-registrar',
-                    },
-                ],
-            },
         ],
     },
     {
@@ -305,9 +194,11 @@ function hasNestedChildren(child: NavChild): child is NavLinkWithNested {
     );
 }
 export function LandingHeader() {
-    const { generalSettings } = usePage<any>().props;
+    const { generalSettings } = usePage<PageProps>().props;
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [mobileExpandedSection, setMobileExpandedSection] = useState<string | null>(null);
+    const [mobileExpandedSection, setMobileExpandedSection] = useState<
+        string | null
+    >(null);
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
     const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null);
     const [bannerVisible, setBannerVisible] = useState(true);
@@ -386,9 +277,7 @@ export function LandingHeader() {
             <div
                 className={cn(
                     'grid overflow-hidden border-b border-neutral-200/80 bg-neutral-100 transition-[grid-template-rows] duration-300 ease-in-out',
-                    bannerVisible
-                        ? 'grid-rows-[1fr]'
-                        : 'grid-rows-[0fr]',
+                    bannerVisible ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
                 )}
             >
                 <div className="min-h-0">
@@ -396,7 +285,10 @@ export function LandingHeader() {
                         {/* Logo + Text - centered on mobile, left-aligned on desktop */}
                         <div className="flex items-center gap-2 sm:gap-3">
                             <img
-                                src={generalSettings?.main_logo_url || "/hinobaan-logo/Hinobaan_logo.png"}
+                                src={
+                                    generalSettings?.main_logo_url ||
+                                    '/hinobaan-logo/Hinobaan_logo.png'
+                                }
                                 alt=""
                                 className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-16"
                             />
@@ -405,27 +297,48 @@ export function LandingHeader() {
                                     Official Website of the
                                 </p>
                                 <p className="text-sm font-semibold text-neutral-700 sm:text-base md:text-xl">
-                                    <span className="font-bold text-orange-700">L</span>ocal{' '}
-                                    <span className="font-bold text-orange-700">G</span>overnment{' '}
-                                    <span className="font-bold text-orange-700">U</span>nit of{' '}
-                                    <span className="font-bold text-orange-700">H</span>inoba-an
+                                    <span className="font-bold text-orange-700">
+                                        L
+                                    </span>
+                                    ocal{' '}
+                                    <span className="font-bold text-orange-700">
+                                        G
+                                    </span>
+                                    overnment{' '}
+                                    <span className="font-bold text-orange-700">
+                                        U
+                                    </span>
+                                    nit of{' '}
+                                    <span className="font-bold text-orange-700">
+                                        H
+                                    </span>
+                                    inoba-an
                                 </p>
                             </div>
                         </div>
                         {/* Partner logos - smaller on mobile */}
                         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
                             <img
-                                src={generalSettings?.bp_logo_url || "/hinobaan-logo/BP_Logo.webp"}
+                                src={
+                                    generalSettings?.bp_logo_url ||
+                                    '/hinobaan-logo/BP_Logo.webp'
+                                }
                                 alt=""
                                 className="h-8 w-auto object-contain sm:h-10 md:h-14"
                             />
                             <img
-                                src={generalSettings?.one_hinobaan_logo_url || "/hinobaan-logo/Onehinoba-an%20logo.png"}
+                                src={
+                                    generalSettings?.one_hinobaan_logo_url ||
+                                    '/hinobaan-logo/Onehinoba-an%20logo.png'
+                                }
                                 alt="One Hinoba-an"
                                 className="h-8 w-auto object-contain sm:h-10 md:h-14"
                             />
                             <img
-                                src={generalSettings?.transparency_seal_url || "/hinobaan-logo/transparency.png"}
+                                src={
+                                    generalSettings?.transparency_seal_url ||
+                                    '/hinobaan-logo/transparency.png'
+                                }
                                 alt="Transparency Seal"
                                 className="h-8 w-auto object-contain sm:h-10 md:h-14"
                             />
@@ -443,7 +356,10 @@ export function LandingHeader() {
                         aria-label="Municipality of Hinoba-an - Home"
                     >
                         <img
-                            src={generalSettings?.main_logo_url || "/hinobaan-logo/Hinobaan_logo.png"}
+                            src={
+                                generalSettings?.main_logo_url ||
+                                '/hinobaan-logo/Hinobaan_logo.png'
+                            }
                             alt=""
                             className="h-8 w-auto object-contain sm:h-9"
                         />
@@ -748,7 +664,8 @@ export function LandingHeader() {
                     >
                         {mobileNavItems.map((item) => {
                             const sectionKey = item.label;
-                            const isExpanded = mobileExpandedSection === sectionKey;
+                            const isExpanded =
+                                mobileExpandedSection === sectionKey;
 
                             // Simple link without children
                             if (!hasChildren(item) && !hasGroups(item)) {
@@ -773,11 +690,11 @@ export function LandingHeader() {
                                             'flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-base font-medium transition-colors',
                                             isExpanded
                                                 ? 'bg-neutral-100 text-neutral-900'
-                                                : 'text-neutral-700 hover:bg-neutral-50'
+                                                : 'text-neutral-700 hover:bg-neutral-50',
                                         )}
                                         onClick={() =>
                                             setMobileExpandedSection(
-                                                isExpanded ? null : sectionKey
+                                                isExpanded ? null : sectionKey,
                                             )
                                         }
                                         aria-expanded={isExpanded}
@@ -786,7 +703,7 @@ export function LandingHeader() {
                                         <ChevronDown
                                             className={cn(
                                                 'size-5 shrink-0 text-neutral-400 transition-transform duration-200',
-                                                isExpanded && 'rotate-180'
+                                                isExpanded && 'rotate-180',
                                             )}
                                             aria-hidden
                                         />
@@ -796,73 +713,121 @@ export function LandingHeader() {
                                             'grid transition-all duration-200 ease-out',
                                             isExpanded
                                                 ? 'grid-rows-[1fr] opacity-100'
-                                                : 'grid-rows-[0fr] opacity-0'
+                                                : 'grid-rows-[0fr] opacity-0',
                                         )}
                                     >
                                         <div className="overflow-hidden">
-                                            <div className="flex flex-col gap-0.5 pb-1 pl-3 pt-1">
+                                            <div className="flex flex-col gap-0.5 pt-1 pb-1 pl-3">
                                                 {hasGroups(item) &&
                                                     item.groups.map((group) => (
                                                         <div
-                                                            key={group.sectionTitle}
+                                                            key={
+                                                                group.sectionTitle
+                                                            }
                                                             className="flex flex-col"
                                                         >
                                                             <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
-                                                                {group.sectionTitle}
+                                                                {
+                                                                    group.sectionTitle
+                                                                }
                                                             </span>
-                                                            {group.links.map((link) => (
-                                                                <Link
-                                                                    key={link.href}
-                                                                    href={link.href}
-                                                                    className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
-                                                                    onClick={() =>
-                                                                        setMobileMenuOpen(false)
-                                                                    }
-                                                                >
-                                                                    {link.label}
-                                                                </Link>
-                                                            ))}
+                                                            {group.links.map(
+                                                                (link) => (
+                                                                    <Link
+                                                                        key={
+                                                                            link.href
+                                                                        }
+                                                                        href={
+                                                                            link.href
+                                                                        }
+                                                                        className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+                                                                        onClick={() =>
+                                                                            setMobileMenuOpen(
+                                                                                false,
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            link.label
+                                                                        }
+                                                                    </Link>
+                                                                ),
+                                                            )}
                                                         </div>
                                                     ))}
                                                 {hasChildren(item) &&
-                                                    item.children.map((child) => {
-                                                        if (hasNestedChildren(child)) {
-                                                            return (
-                                                                <div
-                                                                    key={child.label}
-                                                                    className="flex flex-col"
-                                                                >
-                                                                    <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
-                                                                        {child.label}
-                                                                    </span>
-                                                                    {child.children.map((sub) => (
-                                                                        <Link
-                                                                            key={sub.href}
-                                                                            href={sub.href}
-                                                                            className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
-                                                                            onClick={() =>
-                                                                                setMobileMenuOpen(false)
+                                                    item.children.map(
+                                                        (child) => {
+                                                            if (
+                                                                hasNestedChildren(
+                                                                    child,
+                                                                )
+                                                            ) {
+                                                                return (
+                                                                    <div
+                                                                        key={
+                                                                            child.label
+                                                                        }
+                                                                        className="flex flex-col"
+                                                                    >
+                                                                        <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
+                                                                            {
+                                                                                child.label
                                                                             }
-                                                                        >
-                                                                            {sub.label}
-                                                                        </Link>
-                                                                    ))}
-                                                                </div>
+                                                                        </span>
+                                                                        {child.children.map(
+                                                                            (
+                                                                                sub,
+                                                                            ) => (
+                                                                                <Link
+                                                                                    key={
+                                                                                        sub.href
+                                                                                    }
+                                                                                    href={
+                                                                                        sub.href
+                                                                                    }
+                                                                                    className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+                                                                                    onClick={() =>
+                                                                                        setMobileMenuOpen(
+                                                                                            false,
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    {
+                                                                                        sub.label
+                                                                                    }
+                                                                                </Link>
+                                                                            ),
+                                                                        )}
+                                                                    </div>
+                                                                );
+                                                            }
+                                                            return (
+                                                                <Link
+                                                                    key={
+                                                                        (
+                                                                            child as NavLink
+                                                                        ).href
+                                                                    }
+                                                                    href={
+                                                                        (
+                                                                            child as NavLink
+                                                                        ).href
+                                                                    }
+                                                                    className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+                                                                    onClick={() =>
+                                                                        setMobileMenuOpen(
+                                                                            false,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        child.label
+                                                                    }
+                                                                </Link>
                                                             );
-                                                        }
-                                                        return (
-                                                            <Link
-                                                                key={(child as NavLink).href}
-                                                                href={(child as NavLink).href}
-                                                                className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
-                                                                onClick={() =>
-                                                                    setMobileMenuOpen(false)
-                                                                }
-                                                            >
-                                                                {child.label}
-                                                            </Link>
-                                                        );
-                                                    })}
+                                                        },
+                                                    )}
                                             </div>
                                         </div>
                                     </div>

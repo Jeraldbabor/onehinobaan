@@ -1,10 +1,10 @@
-import { Head, Link } from '@inertiajs/react';
-import { usePage } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight, FileText, Landmark } from 'lucide-react';
+import { Head, Link, usePage } from '@inertiajs/react';
+import { ChevronLeft, ChevronRight, FileText, Landmark, HardHat } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import LandingLayout from '@/layouts/landing-layout';
+import { projects as projectRoutes } from '@/routes';
 import type { SharedData } from '@/types';
 
 type OfficialItem = {
@@ -21,6 +21,17 @@ type ActivityItem = {
     content: string;
     link_url: string | null;
     image_url: string | null;
+    published_at: string | null;
+};
+
+type ProjectItem = {
+    id: number;
+    title: string;
+    description: string;
+    status: string;
+    link_url: string | null;
+    image_url: string | null;
+    video_url: string | null;
     published_at: string | null;
 };
 
@@ -44,6 +55,7 @@ type LandingProps = SharedData & {
     tourismAttractions?: TourismItem[];
     tourismResorts?: TourismItem[];
     tourismFestivals?: TourismItem[];
+    projects?: ProjectItem[];
     generalSettings?: {
         main_logo_url: string;
         bp_logo_url: string;
@@ -105,6 +117,7 @@ export default function Landing() {
         tourismAttractions = [],
         tourismResorts = [],
         tourismFestivals = [],
+        projects = [],
         generalSettings,
     } = usePage<LandingProps>().props;
     const officialsList: { item: OfficialItem; role: string }[] = [];
@@ -348,7 +361,13 @@ export default function Landing() {
                     className="absolute inset-0 h-full w-full object-cover"
                     key={generalSettings?.landing_video_url}
                 >
-                    <source src={generalSettings?.landing_video_url || "/hinobaan-videos/daph.mp4"} type="video/mp4" />
+                    <source
+                        src={
+                            generalSettings?.landing_video_url ||
+                            '/hinobaan-videos/daph.mp4'
+                        }
+                        type="video/mp4"
+                    />
                 </video>
                 {/* Slight dark overlay for text readability */}
                 <div className="absolute inset-0 bg-linear-to-br from-neutral-900/40 via-neutral-800/30 to-neutral-900/40" />
@@ -554,7 +573,9 @@ export default function Landing() {
                                                     <div className="h-40 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52">
                                                         {a.image_url ? (
                                                             <img
-                                                                src={a.image_url}
+                                                                src={
+                                                                    a.image_url
+                                                                }
                                                                 alt=""
                                                                 className="h-full w-full object-cover object-center"
                                                             />
@@ -570,14 +591,33 @@ export default function Landing() {
                                                         </h3>
                                                         {a.published_at && (
                                                             <p className="mt-1 text-sm">
-                                                                <span className="text-slate-500">Posted on </span>
-                                                                <time dateTime={a.published_at} className="font-semibold text-blue-800">
-                                                                    {new Date(a.published_at).toLocaleDateString(undefined, { dateStyle: 'long' })}
+                                                                <span className="text-slate-500">
+                                                                    Posted
+                                                                    on{' '}
+                                                                </span>
+                                                                <time
+                                                                    dateTime={
+                                                                        a.published_at
+                                                                    }
+                                                                    className="font-semibold text-blue-800"
+                                                                >
+                                                                    {new Date(
+                                                                        a.published_at,
+                                                                    ).toLocaleDateString(
+                                                                        undefined,
+                                                                        {
+                                                                            dateStyle:
+                                                                                'long',
+                                                                        },
+                                                                    )}
                                                                 </time>
                                                             </p>
                                                         )}
                                                         <p className="mt-2 line-clamp-2 text-sm text-slate-700">
-                                                            {stripHtml(a.content, 200)}
+                                                            {stripHtml(
+                                                                a.content,
+                                                                200,
+                                                            )}
                                                         </p>
                                                         <span className="mt-1 inline-block text-xs font-medium text-blue-800 underline underline-offset-2">
                                                             continue reading
@@ -602,17 +642,23 @@ export default function Landing() {
                             <div className="mt-12 space-y-8">
                                 {/* Attractions */}
                                 <div>
-                                    <h4 className="text-lg font-bold text-blue-800 mb-3 border-b-2 border-blue-800 pb-1">Attractions</h4>
+                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-lg font-bold text-blue-800">
+                                        Attractions
+                                    </h4>
                                     <div className="flex gap-4 overflow-x-auto pb-2">
                                         {tourismAttractions?.map((item) => (
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/attraction/${item.id}`}
-                                                className="shrink-0 w-56 border border-slate-200 bg-white rounded shadow-sm hover:shadow-md transition overflow-hidden"
+                                                className="w-56 shrink-0 overflow-hidden rounded border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
                                             >
-                                                <div className="h-32 bg-slate-100 overflow-hidden">
+                                                <div className="h-32 overflow-hidden bg-slate-100">
                                                     {item.image_url ? (
-                                                        <img src={item.image_url} alt="" className="object-cover w-full h-full" />
+                                                        <img
+                                                            src={item.image_url}
+                                                            alt=""
+                                                            className="h-full w-full object-cover"
+                                                        />
                                                     ) : (
                                                         <div className="flex h-full w-full items-center justify-center text-slate-400">
                                                             <FileText className="size-10" />
@@ -620,8 +666,12 @@ export default function Landing() {
                                                     )}
                                                 </div>
                                                 <div className="p-3">
-                                                    <div className="font-bold text-blue-800 truncate text-sm">{item.title}</div>
-                                                    <div className="text-xs text-slate-500 truncate">{item.address}</div>
+                                                    <div className="truncate text-sm font-bold text-blue-800">
+                                                        {item.title}
+                                                    </div>
+                                                    <div className="truncate text-xs text-slate-500">
+                                                        {item.address}
+                                                    </div>
                                                 </div>
                                             </Link>
                                         ))}
@@ -630,17 +680,23 @@ export default function Landing() {
 
                                 {/* Resorts */}
                                 <div>
-                                    <h4 className="text-lg font-bold text-blue-800 mb-3 border-b-2 border-blue-800 pb-1">Resorts</h4>
+                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-lg font-bold text-blue-800">
+                                        Resorts
+                                    </h4>
                                     <div className="flex gap-4 overflow-x-auto pb-2">
                                         {tourismResorts?.map((item) => (
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/resorts/${item.id}`}
-                                                className="shrink-0 w-56 border border-slate-200 bg-white rounded shadow-sm hover:shadow-md transition overflow-hidden"
+                                                className="w-56 shrink-0 overflow-hidden rounded border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
                                             >
-                                                <div className="h-32 bg-slate-100 overflow-hidden">
+                                                <div className="h-32 overflow-hidden bg-slate-100">
                                                     {item.image_url ? (
-                                                        <img src={item.image_url} alt="" className="object-cover w-full h-full" />
+                                                        <img
+                                                            src={item.image_url}
+                                                            alt=""
+                                                            className="h-full w-full object-cover"
+                                                        />
                                                     ) : (
                                                         <div className="flex h-full w-full items-center justify-center text-slate-400">
                                                             <FileText className="size-10" />
@@ -648,8 +704,12 @@ export default function Landing() {
                                                     )}
                                                 </div>
                                                 <div className="p-3">
-                                                    <div className="font-bold text-blue-800 truncate text-sm">{item.title}</div>
-                                                    <div className="text-xs text-slate-500 truncate">{item.address}</div>
+                                                    <div className="truncate text-sm font-bold text-blue-800">
+                                                        {item.title}
+                                                    </div>
+                                                    <div className="truncate text-xs text-slate-500">
+                                                        {item.address}
+                                                    </div>
                                                 </div>
                                             </Link>
                                         ))}
@@ -658,17 +718,24 @@ export default function Landing() {
 
                                 {/* Festivals */}
                                 <div>
-                                    <h4 className="text-lg font-bold text-blue-800 mb-3 border-b-2 border-blue-800 pb-1">Festivals</h4>
+                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-lg font-bold text-blue-800">
+                                        Festivals
+                                    </h4>
+
                                     <div className="flex gap-4 overflow-x-auto pb-2">
                                         {tourismFestivals?.map((item) => (
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/festivals/${item.id}`}
-                                                className="shrink-0 w-56 border border-slate-200 bg-white rounded shadow-sm hover:shadow-md transition overflow-hidden"
+                                                className="w-56 shrink-0 overflow-hidden rounded border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
                                             >
-                                                <div className="h-32 bg-slate-100 overflow-hidden">
+                                                <div className="h-32 overflow-hidden bg-slate-100">
                                                     {item.image_url ? (
-                                                        <img src={item.image_url} alt="" className="object-cover w-full h-full" />
+                                                        <img
+                                                            src={item.image_url}
+                                                            alt=""
+                                                            className="h-full w-full object-cover"
+                                                        />
                                                     ) : (
                                                         <div className="flex h-full w-full items-center justify-center text-slate-400">
                                                             <FileText className="size-10" />
@@ -676,13 +743,84 @@ export default function Landing() {
                                                     )}
                                                 </div>
                                                 <div className="p-3">
-                                                    <div className="font-bold text-blue-800 truncate text-sm">{item.title}</div>
-                                                    <div className="text-xs text-slate-500 truncate">{item.address}</div>
+                                                    <div className="truncate text-sm font-bold text-blue-800">
+                                                        {item.title}
+                                                    </div>
+                                                    <div className="truncate text-xs text-slate-500">
+                                                        {item.address}
+                                                    </div>
                                                 </div>
                                             </Link>
                                         ))}
                                     </div>
                                 </div>
+
+                                {/* Municipal Projects */}
+                                {projects && projects.length > 0 && (
+                                    <div className="mt-12">
+                                        <h4 className="mb-6 flex items-center gap-2 border-b-2 border-blue-800 pb-1 text-lg font-bold text-blue-800">
+                                            <HardHat className="size-5" />
+                                            Municipal Projects
+                                        </h4>
+                                        <ul className="space-y-6">
+                                            {projects.map((item: ProjectItem) => (
+                                                <li key={item.id}>
+                                                    <Link
+                                                        href={projectRoutes.show.url(item.id)}
+                                                        className="flex flex-col gap-4 border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:flex-row group"
+                                                    >
+                                                        <div className="h-40 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52 relative">
+                                                            {item.video_url ? (
+                                                                <video
+                                                                    src={item.video_url}
+                                                                    muted
+                                                                    loop
+                                                                    autoPlay
+                                                                    playsInline
+                                                                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                                                                />
+                                                            ) : item.image_url ? (
+                                                                <img
+                                                                    src={item.image_url}
+                                                                    alt=""
+                                                                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                                                                />
+                                                            ) : (
+                                                                <div className="flex h-full w-full items-center justify-center text-slate-400">
+                                                                    <HardHat className="size-10" />
+                                                                </div>
+                                                            )}
+                                                            <div className="absolute top-2 left-2">
+                                                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow-sm ${item.status === 'completed'
+                                                                    ? 'bg-green-500 text-white'
+                                                                    : 'bg-blue-600 text-white'
+                                                                    }`}>
+                                                                    {item.status}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="min-w-0 flex-1 px-4 pt-0 pb-4 sm:px-0 sm:pt-2 sm:pr-2 sm:pb-0">
+                                                            <h3 className="text-base leading-snug font-bold text-blue-800 uppercase sm:text-lg group-hover:underline">
+                                                                {item.title}
+                                                            </h3>
+                                                            {item.published_at && (
+                                                                <p className="mt-1 text-xs text-slate-500">
+                                                                    Updated {new Date(item.published_at).toLocaleDateString(undefined, { dateStyle: 'long' })}
+                                                                </p>
+                                                            )}
+                                                            <p className="mt-2 line-clamp-2 text-sm text-slate-700">
+                                                                {item.description}
+                                                            </p>
+                                                            <span className="mt-1 inline-block text-xs font-medium text-blue-800 underline underline-offset-2">
+                                                                view project details
+                                                            </span>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -705,6 +843,6 @@ export default function Landing() {
                     </div>
                 </div>
             </section>
-        </LandingLayout>
+        </LandingLayout >
     );
 }

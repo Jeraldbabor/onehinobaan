@@ -145,6 +145,7 @@ class SiteContent extends Model
                     'display_order' => $i + 1,
                 ];
             }
+
             return [
                 'mayor' => null,
                 'vice_mayor' => null,
@@ -219,6 +220,7 @@ class SiteContent extends Model
                 ];
             }
         }
+
         return $list;
     }
 

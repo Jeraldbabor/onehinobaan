@@ -24,6 +24,8 @@ export function UserMenuContent({ user }: Props) {
         router.flushAll();
     };
 
+    if (!user) return null;
+
     return (
         <>
             <DropdownMenuLabel className="p-0 font-normal">

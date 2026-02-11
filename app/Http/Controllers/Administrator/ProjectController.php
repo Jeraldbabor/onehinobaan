@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
-use App\Models\Activity;
+use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -11,36 +11,38 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ActivityController extends Controller
+class ProjectController extends Controller
 {
     private const IMAGE_DISK = 'public';
 
-    private const IMAGE_DIR = 'activities';
+    private const IMAGE_DIR = 'projects';
 
     public function index(): Response
     {
-        $activities = Activity::orderByDesc('published_at')
+        $projects = Project::orderByDesc('published_at')
             ->orderByDesc('created_at')
             ->get()
-            ->map(fn (Activity $a) => [
-                'id' => $a->id,
-                'title' => $a->title,
-                'content' => $a->content,
-                'link_url' => $a->link_url,
-                'image_url' => $a->image_path ? '/storage/'.$a->image_path : null,
-                'published_at' => $a->published_at?->toISOString(),
-                'created_at' => $a->created_at->toISOString(),
+            ->map(fn (Project $p) => [
+                'id' => $p->id,
+                'title' => $p->title,
+                'description' => $p->description,
+                'status' => $p->status,
+                'link_url' => $p->link_url,
+                'image_url' => $p->image_path ? '/storage/'.$p->image_path : null,
+                'video_url' => $p->video_path ? '/storage/'.$p->video_path : null,
+                'published_at' => $p->published_at?->toISOString(),
+                'created_at' => $p->created_at->toISOString(),
             ]);
 
-        return Inertia::render('administrator/activities/index', [
-            'activities' => $activities,
+        return Inertia::render('administrator/projects/index', [
+            'projects' => $projects,
         ]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('administrator/activities/form', [
-            'activity' => null,
+        return Inertia::render('administrator/projects/form', [
+            'project' => null,
         ]);
     }
 
@@ -48,9 +50,11 @@ class ActivityController extends Controller
     {
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'status' => ['required', 'string', 'in:ongoing,completed'],
             'link_url' => ['nullable', 'string', 'max:500', 'url'],
             'image' => ['nullable', 'image', 'max:5120', 'mimes:jpeg,png,gif,webp'],
+            'video' => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime', 'max:40960'],
             'other_images' => ['nullable', 'array', 'max:10'],
             'other_images.*' => ['image', 'max:5120', 'mimes:jpeg,png,gif,webp'],
             'published_at' => ['nullable', 'date'],
@@ -65,6 +69,11 @@ class ActivityController extends Controller
             $imagePath = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
         }
 
+        $videoPath = null;
+        if ($request->hasFile('video')) {
+            $videoPath = $request->file('video')->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        }
+
         $otherImages = [];
         if ($request->hasFile('other_images')) {
             foreach ($request->file('other_images') as $file) {
@@ -72,36 +81,40 @@ class ActivityController extends Controller
             }
         }
 
-        Activity::create([
+        Project::create([
             'title' => $request->input('title'),
-            'content' => $request->input('content'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
             'link_url' => $request->filled('link_url') ? $request->input('link_url') : null,
             'image_path' => $imagePath,
+            'video_path' => $videoPath,
             'other_images' => $otherImages,
             'published_at' => $publishedAt,
         ]);
 
-        return redirect()->route('activities.manage.index')->with('status', 'Activity created.');
+        return redirect()->route('projects.manage.index')->with('status', 'Project created.');
     }
 
     public function edit(int $id): Response
     {
-        $activity = Activity::findOrFail($id);
-        $otherImagesUrls = collect($activity->other_images ?? [])
+        $project = Project::findOrFail($id);
+        $otherImagesUrls = collect($project->other_images ?? [])
             ->map(fn ($path) => '/storage/'.$path)
             ->values()
             ->all();
 
-        return Inertia::render('administrator/activities/form', [
-            'activity' => [
-                'id' => $activity->id,
-                'title' => $activity->title,
-                'content' => $activity->content,
-                'link_url' => $activity->link_url ?? '',
-                'image_url' => $activity->image_path ? '/storage/'.$activity->image_path : null,
+        return Inertia::render('administrator/projects/form', [
+            'project' => [
+                'id' => $project->id,
+                'title' => $project->title,
+                'description' => $project->description,
+                'status' => $project->status,
+                'link_url' => $project->link_url ?? '',
+                'image_url' => $project->image_path ? '/storage/'.$project->image_path : null,
+                'video_url' => $project->video_path ? '/storage/'.$project->video_path : null,
                 'other_images_urls' => $otherImagesUrls,
-                'published_at' => $activity->published_at?->format('Y-m-d\TH:i'),
-                'created_at' => $activity->created_at->toISOString(),
+                'published_at' => $project->published_at?->format('Y-m-d\TH:i'),
+                'created_at' => $project->created_at->toISOString(),
             ],
         ]);
     }
@@ -110,10 +123,13 @@ class ActivityController extends Controller
     {
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'status' => ['required', 'string', 'in:ongoing,completed'],
             'link_url' => ['nullable', 'string', 'max:500', 'url'],
             'image' => ['nullable', 'image', 'max:5120', 'mimes:jpeg,png,gif,webp'],
             'remove_image' => ['nullable', 'boolean'],
+            'video' => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime', 'max:40960'],
+            'remove_video' => ['nullable', 'boolean'],
             'other_images' => ['nullable', 'array', 'max:10'],
             'other_images.*' => ['image', 'max:5120', 'mimes:jpeg,png,gif,webp'],
             'remove_other_images' => ['nullable', 'array'],
@@ -121,25 +137,37 @@ class ActivityController extends Controller
             'published_at' => ['nullable', 'date'],
         ]);
 
-        $activity = Activity::findOrFail($id);
+        $project = Project::findOrFail($id);
         $publishedAt = $request->filled('published_at')
             ? Carbon::parse($request->input('published_at'), config('app.timezone'))
             : now();
 
-        $imagePath = $activity->image_path;
+        $imagePath = $project->image_path;
         if ($request->boolean('remove_image') && $imagePath) {
             Storage::disk(self::IMAGE_DISK)->delete($imagePath);
             $imagePath = null;
         }
         if ($request->hasFile('image')) {
-            if ($activity->image_path) {
-                Storage::disk(self::IMAGE_DISK)->delete($activity->image_path);
+            if ($project->image_path) {
+                Storage::disk(self::IMAGE_DISK)->delete($project->image_path);
             }
             $imagePath = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
         }
 
+        $videoPath = $project->video_path;
+        if ($request->boolean('remove_video') && $videoPath) {
+            Storage::disk(self::IMAGE_DISK)->delete($videoPath);
+            $videoPath = null;
+        }
+        if ($request->hasFile('video')) {
+            if ($project->video_path) {
+                Storage::disk(self::IMAGE_DISK)->delete($project->video_path);
+            }
+            $videoPath = $request->file('video')->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        }
+
         // Handle other images
-        $existingOtherImages = $activity->other_images ?? [];
+        $existingOtherImages = $project->other_images ?? [];
         $removeIndices = $request->input('remove_other_images', []);
 
         // Remove specified images
@@ -158,30 +186,35 @@ class ActivityController extends Controller
             }
         }
 
-        $activity->update([
+        $project->update([
             'title' => $request->input('title'),
-            'content' => $request->input('content'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
             'link_url' => $request->filled('link_url') ? $request->input('link_url') : null,
             'image_path' => $imagePath,
+            'video_path' => $videoPath,
             'other_images' => $existingOtherImages,
             'published_at' => $publishedAt,
         ]);
 
-        return redirect()->route('activities.manage.index')->with('status', 'Activity updated.');
+        return redirect()->route('projects.manage.index')->with('status', 'Project updated.');
     }
 
     public function destroy(int $id): RedirectResponse
     {
-        $activity = Activity::findOrFail($id);
-        if ($activity->image_path) {
-            Storage::disk(self::IMAGE_DISK)->delete($activity->image_path);
+        $project = Project::findOrFail($id);
+        if ($project->image_path) {
+            Storage::disk(self::IMAGE_DISK)->delete($project->image_path);
+        }
+        if ($project->video_path) {
+            Storage::disk(self::IMAGE_DISK)->delete($project->video_path);
         }
         // Delete other images
-        foreach ($activity->other_images ?? [] as $path) {
+        foreach ($project->other_images ?? [] as $path) {
             Storage::disk(self::IMAGE_DISK)->delete($path);
         }
-        $activity->delete();
+        $project->delete();
 
-        return back()->with('status', 'Activity removed.');
+        return back()->with('status', 'Project removed.');
     }
 }

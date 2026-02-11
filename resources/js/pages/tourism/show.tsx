@@ -3,6 +3,7 @@ import { ArrowLeft, ChevronRight, MapPin } from 'lucide-react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import LandingLayout from '@/layouts/landing-layout';
+import type { PageProps } from '@/types';
 
 type TourismItem = {
     id: number;
@@ -43,7 +44,7 @@ export default function TourismShowPage({
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: `url('${(usePage().props as any).generalSettings?.sub_page_banner_url || "/hinobaan-banner/banner2.png"}')`,
+                        backgroundImage: `url('${usePage<PageProps>().props.generalSettings?.sub_page_banner_url || '/hinobaan-banner/banner2.png'}')`,
                     }}
                 />
                 <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
@@ -115,15 +116,15 @@ export default function TourismShowPage({
                                                             {item.image_urls
                                                                 ?.length >
                                                                 1 && (
-                                                                    <div className="absolute bottom-2 left-2 bg-slate-800/90 px-2 py-1 text-xs font-medium text-white">
-                                                                        {
-                                                                            item
-                                                                                .image_urls
-                                                                                .length
-                                                                        }{' '}
-                                                                        photos
-                                                                    </div>
-                                                                )}
+                                                                <div className="absolute bottom-2 left-2 bg-slate-800/90 px-2 py-1 text-xs font-medium text-white">
+                                                                    {
+                                                                        item
+                                                                            .image_urls
+                                                                            .length
+                                                                    }{' '}
+                                                                    photos
+                                                                </div>
+                                                            )}
                                                         </div>
                                                         <div className="border-t border-slate-100 p-4">
                                                             <h2 className="font-semibold text-slate-900 group-hover:text-blue-800">

@@ -13,7 +13,9 @@ use Inertia\Response;
 class GeneralSettingsController extends Controller
 {
     private const IMAGE_DISK = 'public';
+
     private const LOGO_DIR = 'logos';
+
     private const VIDEO_DIR = 'videos';
 
     /**
@@ -84,19 +86,22 @@ class GeneralSettingsController extends Controller
     {
         // Don't delete default assets if they are in the public/hinobaan-logo or public/hinobaan-videos
         // Only delete if they are in the dynamic storage directories
-        if ($oldPath && !str_starts_with($oldPath, 'hinobaan-')) {
+        if ($oldPath && ! str_starts_with($oldPath, 'hinobaan-')) {
             Storage::disk(self::IMAGE_DISK)->delete($oldPath);
         }
+
         return $file->store($dir, self::IMAGE_DISK);
     }
 
     private function storageUrl($path): string
     {
-        if (!$path) return '';
-        
+        if (! $path) {
+            return '';
+        }
+
         // If it starts with hinobaan-, it's likely a public asset
         if (str_starts_with($path, 'hinobaan-')) {
-            return '/' . $path;
+            return '/'.$path;
         }
 
         return Storage::disk(self::IMAGE_DISK)->url($path);
