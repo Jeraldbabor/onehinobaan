@@ -21,6 +21,8 @@ class SiteContent extends Model
 
     public const KEY_CONTACT = 'contact';
 
+    public const KEY_GENERAL_SETTINGS = 'general_settings';
+
     protected $fillable = ['key', 'content', 'image_path'];
 
     /**
@@ -143,6 +145,7 @@ class SiteContent extends Model
                     'display_order' => $i + 1,
                 ];
             }
+
             return [
                 'mayor' => null,
                 'vice_mayor' => null,
@@ -217,6 +220,7 @@ class SiteContent extends Model
                 ];
             }
         }
+
         return $list;
     }
 
@@ -279,6 +283,41 @@ class SiteContent extends Model
     {
         $row = self::getByKey(self::KEY_BARANGAYS);
         $row->content = json_encode(array_values($list));
+        $row->save();
+    }
+
+    /**
+     * Get general settings (logos, video).
+     *
+     * @return array{main_logo_path: string, bp_logo_path: string, one_hinobaan_logo_path: string, transparency_seal_path: string, landing_video_path: string, sub_page_banner_path: string}
+     */
+    public static function getGeneralSettings(): array
+    {
+        $row = self::getByKey(self::KEY_GENERAL_SETTINGS);
+        $decoded = $row->content ? json_decode($row->content, true) : null;
+        $defaults = [
+            'main_logo_path' => 'hinobaan-logo/Hinobaan_logo.png',
+            'bp_logo_path' => 'hinobaan-logo/BP_Logo.webp',
+            'one_hinobaan_logo_path' => 'hinobaan-logo/Onehinoba-an logo.png',
+            'transparency_seal_path' => 'hinobaan-logo/transparency.png',
+            'landing_video_path' => 'hinobaan-videos/daph.mp4',
+            'sub_page_banner_path' => 'hinobaan-banner/banner2.png',
+        ];
+
+        if (! is_array($decoded)) {
+            return $defaults;
+        }
+
+        return array_merge($defaults, $decoded);
+    }
+
+    /**
+     * Save general settings.
+     */
+    public static function setGeneralSettings(array $data): void
+    {
+        $row = self::getByKey(self::KEY_GENERAL_SETTINGS);
+        $row->content = json_encode($data);
         $row->save();
     }
 }

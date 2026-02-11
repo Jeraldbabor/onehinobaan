@@ -16,6 +16,7 @@ class AnnouncementController extends Controller
     private const IMAGE_DISK = 'public';
 
     private const IMAGE_DIR = 'announcements';
+
     /**
      * List announcements and show admin index page.
      */

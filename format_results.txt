@@ -1,0 +1,13 @@
+
+> format:check
+> prettier --check resources/
+
+Checking formatting...
+[[33mwarn[39m] resources/js/components/landing/landing-header.tsx
+[[33mwarn[39m] resources/js/components/nav-user.tsx
+[[33mwarn[39m] resources/js/components/project-gallery.tsx
+[[33mwarn[39m] resources/js/pages/administrator/projects/form.tsx
+[[33mwarn[39m] resources/js/pages/administrator/projects/index.tsx
+[[33mwarn[39m] resources/js/pages/landing.tsx
+[[33mwarn[39m] resources/js/pages/projects/show.tsx
+[[33mwarn[39m] Code style issues found in 7 files. Run Prettier with --write to fix.

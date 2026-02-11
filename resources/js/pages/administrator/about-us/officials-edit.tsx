@@ -204,7 +204,9 @@ export default function OfficialsEditPage({
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="mayor_detail">Detail (optional)</Label>
+                                    <Label htmlFor="mayor_detail">
+                                        Detail (optional)
+                                    </Label>
                                     <textarea
                                         id="mayor_detail"
                                         value={mayorForm.data.detail}
@@ -216,7 +218,7 @@ export default function OfficialsEditPage({
                                         }
                                         placeholder="Brief background or description..."
                                         rows={3}
-                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -398,7 +400,7 @@ export default function OfficialsEditPage({
                                         }
                                         placeholder="Brief background or description..."
                                         rows={3}
-                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -848,7 +850,7 @@ function SbMemberCard({
                     {member.title || 'SB Member'}
                 </p>
                 {member.detail && (
-                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                    <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
                         {member.detail}
                     </p>
                 )}

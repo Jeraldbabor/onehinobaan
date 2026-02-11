@@ -1,9 +1,16 @@
-import { Head, Link } from '@inertiajs/react';
-import { ExternalLink, X, ChevronLeft, ChevronRight, Landmark } from 'lucide-react';
+import { Head, Link, usePage } from '@inertiajs/react';
+import {
+    ExternalLink,
+    X,
+    ChevronLeft,
+    ChevronRight,
+    Landmark,
+} from 'lucide-react';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import LandingLayout from '@/layouts/landing-layout';
+import type { PageProps } from '@/types';
 
 type OfficialItem = {
     id: string;
@@ -118,7 +125,10 @@ export default function AnnouncementShowPage({
         if (!el) return;
         const newScrollLeft = el.scrollLeft + SCROLL_AMOUNT;
         const maxScroll = el.scrollWidth - el.clientWidth;
-        el.scrollTo({ left: Math.min(maxScroll, newScrollLeft), behavior: 'smooth' });
+        el.scrollTo({
+            left: Math.min(maxScroll, newScrollLeft),
+            behavior: 'smooth',
+        });
     }, [n]);
 
     const updateCurrentIndexFromScroll = useCallback(() => {
@@ -170,7 +180,13 @@ export default function AnnouncementShowPage({
         dragRafId.current = null;
         const el = scrollRef.current;
         if (el && isDragging.current) {
-            const target = Math.max(0, Math.min(el.scrollWidth - el.clientWidth, dragTargetScrollLeft.current));
+            const target = Math.max(
+                0,
+                Math.min(
+                    el.scrollWidth - el.clientWidth,
+                    dragTargetScrollLeft.current,
+                ),
+            );
             el.scrollLeft = target;
         }
     }, []);
@@ -215,7 +231,12 @@ export default function AnnouncementShowPage({
 
     const handleCarouselTouchMove = useCallback(
         (e: React.TouchEvent) => {
-            if (!isDragging.current || !scrollRef.current || e.touches.length !== 1) return;
+            if (
+                !isDragging.current ||
+                !scrollRef.current ||
+                e.touches.length !== 1
+            )
+                return;
             e.preventDefault();
             const dx = e.touches[0].clientX - dragStartX.current;
             dragTargetScrollLeft.current = dragStartScrollLeft.current - dx;
@@ -240,7 +261,8 @@ export default function AnnouncementShowPage({
             window.removeEventListener('mousemove', handleCarouselMouseMove);
             window.removeEventListener('mouseup', handleCarouselMouseUp);
             window.removeEventListener('mouseleave', handleCarouselMouseUp);
-            if (dragRafId.current !== null) cancelAnimationFrame(dragRafId.current);
+            if (dragRafId.current !== null)
+                cancelAnimationFrame(dragRafId.current);
         };
     }, [handleCarouselMouseMove, handleCarouselMouseUp]);
 
@@ -254,7 +276,7 @@ export default function AnnouncementShowPage({
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: "url('/hinobaan-banner/banner2.png')",
+                        backgroundImage: `url('${usePage<PageProps>().props.generalSettings?.sub_page_banner_url || '/hinobaan-banner/banner2.png'}')`,
                     }}
                 />
                 <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
@@ -286,7 +308,8 @@ export default function AnnouncementShowPage({
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <p className="text-xs font-semibold tracking-widest text-blue-800 uppercase">
-                                    Republic of the Philippines · Municipality of Hinobaan
+                                    Republic of the Philippines · Municipality
+                                    of Hinobaan
                                 </p>
                                 <h2 className="mt-1 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
                                     The Elected Officials
@@ -391,12 +414,17 @@ export default function AnnouncementShowPage({
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${index === currentIndex
-                                            ? 'scale-125 bg-blue-800'
-                                            : 'bg-slate-300 hover:bg-slate-400'
-                                            }`}
+                                        className={`size-2 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
+                                            index === currentIndex
+                                                ? 'scale-125 bg-blue-800'
+                                                : 'bg-slate-300 hover:bg-slate-400'
+                                        }`}
                                         aria-label={`Go to official ${index + 1}`}
-                                        aria-current={index === currentIndex ? 'true' : undefined}
+                                        aria-current={
+                                            index === currentIndex
+                                                ? 'true'
+                                                : undefined
+                                        }
                                     />
                                 ))}
                             </div>
@@ -472,7 +500,10 @@ export default function AnnouncementShowPage({
                                             <span>📷</span>
                                             Photo Gallery
                                             <span className="rounded-full bg-slate-100 px-2 py-0.5 text-sm font-normal text-slate-600">
-                                                {otherImages.length} {otherImages.length === 1 ? 'photo' : 'photos'}
+                                                {otherImages.length}{' '}
+                                                {otherImages.length === 1
+                                                    ? 'photo'
+                                                    : 'photos'}
                                             </span>
                                         </h3>
                                         <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3">
@@ -480,8 +511,10 @@ export default function AnnouncementShowPage({
                                                 <button
                                                     key={url}
                                                     type="button"
-                                                    onClick={() => openLightbox(index)}
-                                                    className="group relative aspect-square overflow-hidden rounded-lg border border-slate-200 bg-slate-100 transition-all hover:border-blue-400 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                                    onClick={() =>
+                                                        openLightbox(index)
+                                                    }
+                                                    className="group relative aspect-square overflow-hidden rounded-lg border border-slate-200 bg-slate-100 transition-all hover:border-blue-400 hover:shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
                                                 >
                                                     <img
                                                         src={url}
@@ -523,14 +556,14 @@ export default function AnnouncementShowPage({
                     <button
                         type="button"
                         onClick={closeLightbox}
-                        className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+                        className="absolute top-4 right-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
                         aria-label="Close"
                     >
                         <X className="size-6" />
                     </button>
 
                     {/* Image counter */}
-                    <div className="absolute left-4 top-4 rounded-full bg-white/10 px-3 py-1 text-sm text-white">
+                    <div className="absolute top-4 left-4 rounded-full bg-white/10 px-3 py-1 text-sm text-white">
                         {lightboxIndex + 1} / {otherImages.length}
                     </div>
 
@@ -538,8 +571,11 @@ export default function AnnouncementShowPage({
                     {lightboxIndex > 0 && (
                         <button
                             type="button"
-                            onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                prevImage();
+                            }}
+                            className="absolute top-1/2 left-4 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
                             aria-label="Previous image"
                         >
                             <ChevronLeft className="size-8" />
@@ -550,8 +586,11 @@ export default function AnnouncementShowPage({
                     {lightboxIndex < otherImages.length - 1 && (
                         <button
                             type="button"
-                            onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                nextImage();
+                            }}
+                            className="absolute top-1/2 right-4 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
                             aria-label="Next image"
                         >
                             <ChevronRight className="size-8" />

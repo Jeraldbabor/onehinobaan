@@ -5,6 +5,7 @@ use App\Http\Controllers\Administrator\ActivityController as AdminActivityContro
 use App\Http\Controllers\Administrator\AnnouncementController;
 use App\Http\Controllers\Administrator\BarangayController;
 use App\Http\Controllers\Administrator\ContactController;
+use App\Http\Controllers\Administrator\GeneralSettingsController;
 use App\Http\Controllers\Administrator\HistoryController;
 use App\Http\Controllers\Administrator\OfficialsController;
 use App\Http\Controllers\Administrator\TourismController as AdminTourismController;
@@ -68,12 +69,28 @@ Route::get('/', function () {
         'image_urls' => $item->images->map(fn ($img) => $img->image_url)->values()->all(),
     ]);
 
+    $projects = \App\Models\Project::published()
+        ->orderByRaw('COALESCE(published_at, created_at) DESC')
+        ->take(3)
+        ->get()
+        ->map(fn (\App\Models\Project $p) => [
+            'id' => $p->id,
+            'title' => $p->title,
+            'description' => $p->description,
+            'status' => $p->status,
+            'link_url' => $p->link_url,
+            'image_url' => $p->image_path ? '/storage/'.$p->image_path : null,
+            'video_url' => $p->video_path ? '/storage/'.$p->video_path : null,
+            'published_at' => $p->published_at?->toISOString(),
+        ]);
+
     return Inertia::render('landing', [
         'canRegister' => Features::enabled(Features::registration()),
         'mayor' => $officials['mayor'],
         'viceMayor' => $officials['vice_mayor'],
         'sbMembers' => $officials['sb_members'],
         'activities' => $activities,
+        'projects' => $projects,
         'announcements' => \App\Models\Announcement::forSidebar(),
         'facebookMunicipalityUrl' => $contact['facebook_municipality_url'] ?? '',
         'facebookMayorUrl' => $contact['facebook_mayor_url'] ?? '',
@@ -109,6 +126,7 @@ Route::get('announcements', [AnnouncementListController::class, 'announcements']
 Route::get('announcements/{id}', [AnnouncementListController::class, 'showAnnouncement'])->name('announcements.show')->whereNumber('id');
 Route::get('activities', [ActivityListController::class, 'index'])->name('activities.index');
 Route::get('activities/{id}', [ActivityListController::class, 'show'])->name('activities.show')->whereNumber('id');
+Route::get('projects/{id}', [App\Http\Controllers\ProjectController::class, 'show'])->name('projects.show')->whereNumber('id');
 
 // Public: Tourism list and item detail (detail route first so {id} is not eaten by {type})
 Route::get('tourism/{type}/{id}', [TourismController::class, 'showItem'])
@@ -156,6 +174,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::delete('dashboard/barangay/{id}', [BarangayController::class, 'destroy'])->name('barangay.destroy');
     Route::get('dashboard/contact', [ContactController::class, 'edit'])->name('contact.edit');
     Route::put('dashboard/contact', [ContactController::class, 'update'])->name('contact.update');
+    Route::get('dashboard/general-settings', [GeneralSettingsController::class, 'edit'])->name('general-settings.edit');
+    Route::post('dashboard/general-settings', [GeneralSettingsController::class, 'update'])->name('general-settings.update');
 
     // News & Announcements
     Route::get('dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
@@ -172,6 +192,14 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/activities/{id}/edit', [AdminActivityController::class, 'edit'])->name('activities.manage.edit');
     Route::put('dashboard/activities/{id}', [AdminActivityController::class, 'update'])->name('activities.manage.update');
     Route::delete('dashboard/activities/{id}', [AdminActivityController::class, 'destroy'])->name('activities.manage.destroy');
+
+    // Municipal Projects
+    Route::get('dashboard/projects', [\App\Http\Controllers\Administrator\ProjectController::class, 'index'])->name('projects.manage.index');
+    Route::get('dashboard/projects/create', [\App\Http\Controllers\Administrator\ProjectController::class, 'create'])->name('projects.manage.create');
+    Route::post('dashboard/projects', [\App\Http\Controllers\Administrator\ProjectController::class, 'store'])->name('projects.manage.store');
+    Route::get('dashboard/projects/{id}/edit', [\App\Http\Controllers\Administrator\ProjectController::class, 'edit'])->name('projects.manage.edit');
+    Route::put('dashboard/projects/{id}', [\App\Http\Controllers\Administrator\ProjectController::class, 'update'])->name('projects.manage.update');
+    Route::delete('dashboard/projects/{id}', [\App\Http\Controllers\Administrator\ProjectController::class, 'destroy'])->name('projects.manage.destroy');
 });
 
 require __DIR__.'/settings.php';

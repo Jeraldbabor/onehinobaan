@@ -98,6 +98,7 @@ class BarangayController extends Controller
     {
         return array_map(function ($item) {
             $path = $item['image_path'] ?? '';
+
             return [
                 'id' => $item['id'] ?? '',
                 'image_url' => $path ? '/storage/'.$path : '',

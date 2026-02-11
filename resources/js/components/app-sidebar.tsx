@@ -11,9 +11,11 @@ import {
     Megaphone,
     PartyPopper,
     Phone,
+    Settings,
     Target,
     Users,
     Waves,
+    HardHat,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavUser } from '@/components/nav-user';
@@ -51,6 +53,8 @@ const editTourismResortsUrl = '/dashboard/tourism/resorts';
 const editTourismFestivalsUrl = '/dashboard/tourism/festivals';
 const announcementsUrl = '/dashboard/announcements';
 const activitiesUrl = '/dashboard/activities';
+const projectsUrl = '/dashboard/projects';
+const editGeneralSettingsUrl = '/dashboard/general-settings';
 
 export function AppSidebar() {
     const [aboutOpen, setAboutOpen] = useState(false);
@@ -142,6 +146,20 @@ export function AppSidebar() {
                                 <Link href={activitiesUrl} prefetch>
                                     <CalendarDays className="size-4" />
                                     <span>Municipality Activities</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                asChild
+                                isActive={isCurrentUrl(projectsUrl)}
+                                tooltip={{
+                                    children: 'Municipal Projects',
+                                }}
+                            >
+                                <Link href={projectsUrl} prefetch>
+                                    <HardHat className="size-4" />
+                                    <span>Municipal Projects</span>
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
@@ -338,11 +356,29 @@ export function AppSidebar() {
                                     </SidebarMenuSub>
                                 </CollapsibleContent>
                             </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={isCurrentUrl(
+                                        editGeneralSettingsUrl,
+                                    )}
+                                    tooltip={{
+                                        children: 'General Settings',
+                                    }}
+                                >
+                                    <Link
+                                        href={editGeneralSettingsUrl}
+                                        prefetch
+                                    >
+                                        <Settings className="size-4" />
+                                        <span>General Settings</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
                         </Collapsible>
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
-
             <SidebarFooter>
                 <NavUser />
             </SidebarFooter>

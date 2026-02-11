@@ -7,7 +7,6 @@ use App\Models\TourismItem;
 use App\Models\TourismItemImage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,6 +28,7 @@ class TourismController extends Controller
         if (str_contains($name, 'festivals')) {
             return TourismItem::TYPE_FESTIVAL;
         }
+
         return TourismItem::TYPE_ATTRACTION;
     }
 
