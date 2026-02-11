@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { ExternalLink } from 'lucide-react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
@@ -36,7 +36,7 @@ export default function AnnouncementsListPage({
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: "url('/hinobaan-banner/banner2.png')",
+                        backgroundImage: `url('${(usePage().props as any).generalSettings?.sub_page_banner_url || "/hinobaan-banner/banner2.png"}')`,
                     }}
                 />
                 <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">

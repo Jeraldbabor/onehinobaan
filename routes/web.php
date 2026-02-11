@@ -5,6 +5,7 @@ use App\Http\Controllers\Administrator\ActivityController as AdminActivityContro
 use App\Http\Controllers\Administrator\AnnouncementController;
 use App\Http\Controllers\Administrator\BarangayController;
 use App\Http\Controllers\Administrator\ContactController;
+use App\Http\Controllers\Administrator\GeneralSettingsController;
 use App\Http\Controllers\Administrator\HistoryController;
 use App\Http\Controllers\Administrator\OfficialsController;
 use App\Http\Controllers\Administrator\TourismController as AdminTourismController;
@@ -156,6 +157,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::delete('dashboard/barangay/{id}', [BarangayController::class, 'destroy'])->name('barangay.destroy');
     Route::get('dashboard/contact', [ContactController::class, 'edit'])->name('contact.edit');
     Route::put('dashboard/contact', [ContactController::class, 'update'])->name('contact.update');
+    Route::get('dashboard/general-settings', [GeneralSettingsController::class, 'edit'])->name('general-settings.edit');
+    Route::post('dashboard/general-settings', [GeneralSettingsController::class, 'update'])->name('general-settings.update');
 
     // News & Announcements
     Route::get('dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');

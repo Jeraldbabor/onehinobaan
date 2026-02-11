@@ -41,6 +41,17 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'generalSettings' => function () {
+                $settings = \App\Models\SiteContent::getGeneralSettings();
+                return [
+                    'main_logo_url' => $settings['main_logo_path'] ? (str_starts_with($settings['main_logo_path'], 'hinobaan-') ? '/' . $settings['main_logo_path'] : \Illuminate\Support\Facades\Storage::disk('public')->url($settings['main_logo_path'])) : '',
+                    'bp_logo_url' => $settings['bp_logo_path'] ? (str_starts_with($settings['bp_logo_path'], 'hinobaan-') ? '/' . $settings['bp_logo_path'] : \Illuminate\Support\Facades\Storage::disk('public')->url($settings['bp_logo_path'])) : '',
+                    'one_hinobaan_logo_url' => $settings['one_hinobaan_logo_path'] ? (str_starts_with($settings['one_hinobaan_logo_path'], 'hinobaan-') ? '/' . $settings['one_hinobaan_logo_path'] : \Illuminate\Support\Facades\Storage::disk('public')->url($settings['one_hinobaan_logo_path'])) : '',
+                    'transparency_seal_url' => $settings['transparency_seal_path'] ? (str_starts_with($settings['transparency_seal_path'], 'hinobaan-') ? '/' . $settings['transparency_seal_path'] : \Illuminate\Support\Facades\Storage::disk('public')->url($settings['transparency_seal_path'])) : '',
+                    'landing_video_url' => $settings['landing_video_path'] ? (str_starts_with($settings['landing_video_path'], 'hinobaan-') ? '/' . $settings['landing_video_path'] : \Illuminate\Support\Facades\Storage::disk('public')->url($settings['landing_video_path'])) : '',
+                    'sub_page_banner_url' => $settings['sub_page_banner_path'] ? (str_starts_with($settings['sub_page_banner_path'], 'hinobaan-') ? '/' . $settings['sub_page_banner_path'] : \Illuminate\Support\Facades\Storage::disk('public')->url($settings['sub_page_banner_path'])) : '',
+                ];
+            },
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }

@@ -11,6 +11,7 @@ import {
     Megaphone,
     PartyPopper,
     Phone,
+    Settings,
     Target,
     Users,
     Waves,
@@ -51,6 +52,7 @@ const editTourismResortsUrl = '/dashboard/tourism/resorts';
 const editTourismFestivalsUrl = '/dashboard/tourism/festivals';
 const announcementsUrl = '/dashboard/announcements';
 const activitiesUrl = '/dashboard/activities';
+const editGeneralSettingsUrl = '/dashboard/general-settings';
 
 export function AppSidebar() {
     const [aboutOpen, setAboutOpen] = useState(false);
@@ -338,11 +340,24 @@ export function AppSidebar() {
                                     </SidebarMenuSub>
                                 </CollapsibleContent>
                             </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={isCurrentUrl(editGeneralSettingsUrl)}
+                                    tooltip={{
+                                        children: 'General Settings',
+                                    }}
+                                >
+                                    <Link href={editGeneralSettingsUrl} prefetch>
+                                        <Settings className="size-4" />
+                                        <span>General Settings</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
                         </Collapsible>
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
-
             <SidebarFooter>
                 <NavUser />
             </SidebarFooter>

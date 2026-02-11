@@ -181,7 +181,7 @@ export default function OfficialsPage() {
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: "url('/hinobaan-banner/banner2.png')",
+                        backgroundImage: `url('${(usePage().props as any).generalSettings?.sub_page_banner_url || "/hinobaan-banner/banner2.png"}')`,
                     }}
                 />
                 <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">

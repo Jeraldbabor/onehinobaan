@@ -44,6 +44,13 @@ type LandingProps = SharedData & {
     tourismAttractions?: TourismItem[];
     tourismResorts?: TourismItem[];
     tourismFestivals?: TourismItem[];
+    generalSettings?: {
+        main_logo_url: string;
+        bp_logo_url: string;
+        one_hinobaan_logo_url: string;
+        transparency_seal_url: string;
+        landing_video_url: string;
+    };
 };
 
 const CAROUSEL_AUTOPLAY_MS = 5000;
@@ -98,6 +105,7 @@ export default function Landing() {
         tourismAttractions = [],
         tourismResorts = [],
         tourismFestivals = [],
+        generalSettings,
     } = usePage<LandingProps>().props;
     const officialsList: { item: OfficialItem; role: string }[] = [];
     if (mayor && (mayor.image_url || mayor.name)) {
@@ -338,8 +346,9 @@ export default function Landing() {
                     loop
                     playsInline
                     className="absolute inset-0 h-full w-full object-cover"
+                    key={generalSettings?.landing_video_url}
                 >
-                    <source src="/hinobaan-videos/daph.mp4" type="video/mp4" />
+                    <source src={generalSettings?.landing_video_url || "/hinobaan-videos/daph.mp4"} type="video/mp4" />
                 </video>
                 {/* Slight dark overlay for text readability */}
                 <div className="absolute inset-0 bg-linear-to-br from-neutral-900/40 via-neutral-800/30 to-neutral-900/40" />
@@ -494,11 +503,10 @@ export default function Landing() {
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
-                                            index === currentIndex
-                                                ? 'scale-125 bg-blue-800'
-                                                : 'bg-slate-300 hover:bg-slate-400'
-                                        }`}
+                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${index === currentIndex
+                                            ? 'scale-125 bg-blue-800'
+                                            : 'bg-slate-300 hover:bg-slate-400'
+                                            }`}
                                         aria-label={`Go to official ${index + 1}`}
                                         aria-current={
                                             index === currentIndex

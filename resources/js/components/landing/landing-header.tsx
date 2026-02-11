@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, ChevronRight, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -305,6 +305,7 @@ function hasNestedChildren(child: NavChild): child is NavLinkWithNested {
     );
 }
 export function LandingHeader() {
+    const { generalSettings } = usePage<any>().props;
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [mobileExpandedSection, setMobileExpandedSection] = useState<string | null>(null);
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -395,7 +396,7 @@ export function LandingHeader() {
                         {/* Logo + Text - centered on mobile, left-aligned on desktop */}
                         <div className="flex items-center gap-2 sm:gap-3">
                             <img
-                                src="/hinobaan-logo/Hinobaan_logo.png"
+                                src={generalSettings?.main_logo_url || "/hinobaan-logo/Hinobaan_logo.png"}
                                 alt=""
                                 className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-16"
                             />
@@ -414,17 +415,17 @@ export function LandingHeader() {
                         {/* Partner logos - smaller on mobile */}
                         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
                             <img
-                                src="/hinobaan-logo/BP_Logo.webp"
+                                src={generalSettings?.bp_logo_url || "/hinobaan-logo/BP_Logo.webp"}
                                 alt=""
                                 className="h-8 w-auto object-contain sm:h-10 md:h-14"
                             />
                             <img
-                                src="/hinobaan-logo/Onehinoba-an%20logo.png"
+                                src={generalSettings?.one_hinobaan_logo_url || "/hinobaan-logo/Onehinoba-an%20logo.png"}
                                 alt="One Hinoba-an"
                                 className="h-8 w-auto object-contain sm:h-10 md:h-14"
                             />
                             <img
-                                src="/hinobaan-logo/transparency.png"
+                                src={generalSettings?.transparency_seal_url || "/hinobaan-logo/transparency.png"}
                                 alt="Transparency Seal"
                                 className="h-8 w-auto object-contain sm:h-10 md:h-14"
                             />
@@ -442,7 +443,7 @@ export function LandingHeader() {
                         aria-label="Municipality of Hinoba-an - Home"
                     >
                         <img
-                            src="/hinobaan-logo/Hinobaan_logo.png"
+                            src={generalSettings?.main_logo_url || "/hinobaan-logo/Hinobaan_logo.png"}
                             alt=""
                             className="h-8 w-auto object-contain sm:h-9"
                         />

@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { ArrowLeft, Mail, MapPin, Phone, Share2 } from 'lucide-react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
@@ -85,7 +85,7 @@ export default function TourismItemPage({
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: "url('/hinobaan-banner/banner2.png')",
+                        backgroundImage: `url('${(usePage().props as any).generalSettings?.sub_page_banner_url || "/hinobaan-banner/banner2.png"}')`,
                     }}
                 />
                 <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
@@ -168,147 +168,147 @@ export default function TourismItemPage({
                             item.email ||
                             item.contact_number ||
                             item.social_media_url) && (
-                            <section className="bg-white py-8 sm:py-10">
-                                <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                                    <h2 className={sectionTitleClass}>
-                                        Location & Contact Information
-                                    </h2>
-                                    <div className="mt-6 grid gap-8 lg:grid-cols-5">
-                                        <div
-                                            className={
-                                                item.address ||
-                                                item.email ||
-                                                item.contact_number ||
-                                                item.social_media_url
-                                                    ? 'lg:col-span-2'
-                                                    : 'hidden'
-                                            }
-                                        >
-                                            {(item.address ||
-                                                item.email ||
-                                                item.contact_number ||
-                                                item.social_media_url) && (
-                                                <div className="border border-slate-200 bg-slate-50 p-5 shadow-sm">
-                                                    <ul className="space-y-4">
-                                                        {item.address && (
-                                                            <li className="flex items-start gap-3 text-slate-700">
-                                                                <MapPin className="mt-0.5 size-5 shrink-0 text-blue-800" />
-                                                                <span className="text-sm leading-relaxed sm:text-base">
-                                                                    {
-                                                                        item.address
-                                                                    }
-                                                                </span>
-                                                            </li>
-                                                        )}
-                                                        {item.contact_number && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Phone className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={`tel:${item.contact_number.replace(/\s/g, '')}`}
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    {
-                                                                        item.contact_number
-                                                                    }
-                                                                </a>
-                                                            </li>
-                                                        )}
-                                                        {item.email && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Mail className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={`mailto:${item.email}`}
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    {item.email}
-                                                                </a>
-                                                            </li>
-                                                        )}
-                                                        {item.social_media_url && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Share2 className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={
-                                                                        item.social_media_url
-                                                                    }
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    Social media
-                                                                </a>
-                                                            </li>
-                                                        )}
-                                                    </ul>
-                                                </div>
-                                            )}
-                                        </div>
-                                        {(safeMapSrc || showLocationMap) && (
+                                <section className="bg-white py-8 sm:py-10">
+                                    <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                                        <h2 className={sectionTitleClass}>
+                                            Location & Contact Information
+                                        </h2>
+                                        <div className="mt-6 grid gap-8 lg:grid-cols-5">
                                             <div
                                                 className={
                                                     item.address ||
-                                                    item.email ||
-                                                    item.contact_number ||
-                                                    item.social_media_url
-                                                        ? 'lg:col-span-3'
-                                                        : 'lg:col-span-5'
+                                                        item.email ||
+                                                        item.contact_number ||
+                                                        item.social_media_url
+                                                        ? 'lg:col-span-2'
+                                                        : 'hidden'
                                                 }
                                             >
-                                                {safeMapSrc ? (
-                                                    <div className="overflow-hidden border border-slate-200 shadow-sm">
-                                                        <iframe
-                                                            src={safeMapSrc}
-                                                            title={`Map: ${item.title}`}
-                                                            width="100%"
-                                                            height="320"
-                                                            style={{
-                                                                border: 0,
-                                                            }}
-                                                            allowFullScreen
-                                                            loading="lazy"
-                                                            referrerPolicy="no-referrer-when-downgrade"
-                                                            className="block w-full"
-                                                        />
-                                                    </div>
-                                                ) : showLocationMap ? (
-                                                    <div className="space-y-3">
-                                                        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
-                                                            <LocationMap
-                                                                center={
-                                                                    mapCenter
-                                                                }
-                                                                marker={
-                                                                    mapCenter
-                                                                }
-                                                                markerTitle={
-                                                                    item.address ??
-                                                                    item.title
-                                                                }
-                                                                height={320}
+                                                {(item.address ||
+                                                    item.email ||
+                                                    item.contact_number ||
+                                                    item.social_media_url) && (
+                                                        <div className="border border-slate-200 bg-slate-50 p-5 shadow-sm">
+                                                            <ul className="space-y-4">
+                                                                {item.address && (
+                                                                    <li className="flex items-start gap-3 text-slate-700">
+                                                                        <MapPin className="mt-0.5 size-5 shrink-0 text-blue-800" />
+                                                                        <span className="text-sm leading-relaxed sm:text-base">
+                                                                            {
+                                                                                item.address
+                                                                            }
+                                                                        </span>
+                                                                    </li>
+                                                                )}
+                                                                {item.contact_number && (
+                                                                    <li className="flex items-center gap-3 text-slate-700">
+                                                                        <Phone className="size-5 shrink-0 text-blue-800" />
+                                                                        <a
+                                                                            href={`tel:${item.contact_number.replace(/\s/g, '')}`}
+                                                                            className="text-sm text-blue-800 hover:underline sm:text-base"
+                                                                        >
+                                                                            {
+                                                                                item.contact_number
+                                                                            }
+                                                                        </a>
+                                                                    </li>
+                                                                )}
+                                                                {item.email && (
+                                                                    <li className="flex items-center gap-3 text-slate-700">
+                                                                        <Mail className="size-5 shrink-0 text-blue-800" />
+                                                                        <a
+                                                                            href={`mailto:${item.email}`}
+                                                                            className="text-sm text-blue-800 hover:underline sm:text-base"
+                                                                        >
+                                                                            {item.email}
+                                                                        </a>
+                                                                    </li>
+                                                                )}
+                                                                {item.social_media_url && (
+                                                                    <li className="flex items-center gap-3 text-slate-700">
+                                                                        <Share2 className="size-5 shrink-0 text-blue-800" />
+                                                                        <a
+                                                                            href={
+                                                                                item.social_media_url
+                                                                            }
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="text-sm text-blue-800 hover:underline sm:text-base"
+                                                                        >
+                                                                            Social media
+                                                                        </a>
+                                                                    </li>
+                                                                )}
+                                                            </ul>
+                                                        </div>
+                                                    )}
+                                            </div>
+                                            {(safeMapSrc || showLocationMap) && (
+                                                <div
+                                                    className={
+                                                        item.address ||
+                                                            item.email ||
+                                                            item.contact_number ||
+                                                            item.social_media_url
+                                                            ? 'lg:col-span-3'
+                                                            : 'lg:col-span-5'
+                                                    }
+                                                >
+                                                    {safeMapSrc ? (
+                                                        <div className="overflow-hidden border border-slate-200 shadow-sm">
+                                                            <iframe
+                                                                src={safeMapSrc}
+                                                                title={`Map: ${item.title}`}
+                                                                width="100%"
+                                                                height="320"
+                                                                style={{
+                                                                    border: 0,
+                                                                }}
+                                                                allowFullScreen
+                                                                loading="lazy"
+                                                                referrerPolicy="no-referrer-when-downgrade"
+                                                                className="block w-full"
                                                             />
                                                         </div>
-                                                        {mapSearchUrl && (
-                                                            <a
-                                                                href={
-                                                                    mapSearchUrl
-                                                                }
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="inline-flex items-center gap-2 rounded-lg border border-blue-800 bg-blue-800 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-900"
-                                                            >
-                                                                <MapPin className="size-5 shrink-0" />
-                                                                View location on
-                                                                Google Maps
-                                                            </a>
-                                                        )}
-                                                    </div>
-                                                ) : null}
-                                            </div>
-                                        )}
+                                                    ) : showLocationMap ? (
+                                                        <div className="space-y-3">
+                                                            <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+                                                                <LocationMap
+                                                                    center={
+                                                                        mapCenter
+                                                                    }
+                                                                    marker={
+                                                                        mapCenter
+                                                                    }
+                                                                    markerTitle={
+                                                                        item.address ??
+                                                                        item.title
+                                                                    }
+                                                                    height={320}
+                                                                />
+                                                            </div>
+                                                            {mapSearchUrl && (
+                                                                <a
+                                                                    href={
+                                                                        mapSearchUrl
+                                                                    }
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="inline-flex items-center gap-2 rounded-lg border border-blue-800 bg-blue-800 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-900"
+                                                                >
+                                                                    <MapPin className="size-5 shrink-0" />
+                                                                    View location on
+                                                                    Google Maps
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    ) : null}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
-                        )}
+                                </section>
+                            )}
                     </div>
                     <aside className="lg:col-span-1">
                         <div className="sticky top-4">
