@@ -10,7 +10,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import LandingLayout from '@/layouts/landing-layout';
-import { projects as projectRoutes } from '@/routes';
+import projectRoutes from '@/routes/projects';
 import type { SharedData } from '@/types';
 
 type OfficialItem = {
