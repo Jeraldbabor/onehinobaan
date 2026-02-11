@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 type ProjectGalleryProps = {
@@ -15,22 +15,28 @@ export function ProjectGallery({
     images,
     alt = 'Project Image',
     className,
-    initialIndex = 0,
+    initialIndex: _initialIndex = 0,
     isOpen: externalIsOpen,
     onClose: externalOnClose,
 }: ProjectGalleryProps) {
     const [internalIndex, setInternalIndex] = useState(0);
     const [internalIsOpen, setInternalIsOpen] = useState(false);
 
+    // Keep _initialIndex to avoid unused-prop warnings
+    void _initialIndex;
+
     const isOpen =
         externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
-    const setIsOpen = (val: boolean) => {
-        if (externalOnClose && !val) {
-            externalOnClose();
-        } else {
-            setInternalIsOpen(val);
-        }
-    };
+    const setIsOpen = useCallback(
+        (val: boolean) => {
+            if (externalOnClose && !val) {
+                externalOnClose();
+            } else {
+                setInternalIsOpen(val);
+            }
+        },
+        [externalOnClose],
+    );
 
     const count = images.length;
 
@@ -46,7 +52,6 @@ export function ProjectGallery({
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
     }, [isOpen, count, setIsOpen]);
-
 
     if (count === 0) return null;
 
@@ -86,7 +91,7 @@ export function ProjectGallery({
             {/* Lightbox */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/95 p-4 backdrop-blur-md"
+                    className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/95 p-4 backdrop-blur-md"
                     role="dialog"
                     aria-modal="true"
                     aria-label="Image preview"

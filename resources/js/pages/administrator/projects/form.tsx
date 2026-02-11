@@ -92,7 +92,7 @@ export default function ProjectFormPage({ project }: FormPageProps) {
             post(`${projectsUrl}/${project.id}`, {
                 ...options,
                 data: { ...data, _method: 'PUT' },
-            } as any);
+            } as Record<string, unknown>);
         } else {
             post(projectsUrl, options);
         }
@@ -379,10 +379,11 @@ export default function ProjectFormPage({ project }: FormPageProps) {
                                                                             );
                                                                         }
                                                                     }}
-                                                                    className={`absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold shadow-sm transition-colors ${isMarkedForRemoval
+                                                                    className={`absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold shadow-sm transition-colors ${
+                                                                        isMarkedForRemoval
                                                                             ? 'bg-green-500 text-white hover:bg-green-600'
                                                                             : 'bg-red-500 text-white hover:bg-red-600'
-                                                                        }`}
+                                                                    }`}
                                                                 >
                                                                     {isMarkedForRemoval
                                                                         ? '↺'
@@ -465,8 +466,8 @@ export default function ProjectFormPage({ project }: FormPageProps) {
                             {processing
                                 ? 'Saving...'
                                 : isEdit
-                                    ? 'Save changes'
-                                    : 'Publish project'}
+                                  ? 'Save changes'
+                                  : 'Publish project'}
                         </Button>
                         <Button type="button" variant="outline" asChild>
                             <Link href={projectsUrl}>Cancel</Link>

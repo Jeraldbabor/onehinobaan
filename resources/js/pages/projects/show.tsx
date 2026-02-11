@@ -68,7 +68,7 @@ export default function ProjectShow({ project }: ProjectShowProps) {
                                 Municipal Projects
                             </span>
                             <span className="mx-2">/</span>
-                            <span className="inline-block max-w-[200px] truncate align-bottom text-white">
+                            <span className="inline-block max-w-50 truncate align-bottom text-white">
                                 {project.title}
                             </span>
                         </nav>
@@ -124,10 +124,11 @@ export default function ProjectShow({ project }: ProjectShowProps) {
                             <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 md:p-8">
                                 <div className="mb-4 flex flex-wrap items-center gap-3">
                                     <span
-                                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wider uppercase ${project.status === 'completed'
+                                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wider uppercase ${
+                                            project.status === 'completed'
                                                 ? 'bg-green-100 text-green-700'
                                                 : 'bg-blue-100 text-blue-700'
-                                            }`}
+                                        }`}
                                     >
                                         {project.status === 'completed' ? (
                                             <CheckCircle2 className="size-3.5" />
