@@ -527,7 +527,7 @@ export function LandingHeader() {
                                                                 className={cn(
                                                                     'flex cursor-default items-center justify-between px-4 py-3 text-base text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900',
                                                                     isSubOpen &&
-                                                                    'bg-neutral-50',
+                                                                        'bg-neutral-50',
                                                                 )}
                                                             >
                                                                 {child.label}

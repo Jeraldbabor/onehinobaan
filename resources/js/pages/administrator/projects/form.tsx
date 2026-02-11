@@ -47,7 +47,7 @@ export default function ProjectFormPage({ project }: FormPageProps) {
         },
     ];
 
-    const { data, setData, post, put, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         title: project?.title ?? '',
         description: project?.description ?? '',
         status: project?.status ?? 'ongoing',
@@ -91,7 +91,7 @@ export default function ProjectFormPage({ project }: FormPageProps) {
         if (isEdit && project?.id) {
             post(`${projectsUrl}/${project.id}`, {
                 ...options,
-                data: { ...data, _method: 'PUT' }
+                data: { ...data, _method: 'PUT' },
             } as any);
         } else {
             post(projectsUrl, options);
@@ -148,7 +148,9 @@ export default function ProjectFormPage({ project }: FormPageProps) {
                                         required
                                     >
                                         <option value="ongoing">Ongoing</option>
-                                        <option value="completed">Completed</option>
+                                        <option value="completed">
+                                            Completed
+                                        </option>
                                     </select>
                                     <InputError message={errors.status} />
                                 </div>
@@ -161,7 +163,10 @@ export default function ProjectFormPage({ project }: FormPageProps) {
                                         type="datetime-local"
                                         value={data.published_at}
                                         onChange={(e) =>
-                                            setData('published_at', e.target.value)
+                                            setData(
+                                                'published_at',
+                                                e.target.value,
+                                            )
                                         }
                                         className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                     />
@@ -357,7 +362,11 @@ export default function ProjectFormPage({ project }: FormPageProps) {
                                                                             setData(
                                                                                 'remove_other_images',
                                                                                 data.remove_other_images.filter(
-                                                                                    (i) => i !== index,
+                                                                                    (
+                                                                                        i,
+                                                                                    ) =>
+                                                                                        i !==
+                                                                                        index,
                                                                                 ),
                                                                             );
                                                                         } else {
@@ -371,11 +380,13 @@ export default function ProjectFormPage({ project }: FormPageProps) {
                                                                         }
                                                                     }}
                                                                     className={`absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold shadow-sm transition-colors ${isMarkedForRemoval
-                                                                        ? 'bg-green-500 text-white hover:bg-green-600'
-                                                                        : 'bg-red-500 text-white hover:bg-red-600'
+                                                                            ? 'bg-green-500 text-white hover:bg-green-600'
+                                                                            : 'bg-red-500 text-white hover:bg-red-600'
                                                                         }`}
                                                                 >
-                                                                    {isMarkedForRemoval ? '↺' : '×'}
+                                                                    {isMarkedForRemoval
+                                                                        ? '↺'
+                                                                        : '×'}
                                                                 </button>
                                                             </div>
                                                         );
@@ -398,7 +409,9 @@ export default function ProjectFormPage({ project }: FormPageProps) {
                                                         className="group relative"
                                                     >
                                                         <img
-                                                            src={URL.createObjectURL(file)}
+                                                            src={URL.createObjectURL(
+                                                                file,
+                                                            )}
                                                             alt=""
                                                             className="h-20 w-20 rounded-md border border-slate-200 object-cover"
                                                         />
@@ -408,7 +421,12 @@ export default function ProjectFormPage({ project }: FormPageProps) {
                                                                 setData(
                                                                     'other_images',
                                                                     data.other_images.filter(
-                                                                        (_, i) => i !== index,
+                                                                        (
+                                                                            _,
+                                                                            i,
+                                                                        ) =>
+                                                                            i !==
+                                                                            index,
                                                                     ),
                                                                 );
                                                             }}

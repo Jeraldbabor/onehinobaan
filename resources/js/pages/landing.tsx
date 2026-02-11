@@ -1,5 +1,11 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight, FileText, Landmark, HardHat } from 'lucide-react';
+import {
+    ChevronLeft,
+    ChevronRight,
+    FileText,
+    Landmark,
+    HardHat,
+} from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
@@ -522,10 +528,11 @@ export default function Landing() {
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${index === currentIndex
-                                            ? 'scale-125 bg-blue-800'
-                                            : 'bg-slate-300 hover:bg-slate-400'
-                                            }`}
+                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
+                                            index === currentIndex
+                                                ? 'scale-125 bg-blue-800'
+                                                : 'bg-slate-300 hover:bg-slate-400'
+                                        }`}
                                         aria-label={`Go to official ${index + 1}`}
                                         aria-current={
                                             index === currentIndex
@@ -763,61 +770,87 @@ export default function Landing() {
                                             Municipal Projects
                                         </h4>
                                         <ul className="space-y-6">
-                                            {projects.map((item: ProjectItem) => (
-                                                <li key={item.id}>
-                                                    <Link
-                                                        href={projectRoutes.show.url(item.id)}
-                                                        className="flex flex-col gap-4 border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:flex-row group"
-                                                    >
-                                                        <div className="h-40 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52 relative">
-                                                            {item.video_url ? (
-                                                                <video
-                                                                    src={item.video_url}
-                                                                    muted
-                                                                    loop
-                                                                    autoPlay
-                                                                    playsInline
-                                                                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                                                                />
-                                                            ) : item.image_url ? (
-                                                                <img
-                                                                    src={item.image_url}
-                                                                    alt=""
-                                                                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                                                                />
-                                                            ) : (
-                                                                <div className="flex h-full w-full items-center justify-center text-slate-400">
-                                                                    <HardHat className="size-10" />
-                                                                </div>
+                                            {projects.map(
+                                                (item: ProjectItem) => (
+                                                    <li key={item.id}>
+                                                        <Link
+                                                            href={projectRoutes.show.url(
+                                                                item.id,
                                                             )}
-                                                            <div className="absolute top-2 left-2">
-                                                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow-sm ${item.status === 'completed'
-                                                                    ? 'bg-green-500 text-white'
-                                                                    : 'bg-blue-600 text-white'
-                                                                    }`}>
-                                                                    {item.status}
+                                                            className="group flex flex-col gap-4 border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:flex-row"
+                                                        >
+                                                            <div className="relative h-40 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52">
+                                                                {item.video_url ? (
+                                                                    <video
+                                                                        src={
+                                                                            item.video_url
+                                                                        }
+                                                                        muted
+                                                                        loop
+                                                                        autoPlay
+                                                                        playsInline
+                                                                        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                                                                    />
+                                                                ) : item.image_url ? (
+                                                                    <img
+                                                                        src={
+                                                                            item.image_url
+                                                                        }
+                                                                        alt=""
+                                                                        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                                                                    />
+                                                                ) : (
+                                                                    <div className="flex h-full w-full items-center justify-center text-slate-400">
+                                                                        <HardHat className="size-10" />
+                                                                    </div>
+                                                                )}
+                                                                <div className="absolute top-2 left-2">
+                                                                    <span
+                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${
+                                                                            item.status ===
+                                                                            'completed'
+                                                                                ? 'bg-green-500 text-white'
+                                                                                : 'bg-blue-600 text-white'
+                                                                        }`}
+                                                                    >
+                                                                        {
+                                                                            item.status
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="min-w-0 flex-1 px-4 pt-0 pb-4 sm:px-0 sm:pt-2 sm:pr-2 sm:pb-0">
+                                                                <h3 className="text-base leading-snug font-bold text-blue-800 uppercase group-hover:underline sm:text-lg">
+                                                                    {item.title}
+                                                                </h3>
+                                                                {item.published_at && (
+                                                                    <p className="mt-1 text-xs text-slate-500">
+                                                                        Updated{' '}
+                                                                        {new Date(
+                                                                            item.published_at,
+                                                                        ).toLocaleDateString(
+                                                                            undefined,
+                                                                            {
+                                                                                dateStyle:
+                                                                                    'long',
+                                                                            },
+                                                                        )}
+                                                                    </p>
+                                                                )}
+                                                                <p className="mt-2 line-clamp-2 text-sm text-slate-700">
+                                                                    {
+                                                                        item.description
+                                                                    }
+                                                                </p>
+                                                                <span className="mt-1 inline-block text-xs font-medium text-blue-800 underline underline-offset-2">
+                                                                    view project
+                                                                    details
                                                                 </span>
                                                             </div>
-                                                        </div>
-                                                        <div className="min-w-0 flex-1 px-4 pt-0 pb-4 sm:px-0 sm:pt-2 sm:pr-2 sm:pb-0">
-                                                            <h3 className="text-base leading-snug font-bold text-blue-800 uppercase sm:text-lg group-hover:underline">
-                                                                {item.title}
-                                                            </h3>
-                                                            {item.published_at && (
-                                                                <p className="mt-1 text-xs text-slate-500">
-                                                                    Updated {new Date(item.published_at).toLocaleDateString(undefined, { dateStyle: 'long' })}
-                                                                </p>
-                                                            )}
-                                                            <p className="mt-2 line-clamp-2 text-sm text-slate-700">
-                                                                {item.description}
-                                                            </p>
-                                                            <span className="mt-1 inline-block text-xs font-medium text-blue-800 underline underline-offset-2">
-                                                                view project details
-                                                            </span>
-                                                        </div>
-                                                    </Link>
-                                                </li>
-                                            ))}
+                                                        </Link>
+                                                    </li>
+                                                ),
+                                            )}
                                         </ul>
                                     </div>
                                 )}
@@ -843,6 +876,6 @@ export default function Landing() {
                     </div>
                 </div>
             </section>
-        </LandingLayout >
+        </LandingLayout>
     );
 }

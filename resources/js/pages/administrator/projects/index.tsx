@@ -66,7 +66,8 @@ export default function ProjectsIndexPage({
                             Municipal Projects
                         </h1>
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Manage infrastructure and development projects. They appear on the homepage.
+                            Manage infrastructure and development projects. They
+                            appear on the homepage.
                         </p>
                     </div>
                     <Button asChild>
@@ -82,7 +83,8 @@ export default function ProjectsIndexPage({
                         <CardContent className="flex flex-col items-center justify-center py-12">
                             <HardHat className="size-12 text-muted-foreground" />
                             <p className="mt-4 text-sm text-muted-foreground">
-                                No projects yet. Add one to show on the homepage.
+                                No projects yet. Add one to show on the
+                                homepage.
                             </p>
                             <Button asChild className="mt-4">
                                 <Link href={`${projectsUrl}/create`}>
@@ -103,10 +105,13 @@ export default function ProjectsIndexPage({
                                                 <CardTitle className="text-base">
                                                     {p.title}
                                                 </CardTitle>
-                                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${p.status === 'completed'
-                                                        ? 'bg-green-100 text-green-700'
-                                                        : 'bg-blue-100 text-blue-700'
-                                                    }`}>
+                                                <span
+                                                    className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase ${
+                                                        p.status === 'completed'
+                                                            ? 'bg-green-100 text-green-700'
+                                                            : 'bg-blue-100 text-blue-700'
+                                                    }`}
+                                                >
                                                     {p.status}
                                                 </span>
                                             </div>
@@ -114,8 +119,8 @@ export default function ProjectsIndexPage({
                                                 <span>
                                                     {p.published_at
                                                         ? new Date(
-                                                            p.published_at,
-                                                        ).toLocaleDateString()
+                                                              p.published_at,
+                                                          ).toLocaleDateString()
                                                         : 'Draft'}
                                                 </span>
                                                 {p.link_url && (

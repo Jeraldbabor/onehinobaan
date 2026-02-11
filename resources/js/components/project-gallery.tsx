@@ -22,16 +22,8 @@ export function ProjectGallery({
     const [internalIndex, setInternalIndex] = useState(0);
     const [internalIsOpen, setInternalIsOpen] = useState(false);
 
-    const index = externalIsOpen !== undefined ? (externalIsOpen ? initialIndex : internalIndex) : internalIndex;
-    const setIndex = (i: number | ((prev: number) => number)) => {
-        if (typeof i === 'function') {
-            setInternalIndex((prev) => i(prev));
-        } else {
-            setInternalIndex(i);
-        }
-    };
-
-    const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+    const isOpen =
+        externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
     const setIsOpen = (val: boolean) => {
         if (externalOnClose && !val) {
             externalOnClose();
@@ -46,12 +38,15 @@ export function ProjectGallery({
         if (!isOpen) return;
         const onKey = (e: KeyboardEvent) => {
             if (e.key === 'Escape') setIsOpen(false);
-            if (e.key === 'ArrowLeft') setInternalIndex((i) => (i > 0 ? i - 1 : count - 1));
-            if (e.key === 'ArrowRight') setInternalIndex((i) => (i < count - 1 ? i + 1 : 0));
+            if (e.key === 'ArrowLeft')
+                setInternalIndex((i) => (i > 0 ? i - 1 : count - 1));
+            if (e.key === 'ArrowRight')
+                setInternalIndex((i) => (i < count - 1 ? i + 1 : 0));
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-    }, [isOpen, count]);
+    }, [isOpen, count, setIsOpen]);
+
 
     if (count === 0) return null;
 
@@ -124,26 +119,50 @@ export function ProjectGallery({
                                     type="button"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        setInternalIndex((i) => (i > 0 ? i - 1 : count - 1));
+                                        setInternalIndex((i) =>
+                                            i > 0 ? i - 1 : count - 1,
+                                        );
                                     }}
                                     className="flex size-12 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
                                     aria-label="Previous"
                                 >
-                                    <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    <svg
+                                        className="size-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M15 19l-7-7 7-7"
+                                        />
                                     </svg>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        setInternalIndex((i) => (i < count - 1 ? i + 1 : 0));
+                                        setInternalIndex((i) =>
+                                            i < count - 1 ? i + 1 : 0,
+                                        );
                                     }}
                                     className="flex size-12 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
                                     aria-label="Next"
                                 >
-                                    <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    <svg
+                                        className="size-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M9 5l7 7-7 7"
+                                        />
                                     </svg>
                                 </button>
                             </div>

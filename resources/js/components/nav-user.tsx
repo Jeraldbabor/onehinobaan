@@ -36,7 +36,9 @@ export function NavUser() {
                             ) : (
                                 <div className="flex items-center gap-2 px-1 py-1.5">
                                     <div className="h-8 w-8 rounded-full bg-neutral-200" />
-                                    <span className="truncate font-medium text-xs">Guest</span>
+                                    <span className="truncate text-xs font-medium">
+                                        Guest
+                                    </span>
                                 </div>
                             )}
                             <ChevronsUpDown className="ml-auto size-4" />
@@ -50,8 +52,8 @@ export function NavUser() {
                                 isMobile
                                     ? 'bottom'
                                     : state === 'collapsed'
-                                        ? 'left'
-                                        : 'bottom'
+                                      ? 'left'
+                                      : 'bottom'
                             }
                         >
                             <UserMenuContent user={auth.user} />
