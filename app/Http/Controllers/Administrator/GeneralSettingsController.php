@@ -109,6 +109,11 @@ class GeneralSettingsController extends Controller
             return '/'.$path;
         }
 
+        // Fix: Force relative URL for local public disk to avoid double-URL issues if APP_URL is misconfigured
+        if (self::IMAGE_DISK === 'public') {
+            return '/storage/' . $path;
+        }
+
         return Storage::disk(self::IMAGE_DISK)->url($path);
     }
 }
