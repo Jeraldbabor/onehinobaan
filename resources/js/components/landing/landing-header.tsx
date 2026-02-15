@@ -3,6 +3,7 @@ import { ChevronDown, ChevronRight, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import type { PageProps } from '@/types';
+import { search } from '@/routes';
 
 const DROPDOWN_CLOSE_DELAY_MS = 120;
 const BANNER_SCROLL_THRESHOLD_PX = 60;
@@ -42,6 +43,7 @@ const primaryNavItems: NavItem[] = [
     {
         label: 'Officials',
         children: [
+            { label: 'All Officials', href: '/about/officials' },
             { label: 'Our Mayor', href: '/about/officials/mayor' },
             {
                 label: 'Vice Mayor',
@@ -123,6 +125,7 @@ const mobileNavItems: NavItem[] = [
     {
         label: 'Key Officials',
         children: [
+            { label: 'Organizational Chart', href: '#' },
             { label: 'Our Mayor', href: '/about/officials/mayor' },
             {
                 label: 'Vice Mayor',
@@ -202,6 +205,10 @@ export function LandingHeader() {
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
     const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null);
     const [bannerVisible, setBannerVisible] = useState(true);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState<any[]>([]);
+    const searchInputRef = useRef<HTMLInputElement>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const subCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
         null,
@@ -620,13 +627,109 @@ export function LandingHeader() {
 
                     {/* Right: Search + menu button */}
                     <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-                        <button
-                            type="button"
-                            className="flex size-9 items-center justify-center rounded-lg text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-700 sm:size-11"
-                            aria-label="Search"
-                        >
-                            <Search className="size-4 sm:size-6" />
-                        </button>
+                        {isSearchOpen ? (
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    // @ts-ignore
+                                    import('@inertiajs/react').then(({ router }) => {
+                                        router.visit(search.url({ query: { q: searchQuery } }));
+                                    });
+                                }}
+                                className="relative flex items-center"
+                            >
+                                <input
+                                    ref={searchInputRef}
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={(e) => {
+                                        const query = e.target.value;
+                                        setSearchQuery(query);
+                                        if (query.length > 0) {
+                                            fetch(search.url({ query: { q: query } }), {
+                                                headers: {
+                                                    'Accept': 'application/json',
+                                                    'X-Requested-With': 'XMLHttpRequest',
+                                                },
+                                            })
+                                                .then((res) => res.json())
+                                                .then((data) => {
+                                                    setSearchResults(data);
+                                                })
+                                                .catch((err) => console.error(err));
+                                        } else {
+                                            setSearchResults([]);
+                                        }
+                                    }}
+
+                                    placeholder="Search..."
+                                    className="h-9 w-40 rounded-lg border border-neutral-300 bg-white px-3 py-1 text-sm text-neutral-700 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 sm:w-60"
+                                    onBlur={() => {
+                                        // Delay closing to allow clicking on results
+                                        setTimeout(() => {
+                                            if (!searchQuery) setIsSearchOpen(false);
+                                            setSearchResults([]);
+                                        }, 200);
+                                    }}
+                                    onFocus={() => {
+                                        if (searchQuery.length > 0) {
+                                            fetch(search.url({ query: { q: searchQuery } }), {
+                                                headers: {
+                                                    'Accept': 'application/json',
+                                                    'X-Requested-With': 'XMLHttpRequest',
+                                                },
+                                            })
+                                                .then((res) => res.json())
+                                                .then((data) => setSearchResults(data));
+                                        }
+                                    }}
+                                />
+
+                                {searchQuery.length > 0 && (
+                                    <div className="absolute top-full left-0 z-50 mt-1 w-full rounded-lg border border-neutral-200 bg-white py-1 shadow-lg">
+                                        {searchResults.length > 0 ? (
+                                            searchResults.map((result: any) => (
+                                                <Link
+                                                    key={result.id}
+                                                    href={result.url || '#'}
+                                                    className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+                                                >
+                                                    {result.title}
+                                                </Link>
+                                            ))
+                                        ) : (
+                                            <div className="px-4 py-2 text-sm text-neutral-500">
+                                                No results found.
+                                            </div>
+                                        )}
+                                        <Link
+                                            href={search.url({ query: { q: searchQuery } })}
+                                            className="block border-t border-neutral-100 px-4 py-2 text-center text-xs font-medium text-blue-600 hover:bg-neutral-50"
+                                        >
+                                            View all results
+                                        </Link>
+                                    </div>
+                                )}
+                                <button
+                                    type="submit"
+                                    className="absolute right-2 text-neutral-400 hover:text-orange-600"
+                                >
+                                    <Search className="size-4" />
+                                </button>
+                            </form>
+                        ) : (
+                            <button
+                                type="button"
+                                className="flex size-9 items-center justify-center rounded-lg text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-700 sm:size-11"
+                                aria-label="Search"
+                                onClick={() => {
+                                    setIsSearchOpen(true);
+                                    setTimeout(() => searchInputRef.current?.focus(), 100);
+                                }}
+                            >
+                                <Search className="size-4 sm:size-6" />
+                            </button>
+                        )}
                         {/* Hamburger: show below xl so desktop nav only when there's room */}
                         <button
                             type="button"
@@ -667,29 +770,36 @@ export function LandingHeader() {
             {/* Mobile / tablet menu – full-screen slide-in drawer from right */}
             <div
                 id="mobile-menu"
-                className={cn(
-                    'fixed inset-0 z-100 xl:hidden',
-                    mobileMenuOpen ? 'visible' : 'pointer-events-none invisible',
-                )}
+                className={
+                    cn(
+                        'fixed inset-0 z-100 xl:hidden',
+                        mobileMenuOpen ? 'visible' : 'pointer-events-none invisible'
+                    )
+                }
             >
                 {/* Backdrop */}
                 <div
-                    className={cn(
-                        'absolute inset-0 bg-black/40 transition-opacity duration-300',
-                        mobileMenuOpen ? 'opacity-100' : 'opacity-0',
-                    )}
-                    onClick={() => setMobileMenuOpen(false)}
-                    aria-hidden
+                    className={
+                        cn(
+                            'absolute inset-0 bg-black/40 transition-opacity duration-300',
+                            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+                        )
+                    }
+                    onClick={() => setMobileMenuOpen(false)
+                    }
+                    aria-hidden="true"
                 />
                 {/* Drawer panel */}
                 <div
-                    className={cn(
-                        'absolute top-0 right-0 flex h-full w-[85vw] max-w-sm flex-col bg-white shadow-xl transition-transform duration-300 ease-in-out',
-                        mobileMenuOpen ? 'translate-x-0' : 'translate-x-full',
-                    )}
+                    className={
+                        cn(
+                            'absolute top-0 right-0 flex h-full w-[85vw] max-w-sm flex-col bg-white shadow-xl transition-transform duration-300 ease-in-out',
+                            mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+                        )
+                    }
                 >
                     {/* Drawer header */}
-                    <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
+                    <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-3" >
                         <div className="flex items-center gap-2">
                             <img
                                 src={

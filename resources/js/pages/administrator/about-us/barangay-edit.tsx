@@ -1,7 +1,8 @@
+
 import { Transition } from '@headlessui/react';
 import { Head, router, useForm } from '@inertiajs/react';
-import { Check, ImagePlus, MapPin, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { Check, Edit, ImagePlus, MapPin, Plus, Trash2, Users } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import InputError from '@/components/input-error';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -12,9 +13,21 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Toast } from '@/components/ui/toast';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
+import { Separator } from '@/components/ui/separator';
 
 const dashboardUrl = '/dashboard';
 const barangayIndexUrl = '/dashboard/barangay';
@@ -22,209 +35,508 @@ const barangayStoreUrl = '/dashboard/barangay';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: dashboardUrl },
-    { title: 'Edit Barangay', href: barangayIndexUrl },
+    { title: 'Barangay Management', href: barangayIndexUrl },
 ];
 
-type BarangayItem = { id: string; image_url: string };
+type OfficialItem = {
+    id: string;
+    name: string;
+    position: string | null;
+    image_url: string | null;
+};
+
+type BarangayItem = {
+    id: string;
+    name: string;
+    population?: string;
+    history?: string;
+    festival?: string;
+    land_area?: string;
+    officials?: string;
+    image_url: string;
+    officials_list?: OfficialItem[];
+};
 
 type BarangayEditPageProps = {
     barangays: BarangayItem[];
 };
 
 export default function BarangayEditPage({ barangays }: BarangayEditPageProps) {
-    const { data, setData, post, processing, errors, recentlySuccessful } =
-        useForm({
-            image: null as File | null,
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isOfficialsDialogOpen, setIsOfficialsDialogOpen] = useState(false);
+    const [editingItem, setEditingItem] = useState<BarangayItem | null>(null);
+
+    // Form for Barangay
+    const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
+        name: '',
+        population: '',
+        history: '',
+        festival: '',
+        land_area: '',
+        officials: '', // Legacy text field
+        image: null as File | null,
+    });
+
+    // Form for Officials
+    const {
+        data: officialData,
+        setData: setOfficialData,
+        post: postOfficial,
+        processing: processingOfficial,
+        errors: officialErrors,
+        reset: resetOfficial
+    } = useForm({
+        name: '',
+        position: '',
+        image: null as File | null,
+    });
+
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [officialImagePreview, setOfficialImagePreview] = useState<string | null>(null);
+
+    const [toastOpen, setToastOpen] = useState(false);
+    const [toastMessage, setToastMessage] = useState('Action successful.');
+
+    useEffect(() => {
+        if (!isDialogOpen) {
+            reset();
+            clearErrors();
+            setEditingItem(null);
+            setImagePreview(null);
+        }
+    }, [isDialogOpen]);
+
+    // Sync editingItem with barangays prop to reflect changes (adding/removing officials) immediately
+    useEffect(() => {
+        if (editingItem) {
+            const freshItem = barangays.find((b) => b.id === editingItem.id);
+            if (freshItem) {
+                setEditingItem(freshItem);
+            }
+        }
+    }, [barangays]);
+
+    const openCreateDialog = () => {
+        setEditingItem(null);
+        reset();
+        setImagePreview(null);
+        setIsDialogOpen(true);
+    };
+
+    const openEditDialog = (item: BarangayItem) => {
+        setEditingItem(item);
+        setData({
+            name: item.name || '',
+            population: item.population || '',
+            history: item.history || '',
+            festival: item.festival || '',
+            land_area: item.land_area || '',
+            officials: item.officials || '',
+            image: null,
         });
+        setImagePreview(item.image_url);
+        setIsDialogOpen(true);
+    };
 
-    const imagePreview =
-        data.image instanceof File ? URL.createObjectURL(data.image) : null;
+    const openOfficialsDialog = (item: BarangayItem) => {
+        setEditingItem(item);
+        setIsOfficialsDialogOpen(true);
+        resetOfficial();
+        setOfficialImagePreview(null);
+    };
 
-    const handleRemove = (id: string) => {
-        if (confirm('Remove this barangay image?')) {
-            router.delete(`${barangayIndexUrl}/${id}`);
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (editingItem) {
+            router.post(`${barangayIndexUrl}/${editingItem.id}`, {
+                _method: 'put',
+                ...data,
+            }, {
+                forceFormData: true,
+                onSuccess: () => {
+                    setIsDialogOpen(false);
+                    setToastMessage('Barangay updated successfully.');
+                    setToastOpen(true);
+                },
+            });
+        } else {
+            post(barangayStoreUrl, {
+                forceFormData: true,
+                onSuccess: () => {
+                    setIsDialogOpen(false);
+                    setToastMessage('Barangay created successfully.');
+                    setToastOpen(true);
+                },
+            });
         }
     };
 
-    const [showToast, setShowToast] = useState(false);
+    const handleOfficialSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingItem) return;
+
+        postOfficial(`${barangayIndexUrl}/${editingItem.id}/officials`, {
+            forceFormData: true,
+            onSuccess: () => {
+                resetOfficial();
+                setOfficialImagePreview(null);
+                setToastMessage('Official added successfully.');
+                setToastOpen(true);
+            },
+        });
+    };
+
+    const handleRemove = (id: string) => {
+        if (confirm('Are you sure you want to delete this barangay?')) {
+            router.delete(`${barangayIndexUrl}/${id}`, {
+                onSuccess: () => {
+                    setToastMessage('Barangay deleted.');
+                    setToastOpen(true);
+                },
+            });
+        }
+    };
+
+    const handleRemoveOfficial = (id: string) => {
+        if (confirm('Remove this official?')) {
+            router.delete(`${barangayIndexUrl}/officials/${id}`, {
+                onSuccess: () => {
+                    setToastMessage('Official removed.');
+                    setToastOpen(true);
+                },
+            });
+        }
+    };
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setData('image', file);
+            setImagePreview(URL.createObjectURL(file));
+        }
+    };
+
+    const handleOfficialImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setOfficialData('image', file);
+            setOfficialImagePreview(URL.createObjectURL(file));
+        }
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Barangay" />
-            <h1 className="sr-only">Edit Barangay</h1>
-            <div className="flex flex-1 flex-col gap-6 overflow-x-auto px-4 py-6 md:px-6 lg:max-w-5xl">
-                <header className="space-y-1">
-                    <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
-                        Barangay
-                    </h2>
-                    <p className="max-w-2xl text-sm text-muted-foreground">
-                        Upload images for Barangay. They appear on the public
-                        About → Barangay page. Order is by upload order.
-                    </p>
-                </header>
+            <Head title="Barangay Management" />
 
-                {/* Add new barangay image */}
-                <Card className="border-dashed">
-                    <CardHeader className="pb-3">
-                        <div className="flex items-center gap-2">
-                            <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                                <ImagePlus className="size-4" aria-hidden />
-                            </span>
-                            <CardTitle className="text-base">
-                                Add barangay image
-                            </CardTitle>
-                        </div>
-                        <CardDescription>
-                            Upload an image. JPEG, PNG, GIF or WebP, max 100 MB.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                if (!data.image) return;
-                                post(barangayStoreUrl, {
-                                    forceFormData: true,
-                                    onSuccess: () => setData('image', null),
-                                });
-                            }}
-                            className="flex flex-col gap-4 sm:flex-row sm:items-start"
-                        >
-                            <label
-                                htmlFor="barangay_image"
-                                className="flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/30 px-6 py-8 text-center transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 hover:border-muted-foreground/40 hover:bg-muted/50 sm:max-w-xs"
-                            >
-                                <input
-                                    id="barangay_image"
-                                    type="file"
-                                    accept="image/jpeg,image/png,image/gif,image/webp"
-                                    className="sr-only"
-                                    onChange={(e) =>
-                                        setData(
-                                            'image',
-                                            e.target.files?.[0] ?? null,
-                                        )
-                                    }
-                                />
-                                <ImagePlus className="mb-2 size-8 text-muted-foreground" />
-                                <span className="text-sm font-medium text-muted-foreground">
-                                    Choose file
-                                </span>
-                                <span className="mt-1 text-xs text-muted-foreground">
-                                    or drag and drop
-                                </span>
-                            </label>
-                            {imagePreview && (
-                                <div className="flex flex-wrap items-center gap-3">
-                                    <img
-                                        src={imagePreview}
-                                        alt="Preview"
-                                        className="h-24 w-24 rounded-lg border bg-muted object-cover shadow-sm"
-                                    />
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => setData('image', null)}
-                                    >
-                                        Clear
-                                    </Button>
-                                </div>
-                            )}
-                            <Button
-                                type="submit"
-                                disabled={processing || !data.image}
-                                size="lg"
-                            >
-                                {processing ? 'Adding...' : 'Add image'}
-                            </Button>
-                        </form>
-                        {!imagePreview && (
-                            <p className="text-sm text-muted-foreground">
-                                Select an image above, then click Add image.
+            <div className="flex flex-1 flex-col gap-6 p-4 md:p-6 lg:max-w-7xl mx-auto w-full">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="space-y-1">
+                        <h2 className="text-2xl font-semibold tracking-tight">
+                            Barangays
+                        </h2>
+                        <p className="text-sm text-muted-foreground">
+                            Manage municipality barangays, including population, officials, and details.
+                        </p>
+                    </div>
+                    <Button onClick={openCreateDialog} className="gap-2">
+                        <Plus className="h-4 w-4" /> Add Barangay
+                    </Button>
+                </div>
+
+                {barangays.length === 0 ? (
+                    <Card className="border-dashed">
+                        <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+                            <MapPin className="mb-4 h-12 w-12 text-muted-foreground/50" />
+                            <h3 className="text-lg font-medium">No barangays added</h3>
+                            <p className="text-sm text-muted-foreground mt-1 mb-4">
+                                Get started by adding the first barangay.
                             </p>
-                        )}
-                        <InputError message={errors.image} />
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-out duration-200"
-                            enterFrom="opacity-0 scale-95"
-                            enterTo="opacity-100 scale-100"
-                            leave="transition ease-in duration-150"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <Badge
-                                variant="secondary"
-                                className="w-fit gap-1.5 font-normal"
-                            >
-                                <Check className="size-3.5" />
-                                Added
-                            </Badge>
-                        </Transition>
-                    </CardContent>
-                </Card>
-
-                {/* Current barangay images */}
-                <Card>
-                    <CardHeader className="pb-3">
-                        <div className="flex items-center gap-2">
-                            <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                <MapPin className="size-4" aria-hidden />
-                            </span>
-                            <CardTitle className="text-base">
-                                Current barangay images
-                            </CardTitle>
-                        </div>
-                        <CardDescription>
-                            {barangays.length === 0
-                                ? 'No barangay images yet. Upload an image above to add one.'
-                                : `${barangays.length} image${barangays.length === 1 ? '' : 's'}. Hover to remove.`}
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        {barangays.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center rounded-lg border border-dashed bg-muted/20 py-12 text-center">
-                                <MapPin className="mb-2 size-10 text-muted-foreground/50" />
-                                <p className="text-sm text-muted-foreground">
-                                    No barangay images yet. Add one using the
-                                    form above.
-                                </p>
-                            </div>
-                        ) : (
-                            <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                                {barangays.map((barangay) => (
-                                    <li
-                                        key={barangay.id}
-                                        className="group relative overflow-hidden rounded-lg border bg-muted/30 shadow-sm transition-shadow hover:shadow-md"
-                                    >
-                                        <img
-                                            src={barangay.image_url}
-                                            alt=""
-                                            className="aspect-square w-full object-cover"
-                                        />
-                                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
-                                            <Button
-                                                type="button"
-                                                variant="destructive"
-                                                size="sm"
-                                                onClick={() =>
-                                                    handleRemove(barangay.id)
-                                                }
-                                                className="gap-1.5"
-                                            >
-                                                <Trash2 className="size-4" />
-                                                Remove
-                                            </Button>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </CardContent>
-                </Card>
+                            <Button onClick={openCreateDialog}>Add Barangay</Button>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        {barangays.map((barangay) => (
+                            <Card key={barangay.id} className="overflow-hidden group flex flex-col h-full">
+                                <div className="relative aspect-video w-full overflow-hidden bg-muted">
+                                    <img
+                                        src={barangay.image_url}
+                                        alt={barangay.name}
+                                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                    />
+                                    <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <Button
+                                            size="icon"
+                                            variant="secondary"
+                                            className="h-8 w-8"
+                                            title="Edit Details"
+                                            onClick={() => openEditDialog(barangay)}
+                                        >
+                                            <Edit className="h-4 w-4" />
+                                        </Button>
+                                        <Button
+                                            size="icon"
+                                            variant="secondary"
+                                            className="h-8 w-8"
+                                            title="Manage Officials"
+                                            onClick={() => openOfficialsDialog(barangay)}
+                                        >
+                                            <Users className="h-4 w-4" />
+                                        </Button>
+                                        <Button
+                                            size="icon"
+                                            variant="destructive"
+                                            className="h-8 w-8"
+                                            title="Delete"
+                                            onClick={() => handleRemove(barangay.id)}
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                </div>
+                                <CardHeader className="p-4 pb-2">
+                                    <CardTitle className="line-clamp-1">{barangay.name}</CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-4 pt-0 flex-1 space-y-2 text-sm">
+                                    <div className="flex justify-between py-1 border-b">
+                                        <span className="text-muted-foreground">Population:</span>
+                                        <span className="font-medium">{barangay.population || '-'}</span>
+                                    </div>
+                                    <div className="flex justify-between py-1 border-b">
+                                        <span className="text-muted-foreground">Festival:</span>
+                                        <span className="font-medium truncate max-w-[50%]">{barangay.festival || '-'}</span>
+                                    </div>
+                                    <div className="flex justify-between py-1">
+                                        <span className="text-muted-foreground">Area:</span>
+                                        <span className="font-medium">{barangay.land_area || '-'}</span>
+                                    </div>
+                                    <div className="pt-2 text-xs text-muted-foreground">
+                                        {barangay.officials_list?.length || 0} officials linked
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                )}
             </div>
-            <Toast open={showToast} onOpenChange={setShowToast} title="Added" />
+
+            {/* Edit/Create Dialog */}
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                        <DialogTitle>{editingItem ? 'Edit Barangay' : 'Add New Barangay'}</DialogTitle>
+                        <DialogDescription>
+                            Fill in the details below. Click save when you're done.
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    <form onSubmit={handleSubmit} className="space-y-6 py-4">
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <div className="space-y-2">
+                                <Label htmlFor="name">Barangay Name <span className="text-destructive">*</span></Label>
+                                <Input
+                                    id="name"
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
+                                    placeholder="e.g. Barangay I"
+                                    required
+                                />
+                                <InputError message={errors.name} />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="population">Population</Label>
+                                <Input
+                                    id="population"
+                                    value={data.population}
+                                    onChange={(e) => setData('population', e.target.value)}
+                                    placeholder="e.g. 5,000"
+                                />
+                                <InputError message={errors.population} />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="festival">Festival</Label>
+                                <Input
+                                    id="festival"
+                                    value={data.festival}
+                                    onChange={(e) => setData('festival', e.target.value)}
+                                    placeholder="e.g. Sinulog Festival"
+                                />
+                                <InputError message={errors.festival} />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="land_area">Land Area</Label>
+                                <Input
+                                    id="land_area"
+                                    value={data.land_area}
+                                    onChange={(e) => setData('land_area', e.target.value)}
+                                    placeholder="e.g. 150 hectares"
+                                />
+                                <InputError message={errors.land_area} />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="history">History</Label>
+                            <textarea
+                                id="history"
+                                value={data.history}
+                                onChange={(e) => setData('history', e.target.value)}
+                                className="flex min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                placeholder="Brief history of the barangay..."
+                            />
+                            <InputError message={errors.history} />
+                        </div>
+
+                        <div className="space-y-2 hidden">
+                            <Label htmlFor="officials">Officials (Legacy Text)</Label>
+                            <textarea
+                                id="officials"
+                                value={data.officials}
+                                onChange={(e) => setData('officials', e.target.value)}
+                                className="flex min-h-[120px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                placeholder="Legacy officials list..."
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="image">Barangay Image {editingItem ? '(Optional)' : '<span className="text-destructive">*</span>'}</Label>
+                            <div className="flex items-center gap-4">
+                                {imagePreview && (
+                                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border">
+                                        <img
+                                            src={imagePreview}
+                                            alt="Preview"
+                                            className="h-full w-full object-cover"
+                                        />
+                                    </div>
+                                )}
+                                <div className="flex-1">
+                                    <Input
+                                        id="image"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        required={!editingItem}
+                                    />
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                        Recommended size: 800x600px. Max 10MB.
+                                    </p>
+                                </div>
+                            </div>
+                            <InputError message={errors.image} />
+                        </div>
+
+                        <DialogFooter>
+                            <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                                Cancel
+                            </Button>
+                            <Button type="submit" disabled={processing}>
+                                {processing ? (editingItem ? 'Updating...' : 'Adding...') : (editingItem ? 'Save Changes' : 'Add Barangay')}
+                            </Button>
+                        </DialogFooter>
+                    </form>
+                </DialogContent>
+            </Dialog>
+
+            {/* Officials Management Dialog */}
+            <Dialog open={isOfficialsDialogOpen} onOpenChange={setIsOfficialsDialogOpen}>
+                <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                        <DialogTitle>Manage Officials for {editingItem?.name}</DialogTitle>
+                        <DialogDescription>
+                            Add and remove officials for this barangay.
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    <div className="grid gap-6 py-4 md:grid-cols-2">
+                        {/* List of existing officials */}
+                        <div className="space-y-4">
+                            <h4 className="font-medium">Current Officials</h4>
+                            {!editingItem?.officials_list?.length ? (
+                                <p className="text-sm text-muted-foreground">No officials added yet.</p>
+                            ) : (
+                                <ul className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+                                    {editingItem.officials_list.map((official) => (
+                                        <li key={official.id} className="flex items-center gap-3 rounded-lg border p-3">
+                                            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
+                                                {official.image_url ? (
+                                                    <img src={official.image_url} alt={official.name} className="h-full w-full object-cover" />
+                                                ) : (
+                                                    <Users className="h-full w-full p-2 text-muted-foreground" />
+                                                )}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-sm font-medium truncate">{official.name}</p>
+                                                <p className="text-xs text-muted-foreground truncate">{official.position}</p>
+                                            </div>
+                                            <Button
+                                                size="icon"
+                                                variant="ghost"
+                                                className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                                                onClick={() => handleRemoveOfficial(official.id)}
+                                            >
+                                                <Trash2 className="h-4 w-4" />
+                                            </Button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+
+                        {/* Add new official form */}
+                        <div className="space-y-4 rounded-lg bg-muted/30 p-4 border">
+                            <h4 className="font-medium">Add New Official</h4>
+                            <form onSubmit={handleOfficialSubmit} className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="official_name">Name</Label>
+                                    <Input
+                                        id="official_name"
+                                        value={officialData.name}
+                                        onChange={(e) => setOfficialData('name', e.target.value)}
+                                        placeholder="Full Name"
+                                        required
+                                    />
+                                    <InputError message={officialErrors.name} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="official_position">Position</Label>
+                                    <Input
+                                        id="official_position"
+                                        value={officialData.position}
+                                        onChange={(e) => setOfficialData('position', e.target.value)}
+                                        placeholder="e.g. Captain, Kagawad"
+                                    />
+                                    <InputError message={officialErrors.position} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="official_image">Photo (Optional)</Label>
+                                    <Input
+                                        id="official_image"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleOfficialImageChange}
+                                        className="text-xs"
+                                    />
+                                    {officialImagePreview && (
+                                        <div className="h-20 w-20 rounded-lg overflow-hidden border mt-2">
+                                            <img src={officialImagePreview} alt="Preview" className="h-full w-full object-cover" />
+                                        </div>
+                                    )}
+                                    <InputError message={officialErrors.image} />
+                                </div>
+                                <Button type="submit" disabled={processingOfficial} className="w-full">
+                                    {processingOfficial ? 'Adding...' : 'Add Official'}
+                                </Button>
+                            </form>
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
+            <Toast open={toastOpen} onOpenChange={setToastOpen} title={toastMessage} />
         </AppLayout>
     );
 }

@@ -33,6 +33,8 @@ class GeneralSettingsController extends Controller
                 'transparency_seal_url' => $this->storageUrl($settings['transparency_seal_path']),
                 'landing_video_url' => $this->storageUrl($settings['landing_video_path']),
                 'sub_page_banner_url' => $this->storageUrl($settings['sub_page_banner_path']),
+                'full_disclosure_banner_url' => $this->storageUrl($settings['full_disclosure_banner_path']),
+                'full_disclosure_url' => $settings['full_disclosure_url'] ?? 'https://fulldisclosure.dilg.gov.ph/',
             ],
         ]);
     }
@@ -50,6 +52,8 @@ class GeneralSettingsController extends Controller
                 'transparency_seal' => ['nullable', 'image', 'max:5120'],
                 'landing_video' => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime', 'max:102400'], // Increased to 100MB
                 'sub_page_banner' => ['nullable', 'image', 'max:5120'],
+                'full_disclosure_banner' => ['nullable', 'image', 'max:5120'],
+                'full_disclosure_url' => ['nullable', 'url'],
             ]);
 
             $settings = SiteContent::getGeneralSettings();
@@ -76,6 +80,14 @@ class GeneralSettingsController extends Controller
 
             if ($request->hasFile('sub_page_banner')) {
                 $settings['sub_page_banner_path'] = $this->handleUpload($request->file('sub_page_banner'), $settings['sub_page_banner_path'], self::LOGO_DIR);
+            }
+
+            if ($request->hasFile('full_disclosure_banner')) {
+                $settings['full_disclosure_banner_path'] = $this->handleUpload($request->file('full_disclosure_banner'), $settings['full_disclosure_banner_path'], self::LOGO_DIR);
+            }
+
+            if ($request->filled('full_disclosure_url')) {
+                $settings['full_disclosure_url'] = $request->input('full_disclosure_url');
             }
 
             SiteContent::setGeneralSettings($settings);

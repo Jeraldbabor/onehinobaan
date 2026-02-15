@@ -302,6 +302,8 @@ class SiteContent extends Model
             'transparency_seal_path' => 'hinobaan-logo/transparency.png',
             'landing_video_path' => 'hinobaan-videos/daph.mp4',
             'sub_page_banner_path' => 'hinobaan-banner/banner2.png',
+            'full_disclosure_banner_path' => 'images/full-disclosure.png', // Default static image
+            'full_disclosure_url' => 'https://fulldisclosure.dilg.gov.ph/',
         ];
 
         if (! is_array($decoded)) {

@@ -51,6 +51,8 @@ class HandleInertiaRequests extends Middleware
                     'transparency_seal_url' => $this->getStorageUrl($settings['transparency_seal_path']),
                     'landing_video_url' => $this->getStorageUrl($settings['landing_video_path']),
                     'sub_page_banner_url' => $this->getStorageUrl($settings['sub_page_banner_path']),
+                    'full_disclosure_banner_url' => $this->getStorageUrl($settings['full_disclosure_banner_path']),
+                    'full_disclosure_url' => $settings['full_disclosure_url'] ?? 'https://fulldisclosure.dilg.gov.ph/',
                 ];
             },
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',

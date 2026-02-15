@@ -90,7 +90,9 @@ function FacebookPageEmbed({ url, title }: { url: string; title: string }) {
     return (
         <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm sm:rounded">
             <div className="border-b border-slate-100 bg-slate-50 px-3 py-2">
-                <h3 className="text-xs font-bold text-slate-900 sm:text-sm">{title}</h3>
+                <h3 className="text-xs font-bold text-slate-900 sm:text-sm">
+                    {title}
+                </h3>
             </div>
             <div className="relative w-full overflow-hidden">
                 <iframe
@@ -479,7 +481,7 @@ export default function Landing() {
                                 onTouchMove={handleCarouselTouchMove}
                                 onTouchEnd={handleCarouselTouchEnd}
                                 onTouchCancel={handleCarouselTouchEnd}
-                                className="flex cursor-grab touch-pan-x gap-3 overflow-x-auto overflow-y-hidden px-1 py-4 pb-2 select-none sm:gap-4 sm:px-0 [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+                                className="flex cursor-grab touch-pan-x gap-3 overflow-x-auto overflow-y-hidden px-1 py-4 pb-2 select-none [scrollbar-width:none] active:cursor-grabbing sm:gap-4 sm:px-0 [&::-webkit-scrollbar]:hidden"
                                 style={{
                                     scrollSnapType: 'x mandatory',
                                     WebkitOverflowScrolling: 'touch',

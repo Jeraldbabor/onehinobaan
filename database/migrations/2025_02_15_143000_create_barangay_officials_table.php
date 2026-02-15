@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('barangays', function (Blueprint $table) {
+        Schema::create('barangay_officials', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('barangay_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->string('population')->nullable();
-            $table->text('history')->nullable();
-            $table->string('festival')->nullable();
-            $table->string('land_area')->nullable();
-            $table->text('officials')->nullable(); // Stored as JSON or simple text
+            $table->string('position')->nullable();
             $table->string('image_path')->nullable();
             $table->unsignedInteger('display_order')->default(0);
             $table->timestamps();
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('barangays');
+        Schema::dropIfExists('barangay_officials');
     }
 };

@@ -3,8 +3,19 @@ import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import LandingLayout from '@/layouts/landing-layout';
 import type { PageProps } from '@/types';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
-type BarangayItem = { id: string; image_url: string };
+type BarangayItem = {
+    id: string;
+    name: string;
+    population?: string;
+    history?: string;
+    festival?: string;
+    land_area?: string;
+    officials?: string;
+    image_url: string;
+};
 
 type BarangayPageProps = {
     barangays?: BarangayItem[];
@@ -61,26 +72,69 @@ export default function BarangayPage() {
                             <div className="max-w-5xl">
                                 <h2 className={sectionTitleClass}>Barangays</h2>
                                 {hasAny ? (
-                                    <div className="mt-4 border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-                                        <ul className="flex flex-wrap items-center justify-center gap-10">
-                                            {barangays.map((barangay) => (
-                                                <li key={barangay.id}>
+                                    <div className="mt-8 grid gap-6 sm:grid-cols-2">
+                                        {barangays.map((barangay) => (
+                                            <div
+                                                key={barangay.id}
+                                                className="group flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
+                                            >
+                                                <Link href={`/about/barangay/${barangay.id}`} className="block relative aspect-video w-full overflow-hidden bg-slate-100">
                                                     <img
                                                         src={barangay.image_url}
-                                                        alt=""
-                                                        width={1500}
-                                                        height={240}
-                                                        className="border border-slate-200 object-cover shadow-sm"
+                                                        alt={barangay.name}
+                                                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                                     />
-                                                </li>
-                                            ))}
-                                        </ul>
+                                                </Link>
+                                                <div className="flex flex-1 flex-col p-4">
+                                                    <Link href={`/about/barangay/${barangay.id}`}>
+                                                        <h3 className="mb-2 text-lg font-bold text-slate-900 group-hover:text-blue-800 transition-colors">
+                                                            {barangay.name}
+                                                        </h3>
+                                                    </Link>
+                                                    <div className="mb-4 space-y-1 text-sm text-slate-600">
+                                                        {barangay.population && (
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="font-semibold text-slate-700">Pop:</span>
+                                                                {barangay.population}
+                                                            </div>
+                                                        )}
+                                                        {barangay.festival && (
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="font-semibold text-slate-700">Festival:</span>
+                                                                {barangay.festival}
+                                                            </div>
+                                                        )}
+                                                        {barangay.land_area && (
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="font-semibold text-slate-700">Area:</span>
+                                                                {barangay.land_area}
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    {/* Optional: Show history snippet or just keep it clean */}
+                                                    {barangay.history && (
+                                                        <p className="mb-4 line-clamp-3 text-sm text-slate-500">
+                                                            {barangay.history}
+                                                        </p>
+                                                    )}
+
+                                                    <div className="mt-auto pt-4 border-t border-slate-100">
+                                                        <Link
+                                                            href={`/about/barangay/${barangay.id}`}
+                                                            className="text-sm font-medium text-blue-700 hover:text-blue-900 flex items-center gap-1"
+                                                        >
+                                                            View Details & Officials &rarr;
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 ) : (
                                     <div className="mt-4 border border-slate-200 bg-white px-8 py-16 text-center shadow-sm">
                                         <p className="text-slate-600">
-                                            Barangay images are not yet
-                                            available.
+                                            Barangay data is not yet available.
                                         </p>
                                         <Link
                                             href="/"
