@@ -1,4 +1,5 @@
 import { Head, Link, usePage } from '@inertiajs/react';
+import { ArrowRight, Network } from 'lucide-react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import LandingLayout from '@/layouts/landing-layout';

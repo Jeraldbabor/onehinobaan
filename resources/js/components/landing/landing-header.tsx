@@ -2,8 +2,8 @@ import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, ChevronRight, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import type { PageProps } from '@/types';
 import { search } from '@/routes';
+import type { PageProps } from '@/types';
 
 const DROPDOWN_CLOSE_DELAY_MS = 120;
 const BANNER_SCROLL_THRESHOLD_PX = 60;
@@ -688,7 +688,7 @@ export function LandingHeader() {
                                 {searchQuery.length > 0 && (
                                     <div className="absolute top-full left-0 z-50 mt-1 w-full rounded-lg border border-neutral-200 bg-white py-1 shadow-lg">
                                         {searchResults.length > 0 ? (
-                                            searchResults.map((result: any) => (
+                                            searchResults.map((result: { id: string | number; url: string; title: string }) => (
                                                 <Link
                                                     key={result.id}
                                                     href={result.url || '#'}

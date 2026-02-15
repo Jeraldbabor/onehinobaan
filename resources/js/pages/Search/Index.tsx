@@ -1,5 +1,5 @@
-import LandingLayout from '@/layouts/landing-layout';
 import { Head, Link } from '@inertiajs/react';
+import LandingLayout from '@/layouts/landing-layout';
 
 type SearchResult = {
     type: string;

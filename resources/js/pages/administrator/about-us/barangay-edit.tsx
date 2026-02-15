@@ -24,10 +24,10 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 import { Toast } from '@/components/ui/toast';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import { Separator } from '@/components/ui/separator';
 
 const dashboardUrl = '/dashboard';
 const barangayIndexUrl = '/dashboard/barangay';

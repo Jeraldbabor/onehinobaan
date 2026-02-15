@@ -1,11 +1,11 @@
 
 import { Head, Link, usePage } from '@inertiajs/react';
+import { Users } from 'lucide-react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
+import { Badge } from '@/components/ui/badge';
 import LandingLayout from '@/layouts/landing-layout';
 import type { PageProps } from '@/types';
-import { Badge } from '@/components/ui/badge';
-import { Users } from 'lucide-react';
 
 type OfficialItem = {
     id: string;

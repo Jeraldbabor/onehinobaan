@@ -1,10 +1,10 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import LandingLayout from '@/layouts/landing-layout';
 import type { PageProps } from '@/types';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 type BarangayItem = {
     id: string;

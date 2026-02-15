@@ -1,5 +1,5 @@
-import LandingLayout from '@/layouts/landing-layout';
 import { Head, usePage } from '@inertiajs/react';
+import LandingLayout from '@/layouts/landing-layout';
 import type { PageProps } from '@/types';
 
 export default function FullDisclosure() {
