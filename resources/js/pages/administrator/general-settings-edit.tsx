@@ -31,20 +31,25 @@ type GeneralSettingsProps = {
         transparency_seal_url: string;
         landing_video_url: string;
         sub_page_banner_url: string;
+        full_disclosure_banner_url: string;
+        full_disclosure_url: string;
     };
 };
 
 export default function GeneralSettingsEdit({
     settings,
 }: GeneralSettingsProps) {
-    const { setData, post, processing, errors, recentlySuccessful } = useForm({
-        main_logo: null as File | null,
-        bp_logo: null as File | null,
-        one_hinobaan_logo: null as File | null,
-        transparency_seal: null as File | null,
-        landing_video: null as File | null,
-        sub_page_banner: null as File | null,
-    });
+    const { data, setData, post, processing, errors, recentlySuccessful } =
+        useForm({
+            main_logo: null as File | null,
+            bp_logo: null as File | null,
+            one_hinobaan_logo: null as File | null,
+            transparency_seal: null as File | null,
+            landing_video: null as File | null,
+            sub_page_banner: null as File | null,
+            full_disclosure_banner: null as File | null,
+            full_disclosure_url: settings.full_disclosure_url,
+        });
 
     const [fileErrors, setFileErrors] = useState<{ [key: string]: string }>({});
     const [showToast, setShowToast] = useState(false);
@@ -394,6 +399,108 @@ export default function GeneralSettingsEdit({
                                         errors.sub_page_banner ||
                                         fileErrors.sub_page_banner
                                     }
+                                />
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <div className="flex items-center gap-2">
+                                <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                    <ImageIcon className="size-4" aria-hidden />
+                                </span>
+                                <CardTitle className="text-base">
+                                    Full Disclosure Banner
+                                </CardTitle>
+                            </div>
+                            <CardDescription>
+                                The banner image for the Full Disclosure Policy
+                                section.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="full_disclosure_banner">
+                                    Banner Image
+                                </Label>
+                                <div className="flex flex-col gap-4">
+                                    <div className="aspect-[19/4] w-full overflow-hidden rounded border bg-neutral-100">
+                                        <img
+                                            src={
+                                                settings.full_disclosure_banner_url
+                                            }
+                                            alt="Current"
+                                            className="h-full w-full object-cover"
+                                        />
+                                    </div>
+                                    <Input
+                                        id="full_disclosure_banner"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file =
+                                                e.target.files?.[0] || null;
+                                            if (
+                                                file &&
+                                                checkFileSize(
+                                                    file,
+                                                    5,
+                                                    'full_disclosure_banner',
+                                                )
+                                            ) {
+                                                setData(
+                                                    'full_disclosure_banner',
+                                                    file,
+                                                );
+                                            } else if (!file) {
+                                                setData(
+                                                    'full_disclosure_banner',
+                                                    null,
+                                                );
+                                                setFileErrors((prev) => {
+                                                    const newErrors = {
+                                                        ...prev,
+                                                    };
+                                                    delete newErrors[
+                                                        'full_disclosure_banner'
+                                                    ];
+                                                    return newErrors;
+                                                });
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                <InputError
+                                    message={
+                                        errors.full_disclosure_banner ||
+                                        fileErrors.full_disclosure_banner
+                                    }
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="full_disclosure_url">
+                                    Portal URL
+                                </Label>
+                                <Input
+                                    id="full_disclosure_url"
+                                    type="url"
+                                    placeholder="https://fulldisclosure.dilg.gov.ph/"
+                                    value={data.full_disclosure_url}
+                                    onChange={(e) =>
+                                        setData(
+                                            'full_disclosure_url',
+                                            e.target.value,
+                                        )
+                                    }
+                                />
+                                <p className="text-sm text-muted-foreground">
+                                    The destination URL when the user clicks the
+                                    "Visit DILG Full Disclosure Portal" button.
+                                </p>
+                                <InputError
+                                    message={errors.full_disclosure_url}
                                 />
                             </div>
                         </CardContent>

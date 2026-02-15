@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
-use App\Models\SiteContent;
+use App\Models\Barangay;
+use App\Models\BarangayOfficial;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,12 +18,25 @@ class BarangayController extends Controller
 
     private const IMAGE_DIR = 'barangays';
 
+    private const OFFICIAL_IMAGE_DIR = 'barangay_officials';
+
     /**
-     * Show the public Barangay page (images only).
+     * Show the public Barangay page.
      */
     public function show(): Response
     {
-        $barangays = $this->mapBarangaysForFrontend(SiteContent::getBarangaysList());
+        $barangays = Barangay::orderBy('display_order')->get()->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'population' => $item->population,
+                'history' => $item->history,
+                'festival' => $item->festival,
+                'land_area' => $item->land_area,
+                'officials' => $item->officials, // Legacy text field
+                'image_url' => $item->image_path ? '/storage/'.$item->image_path : null,
+            ];
+        });
 
         return Inertia::render('about/barangay', [
             'barangays' => $barangays,
@@ -32,11 +45,56 @@ class BarangayController extends Controller
     }
 
     /**
-     * Show the admin page to manage barangay images (upload / remove).
+     * Show the public Barangay Detail page with Officials.
+     */
+    public function showDetail(string $id): Response
+    {
+        $barangay = Barangay::with('officialsList')->findOrFail($id);
+
+        return Inertia::render('about/barangay-detail', [
+            'barangay' => [
+                'id' => $barangay->id,
+                'name' => $barangay->name,
+                'population' => $barangay->population,
+                'history' => $barangay->history,
+                'festival' => $barangay->festival,
+                'land_area' => $barangay->land_area,
+                'officials_text' => $barangay->officials,
+                'image_url' => $barangay->image_path ? '/storage/'.$barangay->image_path : null,
+                'officials' => $barangay->officialsList->map(fn ($o) => [
+                    'id' => $o->id,
+                    'name' => $o->name,
+                    'position' => $o->position,
+                    'image_url' => $o->image_path ? '/storage/'.$o->image_path : null,
+                ]),
+            ],
+            'announcements' => Announcement::forSidebar(),
+        ]);
+    }
+
+    /**
+     * Show the admin page to manage barangays.
      */
     public function index(): Response
     {
-        $barangays = $this->mapBarangaysForFrontend(SiteContent::getBarangaysList());
+        $barangays = Barangay::with('officialsList')->orderBy('display_order')->get()->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'population' => $item->population,
+                'history' => $item->history,
+                'festival' => $item->festival,
+                'land_area' => $item->land_area,
+                'officials' => $item->officials,
+                'image_url' => $item->image_path ? '/storage/'.$item->image_path : null,
+                'officials_list' => $item->officialsList->map(fn ($o) => [
+                    'id' => $o->id,
+                    'name' => $o->name,
+                    'position' => $o->position,
+                    'image_url' => $o->image_path ? '/storage/'.$o->image_path : null,
+                ]),
+            ];
+        });
 
         return Inertia::render('administrator/about-us/barangay-edit', [
             'barangays' => $barangays,
@@ -44,65 +102,138 @@ class BarangayController extends Controller
     }
 
     /**
-     * Store a new barangay image (image upload only).
+     * Store a new barangay.
      */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'population' => ['nullable', 'string', 'max:255'],
+            'history' => ['nullable', 'string'],
+            'festival' => ['nullable', 'string', 'max:255'],
+            'land_area' => ['nullable', 'string', 'max:255'],
+            'officials' => ['nullable', 'string'],
             'image' => ['required', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
         ]);
 
-        $file = $request->file('image');
-        $path = $file->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        }
 
-        $list = SiteContent::getBarangaysList();
-        $maxOrder = collect($list)->max('display_order') ?? 0;
-        $list[] = [
-            'id' => Str::random(8),
+        Barangay::create([
+            'name' => $request->name,
+            'population' => $request->population,
+            'history' => $request->history,
+            'festival' => $request->festival,
+            'land_area' => $request->land_area,
+            'officials' => $request->officials,
             'image_path' => $path,
-            'display_order' => $maxOrder + 1,
-        ];
-        SiteContent::setBarangaysList($list);
+            'display_order' => Barangay::max('display_order') + 1,
+        ]);
 
-        return back()->with('status', 'Barangay image added.');
+        return back()->with('status', 'Barangay added.');
     }
 
     /**
-     * Remove a barangay image and delete its file.
+     * Update an existing barangay.
+     */
+    public function update(Request $request, $id): RedirectResponse
+    {
+        $barangay = Barangay::findOrFail($id);
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'population' => ['nullable', 'string', 'max:255'],
+            'history' => ['nullable', 'string'],
+            'festival' => ['nullable', 'string', 'max:255'],
+            'land_area' => ['nullable', 'string', 'max:255'],
+            'officials' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
+        ]);
+
+        if ($request->hasFile('image')) {
+            if ($barangay->image_path) {
+                Storage::disk(self::IMAGE_DISK)->delete($barangay->image_path);
+            }
+            $barangay->image_path = $request->file('image')->store(self::IMAGE_DIR, self::IMAGE_DISK);
+        }
+
+        $barangay->update([
+            'name' => $request->name,
+            'population' => $request->population,
+            'history' => $request->history,
+            'festival' => $request->festival,
+            'land_area' => $request->land_area,
+            'officials' => $request->officials,
+        ]);
+
+        return back()->with('status', 'Barangay updated.');
+    }
+
+    /**
+     * Remove a barangay.
      */
     public function destroy(string $id): RedirectResponse
     {
-        $list = SiteContent::getBarangaysList();
-        $found = null;
-        $filtered = [];
-        foreach ($list as $item) {
-            if (($item['id'] ?? '') === $id) {
-                $found = $item;
-            } else {
-                $filtered[] = $item;
+        $barangay = Barangay::findOrFail($id);
+
+        // Delete officials images
+        foreach ($barangay->officialsList as $official) {
+            if ($official->image_path) {
+                Storage::disk(self::IMAGE_DISK)->delete($official->image_path);
             }
         }
-        if ($found && ! empty($found['image_path'])) {
-            Storage::disk(self::IMAGE_DISK)->delete($found['image_path']);
-        }
-        SiteContent::setBarangaysList($filtered);
 
-        return back()->with('status', 'Barangay image removed.');
+        if ($barangay->image_path) {
+            Storage::disk(self::IMAGE_DISK)->delete($barangay->image_path);
+        }
+
+        $barangay->delete();
+
+        return back()->with('status', 'Barangay removed.');
     }
 
     /**
-     * @param  array<int, array{id: string, image_path: string, display_order: int}>  $list
-     * @return array<int, array{id: string, image_url: string}>
+     * Store a new official for a barangay.
      */
-    private function mapBarangaysForFrontend(array $list): array
+    public function storeOfficial(Request $request, string $barangayId): RedirectResponse
     {
-        return array_map(function ($item) {
-            $path = $item['image_path'] ?? '';
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'position' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:102400', 'mimes:jpeg,png,gif,webp'],
+        ]);
 
-            return [
-                'id' => $item['id'] ?? '',
-                'image_url' => $path ? '/storage/'.$path : '',
-            ];
-        }, $list);
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store(self::OFFICIAL_IMAGE_DIR, self::IMAGE_DISK);
+        }
+
+        BarangayOfficial::create([
+            'barangay_id' => $barangayId,
+            'name' => $request->name,
+            'position' => $request->position,
+            'image_path' => $path,
+            'display_order' => BarangayOfficial::where('barangay_id', $barangayId)->max('display_order') + 1,
+        ]);
+
+        return back()->with('status', 'Official added.');
+    }
+
+    /**
+     * Remove a barangay official.
+     */
+    public function destroyOfficial(string $id): RedirectResponse
+    {
+        $official = BarangayOfficial::findOrFail($id);
+
+        if ($official->image_path) {
+            Storage::disk(self::IMAGE_DISK)->delete($official->image_path);
+        }
+
+        $official->delete();
+
+        return back()->with('status', 'Official removed.');
     }
 }

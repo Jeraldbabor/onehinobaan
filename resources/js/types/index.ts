@@ -11,6 +11,8 @@ export type GeneralSettings = {
     transparency_seal_url: string;
     landing_video_url: string;
     sub_page_banner_url: string;
+    full_disclosure_banner_url: string;
+    full_disclosure_url: string;
 };
 
 export type SharedData = {

@@ -90,7 +90,9 @@ function FacebookPageEmbed({ url, title }: { url: string; title: string }) {
     return (
         <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm sm:rounded">
             <div className="border-b border-slate-100 bg-slate-50 px-3 py-2">
-                <h3 className="text-xs font-bold text-slate-900 sm:text-sm">{title}</h3>
+                <h3 className="text-xs font-bold text-slate-900 sm:text-sm">
+                    {title}
+                </h3>
             </div>
             <div className="relative w-full overflow-hidden">
                 <iframe
@@ -479,7 +481,7 @@ export default function Landing() {
                                 onTouchMove={handleCarouselTouchMove}
                                 onTouchEnd={handleCarouselTouchEnd}
                                 onTouchCancel={handleCarouselTouchEnd}
-                                className="flex cursor-grab touch-pan-x gap-3 overflow-x-auto overflow-y-hidden px-1 py-4 pb-2 select-none sm:gap-4 sm:px-0 [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+                                className="flex cursor-grab touch-pan-x gap-3 overflow-x-auto overflow-y-hidden px-1 py-4 pb-2 select-none [scrollbar-width:none] active:cursor-grabbing sm:gap-4 sm:px-0 [&::-webkit-scrollbar]:hidden"
                                 style={{
                                     scrollSnapType: 'x mandatory',
                                     WebkitOverflowScrolling: 'touch',
@@ -540,10 +542,11 @@ export default function Landing() {
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${index === currentIndex
-                                            ? 'scale-125 bg-blue-800'
-                                            : 'bg-slate-300 hover:bg-slate-400'
-                                            }`}
+                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
+                                            index === currentIndex
+                                                ? 'scale-125 bg-blue-800'
+                                                : 'bg-slate-300 hover:bg-slate-400'
+                                        }`}
                                         aria-label={`Go to official ${index + 1}`}
                                         aria-current={
                                             index === currentIndex
@@ -817,11 +820,12 @@ export default function Landing() {
                                                                 )}
                                                                 <div className="absolute top-2 left-2">
                                                                     <span
-                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${item.status ===
+                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${
+                                                                            item.status ===
                                                                             'completed'
-                                                                            ? 'bg-green-500 text-white'
-                                                                            : 'bg-blue-600 text-white'
-                                                                            }`}
+                                                                                ? 'bg-green-500 text-white'
+                                                                                : 'bg-blue-600 text-white'
+                                                                        }`}
                                                                     >
                                                                         {
                                                                             item.status

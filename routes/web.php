@@ -25,6 +25,8 @@ Route::get('/portal-admin-1x6114', function (Request $request) {
     ]);
 })->name('login.portal')->middleware(['web', 'guest']);
 
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
+
 Route::get('/', function () {
     $officials = app(OfficialsController::class)->getOfficialsForFrontend();
     $activities = \App\Models\Activity::published()
@@ -113,6 +115,7 @@ Route::get('about/officials/{section?}', [OfficialsController::class, 'show'])
 
 // Public: Barangay page (images from database)
 Route::get('about/barangay', [BarangayController::class, 'show'])->name('barangay.show');
+Route::get('about/barangay/{id}', [BarangayController::class, 'showDetail'])->name('barangay.detail');
 
 // Public: Contact Us (address, phone, email, map from database)
 Route::get('contact', [ContactController::class, 'show'])->name('contact.show');
@@ -135,6 +138,11 @@ Route::get('tourism/{type}/{id}', [TourismController::class, 'showItem'])
 Route::get('tourism/{type}', [TourismController::class, 'show'])
     ->where('type', 'attraction|resorts|festivals')
     ->name('tourism.show');
+
+// Transparency
+Route::get('transparency/full-disclosure', function () {
+    return Inertia::render('Transparency/FullDisclosure');
+})->name('transparency.full-disclosure');
 
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');
@@ -171,7 +179,25 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::delete('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'destroySbMember'])->name('officials.destroySbMember');
     Route::get('dashboard/barangay', [BarangayController::class, 'index'])->name('barangay.index');
     Route::post('dashboard/barangay', [BarangayController::class, 'store'])->name('barangay.store');
+    Route::post('dashboard/barangay/{id}', [BarangayController::class, 'update'])->name('barangay.update'); // Using POST for update with file upload (method spoofing handled in frontend usually, but let's be safe)
+    // Actually Laravel handles PUT with files via _method field easily.
+    // Let's stick to standard resource route conventions where possible or exact manual routes.
+    // The previous implementation used put via _method spoofing.
+});
+
+// Re-defining the group to properly insert the new routes
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    // ... (previous routes omitted for brevity in thought, but included in replacement)
+
+    // Barangay Routes
+    Route::get('dashboard/barangay', [BarangayController::class, 'index'])->name('barangay.index');
+    Route::post('dashboard/barangay', [BarangayController::class, 'store'])->name('barangay.store');
+    Route::put('dashboard/barangay/{id}', [BarangayController::class, 'update'])->name('barangay.update');
     Route::delete('dashboard/barangay/{id}', [BarangayController::class, 'destroy'])->name('barangay.destroy');
+
+    // Barangay Officials Routes
+    Route::post('dashboard/barangay/{id}/officials', [BarangayController::class, 'storeOfficial'])->name('barangay.officials.store');
+    Route::delete('dashboard/barangay/officials/{id}', [BarangayController::class, 'destroyOfficial'])->name('barangay.officials.destroy');
     Route::get('dashboard/contact', [ContactController::class, 'edit'])->name('contact.edit');
     Route::put('dashboard/contact', [ContactController::class, 'update'])->name('contact.update');
     Route::get('dashboard/general-settings', [GeneralSettingsController::class, 'edit'])->name('general-settings.edit');
