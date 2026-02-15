@@ -11,6 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Recreate barangays table if it was dropped by a previous migration
+        if (! Schema::hasTable('barangays')) {
+            Schema::create('barangays', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('population')->nullable();
+                $table->text('history')->nullable();
+                $table->string('festival')->nullable();
+                $table->string('land_area')->nullable();
+                $table->text('officials')->nullable();
+                $table->string('image_path')->nullable();
+                $table->unsignedInteger('display_order')->default(0);
+                $table->timestamps();
+            });
+        }
+
         Schema::create('barangay_officials', function (Blueprint $table) {
             $table->id();
             $table->foreignId('barangay_id')->constrained()->cascadeOnDelete();
