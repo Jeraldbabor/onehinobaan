@@ -188,13 +188,13 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 // Re-defining the group to properly insert the new routes
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     // ... (previous routes omitted for brevity in thought, but included in replacement)
-    
+
     // Barangay Routes
     Route::get('dashboard/barangay', [BarangayController::class, 'index'])->name('barangay.index');
     Route::post('dashboard/barangay', [BarangayController::class, 'store'])->name('barangay.store');
     Route::put('dashboard/barangay/{id}', [BarangayController::class, 'update'])->name('barangay.update');
     Route::delete('dashboard/barangay/{id}', [BarangayController::class, 'destroy'])->name('barangay.destroy');
-    
+
     // Barangay Officials Routes
     Route::post('dashboard/barangay/{id}/officials', [BarangayController::class, 'storeOfficial'])->name('barangay.officials.store');
     Route::delete('dashboard/barangay/officials/{id}', [BarangayController::class, 'destroyOfficial'])->name('barangay.officials.destroy');

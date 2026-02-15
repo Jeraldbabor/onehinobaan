@@ -3,63 +3,68 @@
 > eslint . --fix
 
 
-C:\xampp1\htdocs\onehinobaan\resources\js\actions\App\Http\Controllers\Administrator\ActivityController.ts
-  1:10  error  'queryParams' is defined but never used          @typescript-eslint/no-unused-vars
-  1:28  error  'RouteQueryOptions' is defined but never used    @typescript-eslint/no-unused-vars
-  1:52  error  'RouteDefinition' is defined but never used      @typescript-eslint/no-unused-vars
-  1:74  error  'RouteFormDefinition' is defined but never used  @typescript-eslint/no-unused-vars
-  1:95  error  'applyUrlDefaults' is defined but never used     @typescript-eslint/no-unused-vars
+C:\xampp1\htdocs\onehinobaan\resources\js\components\landing\landing-header.tsx
+  210:56  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  634:37  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
 
-C:\xampp1\htdocs\onehinobaan\resources\js\actions\App\Http\Controllers\Administrator\AnnouncementController.ts
-  1:10  error  'queryParams' is defined but never used          @typescript-eslint/no-unused-vars
-  1:28  error  'RouteQueryOptions' is defined but never used    @typescript-eslint/no-unused-vars
-  1:52  error  'RouteDefinition' is defined but never used      @typescript-eslint/no-unused-vars
-  1:74  error  'RouteFormDefinition' is defined but never used  @typescript-eslint/no-unused-vars
-  1:95  error  'applyUrlDefaults' is defined but never used     @typescript-eslint/no-unused-vars
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\about\barangay-detail.tsx
+   6:10  error  'Badge' is defined but never used                                                                                           @typescript-eslint/no-unused-vars
+  51:72  error  React Hook "usePage" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
 
-C:\xampp1\htdocs\onehinobaan\resources\js\actions\App\Http\Controllers\Administrator\OfficialsController.ts
-  1:10   error  'queryParams' is defined but never used          @typescript-eslint/no-unused-vars
-  1:28   error  'RouteQueryOptions' is defined but never used    @typescript-eslint/no-unused-vars
-  1:52   error  'RouteDefinition' is defined but never used      @typescript-eslint/no-unused-vars
-  1:74   error  'RouteFormDefinition' is defined but never used  @typescript-eslint/no-unused-vars
-  1:95   error  'applyUrlDefaults' is defined but never used     @typescript-eslint/no-unused-vars
-  1:113  error  'validateParameters' is defined but never used   @typescript-eslint/no-unused-vars
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\about\barangay.tsx
+  4:10  error  'Badge' is defined but never used        @typescript-eslint/no-unused-vars
+  5:10  error  'Card' is defined but never used         @typescript-eslint/no-unused-vars
+  5:16  error  'CardContent' is defined but never used  @typescript-eslint/no-unused-vars
+  5:29  error  'CardHeader' is defined but never used   @typescript-eslint/no-unused-vars
+  5:41  error  'CardTitle' is defined but never used    @typescript-eslint/no-unused-vars
 
-C:\xampp1\htdocs\onehinobaan\resources\js\actions\App\Http\Controllers\Administrator\ProjectController.ts
-  1:10  error  'queryParams' is defined but never used          @typescript-eslint/no-unused-vars
-  1:28  error  'RouteQueryOptions' is defined but never used    @typescript-eslint/no-unused-vars
-  1:52  error  'RouteDefinition' is defined but never used      @typescript-eslint/no-unused-vars
-  1:74  error  'RouteFormDefinition' is defined but never used  @typescript-eslint/no-unused-vars
-  1:95  error  'applyUrlDefaults' is defined but never used     @typescript-eslint/no-unused-vars
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\about\officials.tsx
+  2:10  error  'ArrowRight' is defined but never used  @typescript-eslint/no-unused-vars
+  2:22  error  'Network' is defined but never used     @typescript-eslint/no-unused-vars
 
-C:\xampp1\htdocs\onehinobaan\resources\js\actions\App\Http\Controllers\Administrator\TourismController.ts
-  1:10  error  'queryParams' is defined but never used          @typescript-eslint/no-unused-vars
-  1:28  error  'RouteQueryOptions' is defined but never used    @typescript-eslint/no-unused-vars
-  1:52  error  'RouteDefinition' is defined but never used      @typescript-eslint/no-unused-vars
-  1:74  error  'RouteFormDefinition' is defined but never used  @typescript-eslint/no-unused-vars
-  1:95  error  'applyUrlDefaults' is defined but never used     @typescript-eslint/no-unused-vars
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\administrator\about-us\barangay-edit.tsx
+    2:10  error    'Transition' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+    4:10  error    'Check' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+    4:23  error    'ImagePlus' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+    7:10  error    'Badge' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   12:5   error    'CardDescription' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   23:5   error    'DialogTrigger' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   27:10  error    'Separator' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   70:34  error    'put' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  104:13  error    Error: Calling setState synchronously within an effect can trigger cascading renders
 
-C:\xampp1\htdocs\onehinobaan\resources\js\components\project-gallery.tsx
-  25:11  error    'index' is assigned a value but never used                                                                    @typescript-eslint/no-unused-vars
-  26:11  error    'setIndex' is assigned a value but never used                                                                 @typescript-eslint/no-unused-vars
-  54:8   warning  React Hook useEffect has a missing dependency: 'setIsOpen'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
 
-C:\xampp1\htdocs\onehinobaan\resources\js\pages\administrator\projects\form.tsx
-  50:34  error  'put' is assigned a value but never used  @typescript-eslint/no-unused-vars
-  95:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
 
-C:\xampp1\htdocs\onehinobaan\resources\js\pages\projects\show.tsx
-  2:19  error  'ArrowLeft' is defined but never used  @typescript-eslint/no-unused-vars
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\administrator\about-us\barangay-edit.tsx:104:13
+  102 |             reset();
+  103 |             clearErrors();
+> 104 |             setEditingItem(null);
+      |             ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  105 |             setImagePreview(null);
+  106 |         }
+  107 |     }, [isDialogOpen]);                                                  react-hooks/set-state-in-effect
+  107:8   warning  React Hook useEffect has missing dependencies: 'clearErrors' and 'reset'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     react-hooks/exhaustive-deps
+  114:17  error    Error: Calling setState synchronously within an effect can trigger cascading renders
 
-C:\xampp1\htdocs\onehinobaan\resources\js\routes\index.ts
-  354:49  error  Parsing error: Declaration or statement expected
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
 
-C:\xampp1\htdocs\onehinobaan\resources\js\routes\password\index.ts
-  1:10  error  'queryParams' is defined but never used          @typescript-eslint/no-unused-vars
-  1:28  error  'RouteQueryOptions' is defined but never used    @typescript-eslint/no-unused-vars
-  1:52  error  'RouteDefinition' is defined but never used      @typescript-eslint/no-unused-vars
-  1:74  error  'RouteFormDefinition' is defined but never used  @typescript-eslint/no-unused-vars
-  1:95  error  'applyUrlDefaults' is defined but never used     @typescript-eslint/no-unused-vars
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
 
-✖ 38 problems (37 errors, 1 warning)
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\administrator\about-us\barangay-edit.tsx:114:17
+  112 |             const freshItem = barangays.find((b) => b.id === editingItem.id);
+  113 |             if (freshItem) {
+> 114 |                 setEditingItem(freshItem);
+      |                 ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  115 |             }
+  116 |         }
+  117 |     }, [barangays]);  react-hooks/set-state-in-effect
+  117:8   warning  React Hook useEffect has a missing dependency: 'editingItem'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react-hooks/exhaustive-deps
+
+✖ 23 problems (21 errors, 2 warnings)
 

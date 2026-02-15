@@ -15,7 +15,9 @@ use Inertia\Response;
 class BarangayController extends Controller
 {
     private const IMAGE_DISK = 'public';
+
     private const IMAGE_DIR = 'barangays';
+
     private const OFFICIAL_IMAGE_DIR = 'barangay_officials';
 
     /**
@@ -59,7 +61,7 @@ class BarangayController extends Controller
                 'land_area' => $barangay->land_area,
                 'officials_text' => $barangay->officials,
                 'image_url' => $barangay->image_path ? '/storage/'.$barangay->image_path : null,
-                'officials' => $barangay->officialsList->map(fn($o) => [
+                'officials' => $barangay->officialsList->map(fn ($o) => [
                     'id' => $o->id,
                     'name' => $o->name,
                     'position' => $o->position,
@@ -85,7 +87,7 @@ class BarangayController extends Controller
                 'land_area' => $item->land_area,
                 'officials' => $item->officials,
                 'image_url' => $item->image_path ? '/storage/'.$item->image_path : null,
-                'officials_list' => $item->officialsList->map(fn($o) => [
+                'officials_list' => $item->officialsList->map(fn ($o) => [
                     'id' => $o->id,
                     'name' => $o->name,
                     'position' => $o->position,
@@ -175,7 +177,7 @@ class BarangayController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $barangay = Barangay::findOrFail($id);
-        
+
         // Delete officials images
         foreach ($barangay->officialsList as $official) {
             if ($official->image_path) {
@@ -186,7 +188,7 @@ class BarangayController extends Controller
         if ($barangay->image_path) {
             Storage::disk(self::IMAGE_DISK)->delete($barangay->image_path);
         }
-        
+
         $barangay->delete();
 
         return back()->with('status', 'Barangay removed.');
@@ -225,11 +227,11 @@ class BarangayController extends Controller
     public function destroyOfficial(string $id): RedirectResponse
     {
         $official = BarangayOfficial::findOrFail($id);
-        
+
         if ($official->image_path) {
             Storage::disk(self::IMAGE_DISK)->delete($official->image_path);
         }
-        
+
         $official->delete();
 
         return back()->with('status', 'Official removed.');

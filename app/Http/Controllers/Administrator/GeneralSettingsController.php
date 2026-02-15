@@ -94,8 +94,9 @@ class GeneralSettingsController extends Controller
 
             return back()->with('status', 'General settings updated successfully.');
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('General settings update failed: ' . $e->getMessage());
-            return back()->withErrors(['general_settings' => 'An error occurred while updating settings: ' . $e->getMessage()]);
+            \Illuminate\Support\Facades\Log::error('General settings update failed: '.$e->getMessage());
+
+            return back()->withErrors(['general_settings' => 'An error occurred while updating settings: '.$e->getMessage()]);
         }
     }
 
@@ -123,7 +124,7 @@ class GeneralSettingsController extends Controller
 
         // Fix: Force relative URL for local public disk to avoid double-URL issues if APP_URL is misconfigured
         if (self::IMAGE_DISK === 'public') {
-            return '/storage/' . $path;
+            return '/storage/'.$path;
         }
 
         return Storage::disk(self::IMAGE_DISK)->url($path);
