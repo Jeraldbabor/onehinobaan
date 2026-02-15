@@ -1,8 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import LandingLayout from '@/layouts/landing-layout';
 import type { PageProps } from '@/types';
 
@@ -78,7 +76,10 @@ export default function BarangayPage() {
                                                 key={barangay.id}
                                                 className="group flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
                                             >
-                                                <Link href={`/about/barangay/${barangay.id}`} className="block relative aspect-video w-full overflow-hidden bg-slate-100">
+                                                <Link
+                                                    href={`/about/barangay/${barangay.id}`}
+                                                    className="relative block aspect-video w-full overflow-hidden bg-slate-100"
+                                                >
                                                     <img
                                                         src={barangay.image_url}
                                                         alt={barangay.name}
@@ -86,28 +87,42 @@ export default function BarangayPage() {
                                                     />
                                                 </Link>
                                                 <div className="flex flex-1 flex-col p-4">
-                                                    <Link href={`/about/barangay/${barangay.id}`}>
-                                                        <h3 className="mb-2 text-lg font-bold text-slate-900 group-hover:text-blue-800 transition-colors">
+                                                    <Link
+                                                        href={`/about/barangay/${barangay.id}`}
+                                                    >
+                                                        <h3 className="mb-2 text-lg font-bold text-slate-900 transition-colors group-hover:text-blue-800">
                                                             {barangay.name}
                                                         </h3>
                                                     </Link>
                                                     <div className="mb-4 space-y-1 text-sm text-slate-600">
                                                         {barangay.population && (
                                                             <div className="flex items-center gap-2">
-                                                                <span className="font-semibold text-slate-700">Pop:</span>
-                                                                {barangay.population}
+                                                                <span className="font-semibold text-slate-700">
+                                                                    Pop:
+                                                                </span>
+                                                                {
+                                                                    barangay.population
+                                                                }
                                                             </div>
                                                         )}
                                                         {barangay.festival && (
                                                             <div className="flex items-center gap-2">
-                                                                <span className="font-semibold text-slate-700">Festival:</span>
-                                                                {barangay.festival}
+                                                                <span className="font-semibold text-slate-700">
+                                                                    Festival:
+                                                                </span>
+                                                                {
+                                                                    barangay.festival
+                                                                }
                                                             </div>
                                                         )}
                                                         {barangay.land_area && (
                                                             <div className="flex items-center gap-2">
-                                                                <span className="font-semibold text-slate-700">Area:</span>
-                                                                {barangay.land_area}
+                                                                <span className="font-semibold text-slate-700">
+                                                                    Area:
+                                                                </span>
+                                                                {
+                                                                    barangay.land_area
+                                                                }
                                                             </div>
                                                         )}
                                                     </div>
@@ -119,12 +134,13 @@ export default function BarangayPage() {
                                                         </p>
                                                     )}
 
-                                                    <div className="mt-auto pt-4 border-t border-slate-100">
+                                                    <div className="mt-auto border-t border-slate-100 pt-4">
                                                         <Link
                                                             href={`/about/barangay/${barangay.id}`}
-                                                            className="text-sm font-medium text-blue-700 hover:text-blue-900 flex items-center gap-1"
+                                                            className="flex items-center gap-1 text-sm font-medium text-blue-700 hover:text-blue-900"
                                                         >
-                                                            View Details & Officials &rarr;
+                                                            View Details &
+                                                            Officials &rarr;
                                                         </Link>
                                                     </div>
                                                 </div>

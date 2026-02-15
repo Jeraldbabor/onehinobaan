@@ -29,6 +29,12 @@ type NavItemSimple = {
 };
 type NavItem = NavItemWithChildren | NavItemWithGroups | NavItemSimple;
 
+type SearchResult = {
+    id: string | number;
+    url: string;
+    title: string;
+};
+
 /** Primary nav: fewer items so the bar is less busy. Transparency, Services, Job Opportunities live under "More". */
 const primaryNavItems: NavItem[] = [
     { label: 'Home', href: '/' },
@@ -207,7 +213,7 @@ export function LandingHeader() {
     const [bannerVisible, setBannerVisible] = useState(true);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
     const searchInputRef = useRef<HTMLInputElement>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const subCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
@@ -546,7 +552,7 @@ export function LandingHeader() {
                                                                 className={cn(
                                                                     'flex cursor-default items-center justify-between px-4 py-3 text-base text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900',
                                                                     isSubOpen &&
-                                                                    'bg-neutral-50',
+                                                                        'bg-neutral-50',
                                                                 )}
                                                             >
                                                                 {child.label}
@@ -631,10 +637,16 @@ export function LandingHeader() {
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    // @ts-ignore
-                                    import('@inertiajs/react').then(({ router }) => {
-                                        router.visit(search.url({ query: { q: searchQuery } }));
-                                    });
+                                    // @ts-expect-error - Dynamic import for code splitting
+                                    import('@inertiajs/react').then(
+                                        ({ router }) => {
+                                            router.visit(
+                                                search.url({
+                                                    query: { q: searchQuery },
+                                                }),
+                                            );
+                                        },
+                                    );
                                 }}
                                 className="relative flex items-center"
                             >
@@ -646,41 +658,57 @@ export function LandingHeader() {
                                         const query = e.target.value;
                                         setSearchQuery(query);
                                         if (query.length > 0) {
-                                            fetch(search.url({ query: { q: query } }), {
-                                                headers: {
-                                                    'Accept': 'application/json',
-                                                    'X-Requested-With': 'XMLHttpRequest',
+                                            fetch(
+                                                search.url({
+                                                    query: { q: query },
+                                                }),
+                                                {
+                                                    headers: {
+                                                        Accept: 'application/json',
+                                                        'X-Requested-With':
+                                                            'XMLHttpRequest',
+                                                    },
                                                 },
-                                            })
+                                            )
                                                 .then((res) => res.json())
                                                 .then((data) => {
                                                     setSearchResults(data);
                                                 })
-                                                .catch((err) => console.error(err));
+                                                .catch((err) =>
+                                                    console.error(err),
+                                                );
                                         } else {
                                             setSearchResults([]);
                                         }
                                     }}
-
                                     placeholder="Search..."
-                                    className="h-9 w-40 rounded-lg border border-neutral-300 bg-white px-3 py-1 text-sm text-neutral-700 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 sm:w-60"
+                                    className="h-9 w-40 rounded-lg border border-neutral-300 bg-white px-3 py-1 text-sm text-neutral-700 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none sm:w-60"
                                     onBlur={() => {
                                         // Delay closing to allow clicking on results
                                         setTimeout(() => {
-                                            if (!searchQuery) setIsSearchOpen(false);
+                                            if (!searchQuery)
+                                                setIsSearchOpen(false);
                                             setSearchResults([]);
                                         }, 200);
                                     }}
                                     onFocus={() => {
                                         if (searchQuery.length > 0) {
-                                            fetch(search.url({ query: { q: searchQuery } }), {
-                                                headers: {
-                                                    'Accept': 'application/json',
-                                                    'X-Requested-With': 'XMLHttpRequest',
+                                            fetch(
+                                                search.url({
+                                                    query: { q: searchQuery },
+                                                }),
+                                                {
+                                                    headers: {
+                                                        Accept: 'application/json',
+                                                        'X-Requested-With':
+                                                            'XMLHttpRequest',
+                                                    },
                                                 },
-                                            })
+                                            )
                                                 .then((res) => res.json())
-                                                .then((data) => setSearchResults(data));
+                                                .then((data) =>
+                                                    setSearchResults(data),
+                                                );
                                         }
                                     }}
                                 />
@@ -688,22 +716,30 @@ export function LandingHeader() {
                                 {searchQuery.length > 0 && (
                                     <div className="absolute top-full left-0 z-50 mt-1 w-full rounded-lg border border-neutral-200 bg-white py-1 shadow-lg">
                                         {searchResults.length > 0 ? (
-                                            searchResults.map((result: { id: string | number; url: string; title: string }) => (
-                                                <Link
-                                                    key={result.id}
-                                                    href={result.url || '#'}
-                                                    className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
-                                                >
-                                                    {result.title}
-                                                </Link>
-                                            ))
+                                            searchResults.map(
+                                                (result: {
+                                                    id: string | number;
+                                                    url: string;
+                                                    title: string;
+                                                }) => (
+                                                    <Link
+                                                        key={result.id}
+                                                        href={result.url || '#'}
+                                                        className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+                                                    >
+                                                        {result.title}
+                                                    </Link>
+                                                ),
+                                            )
                                         ) : (
                                             <div className="px-4 py-2 text-sm text-neutral-500">
                                                 No results found.
                                             </div>
                                         )}
                                         <Link
-                                            href={search.url({ query: { q: searchQuery } })}
+                                            href={search.url({
+                                                query: { q: searchQuery },
+                                            })}
                                             className="block border-t border-neutral-100 px-4 py-2 text-center text-xs font-medium text-blue-600 hover:bg-neutral-50"
                                         >
                                             View all results
@@ -724,7 +760,10 @@ export function LandingHeader() {
                                 aria-label="Search"
                                 onClick={() => {
                                     setIsSearchOpen(true);
-                                    setTimeout(() => searchInputRef.current?.focus(), 100);
+                                    setTimeout(
+                                        () => searchInputRef.current?.focus(),
+                                        100,
+                                    );
                                 }}
                             >
                                 <Search className="size-4 sm:size-6" />
@@ -764,42 +803,36 @@ export function LandingHeader() {
                         </button>
                     </div>
                 </div>
-
             </header>
 
             {/* Mobile / tablet menu – full-screen slide-in drawer from right */}
             <div
                 id="mobile-menu"
-                className={
-                    cn(
-                        'fixed inset-0 z-100 xl:hidden',
-                        mobileMenuOpen ? 'visible' : 'pointer-events-none invisible'
-                    )
-                }
+                className={cn(
+                    'fixed inset-0 z-100 xl:hidden',
+                    mobileMenuOpen
+                        ? 'visible'
+                        : 'pointer-events-none invisible',
+                )}
             >
                 {/* Backdrop */}
                 <div
-                    className={
-                        cn(
-                            'absolute inset-0 bg-black/40 transition-opacity duration-300',
-                            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
-                        )
-                    }
-                    onClick={() => setMobileMenuOpen(false)
-                    }
+                    className={cn(
+                        'absolute inset-0 bg-black/40 transition-opacity duration-300',
+                        mobileMenuOpen ? 'opacity-100' : 'opacity-0',
+                    )}
+                    onClick={() => setMobileMenuOpen(false)}
                     aria-hidden="true"
                 />
                 {/* Drawer panel */}
                 <div
-                    className={
-                        cn(
-                            'absolute top-0 right-0 flex h-full w-[85vw] max-w-sm flex-col bg-white shadow-xl transition-transform duration-300 ease-in-out',
-                            mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-                        )
-                    }
+                    className={cn(
+                        'absolute top-0 right-0 flex h-full w-[85vw] max-w-sm flex-col bg-white shadow-xl transition-transform duration-300 ease-in-out',
+                        mobileMenuOpen ? 'translate-x-0' : 'translate-x-full',
+                    )}
                 >
                     {/* Drawer header */}
-                    <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-3" >
+                    <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
                         <div className="flex items-center gap-2">
                             <img
                                 src={
@@ -819,8 +852,18 @@ export function LandingHeader() {
                             onClick={() => setMobileMenuOpen(false)}
                             aria-label="Close menu"
                         >
-                            <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            <svg
+                                className="size-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
                             </svg>
                         </button>
                     </div>
@@ -842,7 +885,9 @@ export function LandingHeader() {
                                             key={item.href}
                                             href={item.href}
                                             className="rounded-lg px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50"
-                                            onClick={() => setMobileMenuOpen(false)}
+                                            onClick={() =>
+                                                setMobileMenuOpen(false)
+                                            }
                                         >
                                             {item.label}
                                         </Link>
@@ -851,7 +896,10 @@ export function LandingHeader() {
 
                                 // Collapsible section with children or groups
                                 return (
-                                    <div key={sectionKey} className="flex flex-col">
+                                    <div
+                                        key={sectionKey}
+                                        className="flex flex-col"
+                                    >
                                         <button
                                             type="button"
                                             className={cn(
@@ -862,7 +910,9 @@ export function LandingHeader() {
                                             )}
                                             onClick={() =>
                                                 setMobileExpandedSection(
-                                                    isExpanded ? null : sectionKey,
+                                                    isExpanded
+                                                        ? null
+                                                        : sectionKey,
                                                 )
                                             }
                                             aria-expanded={isExpanded}
@@ -887,42 +937,46 @@ export function LandingHeader() {
                                             <div className="overflow-hidden">
                                                 <div className="flex flex-col gap-0.5 pt-1 pb-1 pl-3">
                                                     {hasGroups(item) &&
-                                                        item.groups.map((group) => (
-                                                            <div
-                                                                key={
-                                                                    group.sectionTitle
-                                                                }
-                                                                className="flex flex-col"
-                                                            >
-                                                                <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
-                                                                    {
+                                                        item.groups.map(
+                                                            (group) => (
+                                                                <div
+                                                                    key={
                                                                         group.sectionTitle
                                                                     }
-                                                                </span>
-                                                                {group.links.map(
-                                                                    (link) => (
-                                                                        <Link
-                                                                            key={
-                                                                                link.href
-                                                                            }
-                                                                            href={
-                                                                                link.href
-                                                                            }
-                                                                            className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
-                                                                            onClick={() =>
-                                                                                setMobileMenuOpen(
-                                                                                    false,
-                                                                                )
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                link.label
-                                                                            }
-                                                                        </Link>
-                                                                    ),
-                                                                )}
-                                                            </div>
-                                                        ))}
+                                                                    className="flex flex-col"
+                                                                >
+                                                                    <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
+                                                                        {
+                                                                            group.sectionTitle
+                                                                        }
+                                                                    </span>
+                                                                    {group.links.map(
+                                                                        (
+                                                                            link,
+                                                                        ) => (
+                                                                            <Link
+                                                                                key={
+                                                                                    link.href
+                                                                                }
+                                                                                href={
+                                                                                    link.href
+                                                                                }
+                                                                                className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+                                                                                onClick={() =>
+                                                                                    setMobileMenuOpen(
+                                                                                        false,
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                {
+                                                                                    link.label
+                                                                                }
+                                                                            </Link>
+                                                                        ),
+                                                                    )}
+                                                                </div>
+                                                            ),
+                                                        )}
                                                     {hasChildren(item) &&
                                                         item.children.map(
                                                             (child) => {
@@ -975,12 +1029,14 @@ export function LandingHeader() {
                                                                         key={
                                                                             (
                                                                                 child as NavLink
-                                                                            ).href
+                                                                            )
+                                                                                .href
                                                                         }
                                                                         href={
                                                                             (
                                                                                 child as NavLink
-                                                                            ).href
+                                                                            )
+                                                                                .href
                                                                         }
                                                                         className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
                                                                         onClick={() =>

@@ -542,10 +542,11 @@ export default function Landing() {
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${index === currentIndex
-                                            ? 'scale-125 bg-blue-800'
-                                            : 'bg-slate-300 hover:bg-slate-400'
-                                            }`}
+                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
+                                            index === currentIndex
+                                                ? 'scale-125 bg-blue-800'
+                                                : 'bg-slate-300 hover:bg-slate-400'
+                                        }`}
                                         aria-label={`Go to official ${index + 1}`}
                                         aria-current={
                                             index === currentIndex
@@ -819,11 +820,12 @@ export default function Landing() {
                                                                 )}
                                                                 <div className="absolute top-2 left-2">
                                                                     <span
-                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${item.status ===
+                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${
+                                                                            item.status ===
                                                                             'completed'
-                                                                            ? 'bg-green-500 text-white'
-                                                                            : 'bg-blue-600 text-white'
-                                                                            }`}
+                                                                                ? 'bg-green-500 text-white'
+                                                                                : 'bg-blue-600 text-white'
+                                                                        }`}
                                                                     >
                                                                         {
                                                                             item.status

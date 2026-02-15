@@ -5,7 +5,9 @@ interface FullDisclosureProps {
     className?: string;
 }
 
-export default function FullDisclosure({ className = '' }: FullDisclosureProps) {
+export default function FullDisclosure({
+    className = '',
+}: FullDisclosureProps) {
     const { generalSettings } = usePage<PageProps>().props;
 
     return (
@@ -13,17 +15,25 @@ export default function FullDisclosure({ className = '' }: FullDisclosureProps) 
             <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
                 <Link
                     href="/transparency/full-disclosure"
-                    className="block overflow-hidden rounded-lg shadow-md transition hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2"
+                    className="block overflow-hidden rounded-lg shadow-md transition hover:shadow-lg focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:outline-none"
                 >
                     <img
-                        src={generalSettings?.full_disclosure_banner_url || '/images/full-disclosure.png'}
+                        src={
+                            generalSettings?.full_disclosure_banner_url ||
+                            '/images/full-disclosure.png'
+                        }
                         alt="Full Disclosure Policy Portal - Advancing Transparency, Promoting Accountability"
-                        className="w-full h-auto object-cover"
+                        className="h-auto w-full object-cover"
                         onError={(e) => {
                             // Fallback if image doesn't load immediately - show a styled placeholder
                             const target = e.target as HTMLImageElement;
                             target.style.display = 'none';
-                            target.parentElement?.classList.add('bg-blue-900', 'p-8', 'text-white', 'text-center');
+                            target.parentElement?.classList.add(
+                                'bg-blue-900',
+                                'p-8',
+                                'text-white',
+                                'text-center',
+                            );
                             if (target.parentElement) {
                                 target.parentElement.innerHTML = `
                                     <div class="flex flex-col items-center justify-center space-y-2">

@@ -39,16 +39,17 @@ type GeneralSettingsProps = {
 export default function GeneralSettingsEdit({
     settings,
 }: GeneralSettingsProps) {
-    const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
-        main_logo: null as File | null,
-        bp_logo: null as File | null,
-        one_hinobaan_logo: null as File | null,
-        transparency_seal: null as File | null,
-        landing_video: null as File | null,
-        sub_page_banner: null as File | null,
-        full_disclosure_banner: null as File | null,
-        full_disclosure_url: settings.full_disclosure_url,
-    });
+    const { data, setData, post, processing, errors, recentlySuccessful } =
+        useForm({
+            main_logo: null as File | null,
+            bp_logo: null as File | null,
+            one_hinobaan_logo: null as File | null,
+            transparency_seal: null as File | null,
+            landing_video: null as File | null,
+            sub_page_banner: null as File | null,
+            full_disclosure_banner: null as File | null,
+            full_disclosure_url: settings.full_disclosure_url,
+        });
 
     const [fileErrors, setFileErrors] = useState<{ [key: string]: string }>({});
     const [showToast, setShowToast] = useState(false);
@@ -414,7 +415,8 @@ export default function GeneralSettingsEdit({
                                 </CardTitle>
                             </div>
                             <CardDescription>
-                                The banner image for the Full Disclosure Policy section.
+                                The banner image for the Full Disclosure Policy
+                                section.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
@@ -425,7 +427,9 @@ export default function GeneralSettingsEdit({
                                 <div className="flex flex-col gap-4">
                                     <div className="aspect-[19/4] w-full overflow-hidden rounded border bg-neutral-100">
                                         <img
-                                            src={settings.full_disclosure_banner_url}
+                                            src={
+                                                settings.full_disclosure_banner_url
+                                            }
                                             alt="Current"
                                             className="h-full w-full object-cover"
                                         />
