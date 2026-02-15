@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\ActivityController::index
  * @see app/Http/Controllers/Administrator/ActivityController.php:20
@@ -42,6 +42,41 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\ActivityController::index
+ * @see app/Http/Controllers/Administrator/ActivityController.php:20
+ * @route '/dashboard/activities'
+ */
+    const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: index.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::index
+ * @see app/Http/Controllers/Administrator/ActivityController.php:20
+ * @route '/dashboard/activities'
+ */
+        indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::index
+ * @see app/Http/Controllers/Administrator/ActivityController.php:20
+ * @route '/dashboard/activities'
+ */
+        indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    index.form = indexForm
 /**
 * @see \App\Http\Controllers\Administrator\ActivityController::create
  * @see app/Http/Controllers/Administrator/ActivityController.php:40
@@ -85,6 +120,41 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\ActivityController::create
+ * @see app/Http/Controllers/Administrator/ActivityController.php:40
+ * @route '/dashboard/activities/create'
+ */
+    const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: create.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::create
+ * @see app/Http/Controllers/Administrator/ActivityController.php:40
+ * @route '/dashboard/activities/create'
+ */
+        createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: create.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::create
+ * @see app/Http/Controllers/Administrator/ActivityController.php:40
+ * @route '/dashboard/activities/create'
+ */
+        createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: create.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    create.form = createForm
 /**
 * @see \App\Http\Controllers\Administrator\ActivityController::store
  * @see app/Http/Controllers/Administrator/ActivityController.php:47
@@ -119,6 +189,27 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     method: 'post',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\ActivityController::store
+ * @see app/Http/Controllers/Administrator/ActivityController.php:47
+ * @route '/dashboard/activities'
+ */
+    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: store.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::store
+ * @see app/Http/Controllers/Administrator/ActivityController.php:47
+ * @route '/dashboard/activities'
+ */
+        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: store.url(options),
+            method: 'post',
+        })
+    
+    store.form = storeForm
 /**
 * @see \App\Http\Controllers\Administrator\ActivityController::edit
  * @see app/Http/Controllers/Administrator/ActivityController.php:87
@@ -181,6 +272,41 @@ edit.head = (args: { id: string | number } | [id: string | number ] | string | n
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\ActivityController::edit
+ * @see app/Http/Controllers/Administrator/ActivityController.php:87
+ * @route '/dashboard/activities/{id}/edit'
+ */
+    const editForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::edit
+ * @see app/Http/Controllers/Administrator/ActivityController.php:87
+ * @route '/dashboard/activities/{id}/edit'
+ */
+        editForm.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::edit
+ * @see app/Http/Controllers/Administrator/ActivityController.php:87
+ * @route '/dashboard/activities/{id}/edit'
+ */
+        editForm.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\Administrator\ActivityController::update
  * @see app/Http/Controllers/Administrator/ActivityController.php:109
@@ -234,6 +360,37 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
     method: 'put',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\ActivityController::update
+ * @see app/Http/Controllers/Administrator/ActivityController.php:109
+ * @route '/dashboard/activities/{id}'
+ */
+    const updateForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::update
+ * @see app/Http/Controllers/Administrator/ActivityController.php:109
+ * @route '/dashboard/activities/{id}'
+ */
+        updateForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 /**
 * @see \App\Http\Controllers\Administrator\ActivityController::destroy
  * @see app/Http/Controllers/Administrator/ActivityController.php:173
@@ -286,6 +443,38 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+    /**
+* @see \App\Http\Controllers\Administrator\ActivityController::destroy
+ * @see app/Http/Controllers/Administrator/ActivityController.php:173
+ * @route '/dashboard/activities/{id}'
+ */
+    const destroyForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroy.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ActivityController::destroy
+ * @see app/Http/Controllers/Administrator/ActivityController.php:173
+ * @route '/dashboard/activities/{id}'
+ */
+        destroyForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroy.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroy.form = destroyForm
 const ActivityController = { index, create, store, edit, update, destroy }
 
 export default ActivityController

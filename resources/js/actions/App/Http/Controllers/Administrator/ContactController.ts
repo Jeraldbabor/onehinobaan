@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\ContactController::show
  * @see app/Http/Controllers/Administrator/ContactController.php:44
@@ -42,6 +42,41 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\ContactController::show
+ * @see app/Http/Controllers/Administrator/ContactController.php:44
+ * @route '/contact'
+ */
+    const showForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: show.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ContactController::show
+ * @see app/Http/Controllers/Administrator/ContactController.php:44
+ * @route '/contact'
+ */
+        showForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\ContactController::show
+ * @see app/Http/Controllers/Administrator/ContactController.php:44
+ * @route '/contact'
+ */
+        showForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    show.form = showForm
 /**
 * @see \App\Http\Controllers\Administrator\ContactController::edit
  * @see app/Http/Controllers/Administrator/ContactController.php:64
@@ -85,6 +120,41 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\ContactController::edit
+ * @see app/Http/Controllers/Administrator/ContactController.php:64
+ * @route '/dashboard/contact'
+ */
+    const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ContactController::edit
+ * @see app/Http/Controllers/Administrator/ContactController.php:64
+ * @route '/dashboard/contact'
+ */
+        editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\ContactController::edit
+ * @see app/Http/Controllers/Administrator/ContactController.php:64
+ * @route '/dashboard/contact'
+ */
+        editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\Administrator\ContactController::update
  * @see app/Http/Controllers/Administrator/ContactController.php:76
@@ -118,6 +188,38 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
     method: 'put',
 })
+
+    /**
+* @see \App\Http\Controllers\Administrator\ContactController::update
+ * @see app/Http/Controllers/Administrator/ContactController.php:76
+ * @route '/dashboard/contact'
+ */
+    const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url({
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\ContactController::update
+ * @see app/Http/Controllers/Administrator/ContactController.php:76
+ * @route '/dashboard/contact'
+ */
+        updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 const ContactController = { show, edit, update }
 
 export default ContactController

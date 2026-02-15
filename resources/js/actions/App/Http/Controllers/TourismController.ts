@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\TourismController::showItem
  * @see app/Http/Controllers/TourismController.php:51
@@ -59,6 +59,41 @@ showItem.head = (args: { type: string | number, id: string | number } | [type: s
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\TourismController::showItem
+ * @see app/Http/Controllers/TourismController.php:51
+ * @route '/tourism/{type}/{id}'
+ */
+    const showItemForm = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: showItem.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\TourismController::showItem
+ * @see app/Http/Controllers/TourismController.php:51
+ * @route '/tourism/{type}/{id}'
+ */
+        showItemForm.get = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: showItem.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\TourismController::showItem
+ * @see app/Http/Controllers/TourismController.php:51
+ * @route '/tourism/{type}/{id}'
+ */
+        showItemForm.head = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: showItem.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    showItem.form = showItemForm
 /**
 * @see \App\Http\Controllers\TourismController::show
  * @see app/Http/Controllers/TourismController.php:15
@@ -120,6 +155,42 @@ show.head = (args: { type: string | number } | [type: string | number ] | string
     url: show.url(args, options),
     method: 'head',
 })
+
+    /**
+* @see \App\Http\Controllers\TourismController::show
+ * @see app/Http/Controllers/TourismController.php:15
+ * @route '/tourism/{type}'
+ */
+    const showForm = (args: { type: string | number } | [type: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: show.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\TourismController::show
+ * @see app/Http/Controllers/TourismController.php:15
+ * @route '/tourism/{type}'
+ */
+        showForm.get = (args: { type: string | number } | [type: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\TourismController::show
+ * @see app/Http/Controllers/TourismController.php:15
+ * @route '/tourism/{type}'
+ */
+        showForm.head = (args: { type: string | number } | [type: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    show.form = showForm
 const TourismController = { showItem, show }
 
 export default TourismController

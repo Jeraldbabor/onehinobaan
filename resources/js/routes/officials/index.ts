@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults, validateParameters } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults, validateParameters } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\OfficialsController::show
  * @see app/Http/Controllers/Administrator/OfficialsController.php:35
@@ -65,6 +65,41 @@ show.head = (args?: { section?: string | number } | [section: string | number ] 
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::show
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:35
+ * @route '/about/officials/{section?}'
+ */
+    const showForm = (args?: { section?: string | number } | [section: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: show.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::show
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:35
+ * @route '/about/officials/{section?}'
+ */
+        showForm.get = (args?: { section?: string | number } | [section: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::show
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:35
+ * @route '/about/officials/{section?}'
+ */
+        showForm.head = (args?: { section?: string | number } | [section: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    show.form = showForm
 /**
 * @see \App\Http\Controllers\Administrator\OfficialsController::index
  * @see app/Http/Controllers/Administrator/OfficialsController.php:51
@@ -108,6 +143,41 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::index
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:51
+ * @route '/dashboard/officials'
+ */
+    const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: index.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::index
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:51
+ * @route '/dashboard/officials'
+ */
+        indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::index
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:51
+ * @route '/dashboard/officials'
+ */
+        indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    index.form = indexForm
 /**
 * @see \App\Http\Controllers\Administrator\OfficialsController::updateMayor
  * @see app/Http/Controllers/Administrator/OfficialsController.php:65
@@ -142,6 +212,37 @@ updateMayor.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     method: 'put',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::updateMayor
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:65
+ * @route '/dashboard/officials/mayor'
+ */
+    const updateMayorForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: updateMayor.url({
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::updateMayor
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:65
+ * @route '/dashboard/officials/mayor'
+ */
+        updateMayorForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: updateMayor.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    updateMayor.form = updateMayorForm
 /**
 * @see \App\Http\Controllers\Administrator\OfficialsController::updateViceMayor
  * @see app/Http/Controllers/Administrator/OfficialsController.php:100
@@ -176,6 +277,37 @@ updateViceMayor.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => (
     method: 'put',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::updateViceMayor
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:100
+ * @route '/dashboard/officials/vice-mayor'
+ */
+    const updateViceMayorForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: updateViceMayor.url({
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::updateViceMayor
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:100
+ * @route '/dashboard/officials/vice-mayor'
+ */
+        updateViceMayorForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: updateViceMayor.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    updateViceMayor.form = updateViceMayorForm
 /**
 * @see \App\Http\Controllers\Administrator\OfficialsController::storeSbMember
  * @see app/Http/Controllers/Administrator/OfficialsController.php:135
@@ -210,6 +342,27 @@ storeSbMember.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => (
     method: 'post',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::storeSbMember
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:135
+ * @route '/dashboard/officials/sb-members'
+ */
+    const storeSbMemberForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: storeSbMember.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::storeSbMember
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:135
+ * @route '/dashboard/officials/sb-members'
+ */
+        storeSbMemberForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: storeSbMember.url(options),
+            method: 'post',
+        })
+    
+    storeSbMember.form = storeSbMemberForm
 /**
 * @see \App\Http\Controllers\Administrator\OfficialsController::updateSbMember
  * @see app/Http/Controllers/Administrator/OfficialsController.php:166
@@ -263,6 +416,37 @@ updateSbMember.put = (args: { id: string | number } | [id: string | number ] | s
     method: 'put',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::updateSbMember
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:166
+ * @route '/dashboard/officials/sb-members/{id}'
+ */
+    const updateSbMemberForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: updateSbMember.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::updateSbMember
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:166
+ * @route '/dashboard/officials/sb-members/{id}'
+ */
+        updateSbMemberForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: updateSbMember.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    updateSbMember.form = updateSbMemberForm
 /**
 * @see \App\Http\Controllers\Administrator\OfficialsController::destroySbMember
  * @see app/Http/Controllers/Administrator/OfficialsController.php:211
@@ -315,6 +499,38 @@ destroySbMember.delete = (args: { id: string | number } | [id: string | number ]
     url: destroySbMember.url(args, options),
     method: 'delete',
 })
+
+    /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::destroySbMember
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:211
+ * @route '/dashboard/officials/sb-members/{id}'
+ */
+    const destroySbMemberForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroySbMember.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\OfficialsController::destroySbMember
+ * @see app/Http/Controllers/Administrator/OfficialsController.php:211
+ * @route '/dashboard/officials/sb-members/{id}'
+ */
+        destroySbMemberForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroySbMember.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroySbMember.form = destroySbMemberForm
 const officials = {
     show: Object.assign(show, show),
 index: Object.assign(index, index),

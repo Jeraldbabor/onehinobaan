@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::edit
  * @see app/Http/Controllers/Administrator/TourismController.php:44
@@ -42,6 +42,41 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::edit
+ * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @route '/dashboard/tourism/attraction'
+ */
+    const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::edit
+ * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @route '/dashboard/tourism/attraction'
+ */
+        editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::edit
+ * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @route '/dashboard/tourism/attraction'
+ */
+        editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
  * @see app/Http/Controllers/Administrator/TourismController.php:79
@@ -76,6 +111,27 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     method: 'post',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::store
+ * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @route '/dashboard/tourism/attraction'
+ */
+    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: store.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::store
+ * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @route '/dashboard/tourism/attraction'
+ */
+        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: store.url(options),
+            method: 'post',
+        })
+    
+    store.form = storeForm
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
  * @see app/Http/Controllers/Administrator/TourismController.php:128
@@ -129,6 +185,37 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
     method: 'put',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::update
+ * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @route '/dashboard/tourism/attraction/{id}'
+ */
+    const updateForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::update
+ * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @route '/dashboard/tourism/attraction/{id}'
+ */
+        updateForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
  * @see app/Http/Controllers/Administrator/TourismController.php:196
@@ -182,6 +269,37 @@ destroyImage.delete = (args: { imageId: string | number } | [imageId: string | n
     method: 'delete',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroyImage
+ * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @route '/dashboard/tourism/attraction/images/{imageId}'
+ */
+    const destroyImageForm = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroyImage.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroyImage
+ * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @route '/dashboard/tourism/attraction/images/{imageId}'
+ */
+        destroyImageForm.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroyImage.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroyImage.form = destroyImageForm
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
  * @see app/Http/Controllers/Administrator/TourismController.php:181
@@ -234,6 +352,38 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroy
+ * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @route '/dashboard/tourism/attraction/{id}'
+ */
+    const destroyForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroy.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroy
+ * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @route '/dashboard/tourism/attraction/{id}'
+ */
+        destroyForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroy.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroy.form = destroyForm
 const attraction = {
     edit: Object.assign(edit, edit),
 store: Object.assign(store, store),

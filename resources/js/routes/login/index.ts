@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
 * @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::store
  * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:58
@@ -33,6 +33,27 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     method: 'post',
 })
 
+    /**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:58
+ * @route '/login'
+ */
+    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: store.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:58
+ * @route '/login'
+ */
+        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: store.url(options),
+            method: 'post',
+        })
+    
+    store.form = storeForm
 /**
  * @see routes/web.php:20
  * @route '/portal-admin-1x6114'
@@ -71,6 +92,39 @@ portal.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: portal.url(options),
     method: 'head',
 })
+
+    /**
+ * @see routes/web.php:20
+ * @route '/portal-admin-1x6114'
+ */
+    const portalForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: portal.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:20
+ * @route '/portal-admin-1x6114'
+ */
+        portalForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: portal.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:20
+ * @route '/portal-admin-1x6114'
+ */
+        portalForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: portal.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    portal.form = portalForm
 const login = {
     store: Object.assign(store, store),
 portal: Object.assign(portal, portal),

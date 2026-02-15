@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\VisionMissionController::show
  * @see app/Http/Controllers/Administrator/VisionMissionController.php:23
@@ -42,6 +42,41 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\VisionMissionController::show
+ * @see app/Http/Controllers/Administrator/VisionMissionController.php:23
+ * @route '/about/vision-mission'
+ */
+    const showForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: show.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\VisionMissionController::show
+ * @see app/Http/Controllers/Administrator/VisionMissionController.php:23
+ * @route '/about/vision-mission'
+ */
+        showForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\VisionMissionController::show
+ * @see app/Http/Controllers/Administrator/VisionMissionController.php:23
+ * @route '/about/vision-mission'
+ */
+        showForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    show.form = showForm
 /**
 * @see \App\Http\Controllers\Administrator\VisionMissionController::edit
  * @see app/Http/Controllers/Administrator/VisionMissionController.php:46
@@ -85,6 +120,41 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\VisionMissionController::edit
+ * @see app/Http/Controllers/Administrator/VisionMissionController.php:46
+ * @route '/dashboard/vision-mission'
+ */
+    const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\VisionMissionController::edit
+ * @see app/Http/Controllers/Administrator/VisionMissionController.php:46
+ * @route '/dashboard/vision-mission'
+ */
+        editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\VisionMissionController::edit
+ * @see app/Http/Controllers/Administrator/VisionMissionController.php:46
+ * @route '/dashboard/vision-mission'
+ */
+        editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\Administrator\VisionMissionController::update
  * @see app/Http/Controllers/Administrator/VisionMissionController.php:66
@@ -118,6 +188,38 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
     method: 'put',
 })
+
+    /**
+* @see \App\Http\Controllers\Administrator\VisionMissionController::update
+ * @see app/Http/Controllers/Administrator/VisionMissionController.php:66
+ * @route '/dashboard/vision-mission'
+ */
+    const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url({
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\VisionMissionController::update
+ * @see app/Http/Controllers/Administrator/VisionMissionController.php:66
+ * @route '/dashboard/vision-mission'
+ */
+        updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 const visionMission = {
     show: Object.assign(show, show),
 edit: Object.assign(edit, edit),

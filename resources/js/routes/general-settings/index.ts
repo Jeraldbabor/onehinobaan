@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\GeneralSettingsController::edit
  * @see app/Http/Controllers/Administrator/GeneralSettingsController.php:24
@@ -42,6 +42,41 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\Administrator\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Administrator/GeneralSettingsController.php:24
+ * @route '/dashboard/general-settings'
+ */
+    const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Administrator/GeneralSettingsController.php:24
+ * @route '/dashboard/general-settings'
+ */
+        editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Administrator/GeneralSettingsController.php:24
+ * @route '/dashboard/general-settings'
+ */
+        editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\Administrator\GeneralSettingsController::update
  * @see app/Http/Controllers/Administrator/GeneralSettingsController.php:45
@@ -75,6 +110,28 @@ update.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: update.url(options),
     method: 'post',
 })
+
+    /**
+* @see \App\Http\Controllers\Administrator\GeneralSettingsController::update
+ * @see app/Http/Controllers/Administrator/GeneralSettingsController.php:45
+ * @route '/dashboard/general-settings'
+ */
+    const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\GeneralSettingsController::update
+ * @see app/Http/Controllers/Administrator/GeneralSettingsController.php:45
+ * @route '/dashboard/general-settings'
+ */
+        updateForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(options),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 const generalSettings = {
     edit: Object.assign(edit, edit),
 update: Object.assign(update, update),

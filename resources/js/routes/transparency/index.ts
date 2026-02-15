@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
  * @see routes/web.php:143
  * @route '/transparency/full-disclosure'
@@ -37,6 +37,39 @@ fullDisclosure.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => 
     url: fullDisclosure.url(options),
     method: 'head',
 })
+
+    /**
+ * @see routes/web.php:143
+ * @route '/transparency/full-disclosure'
+ */
+    const fullDisclosureForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: fullDisclosure.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:143
+ * @route '/transparency/full-disclosure'
+ */
+        fullDisclosureForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: fullDisclosure.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:143
+ * @route '/transparency/full-disclosure'
+ */
+        fullDisclosureForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: fullDisclosure.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    fullDisclosure.form = fullDisclosureForm
 const transparency = {
     fullDisclosure: Object.assign(fullDisclosure, fullDisclosure),
 }
