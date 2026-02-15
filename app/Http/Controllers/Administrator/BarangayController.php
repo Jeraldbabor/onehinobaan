@@ -47,9 +47,14 @@ class BarangayController extends Controller
     /**
      * Show the public Barangay Detail page with Officials.
      */
-    public function showDetail(string $id): Response
+    public function showDetail(string $id): Response|RedirectResponse
     {
-        $barangay = Barangay::with('officialsList')->findOrFail($id);
+        $barangay = Barangay::with('officialsList')->find($id);
+
+        if (! $barangay) {
+            return redirect()->route('barangay.show')
+                ->with('error', 'Barangay not found.');
+        }
 
         return Inertia::render('about/barangay-detail', [
             'barangay' => [
