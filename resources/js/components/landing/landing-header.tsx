@@ -209,6 +209,18 @@ export function LandingHeader() {
     const lastScrollY = useRef(0);
     const tickingRef = useRef(false);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [mobileMenuOpen]);
+
     useEffect(() => {
         const updateBanner = () => {
             const current = window.scrollY;
@@ -281,7 +293,7 @@ export function LandingHeader() {
                 )}
             >
                 <div className="min-h-0">
-                    <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-3 py-3 sm:flex-row sm:justify-between sm:gap-4 sm:px-6 sm:py-4 xl:px-8">
+                    <div className="mx-auto flex max-w-7xl flex-col items-center gap-1.5 px-3 py-2 sm:flex-row sm:justify-between sm:gap-4 sm:px-6 sm:py-4 xl:px-8">
                         {/* Logo + Text - centered on mobile, left-aligned on desktop */}
                         <div className="flex items-center gap-2 sm:gap-3">
                             <img
@@ -290,13 +302,13 @@ export function LandingHeader() {
                                     '/hinobaan-logo/Hinobaan_logo.png'
                                 }
                                 alt=""
-                                className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-16"
+                                className="h-8 w-auto shrink-0 object-contain sm:h-12 md:h-16"
                             />
                             <div className="text-center sm:text-left">
-                                <p className="text-xs font-medium text-neutral-600 sm:text-sm">
+                                <p className="text-[10px] font-medium text-neutral-600 sm:text-sm">
                                     Official Website of the
                                 </p>
-                                <p className="text-sm font-semibold text-neutral-700 sm:text-base md:text-xl">
+                                <p className="text-xs font-semibold text-neutral-700 sm:text-base md:text-xl">
                                     <span className="font-bold text-orange-700">
                                         L
                                     </span>
@@ -317,14 +329,14 @@ export function LandingHeader() {
                             </div>
                         </div>
                         {/* Partner logos - smaller on mobile */}
-                        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+                        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
                             <img
                                 src={
                                     generalSettings?.bp_logo_url ||
                                     '/hinobaan-logo/BP_Logo.webp'
                                 }
                                 alt=""
-                                className="h-8 w-auto object-contain sm:h-10 md:h-14"
+                                className="h-6 w-auto object-contain sm:h-10 md:h-14"
                             />
                             <img
                                 src={
@@ -332,7 +344,7 @@ export function LandingHeader() {
                                     '/hinobaan-logo/Onehinoba-an%20logo.png'
                                 }
                                 alt="One Hinoba-an"
-                                className="h-8 w-auto object-contain sm:h-10 md:h-14"
+                                className="h-6 w-auto object-contain sm:h-10 md:h-14"
                             />
                             <img
                                 src={
@@ -340,7 +352,7 @@ export function LandingHeader() {
                                     '/hinobaan-logo/transparency.png'
                                 }
                                 alt="Transparency Seal"
-                                className="h-8 w-auto object-contain sm:h-10 md:h-14"
+                                className="h-6 w-auto object-contain sm:h-10 md:h-14"
                             />
                         </div>
                     </div>
@@ -348,11 +360,11 @@ export function LandingHeader() {
             </div>
             {/* Main nav */}
             <header className="border-b border-neutral-200/80 bg-white/98 shadow-sm shadow-neutral-200/50 backdrop-blur-sm">
-                <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
+                <div className="mx-auto flex h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-16 sm:gap-4 sm:px-6 xl:px-8">
                     {/* Left: logos + name — slightly smaller for less visual weight */}
                     <Link
                         href="/"
-                        className="flex shrink-0 items-center gap-2.5 opacity-90 transition hover:opacity-100 sm:gap-3"
+                        className="flex shrink-0 items-center gap-2 opacity-90 transition hover:opacity-100 sm:gap-3"
                         aria-label="Municipality of Hinoba-an - Home"
                     >
                         <img
@@ -361,9 +373,9 @@ export function LandingHeader() {
                                 '/hinobaan-logo/Hinobaan_logo.png'
                             }
                             alt=""
-                            className="h-8 w-auto object-contain sm:h-9"
+                            className="h-7 w-auto object-contain sm:h-9"
                         />
-                        <span className="hidden text-base font-semibold tracking-tight text-neutral-800 sm:inline md:text-lg">
+                        <span className="hidden text-sm font-semibold tracking-tight text-neutral-800 sm:inline sm:text-base md:text-lg">
                             Municipality of Hinoba-an
                         </span>
                     </Link>
@@ -527,7 +539,7 @@ export function LandingHeader() {
                                                                 className={cn(
                                                                     'flex cursor-default items-center justify-between px-4 py-3 text-base text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900',
                                                                     isSubOpen &&
-                                                                        'bg-neutral-50',
+                                                                    'bg-neutral-50',
                                                                 )}
                                                             >
                                                                 {child.label}
@@ -607,25 +619,25 @@ export function LandingHeader() {
                     </nav>
 
                     {/* Right: Search + menu button */}
-                    <div className="flex shrink-0 items-center gap-2">
+                    <div className="flex shrink-0 items-center gap-1 sm:gap-2">
                         <button
                             type="button"
-                            className="flex size-10 items-center justify-center rounded-lg text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-700 sm:size-11"
+                            className="flex size-9 items-center justify-center rounded-lg text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-700 sm:size-11"
                             aria-label="Search"
                         >
-                            <Search className="size-5 sm:size-6" />
+                            <Search className="size-4 sm:size-6" />
                         </button>
                         {/* Hamburger: show below xl so desktop nav only when there's room */}
                         <button
                             type="button"
-                            className="flex size-10 items-center justify-center rounded-lg text-neutral-500 hover:bg-neutral-100 sm:size-11 xl:hidden"
+                            className="flex size-9 items-center justify-center rounded-lg text-neutral-500 hover:bg-neutral-100 sm:size-11 xl:hidden"
                             aria-expanded={mobileMenuOpen}
                             aria-controls="mobile-menu"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
                             <span className="sr-only">Toggle menu</span>
                             <svg
-                                className="size-6 sm:size-7"
+                                className="size-5 sm:size-7"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -650,95 +662,215 @@ export function LandingHeader() {
                     </div>
                 </div>
 
-                {/* Mobile / tablet menu (shown when desktop nav is hidden) */}
+            </header>
+
+            {/* Mobile / tablet menu – full-screen slide-in drawer from right */}
+            <div
+                id="mobile-menu"
+                className={cn(
+                    'fixed inset-0 z-100 xl:hidden',
+                    mobileMenuOpen ? 'visible' : 'pointer-events-none invisible',
+                )}
+            >
+                {/* Backdrop */}
                 <div
-                    id="mobile-menu"
                     className={cn(
-                        'max-h-[calc(100vh-8rem)] overflow-y-auto border-t border-neutral-200/80 bg-white xl:hidden',
-                        mobileMenuOpen ? 'block' : 'hidden',
+                        'absolute inset-0 bg-black/40 transition-opacity duration-300',
+                        mobileMenuOpen ? 'opacity-100' : 'opacity-0',
+                    )}
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-hidden
+                />
+                {/* Drawer panel */}
+                <div
+                    className={cn(
+                        'absolute top-0 right-0 flex h-full w-[85vw] max-w-sm flex-col bg-white shadow-xl transition-transform duration-300 ease-in-out',
+                        mobileMenuOpen ? 'translate-x-0' : 'translate-x-full',
                     )}
                 >
+                    {/* Drawer header */}
+                    <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
+                        <div className="flex items-center gap-2">
+                            <img
+                                src={
+                                    generalSettings?.main_logo_url ||
+                                    '/hinobaan-logo/Hinobaan_logo.png'
+                                }
+                                alt=""
+                                className="h-8 w-auto object-contain"
+                            />
+                            <span className="text-sm font-semibold text-neutral-800">
+                                Hinoba-an
+                            </span>
+                        </div>
+                        <button
+                            type="button"
+                            className="flex size-9 items-center justify-center rounded-lg text-neutral-500 hover:bg-neutral-100"
+                            onClick={() => setMobileMenuOpen(false)}
+                            aria-label="Close menu"
+                        >
+                            <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    {/* Drawer body – scrollable */}
                     <nav
-                        className="flex flex-col gap-1 px-4 py-3"
+                        className="flex-1 overflow-y-auto overscroll-contain px-4 py-3"
                         aria-label="Mobile main"
                     >
-                        {mobileNavItems.map((item) => {
-                            const sectionKey = item.label;
-                            const isExpanded =
-                                mobileExpandedSection === sectionKey;
+                        <div className="flex flex-col gap-1">
+                            {mobileNavItems.map((item) => {
+                                const sectionKey = item.label;
+                                const isExpanded =
+                                    mobileExpandedSection === sectionKey;
 
-                            // Simple link without children
-                            if (!hasChildren(item) && !hasGroups(item)) {
+                                // Simple link without children
+                                if (!hasChildren(item) && !hasGroups(item)) {
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            className="rounded-lg px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    );
+                                }
+
+                                // Collapsible section with children or groups
                                 return (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        className="rounded-lg px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        {item.label}
-                                    </Link>
-                                );
-                            }
-
-                            // Collapsible section with children or groups
-                            return (
-                                <div key={sectionKey} className="flex flex-col">
-                                    <button
-                                        type="button"
-                                        className={cn(
-                                            'flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-base font-medium transition-colors',
-                                            isExpanded
-                                                ? 'bg-neutral-100 text-neutral-900'
-                                                : 'text-neutral-700 hover:bg-neutral-50',
-                                        )}
-                                        onClick={() =>
-                                            setMobileExpandedSection(
-                                                isExpanded ? null : sectionKey,
-                                            )
-                                        }
-                                        aria-expanded={isExpanded}
-                                    >
-                                        {item.label}
-                                        <ChevronDown
+                                    <div key={sectionKey} className="flex flex-col">
+                                        <button
+                                            type="button"
                                             className={cn(
-                                                'size-5 shrink-0 text-neutral-400 transition-transform duration-200',
-                                                isExpanded && 'rotate-180',
+                                                'flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-base font-medium transition-colors',
+                                                isExpanded
+                                                    ? 'bg-neutral-100 text-neutral-900'
+                                                    : 'text-neutral-700 hover:bg-neutral-50',
                                             )}
-                                            aria-hidden
-                                        />
-                                    </button>
-                                    <div
-                                        className={cn(
-                                            'grid transition-all duration-200 ease-out',
-                                            isExpanded
-                                                ? 'grid-rows-[1fr] opacity-100'
-                                                : 'grid-rows-[0fr] opacity-0',
-                                        )}
-                                    >
-                                        <div className="overflow-hidden">
-                                            <div className="flex flex-col gap-0.5 pt-1 pb-1 pl-3">
-                                                {hasGroups(item) &&
-                                                    item.groups.map((group) => (
-                                                        <div
-                                                            key={
-                                                                group.sectionTitle
-                                                            }
-                                                            className="flex flex-col"
-                                                        >
-                                                            <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
-                                                                {
+                                            onClick={() =>
+                                                setMobileExpandedSection(
+                                                    isExpanded ? null : sectionKey,
+                                                )
+                                            }
+                                            aria-expanded={isExpanded}
+                                        >
+                                            {item.label}
+                                            <ChevronDown
+                                                className={cn(
+                                                    'size-5 shrink-0 text-neutral-400 transition-transform duration-200',
+                                                    isExpanded && 'rotate-180',
+                                                )}
+                                                aria-hidden
+                                            />
+                                        </button>
+                                        <div
+                                            className={cn(
+                                                'grid transition-all duration-200 ease-out',
+                                                isExpanded
+                                                    ? 'grid-rows-[1fr] opacity-100'
+                                                    : 'grid-rows-[0fr] opacity-0',
+                                            )}
+                                        >
+                                            <div className="overflow-hidden">
+                                                <div className="flex flex-col gap-0.5 pt-1 pb-1 pl-3">
+                                                    {hasGroups(item) &&
+                                                        item.groups.map((group) => (
+                                                            <div
+                                                                key={
                                                                     group.sectionTitle
                                                                 }
-                                                            </span>
-                                                            {group.links.map(
-                                                                (link) => (
+                                                                className="flex flex-col"
+                                                            >
+                                                                <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
+                                                                    {
+                                                                        group.sectionTitle
+                                                                    }
+                                                                </span>
+                                                                {group.links.map(
+                                                                    (link) => (
+                                                                        <Link
+                                                                            key={
+                                                                                link.href
+                                                                            }
+                                                                            href={
+                                                                                link.href
+                                                                            }
+                                                                            className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+                                                                            onClick={() =>
+                                                                                setMobileMenuOpen(
+                                                                                    false,
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                link.label
+                                                                            }
+                                                                        </Link>
+                                                                    ),
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    {hasChildren(item) &&
+                                                        item.children.map(
+                                                            (child) => {
+                                                                if (
+                                                                    hasNestedChildren(
+                                                                        child,
+                                                                    )
+                                                                ) {
+                                                                    return (
+                                                                        <div
+                                                                            key={
+                                                                                child.label
+                                                                            }
+                                                                            className="flex flex-col"
+                                                                        >
+                                                                            <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
+                                                                                {
+                                                                                    child.label
+                                                                                }
+                                                                            </span>
+                                                                            {child.children.map(
+                                                                                (
+                                                                                    sub,
+                                                                                ) => (
+                                                                                    <Link
+                                                                                        key={
+                                                                                            sub.href
+                                                                                        }
+                                                                                        href={
+                                                                                            sub.href
+                                                                                        }
+                                                                                        className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+                                                                                        onClick={() =>
+                                                                                            setMobileMenuOpen(
+                                                                                                false,
+                                                                                            )
+                                                                                        }
+                                                                                    >
+                                                                                        {
+                                                                                            sub.label
+                                                                                        }
+                                                                                    </Link>
+                                                                                ),
+                                                                            )}
+                                                                        </div>
+                                                                    );
+                                                                }
+                                                                return (
                                                                     <Link
                                                                         key={
-                                                                            link.href
+                                                                            (
+                                                                                child as NavLink
+                                                                            ).href
                                                                         }
                                                                         href={
-                                                                            link.href
+                                                                            (
+                                                                                child as NavLink
+                                                                            ).href
                                                                         }
                                                                         className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
                                                                         onClick={() =>
@@ -748,95 +880,22 @@ export function LandingHeader() {
                                                                         }
                                                                     >
                                                                         {
-                                                                            link.label
-                                                                        }
-                                                                    </Link>
-                                                                ),
-                                                            )}
-                                                        </div>
-                                                    ))}
-                                                {hasChildren(item) &&
-                                                    item.children.map(
-                                                        (child) => {
-                                                            if (
-                                                                hasNestedChildren(
-                                                                    child,
-                                                                )
-                                                            ) {
-                                                                return (
-                                                                    <div
-                                                                        key={
                                                                             child.label
                                                                         }
-                                                                        className="flex flex-col"
-                                                                    >
-                                                                        <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
-                                                                            {
-                                                                                child.label
-                                                                            }
-                                                                        </span>
-                                                                        {child.children.map(
-                                                                            (
-                                                                                sub,
-                                                                            ) => (
-                                                                                <Link
-                                                                                    key={
-                                                                                        sub.href
-                                                                                    }
-                                                                                    href={
-                                                                                        sub.href
-                                                                                    }
-                                                                                    className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
-                                                                                    onClick={() =>
-                                                                                        setMobileMenuOpen(
-                                                                                            false,
-                                                                                        )
-                                                                                    }
-                                                                                >
-                                                                                    {
-                                                                                        sub.label
-                                                                                    }
-                                                                                </Link>
-                                                                            ),
-                                                                        )}
-                                                                    </div>
+                                                                    </Link>
                                                                 );
-                                                            }
-                                                            return (
-                                                                <Link
-                                                                    key={
-                                                                        (
-                                                                            child as NavLink
-                                                                        ).href
-                                                                    }
-                                                                    href={
-                                                                        (
-                                                                            child as NavLink
-                                                                        ).href
-                                                                    }
-                                                                    className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
-                                                                    onClick={() =>
-                                                                        setMobileMenuOpen(
-                                                                            false,
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        child.label
-                                                                    }
-                                                                </Link>
-                                                            );
-                                                        },
-                                                    )}
+                                                            },
+                                                        )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>
                     </nav>
                 </div>
-            </header>
+            </div>
         </div>
     );
 }

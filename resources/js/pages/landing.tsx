@@ -88,9 +88,9 @@ function FacebookPageEmbed({ url, title }: { url: string; title: string }) {
     if (!href) return null;
     const embedSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(href)}&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
     return (
-        <div className="overflow-hidden rounded border border-slate-200 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm sm:rounded">
             <div className="border-b border-slate-100 bg-slate-50 px-3 py-2">
-                <h3 className="text-sm font-bold text-slate-900">{title}</h3>
+                <h3 className="text-xs font-bold text-slate-900 sm:text-sm">{title}</h3>
             </div>
             <div className="relative w-full overflow-hidden">
                 <iframe
@@ -103,7 +103,7 @@ function FacebookPageEmbed({ url, title }: { url: string; title: string }) {
                     allowFullScreen
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     title={title}
-                    className="max-h-125 w-full"
+                    className="max-h-96 w-full sm:max-h-125"
                 />
             </div>
         </div>
@@ -147,10 +147,22 @@ export default function Landing() {
     const dragRafId = useRef<number | null>(null);
     const dragTargetScrollLeft = useRef(0);
 
-    const CARD_WIDTH = 160;
-    const CARD_GAP = 16;
+    // Responsive card sizing: bigger on mobile for readability
+    const [windowWidth, setWindowWidth] = useState(
+        typeof window !== 'undefined' ? window.innerWidth : 1024,
+    );
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const isMobile = windowWidth < 640;
+    const isTablet = windowWidth >= 640 && windowWidth < 1024;
+    const CARD_WIDTH = isMobile ? 220 : isTablet ? 200 : 160;
+    const CARD_GAP = isMobile ? 12 : 16;
     const SCROLL_AMOUNT = CARD_WIDTH + CARD_GAP;
-    const IMAGE_SIZE = 110;
+    const IMAGE_SIZE = isMobile ? 160 : isTablet ? 140 : 110;
     const n = officialsList.length;
     const totalSlides = n * 2;
 
@@ -357,7 +369,7 @@ export default function Landing() {
         <LandingLayout>
             <Head title="Municipality of Hinobaan - Official Website" />
             {/* Hero */}
-            <section className="relative min-h-screen overflow-hidden text-white">
+            <section className="relative min-h-[50vh] overflow-hidden text-white sm:min-h-[60vh] md:min-h-[70vh] lg:min-h-screen">
                 {/* Video background - object-cover fills width and height, no black bars */}
                 <video
                     autoPlay
@@ -377,35 +389,35 @@ export default function Landing() {
                 </video>
                 {/* Slight dark overlay for text readability */}
                 <div className="absolute inset-0 bg-linear-to-br from-neutral-900/40 via-neutral-800/30 to-neutral-900/40" />
-                <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 py-28 sm:px-6 sm:py-36 lg:px-8">
+                <div className="relative mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-center px-4 py-16 sm:min-h-[60vh] sm:px-6 sm:py-24 md:min-h-[70vh] lg:min-h-screen lg:px-8 lg:py-36">
                     <div className="max-w-2xl">
-                        <p className="text-sm font-medium tracking-[0.2em] text-neutral-200/90 uppercase">
+                        <p className="text-xs font-medium tracking-[0.2em] text-neutral-200/90 uppercase sm:text-sm">
                             Negros Occidental
                         </p>
-                        <h1 className="mt-2 text-4xl font-bold tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] sm:text-5xl lg:text-6xl xl:text-7xl">
+                        <h1 className="mt-2 text-2xl font-bold tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                             Municipality of Hinobaan
                         </h1>
-                        <p className="mt-4 text-2xl font-light text-neutral-100 italic drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)] sm:text-3xl lg:text-4xl">
+                        <p className="mt-2 text-base font-light text-neutral-100 italic drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)] sm:mt-4 sm:text-2xl md:text-3xl lg:text-4xl">
                             Your gateway to transparent governance and community
                         </p>
-                        <p className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-50/95 drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]">
+                        <p className="mt-3 max-w-xl text-sm leading-relaxed text-neutral-50/95 drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] sm:mt-6 sm:text-base md:text-lg">
                             Access government services, stay informed with
                             official updates, and connect with your local
                             community—all in one place. We are here to serve
                             you.
                         </p>
-                        <div className="mt-10 flex flex-wrap gap-4">
+                        <div className="mt-6 flex flex-wrap gap-3 sm:mt-10 sm:gap-4">
                             {auth?.user && (
                                 <Link
                                     href="/dashboard"
-                                    className="inline-flex items-center rounded-xl bg-white px-6 py-3.5 text-base font-semibold text-neutral-800 shadow-lg shadow-black/20 transition hover:bg-neutral-50 hover:shadow-xl hover:shadow-black/25 active:scale-[0.98]"
+                                    className="inline-flex items-center rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-neutral-800 shadow-lg shadow-black/20 transition hover:bg-neutral-50 hover:shadow-xl hover:shadow-black/25 active:scale-[0.98] sm:px-6 sm:py-3.5 sm:text-base"
                                 >
                                     Go to Dashboard
                                 </Link>
                             )}
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center rounded-xl border-2 border-white/90 bg-white/5 px-6 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition hover:border-white hover:bg-white/15 active:scale-[0.98]"
+                                className="inline-flex items-center rounded-xl border-2 border-white/90 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white hover:bg-white/15 active:scale-[0.98] sm:px-6 sm:py-3.5 sm:text-base"
                             >
                                 Contact Us
                             </Link>
@@ -416,16 +428,16 @@ export default function Landing() {
 
             {/* The Elected Officials carousel – government-style */}
             {officialsList.length > 0 && (
-                <section className="border-t-4 border-blue-800 bg-slate-50 py-12 sm:py-16">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <section className="border-t-4 border-blue-800 bg-slate-50 py-8 sm:py-12 md:py-16">
+                    <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
                         {/* Institutional header */}
-                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div>
-                                <p className="text-xs font-semibold tracking-widest text-blue-800 uppercase sm:text-sm">
+                                <p className="text-[10px] font-semibold tracking-widest text-blue-800 uppercase sm:text-xs md:text-sm">
                                     Republic of the Philippines · Municipality
                                     of Hinobaan
                                 </p>
-                                <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                                <h2 className="mt-1 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl">
                                     The Elected Officials
                                 </h2>
                             </div>
@@ -457,7 +469,7 @@ export default function Landing() {
                             </div>
                         </div>
 
-                        <div className="relative mt-8 overflow-hidden">
+                        <div className="relative mt-4 overflow-hidden sm:mt-8">
                             <div
                                 ref={scrollRef}
                                 role="region"
@@ -467,7 +479,7 @@ export default function Landing() {
                                 onTouchMove={handleCarouselTouchMove}
                                 onTouchEnd={handleCarouselTouchEnd}
                                 onTouchCancel={handleCarouselTouchEnd}
-                                className="flex cursor-grab touch-pan-x gap-4 overflow-x-auto overflow-y-hidden py-4 pb-2 select-none [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+                                className="flex cursor-grab touch-pan-x gap-3 overflow-x-auto overflow-y-hidden px-1 py-4 pb-2 select-none sm:gap-4 sm:px-0 [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
                                 style={{
                                     scrollSnapType: 'x mandatory',
                                     WebkitOverflowScrolling: 'touch',
@@ -528,11 +540,10 @@ export default function Landing() {
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
-                                            index === currentIndex
-                                                ? 'scale-125 bg-blue-800'
-                                                : 'bg-slate-300 hover:bg-slate-400'
-                                        }`}
+                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${index === currentIndex
+                                            ? 'scale-125 bg-blue-800'
+                                            : 'bg-slate-300 hover:bg-slate-400'
+                                            }`}
                                         aria-label={`Go to official ${index + 1}`}
                                         aria-current={
                                             index === currentIndex
@@ -548,19 +559,19 @@ export default function Landing() {
             )}
 
             {/* Municipality Activities (left) + News & Updates (right) side by side */}
-            <section className="border-t-4 border-blue-800 bg-white py-12 sm:py-16">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="grid gap-8 lg:grid-cols-3">
+            <section className="border-t-4 border-blue-800 bg-white py-8 sm:py-12 md:py-16">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+                    <div className="grid gap-6 sm:gap-8 lg:grid-cols-3">
                         {/* Left: Municipality Activities (wider – main focus) */}
                         <div className="lg:col-span-2">
-                            <p className="text-xs font-semibold tracking-widest text-blue-800 uppercase sm:text-sm">
+                            <p className="text-[10px] font-semibold tracking-widest text-blue-800 uppercase sm:text-xs md:text-sm">
                                 Republic of the Philippines · Municipality of
                                 Hinobaan
                             </p>
-                            <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                            <h2 className="mt-1 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl md:text-3xl">
                                 Municipality Activities
                             </h2>
-                            <p className="mt-1 text-sm text-slate-600">
+                            <p className="mt-1 text-xs text-slate-600 sm:text-sm">
                                 Daily and weekly updates on activities carried
                                 out by the LGU
                             </p>
@@ -570,14 +581,14 @@ export default function Landing() {
                                 </p>
                             ) : (
                                 <>
-                                    <ul className="mt-8 space-y-6">
+                                    <ul className="mt-5 space-y-4 sm:mt-8 sm:space-y-6">
                                         {activities.map((a) => (
                                             <li key={a.id}>
                                                 <Link
                                                     href={`/activities/${a.id}`}
-                                                    className="flex flex-col gap-4 border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:flex-row"
+                                                    className="flex flex-col gap-0 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:flex-row sm:gap-4 sm:rounded-none"
                                                 >
-                                                    <div className="h-40 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52">
+                                                    <div className="h-48 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52">
                                                         {a.image_url ? (
                                                             <img
                                                                 src={
@@ -592,8 +603,8 @@ export default function Landing() {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className="min-w-0 flex-1 px-4 pt-0 pb-4 sm:px-0 sm:pt-2 sm:pr-2 sm:pb-0">
-                                                        <h3 className="text-base leading-snug font-bold text-blue-800 uppercase sm:text-lg">
+                                                    <div className="min-w-0 flex-1 p-3 sm:px-0 sm:pt-2 sm:pr-2 sm:pb-0">
+                                                        <h3 className="text-sm leading-snug font-bold text-blue-800 uppercase sm:text-base md:text-lg">
                                                             {a.title}
                                                         </h3>
                                                         {a.published_at && (
@@ -646,20 +657,20 @@ export default function Landing() {
                             )}
 
                             {/* Tourism Highlights */}
-                            <div className="mt-12 space-y-8">
+                            <div className="mt-8 space-y-6 sm:mt-12 sm:space-y-8">
                                 {/* Attractions */}
                                 <div>
-                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-lg font-bold text-blue-800">
+                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:text-lg">
                                         Attractions
                                     </h4>
-                                    <div className="flex gap-4 overflow-x-auto pb-2">
+                                    <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
                                         {tourismAttractions?.map((item) => (
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/attraction/${item.id}`}
-                                                className="w-56 shrink-0 overflow-hidden rounded border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
+                                                className="w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
                                             >
-                                                <div className="h-32 overflow-hidden bg-slate-100">
+                                                <div className="h-28 overflow-hidden bg-slate-100 sm:h-32">
                                                     {item.image_url ? (
                                                         <img
                                                             src={item.image_url}
@@ -668,15 +679,15 @@ export default function Landing() {
                                                         />
                                                     ) : (
                                                         <div className="flex h-full w-full items-center justify-center text-slate-400">
-                                                            <FileText className="size-10" />
+                                                            <FileText className="size-8 sm:size-10" />
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="p-3">
-                                                    <div className="truncate text-sm font-bold text-blue-800">
+                                                <div className="p-2 sm:p-3">
+                                                    <div className="truncate text-xs font-bold text-blue-800 sm:text-sm">
                                                         {item.title}
                                                     </div>
-                                                    <div className="truncate text-xs text-slate-500">
+                                                    <div className="truncate text-[10px] text-slate-500 sm:text-xs">
                                                         {item.address}
                                                     </div>
                                                 </div>
@@ -687,17 +698,17 @@ export default function Landing() {
 
                                 {/* Resorts */}
                                 <div>
-                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-lg font-bold text-blue-800">
+                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:text-lg">
                                         Resorts
                                     </h4>
-                                    <div className="flex gap-4 overflow-x-auto pb-2">
+                                    <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
                                         {tourismResorts?.map((item) => (
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/resorts/${item.id}`}
-                                                className="w-56 shrink-0 overflow-hidden rounded border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
+                                                className="w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
                                             >
-                                                <div className="h-32 overflow-hidden bg-slate-100">
+                                                <div className="h-28 overflow-hidden bg-slate-100 sm:h-32">
                                                     {item.image_url ? (
                                                         <img
                                                             src={item.image_url}
@@ -706,15 +717,15 @@ export default function Landing() {
                                                         />
                                                     ) : (
                                                         <div className="flex h-full w-full items-center justify-center text-slate-400">
-                                                            <FileText className="size-10" />
+                                                            <FileText className="size-8 sm:size-10" />
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="p-3">
-                                                    <div className="truncate text-sm font-bold text-blue-800">
+                                                <div className="p-2 sm:p-3">
+                                                    <div className="truncate text-xs font-bold text-blue-800 sm:text-sm">
                                                         {item.title}
                                                     </div>
-                                                    <div className="truncate text-xs text-slate-500">
+                                                    <div className="truncate text-[10px] text-slate-500 sm:text-xs">
                                                         {item.address}
                                                     </div>
                                                 </div>
@@ -725,18 +736,18 @@ export default function Landing() {
 
                                 {/* Festivals */}
                                 <div>
-                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-lg font-bold text-blue-800">
+                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:text-lg">
                                         Festivals
                                     </h4>
 
-                                    <div className="flex gap-4 overflow-x-auto pb-2">
+                                    <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
                                         {tourismFestivals?.map((item) => (
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/festivals/${item.id}`}
-                                                className="w-56 shrink-0 overflow-hidden rounded border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
+                                                className="w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
                                             >
-                                                <div className="h-32 overflow-hidden bg-slate-100">
+                                                <div className="h-28 overflow-hidden bg-slate-100 sm:h-32">
                                                     {item.image_url ? (
                                                         <img
                                                             src={item.image_url}
@@ -745,15 +756,15 @@ export default function Landing() {
                                                         />
                                                     ) : (
                                                         <div className="flex h-full w-full items-center justify-center text-slate-400">
-                                                            <FileText className="size-10" />
+                                                            <FileText className="size-8 sm:size-10" />
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="p-3">
-                                                    <div className="truncate text-sm font-bold text-blue-800">
+                                                <div className="p-2 sm:p-3">
+                                                    <div className="truncate text-xs font-bold text-blue-800 sm:text-sm">
                                                         {item.title}
                                                     </div>
-                                                    <div className="truncate text-xs text-slate-500">
+                                                    <div className="truncate text-[10px] text-slate-500 sm:text-xs">
                                                         {item.address}
                                                     </div>
                                                 </div>
@@ -764,12 +775,12 @@ export default function Landing() {
 
                                 {/* Municipal Projects */}
                                 {projects && projects.length > 0 && (
-                                    <div className="mt-12">
-                                        <h4 className="mb-6 flex items-center gap-2 border-b-2 border-blue-800 pb-1 text-lg font-bold text-blue-800">
-                                            <HardHat className="size-5" />
+                                    <div className="mt-8 sm:mt-12">
+                                        <h4 className="mb-4 flex items-center gap-2 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:mb-6 sm:text-lg">
+                                            <HardHat className="size-4 sm:size-5" />
                                             Municipal Projects
                                         </h4>
-                                        <ul className="space-y-6">
+                                        <ul className="space-y-4 sm:space-y-6">
                                             {projects.map(
                                                 (item: ProjectItem) => (
                                                     <li key={item.id}>
@@ -777,9 +788,9 @@ export default function Landing() {
                                                             href={projectRoutes.show.url(
                                                                 item.id,
                                                             )}
-                                                            className="group flex flex-col gap-4 border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:flex-row"
+                                                            className="group flex flex-col gap-0 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:flex-row sm:gap-4 sm:rounded-none"
                                                         >
-                                                            <div className="relative h-40 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52">
+                                                            <div className="relative h-48 w-full shrink-0 overflow-hidden bg-slate-100 sm:h-36 sm:w-52">
                                                                 {item.video_url ? (
                                                                     <video
                                                                         src={
@@ -806,12 +817,11 @@ export default function Landing() {
                                                                 )}
                                                                 <div className="absolute top-2 left-2">
                                                                     <span
-                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${
-                                                                            item.status ===
+                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${item.status ===
                                                                             'completed'
-                                                                                ? 'bg-green-500 text-white'
-                                                                                : 'bg-blue-600 text-white'
-                                                                        }`}
+                                                                            ? 'bg-green-500 text-white'
+                                                                            : 'bg-blue-600 text-white'
+                                                                            }`}
                                                                     >
                                                                         {
                                                                             item.status
@@ -819,12 +829,12 @@ export default function Landing() {
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                            <div className="min-w-0 flex-1 px-4 pt-0 pb-4 sm:px-0 sm:pt-2 sm:pr-2 sm:pb-0">
-                                                                <h3 className="text-base leading-snug font-bold text-blue-800 uppercase group-hover:underline sm:text-lg">
+                                                            <div className="min-w-0 flex-1 p-3 sm:px-0 sm:pt-2 sm:pr-2 sm:pb-0">
+                                                                <h3 className="text-sm leading-snug font-bold text-blue-800 uppercase group-hover:underline sm:text-base md:text-lg">
                                                                     {item.title}
                                                                 </h3>
                                                                 {item.published_at && (
-                                                                    <p className="mt-1 text-xs text-slate-500">
+                                                                    <p className="mt-1 text-[10px] text-slate-500 sm:text-xs">
                                                                         Updated{' '}
                                                                         {new Date(
                                                                             item.published_at,

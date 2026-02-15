@@ -49,28 +49,28 @@ export function LandingFooter() {
 
     return (
         <footer className="border-t border-neutral-200 bg-neutral-900 text-neutral-300">
-            <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="mx-auto max-w-7xl px-3 py-8 sm:px-6 sm:py-14 lg:px-8">
+                <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5">
                     {/* Brand + logos + contact */}
-                    <div className="lg:col-span-2">
+                    <div className="sm:col-span-2 lg:col-span-2">
                         <Link
                             href="/"
-                            className="inline-flex flex-wrap items-center gap-3 sm:gap-4"
+                            className="inline-flex flex-wrap items-center gap-2 sm:gap-4"
                         >
                             <img
                                 src="/hinobaan-logo/Hinobaan_logo.png"
                                 alt=""
-                                className="h-12 w-auto object-contain sm:h-14"
+                                className="h-10 w-auto object-contain sm:h-14"
                             />
                             <img
                                 src="/hinobaan-logo/Onehinoba-an%20logo.png"
                                 alt=""
-                                className="h-10 w-auto object-contain sm:h-12"
+                                className="h-8 w-auto object-contain sm:h-12"
                             />
                             <img
                                 src="/hinobaan-logo/BP_Logo.webp"
                                 alt=""
-                                className="h-8 w-auto object-contain opacity-90 sm:h-9"
+                                className="h-7 w-auto object-contain opacity-90 sm:h-9"
                             />
                         </Link>
                         <p className="mt-4 text-base font-semibold text-white">
@@ -118,8 +118,8 @@ export function LandingFooter() {
                     ))}
                 </div>
                 {/* Bottom bar */}
-                <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-neutral-800 pt-8 sm:flex-row">
-                    <p className="text-center text-sm text-neutral-500 sm:text-left">
+                <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-neutral-800 pt-6 sm:mt-14 sm:flex-row sm:gap-4 sm:pt-8">
+                    <p className="text-center text-xs text-neutral-500 sm:text-left sm:text-sm">
                         © {currentYear} Municipality of Hinobaan. All rights
                         reserved.
                     </p>
