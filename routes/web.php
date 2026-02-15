@@ -177,18 +177,6 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::post('dashboard/officials/sb-members', [OfficialsController::class, 'storeSbMember'])->name('officials.storeSbMember');
     Route::put('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'updateSbMember'])->name('officials.updateSbMember');
     Route::delete('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'destroySbMember'])->name('officials.destroySbMember');
-    Route::get('dashboard/barangay', [BarangayController::class, 'index'])->name('barangay.index');
-    Route::post('dashboard/barangay', [BarangayController::class, 'store'])->name('barangay.store');
-    Route::post('dashboard/barangay/{id}', [BarangayController::class, 'update'])->name('barangay.update'); // Using POST for update with file upload (method spoofing handled in frontend usually, but let's be safe)
-    // Actually Laravel handles PUT with files via _method field easily.
-    // Let's stick to standard resource route conventions where possible or exact manual routes.
-    // The previous implementation used put via _method spoofing.
-});
-
-// Re-defining the group to properly insert the new routes
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    // ... (previous routes omitted for brevity in thought, but included in replacement)
-
     // Barangay Routes
     Route::get('dashboard/barangay', [BarangayController::class, 'index'])->name('barangay.index');
     Route::post('dashboard/barangay', [BarangayController::class, 'store'])->name('barangay.store');
