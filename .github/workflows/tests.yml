@@ -17,22 +17,6 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: onehinobaan_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    
     strategy:
       matrix:
         php-version: ['8.3', '8.4']
@@ -45,7 +29,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: pdo, pdo_pgsql, pgsql
           tools: composer:v2
           coverage: xdebug
 
@@ -71,36 +54,11 @@ jobs:
       - name: Copy Environment File
         run: cp .env.example .env
 
-      - name: Configure Environment
-        run: |
-          sed -i 's/DB_DATABASE=.*/DB_DATABASE=onehinobaan_test/' .env
-          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=postgres/' .env
-          sed -i 's/SESSION_DRIVER=.*/SESSION_DRIVER=array/' .env
-          sed -i 's/QUEUE_CONNECTION=.*/QUEUE_CONNECTION=sync/' .env
-          sed -i 's/CACHE_STORE=.*/CACHE_STORE=array/' .env
-
       - name: Generate Application Key
         run: php artisan key:generate
-
-      - name: Run Migrations
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5432
-          DB_DATABASE: onehinobaan_test
-          DB_USERNAME: postgres
-          DB_PASSWORD: postgres
-        run: php artisan migrate --force
 
       - name: Build Assets
         run: npm run build
 
       - name: Tests
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5432
-          DB_DATABASE: onehinobaan_test
-          DB_USERNAME: postgres
-          DB_PASSWORD: postgres
         run: ./vendor/bin/phpunit
