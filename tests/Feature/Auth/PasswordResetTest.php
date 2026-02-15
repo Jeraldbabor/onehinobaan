@@ -64,12 +64,8 @@ class PasswordResetTest extends TestCase
             ]);
 
             $response
-                ->assertSessionHasNoErrors();
-
-            // After password reset, Fortify redirects to the login route.
-            // Assert the response is a redirect (the destination may vary
-            // depending on middleware configuration).
-            $response->assertRedirect();
+                ->assertSessionHasNoErrors()
+                ->assertRedirect(route('login'));
 
             return true;
         });

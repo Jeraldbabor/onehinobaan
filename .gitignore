@@ -9,7 +9,7 @@
 # Temporarily committing these for server build issues
 # /resources/js/actions
 # /resources/js/routes
-/resources/js/wayfinder
+# /resources/js/wayfinder
 /vendor
 .DS_Store
 .env
