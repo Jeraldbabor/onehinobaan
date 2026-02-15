@@ -19,7 +19,8 @@ return new class extends Migration
         $this->migrateBarangays();
 
         Schema::dropIfExists('officials');
-        Schema::dropIfExists('barangays');
+        // Note: barangays table is kept for the new barangay_officials feature
+        // Schema::dropIfExists('barangays');
     }
 
     private function migrateOfficials(): void
@@ -66,7 +67,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     * Recreate officials and barangays tables and move data back (best-effort).
+     * Recreate officials table and move data back (best-effort).
+     * Note: barangays table is not dropped in up(), so no need to recreate it.
      */
     public function down(): void
     {
@@ -77,12 +79,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('barangays', function (Blueprint $table) {
-            $table->id();
-            $table->string('image_path');
-            $table->unsignedInteger('display_order')->default(0);
-            $table->timestamps();
-        });
+        // barangays table is not dropped in up(), so we don't recreate it here
+        // Schema::create('barangays', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('image_path');
+        //     $table->unsignedInteger('display_order')->default(0);
+        //     $table->timestamps();
+        // });
 
         $officialsRow = SiteContent::where('key', SiteContent::KEY_OFFICIALS)->first();
         if ($officialsRow && $officialsRow->content) {
@@ -100,20 +103,21 @@ return new class extends Migration
             }
         }
 
-        $barangaysRow = SiteContent::where('key', SiteContent::KEY_BARANGAYS)->first();
-        if ($barangaysRow && $barangaysRow->content) {
-            $list = json_decode($barangaysRow->content, true);
-            if (is_array($list)) {
-                $order = 1;
-                foreach ($list as $item) {
-                    DB::table('barangays')->insert([
-                        'image_path' => $item['image_path'] ?? '',
-                        'display_order' => $item['display_order'] ?? $order++,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                }
-            }
-        }
+        // Skip barangays restoration since table is still present
+        // $barangaysRow = SiteContent::where('key', SiteContent::KEY_BARANGAYS)->first();
+        // if ($barangaysRow && $barangaysRow->content) {
+        //     $list = json_decode($barangaysRow->content, true);
+        //     if (is_array($list)) {
+        //         $order = 1;
+        //         foreach ($list as $item) {
+        //             DB::table('barangays')->insert([
+        //                 'image_path' => $item['image_path'] ?? '',
+        //                 'display_order' => $item['display_order'] ?? $order++,
+        //                 'created_at' => now(),
+        //                 'updated_at' => now(),
+        //             ]);
+        //         }
+        //     }
+        // }
     }
 };
