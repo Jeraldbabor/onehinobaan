@@ -44,40 +44,35 @@ export default function BarangayDetailPage() {
         <LandingLayout>
             <Head title={`${barangay.name} - Municipality of Hinobaan`} />
 
-            {/* Government-style header with banner */}
-            <section className="relative h-64 border-b-4 border-amber-500/80 text-white sm:h-80">
+            {/* Banner Section */}
+            <section className="relative h-64 w-full bg-slate-900 text-white">
                 <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
                     style={{
                         backgroundImage: `url('${barangay.image_url || defaultBanner}')`,
                     }}
-                >
-                    <div className="absolute inset-0 bg-slate-900/60" />
-                </div>
-                <div className="relative flex h-full flex-col justify-end px-4 pb-10 sm:px-6 lg:px-8">
-                    <div className="mx-auto w-full max-w-5xl [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]">
-                        <nav className="mb-4 text-sm text-slate-200">
-                            <Link href="/" className="hover:text-white">
-                                Home
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <span className="text-white">About Us</span>
-                            <span className="mx-2">/</span>
-                            <Link
-                                href="/about/barangay"
-                                className="hover:text-white"
-                            >
-                                Barangay
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <span className="font-medium text-white">
-                                {barangay.name}
-                            </span>
-                        </nav>
-                        <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                            {barangay.name}
-                        </h1>
-                    </div>
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
+                <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
+                    <nav className="mb-4 text-sm font-medium text-slate-300">
+                        <Link href="/" className="hover:text-white transition-colors">
+                            Home
+                        </Link>
+                        <span className="mx-2">/</span>
+                        <span className="text-white">About Us</span>
+                        <span className="mx-2">/</span>
+                        <Link href="/about/barangay" className="hover:text-white transition-colors">
+                            Barangay
+                        </Link>
+                        <span className="mx-2">/</span>
+                        <span className="text-white truncate max-w-[200px] inline-block align-bottom">{barangay.name}</span>
+                    </nav>
+                    <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+                        {barangay.name}
+                    </h1>
+                    <p className="mt-2 text-lg text-slate-300 max-w-2xl">
+                        Municipality of Hinobaan · Province of Negros Occidental
+                    </p>
                 </div>
             </section>
 
@@ -139,7 +134,7 @@ export default function BarangayDetailPage() {
                             </h2>
 
                             {barangay.officials &&
-                            barangay.officials.length > 0 ? (
+                                barangay.officials.length > 0 ? (
                                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                                     {barangay.officials.map((official) => (
                                         <div

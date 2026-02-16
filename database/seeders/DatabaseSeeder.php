@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Portal Admin',
                 'password' => Hash::make('Admin@Hinobaan1'),
                 'email_verified_at' => now(),
-                'is_admin' => true,
+                'role' => User::ROLE_ADMIN,
             ]
         );
 

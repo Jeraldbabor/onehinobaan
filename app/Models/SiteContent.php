@@ -22,6 +22,9 @@ class SiteContent extends Model
     public const KEY_CONTACT = 'contact';
 
     public const KEY_GENERAL_SETTINGS = 'general_settings';
+    public const KEY_PRIVACY_POLICY = 'privacy_policy';
+    public const KEY_COOKIES_POLICY = 'cookies_policy';
+    public const KEY_ACCESSIBILITY_POLICY = 'accessibility_policy';
 
     protected $fillable = ['key', 'content', 'image_path'];
 
@@ -39,13 +42,14 @@ class SiteContent extends Model
             'map_embed_url' => '',
             'facebook_municipality_url' => '',
             'facebook_mayor_url' => '',
+            'hotlines' => [],
         ];
     }
 
     /**
      * Get contact settings from database (address, phone, email, map_embed_url).
      *
-     * @return array{address: string, phone: string, email: string, map_embed_url: string, facebook_municipality_url: string, facebook_mayor_url: string}
+     * @return array{address: string, phone: string, email: string, map_embed_url: string, facebook_municipality_url: string, facebook_mayor_url: string, hotlines: array}
      */
     public static function getContact(): array
     {
@@ -61,7 +65,7 @@ class SiteContent extends Model
     /**
      * Save contact settings.
      *
-     * @param  array{address?: string, phone?: string, email?: string, map_embed_url?: string, facebook_municipality_url?: string, facebook_mayor_url?: string}  $data
+     * @param  array{address?: string, phone?: string, email?: string, map_embed_url?: string, facebook_municipality_url?: string, facebook_mayor_url?: string, hotlines?: array}  $data
      */
     public static function setContact(array $data): void
     {
@@ -75,6 +79,7 @@ class SiteContent extends Model
             'map_embed_url' => $merged['map_embed_url'] ?? '',
             'facebook_municipality_url' => $merged['facebook_municipality_url'] ?? '',
             'facebook_mayor_url' => $merged['facebook_mayor_url'] ?? '',
+            'hotlines' => $merged['hotlines'] ?? [],
         ]);
         $row->save();
     }
@@ -304,6 +309,7 @@ class SiteContent extends Model
             'sub_page_banner_path' => 'hinobaan-banner/banner2.png',
             'full_disclosure_banner_path' => 'images/full-disclosure.png', // Default static image
             'full_disclosure_url' => 'https://fulldisclosure.dilg.gov.ph/',
+            'citizens_charter_path' => null,
         ];
 
         if (! is_array($decoded)) {

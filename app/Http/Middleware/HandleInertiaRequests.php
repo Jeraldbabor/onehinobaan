@@ -39,7 +39,15 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'name' => $request->user()->name,
+                    'email' => $request->user()->email,
+                    'role' => $request->user()->role,
+                    'avatar_url' => $request->user()->avatarUrl(),
+                    'email_verified_at' => $request->user()->email_verified_at,
+                    'created_at' => $request->user()->created_at,
+                ] : null,
             ],
             'generalSettings' => function () {
                 $settings = \App\Models\SiteContent::getGeneralSettings();
@@ -53,7 +61,11 @@ class HandleInertiaRequests extends Middleware
                     'sub_page_banner_url' => $this->getStorageUrl($settings['sub_page_banner_path']),
                     'full_disclosure_banner_url' => $this->getStorageUrl($settings['full_disclosure_banner_path']),
                     'full_disclosure_url' => $settings['full_disclosure_url'] ?? 'https://fulldisclosure.dilg.gov.ph/',
+                    'citizens_charter_url' => $this->getStorageUrl($settings['citizens_charter_path']),
                 ];
+            },
+            'contact' => function () {
+                return \App\Models\SiteContent::getContact();
             },
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];

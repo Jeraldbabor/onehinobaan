@@ -81,46 +81,44 @@ export default function TourismItemPage({
             <Head
                 title={`${item.title} - ${title} · Tourism · Municipality of Hinobaan`}
             />
-            {/* Government-style header with banner */}
-            <section className="relative h-[200px] border-b-4 border-amber-500/80 text-white sm:h-[240px]">
+            {/* Banner Section */}
+            <section className="relative h-64 w-full bg-slate-900 text-white">
                 <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
                     style={{
                         backgroundImage: `url('${usePage<PageProps>().props.generalSettings?.sub_page_banner_url || '/hinobaan-banner/banner2.png'}')`,
                     }}
                 />
-                <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
-                    <div className="mx-auto w-full max-w-5xl [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]">
-                        <nav className="mb-4 text-sm text-slate-200">
-                            <Link href="/" className="hover:text-white">
-                                Home
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <Link href="/tourism" className="hover:text-white">
-                                Tourism
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <Link href={listUrl} className="hover:text-white">
-                                {title}
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <span className="text-white">{item.title}</span>
-                        </nav>
-                        <Link
-                            href={listUrl}
-                            className="mb-2 inline-flex items-center gap-2 text-sm text-slate-200 hover:text-white"
-                        >
-                            <ArrowLeft className="size-4" aria-hidden />
-                            Back to {title}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
+                <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
+                    <nav className="mb-4 text-sm font-medium text-slate-300">
+                        <Link href="/" className="hover:text-white transition-colors">
+                            Home
                         </Link>
-                        <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                            {item.title}
-                        </h1>
-                        <p className="mt-1 text-sm text-slate-200">
-                            {title} · Municipality of Hinobaan · Province of
-                            Negros Occidental
-                        </p>
-                    </div>
+                        <span className="mx-2">/</span>
+                        <Link href="/tourism" className="hover:text-white transition-colors">
+                            Tourism
+                        </Link>
+                        <span className="mx-2">/</span>
+                        <Link href={listUrl} className="hover:text-white transition-colors">
+                            {title}
+                        </Link>
+                        <span className="mx-2">/</span>
+                        <span className="text-white truncate max-w-[200px] inline-block align-bottom">{item.title}</span>
+                    </nav>
+                    <Link
+                        href={listUrl}
+                        className="mb-4 inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors"
+                    >
+                        <ArrowLeft className="size-4" aria-hidden />
+                        Back to {title}
+                    </Link>
+                    <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                        {item.title}
+                    </h1>
+                    <p className="mt-2 text-lg text-slate-300 max-w-2xl">
+                        Municipality of Hinobaan · Province of Negros Occidental
+                    </p>
                 </div>
             </section>
 
@@ -169,147 +167,147 @@ export default function TourismItemPage({
                             item.email ||
                             item.contact_number ||
                             item.social_media_url) && (
-                            <section className="bg-white py-8 sm:py-10">
-                                <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                                    <h2 className={sectionTitleClass}>
-                                        Location & Contact Information
-                                    </h2>
-                                    <div className="mt-6 grid gap-8 lg:grid-cols-5">
-                                        <div
-                                            className={
-                                                item.address ||
-                                                item.email ||
-                                                item.contact_number ||
-                                                item.social_media_url
-                                                    ? 'lg:col-span-2'
-                                                    : 'hidden'
-                                            }
-                                        >
-                                            {(item.address ||
-                                                item.email ||
-                                                item.contact_number ||
-                                                item.social_media_url) && (
-                                                <div className="border border-slate-200 bg-slate-50 p-5 shadow-sm">
-                                                    <ul className="space-y-4">
-                                                        {item.address && (
-                                                            <li className="flex items-start gap-3 text-slate-700">
-                                                                <MapPin className="mt-0.5 size-5 shrink-0 text-blue-800" />
-                                                                <span className="text-sm leading-relaxed sm:text-base">
-                                                                    {
-                                                                        item.address
-                                                                    }
-                                                                </span>
-                                                            </li>
-                                                        )}
-                                                        {item.contact_number && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Phone className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={`tel:${item.contact_number.replace(/\s/g, '')}`}
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    {
-                                                                        item.contact_number
-                                                                    }
-                                                                </a>
-                                                            </li>
-                                                        )}
-                                                        {item.email && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Mail className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={`mailto:${item.email}`}
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    {item.email}
-                                                                </a>
-                                                            </li>
-                                                        )}
-                                                        {item.social_media_url && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Share2 className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={
-                                                                        item.social_media_url
-                                                                    }
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    Social media
-                                                                </a>
-                                                            </li>
-                                                        )}
-                                                    </ul>
-                                                </div>
-                                            )}
-                                        </div>
-                                        {(safeMapSrc || showLocationMap) && (
+                                <section className="bg-white py-8 sm:py-10">
+                                    <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                                        <h2 className={sectionTitleClass}>
+                                            Location & Contact Information
+                                        </h2>
+                                        <div className="mt-6 grid gap-8 lg:grid-cols-5">
                                             <div
                                                 className={
                                                     item.address ||
-                                                    item.email ||
-                                                    item.contact_number ||
-                                                    item.social_media_url
-                                                        ? 'lg:col-span-3'
-                                                        : 'lg:col-span-5'
+                                                        item.email ||
+                                                        item.contact_number ||
+                                                        item.social_media_url
+                                                        ? 'lg:col-span-2'
+                                                        : 'hidden'
                                                 }
                                             >
-                                                {safeMapSrc ? (
-                                                    <div className="overflow-hidden border border-slate-200 shadow-sm">
-                                                        <iframe
-                                                            src={safeMapSrc}
-                                                            title={`Map: ${item.title}`}
-                                                            width="100%"
-                                                            height="320"
-                                                            style={{
-                                                                border: 0,
-                                                            }}
-                                                            allowFullScreen
-                                                            loading="lazy"
-                                                            referrerPolicy="no-referrer-when-downgrade"
-                                                            className="block w-full"
-                                                        />
-                                                    </div>
-                                                ) : showLocationMap ? (
-                                                    <div className="space-y-3">
-                                                        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
-                                                            <LocationMap
-                                                                center={
-                                                                    mapCenter
-                                                                }
-                                                                marker={
-                                                                    mapCenter
-                                                                }
-                                                                markerTitle={
-                                                                    item.address ??
-                                                                    item.title
-                                                                }
-                                                                height={320}
+                                                {(item.address ||
+                                                    item.email ||
+                                                    item.contact_number ||
+                                                    item.social_media_url) && (
+                                                        <div className="border border-slate-200 bg-slate-50 p-5 shadow-sm">
+                                                            <ul className="space-y-4">
+                                                                {item.address && (
+                                                                    <li className="flex items-start gap-3 text-slate-700">
+                                                                        <MapPin className="mt-0.5 size-5 shrink-0 text-blue-800" />
+                                                                        <span className="text-sm leading-relaxed sm:text-base">
+                                                                            {
+                                                                                item.address
+                                                                            }
+                                                                        </span>
+                                                                    </li>
+                                                                )}
+                                                                {item.contact_number && (
+                                                                    <li className="flex items-center gap-3 text-slate-700">
+                                                                        <Phone className="size-5 shrink-0 text-blue-800" />
+                                                                        <a
+                                                                            href={`tel:${item.contact_number.replace(/\s/g, '')}`}
+                                                                            className="text-sm text-blue-800 hover:underline sm:text-base"
+                                                                        >
+                                                                            {
+                                                                                item.contact_number
+                                                                            }
+                                                                        </a>
+                                                                    </li>
+                                                                )}
+                                                                {item.email && (
+                                                                    <li className="flex items-center gap-3 text-slate-700">
+                                                                        <Mail className="size-5 shrink-0 text-blue-800" />
+                                                                        <a
+                                                                            href={`mailto:${item.email}`}
+                                                                            className="text-sm text-blue-800 hover:underline sm:text-base"
+                                                                        >
+                                                                            {item.email}
+                                                                        </a>
+                                                                    </li>
+                                                                )}
+                                                                {item.social_media_url && (
+                                                                    <li className="flex items-center gap-3 text-slate-700">
+                                                                        <Share2 className="size-5 shrink-0 text-blue-800" />
+                                                                        <a
+                                                                            href={
+                                                                                item.social_media_url
+                                                                            }
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="text-sm text-blue-800 hover:underline sm:text-base"
+                                                                        >
+                                                                            Social media
+                                                                        </a>
+                                                                    </li>
+                                                                )}
+                                                            </ul>
+                                                        </div>
+                                                    )}
+                                            </div>
+                                            {(safeMapSrc || showLocationMap) && (
+                                                <div
+                                                    className={
+                                                        item.address ||
+                                                            item.email ||
+                                                            item.contact_number ||
+                                                            item.social_media_url
+                                                            ? 'lg:col-span-3'
+                                                            : 'lg:col-span-5'
+                                                    }
+                                                >
+                                                    {safeMapSrc ? (
+                                                        <div className="overflow-hidden border border-slate-200 shadow-sm">
+                                                            <iframe
+                                                                src={safeMapSrc}
+                                                                title={`Map: ${item.title}`}
+                                                                width="100%"
+                                                                height="320"
+                                                                style={{
+                                                                    border: 0,
+                                                                }}
+                                                                allowFullScreen
+                                                                loading="lazy"
+                                                                referrerPolicy="no-referrer-when-downgrade"
+                                                                className="block w-full"
                                                             />
                                                         </div>
-                                                        {mapSearchUrl && (
-                                                            <a
-                                                                href={
-                                                                    mapSearchUrl
-                                                                }
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="inline-flex items-center gap-2 rounded-lg border border-blue-800 bg-blue-800 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-900"
-                                                            >
-                                                                <MapPin className="size-5 shrink-0" />
-                                                                View location on
-                                                                Google Maps
-                                                            </a>
-                                                        )}
-                                                    </div>
-                                                ) : null}
-                                            </div>
-                                        )}
+                                                    ) : showLocationMap ? (
+                                                        <div className="space-y-3">
+                                                            <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+                                                                <LocationMap
+                                                                    center={
+                                                                        mapCenter
+                                                                    }
+                                                                    marker={
+                                                                        mapCenter
+                                                                    }
+                                                                    markerTitle={
+                                                                        item.address ??
+                                                                        item.title
+                                                                    }
+                                                                    height={320}
+                                                                />
+                                                            </div>
+                                                            {mapSearchUrl && (
+                                                                <a
+                                                                    href={
+                                                                        mapSearchUrl
+                                                                    }
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="inline-flex items-center gap-2 rounded-lg border border-blue-800 bg-blue-800 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-900"
+                                                                >
+                                                                    <MapPin className="size-5 shrink-0" />
+                                                                    View location on
+                                                                    Google Maps
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    ) : null}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
-                        )}
+                                </section>
+                            )}
                     </div>
                     <aside className="lg:col-span-1">
                         <div className="sticky top-4">
