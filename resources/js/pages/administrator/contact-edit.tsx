@@ -196,8 +196,7 @@ export default function ContactEditPage({ contact }: ContactEditPageProps) {
                                 </CardTitle>
                             </div>
                             <CardDescription>
-                                Emergency hotlines or secondary contact
-                                numbers.
+                                Emergency hotlines or secondary contact numbers.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">

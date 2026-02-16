@@ -1,0 +1,104 @@
+
+> types
+> tsc --noEmit
+
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(1,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(1,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(1,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(1,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(1,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(2,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(2,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(2,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(2,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(2,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(3,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(3,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(3,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(3,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(3,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(4,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(4,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(4,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(4,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(4,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(5,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(5,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(5,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(5,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/ActivityListController.ts(5,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(1,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(1,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(1,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(1,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(1,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(2,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(2,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(2,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(2,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController.ts(2,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/Administrator/index.ts(3,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/App/Http/Controllers/Administrator/OfficialsController"' has no default export.
+resources/js/actions/App/Http/Controllers/Administrator/index.ts(9,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController"' has no default export.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(1,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(1,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(1,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(1,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(1,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(1,113): error TS2300: Duplicate identifier 'validateParameters'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(2,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(2,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(2,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(2,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(2,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/Administrator/OfficialsController.ts(2,113): error TS2300: Duplicate identifier 'validateParameters'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(1,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(1,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(1,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(1,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(1,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(2,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(2,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(2,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(2,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/Administrator/UserController.ts(2,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(1,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(1,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(1,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(1,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(1,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(2,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(2,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(2,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(2,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/AnnouncementListController.ts(2,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/index.ts(3,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/App/Http/Controllers/AnnouncementListController"' has no default export.
+resources/js/actions/App/Http/Controllers/index.ts(4,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/App/Http/Controllers/ActivityListController"' has no default export.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(1,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(1,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(1,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(1,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(1,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(2,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(2,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(2,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(2,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(2,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(3,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(3,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(3,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(3,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(3,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(4,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(4,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(4,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(4,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/App/Http/Controllers/JobOpportunityController.ts(4,95): error TS2300: Duplicate identifier 'applyUrlDefaults'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController.ts(1,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController.ts(1,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController.ts(1,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController.ts(1,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController.ts(2,10): error TS2300: Duplicate identifier 'queryParams'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController.ts(2,28): error TS2300: Duplicate identifier 'RouteQueryOptions'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController.ts(2,52): error TS2300: Duplicate identifier 'RouteDefinition'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController.ts(2,74): error TS2300: Duplicate identifier 'RouteFormDefinition'.
+resources/js/actions/Laravel/Fortify/Http/Controllers/index.ts(9,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController"' has no default export.

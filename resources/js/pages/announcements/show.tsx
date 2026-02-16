@@ -282,17 +282,23 @@ export default function AnnouncementShowPage({
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
                 <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
                     <nav className="mb-4 text-sm font-medium text-slate-300">
-                        <Link href="/" className="hover:text-white transition-colors">
+                        <Link
+                            href="/"
+                            className="transition-colors hover:text-white"
+                        >
                             Home
                         </Link>
                         <span className="mx-2">/</span>
-                        <Link href={listPath} className="hover:text-white transition-colors">
+                        <Link
+                            href={listPath}
+                            className="transition-colors hover:text-white"
+                        >
                             {title}
                         </Link>
                     </nav>
                     <Link
                         href={listPath}
-                        className="mb-4 inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors"
+                        className="mb-4 inline-flex items-center gap-2 text-sm text-slate-300 transition-colors hover:text-white"
                     >
                         <ChevronLeft className="size-4" aria-hidden />
                         Back to {title}
@@ -300,7 +306,7 @@ export default function AnnouncementShowPage({
                     <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                         {item.title}
                     </h1>
-                    <p className="mt-2 text-lg text-slate-300 max-w-2xl">
+                    <p className="mt-2 max-w-2xl text-lg text-slate-300">
                         Municipality of Hinobaan · Province of Negros Occidental
                     </p>
                 </div>
@@ -420,10 +426,11 @@ export default function AnnouncementShowPage({
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${index === currentIndex
+                                        className={`size-2 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
+                                            index === currentIndex
                                                 ? 'scale-125 bg-blue-800'
                                                 : 'bg-slate-300 hover:bg-slate-400'
-                                            }`}
+                                        }`}
                                         aria-label={`Go to official ${index + 1}`}
                                         aria-current={
                                             index === currentIndex

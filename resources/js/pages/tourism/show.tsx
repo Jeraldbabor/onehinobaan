@@ -50,11 +50,17 @@ export default function TourismShowPage({
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
                 <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
                     <nav className="mb-4 text-sm font-medium text-slate-300">
-                        <Link href="/" className="hover:text-white transition-colors">
+                        <Link
+                            href="/"
+                            className="transition-colors hover:text-white"
+                        >
                             Home
                         </Link>
                         <span className="mx-2">/</span>
-                        <Link href="/tourism" className="hover:text-white transition-colors">
+                        <Link
+                            href="/tourism"
+                            className="transition-colors hover:text-white"
+                        >
                             Tourism
                         </Link>
                         <span className="mx-2">/</span>
@@ -63,7 +69,7 @@ export default function TourismShowPage({
                     <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                         {title}
                     </h1>
-                    <p className="mt-2 text-lg text-slate-300 max-w-2xl">
+                    <p className="mt-2 max-w-2xl text-lg text-slate-300">
                         Municipality of Hinobaan · Province of Negros Occidental
                     </p>
                 </div>
@@ -114,15 +120,15 @@ export default function TourismShowPage({
                                                             {item.image_urls
                                                                 ?.length >
                                                                 1 && (
-                                                                    <div className="absolute bottom-2 left-2 bg-slate-800/90 px-2 py-1 text-xs font-medium text-white">
-                                                                        {
-                                                                            item
-                                                                                .image_urls
-                                                                                .length
-                                                                        }{' '}
-                                                                        photos
-                                                                    </div>
-                                                                )}
+                                                                <div className="absolute bottom-2 left-2 bg-slate-800/90 px-2 py-1 text-xs font-medium text-white">
+                                                                    {
+                                                                        item
+                                                                            .image_urls
+                                                                            .length
+                                                                    }{' '}
+                                                                    photos
+                                                                </div>
+                                                            )}
                                                         </div>
                                                         <div className="border-t border-slate-100 p-4">
                                                             <h2 className="font-semibold text-slate-900 group-hover:text-blue-800">

@@ -99,7 +99,7 @@ export default function BarangayEditPage({ barangays }: BarangayEditPageProps) {
         }
     };
 
-    // We removed the sync effect to avoid 'set-state-in-effect' errors. 
+    // We removed the sync effect to avoid 'set-state-in-effect' errors.
     // Changes from server will be reflected through props.
 
     const openCreateDialog = () => {
@@ -490,8 +490,8 @@ export default function BarangayEditPage({ barangays }: BarangayEditPageProps) {
                                         ? 'Updating...'
                                         : 'Adding...'
                                     : editingItem
-                                        ? 'Save Changes'
-                                        : 'Add Barangay'}
+                                      ? 'Save Changes'
+                                      : 'Add Barangay'}
                             </Button>
                         </DialogFooter>
                     </form>

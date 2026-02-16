@@ -4,11 +4,7 @@ import type { SharedData } from '@/types';
 
 const dashboardUrl = '/dashboard';
 
-export default function Welcome({
-    canRegister = true,
-}: {
-    canRegister?: boolean;
-}) {
+export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
 
     return (
@@ -30,9 +26,7 @@ export default function Welcome({
                             >
                                 Dashboard
                             </Link>
-                        ) : (
-                            null
-                        )}
+                        ) : null}
                     </nav>
                 </header>
                 <div className="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">

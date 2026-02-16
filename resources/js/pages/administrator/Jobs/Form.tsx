@@ -35,9 +35,7 @@ export default function JobFormPage({ job }: FormPageProps) {
         { title: 'Job Opportunities', href: jobsUrl },
         {
             title: isEdit ? 'Edit Job' : 'New Job',
-            href: isEdit
-                ? `${jobsUrl}/${job.id}/edit`
-                : `${jobsUrl}/create`,
+            href: isEdit ? `${jobsUrl}/${job.id}/edit` : `${jobsUrl}/create`,
         },
     ];
 
@@ -65,7 +63,7 @@ export default function JobFormPage({ job }: FormPageProps) {
             forceFormData: true,
         };
         if (isEdit && job?.id) {
-            // Use post with _method: PUT for file uploads if needed, but Inertia/Laravel handles this better with post + _method field if using FormData, 
+            // Use post with _method: PUT for file uploads if needed, but Inertia/Laravel handles this better with post + _method field if using FormData,
             // OR we can use the router.post with `_method: 'put'` in data.
             // However, Inertia's `put` method doesn't support file uploads well strictly speaking in some versions, but let's try standard 'post' for creation.
             // For update with files, Laravel recommends POST with _method=PUT.
@@ -73,12 +71,15 @@ export default function JobFormPage({ job }: FormPageProps) {
             // Actually, let's use router.post
 
             // Workaround for file upload with PUT in Laravel/Inertia
-            router.post(`${jobsUrl}/${job.id}`, {
-                _method: 'put',
-                ...data,
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as any, options);
-
+            router.post(
+                `${jobsUrl}/${job.id}`,
+                {
+                    _method: 'put',
+                    ...data,
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                } as any,
+                options,
+            );
         } else {
             post(jobsUrl, options);
         }
@@ -127,12 +128,17 @@ export default function JobFormPage({ job }: FormPageProps) {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="employment_type">Employment Type</Label>
+                                <Label htmlFor="employment_type">
+                                    Employment Type
+                                </Label>
                                 <select
                                     id="employment_type"
                                     value={data.employment_type}
                                     onChange={(e) =>
-                                        setData('employment_type', e.target.value)
+                                        setData(
+                                            'employment_type',
+                                            e.target.value,
+                                        )
                                     }
                                     className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                                     required
@@ -162,7 +168,14 @@ export default function JobFormPage({ job }: FormPageProps) {
                                 {currentImageUrl && (
                                     <div className="mt-2 flex items-center gap-2">
                                         <div className="text-sm text-muted-foreground">
-                                            Current image: <a href={currentImageUrl} target="_blank" className="underline">View</a>
+                                            Current image:{' '}
+                                            <a
+                                                href={currentImageUrl}
+                                                target="_blank"
+                                                className="underline"
+                                            >
+                                                View
+                                            </a>
                                         </div>
                                         {!data.image && (
                                             <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground">
@@ -204,7 +217,14 @@ export default function JobFormPage({ job }: FormPageProps) {
                                 {currentFileUrl && (
                                     <div className="mt-2 flex items-center gap-2">
                                         <div className="text-sm text-muted-foreground">
-                                            Current file: <a href={currentFileUrl} target="_blank" className="underline">View</a>
+                                            Current file:{' '}
+                                            <a
+                                                href={currentFileUrl}
+                                                target="_blank"
+                                                className="underline"
+                                            >
+                                                View
+                                            </a>
                                         </div>
                                         {!data.file && (
                                             <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground">
@@ -247,7 +267,9 @@ export default function JobFormPage({ job }: FormPageProps) {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="description">Description (Optional)</Label>
+                                <Label htmlFor="description">
+                                    Description (Optional)
+                                </Label>
                                 <textarea
                                     id="description"
                                     value={data.description}
@@ -267,8 +289,8 @@ export default function JobFormPage({ job }: FormPageProps) {
                             {processing
                                 ? 'Saving...'
                                 : isEdit
-                                    ? 'Save changes'
-                                    : 'Publish Job'}
+                                  ? 'Save changes'
+                                  : 'Publish Job'}
                         </Button>
                         <Button type="button" variant="outline" asChild>
                             <Link href={jobsUrl}>Cancel</Link>

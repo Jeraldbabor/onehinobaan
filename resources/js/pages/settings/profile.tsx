@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { Form, Head, Link, usePage, useForm } from '@inertiajs/react';
+import { Head, Link, usePage, useForm } from '@inertiajs/react';
 import { Camera, User as UserIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 import DeleteUser from '@/components/delete-user';
@@ -29,15 +29,18 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<SharedData>().props;
-    const [avatarPreview, setAvatarPreview] = useState<string | null>(auth.user.avatar_url);
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(
+        auth.user.avatar_url,
+    );
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const { data, setData, post, processing, recentlySuccessful, errors } = useForm({
-        _method: 'patch',
-        name: auth.user.name,
-        email: auth.user.email,
-        avatar: null as File | null,
-    });
+    const { data, setData, post, processing, recentlySuccessful, errors } =
+        useForm({
+            _method: 'patch',
+            name: auth.user.name,
+            email: auth.user.email,
+            avatar: null as File | null,
+        });
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -77,7 +80,11 @@ export default function Profile({
                             <div className="relative">
                                 <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-muted shadow-inner">
                                     {avatarPreview ? (
-                                        <img src={avatarPreview} alt={auth.user.name} className="h-full w-full object-cover" />
+                                        <img
+                                            src={avatarPreview}
+                                            alt={auth.user.name}
+                                            className="h-full w-full object-cover"
+                                        />
                                     ) : (
                                         <UserIcon className="h-12 w-12 text-muted-foreground" />
                                     )}
@@ -87,7 +94,9 @@ export default function Profile({
                                     variant="outline"
                                     size="icon"
                                     className="absolute -right-1 -bottom-1 h-8 w-8 rounded-full shadow-md"
-                                    onClick={() => fileInputRef.current?.click()}
+                                    onClick={() =>
+                                        fileInputRef.current?.click()
+                                    }
                                 >
                                     <Camera className="h-4 w-4" />
                                 </Button>
@@ -100,11 +109,17 @@ export default function Profile({
                                 />
                             </div>
                             <div className="space-y-1">
-                                <h4 className="text-sm font-medium">Profile Picture</h4>
+                                <h4 className="text-sm font-medium">
+                                    Profile Picture
+                                </h4>
                                 <p className="text-xs text-muted-foreground">
                                     JPG, GIF or PNG. Max size of 2MB.
                                 </p>
-                                {errors.avatar && <p className="text-xs text-destructive">{errors.avatar}</p>}
+                                {errors.avatar && (
+                                    <p className="text-xs text-destructive">
+                                        {errors.avatar}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
@@ -115,7 +130,9 @@ export default function Profile({
                                 id="name"
                                 className="mt-1 block w-full"
                                 value={data.name}
-                                onChange={e => setData('name', e.target.value)}
+                                onChange={(e) =>
+                                    setData('name', e.target.value)
+                                }
                                 required
                                 autoComplete="name"
                                 placeholder="Full name"
@@ -135,7 +152,9 @@ export default function Profile({
                                 type="email"
                                 className="mt-1 block w-full"
                                 value={data.email}
-                                onChange={e => setData('email', e.target.value)}
+                                onChange={(e) =>
+                                    setData('email', e.target.value)
+                                }
                                 required
                                 autoComplete="username"
                                 placeholder="Email address"
@@ -151,8 +170,7 @@ export default function Profile({
                             auth.user.email_verified_at === null && (
                                 <div>
                                     <p className="-mt-4 text-sm text-muted-foreground">
-                                        Your email address is
-                                        unverified.{' '}
+                                        Your email address is unverified.{' '}
                                         <Link
                                             href={send()}
                                             as="button"
@@ -163,14 +181,12 @@ export default function Profile({
                                         </Link>
                                     </p>
 
-                                    {status ===
-                                        'verification-link-sent' && (
-                                            <div className="mt-2 text-sm font-medium text-green-600">
-                                                A new verification link has
-                                                been sent to your email
-                                                address.
-                                            </div>
-                                        )}
+                                    {status === 'verification-link-sent' && (
+                                        <div className="mt-2 text-sm font-medium text-green-600">
+                                            A new verification link has been
+                                            sent to your email address.
+                                        </div>
+                                    )}
                                 </div>
                             )}
 

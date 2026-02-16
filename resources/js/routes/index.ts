@@ -133,6 +133,84 @@ logout.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     logout.form = logoutForm
 /**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+export const register = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: register.url(options),
+    method: 'get',
+})
+
+register.definition = {
+    methods: ["get","head"],
+    url: '/register',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+register.url = (options?: RouteQueryOptions) => {
+    return register.definition.url + queryParams(options)
+}
+
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+register.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: register.url(options),
+    method: 'get',
+})
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: register.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+    const registerForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: register.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+        registerForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: register.url(options),
+            method: 'get',
+        })
+            /**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+        registerForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: register.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    register.form = registerForm
+/**
 * @see \App\Http\Controllers\SearchController::search
  * @see app/Http/Controllers/SearchController.php:15
  * @route '/search'
@@ -361,7 +439,7 @@ privacy.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     privacy.form = privacyForm
 /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
 export const accessibility = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -376,7 +454,7 @@ accessibility.definition = {
 
 /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
 accessibility.url = (options?: RouteQueryOptions) => {
@@ -385,7 +463,7 @@ accessibility.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
 accessibility.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -394,7 +472,7 @@ accessibility.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
 accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -404,7 +482,7 @@ accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
 
     /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
     const accessibilityForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -414,7 +492,7 @@ accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
 
             /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
         accessibilityForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -423,7 +501,7 @@ accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
         })
             /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
         accessibilityForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -439,7 +517,7 @@ accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
     accessibility.form = accessibilityForm
 /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
 export const cookies = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -454,7 +532,7 @@ cookies.definition = {
 
 /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
 cookies.url = (options?: RouteQueryOptions) => {
@@ -463,7 +541,7 @@ cookies.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
 cookies.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -472,7 +550,7 @@ cookies.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
 cookies.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -482,7 +560,7 @@ cookies.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
     const cookiesForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -492,7 +570,7 @@ cookies.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
         cookiesForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -501,7 +579,7 @@ cookies.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
         cookiesForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

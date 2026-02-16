@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -19,7 +17,7 @@ class UserController extends Controller
             'users' => User::where('id', '!=', auth()->id())
                 ->orderBy('name')
                 ->get()
-                ->map(fn($user) => [
+                ->map(fn ($user) => [
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,

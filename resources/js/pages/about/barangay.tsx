@@ -44,7 +44,10 @@ export default function BarangayPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
                 <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
                     <nav className="mb-4 text-sm font-medium text-slate-300">
-                        <Link href="/" className="hover:text-white transition-colors">
+                        <Link
+                            href="/"
+                            className="transition-colors hover:text-white"
+                        >
                             Home
                         </Link>
                         <span className="mx-2">/</span>
@@ -55,7 +58,7 @@ export default function BarangayPage() {
                     <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                         Barangay
                     </h1>
-                    <p className="mt-2 text-lg text-slate-300 max-w-2xl">
+                    <p className="mt-2 max-w-2xl text-lg text-slate-300">
                         Municipality of Hinobaan · Province of Negros Occidental
                     </p>
                 </div>

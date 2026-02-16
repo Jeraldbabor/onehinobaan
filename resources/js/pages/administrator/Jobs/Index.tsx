@@ -100,8 +100,8 @@ export default function JobsIndexPage({ jobs }: JobsIndexPageProps) {
                                                 <span>
                                                     {job.published_at
                                                         ? new Date(
-                                                            job.published_at,
-                                                        ).toLocaleDateString()
+                                                              job.published_at,
+                                                          ).toLocaleDateString()
                                                         : 'Draft'}
                                                 </span>
                                                 {job.file_url && (

@@ -1,0 +1,26 @@
+
+> lint
+> eslint . --fix
+
+
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\administrator\users-index.tsx
+    2:16  error  'Search' is defined but never used           @typescript-eslint/no-unused-vars
+    2:24  error  'MoreHorizontal' is defined but never used   @typescript-eslint/no-unused-vars
+    2:62  error  'ShieldCheck' is defined but never used      @typescript-eslint/no-unused-vars
+    8:5   error  'CardDescription' is defined but never used  @typescript-eslint/no-unused-vars
+    9:5   error  'CardHeader' is defined but never used       @typescript-eslint/no-unused-vars
+   10:5   error  'CardTitle' is defined but never used        @typescript-eslint/no-unused-vars
+  342:54  error  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+  447:54  error  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\auth\login.tsx
+  23:5  error  'canRegister' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\contact.tsx
+  1:10  error  'Head' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\settings\profile.tsx
+  2:10  error  'Form' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 11 problems (11 errors, 0 warnings)
+

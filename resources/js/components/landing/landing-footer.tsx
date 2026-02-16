@@ -31,7 +31,11 @@ export function LandingFooter() {
     const { contact } = usePage<PageProps>().props;
 
     const contactInfo = [
-        { icon: MapPin, label: contact?.address || 'Hinobaan, Negros Occidental, Philippines' },
+        {
+            icon: MapPin,
+            label:
+                contact?.address || 'Hinobaan, Negros Occidental, Philippines',
+        },
         { icon: Phone, label: contact?.phone || '(034) 123-4567' },
         { icon: Mail, label: contact?.email || 'info@hinobaan.gov.ph' },
     ];
@@ -107,7 +111,7 @@ export function LandingFooter() {
                     ))}
                 </div>
                 {/* Bottom bar */}
-                <div className="mt-8 flex flex-col items-center justify-between gap-6 border-t border-neutral-800 pt-6 sm:mt-14 lg:flex-row sm:pt-8">
+                <div className="mt-8 flex flex-col items-center justify-between gap-6 border-t border-neutral-800 pt-6 sm:mt-14 sm:pt-8 lg:flex-row">
                     <p className="text-center text-xs text-neutral-500 sm:text-left sm:text-sm">
                         © 2026 Municipality of Hinobaan. All rights reserved.
                     </p>
@@ -136,7 +140,10 @@ export function LandingFooter() {
                     </div>
 
                     <p className="text-center text-xs text-neutral-500 sm:text-right sm:text-sm">
-                        Power By: <span className="font-medium text-neutral-400 transition hover:text-white">TreeByte Software Development Services</span>
+                        Power By:{' '}
+                        <span className="font-medium text-neutral-400 transition hover:text-white">
+                            TreeByte Software Development Services
+                        </span>
                     </p>
                 </div>
             </div>

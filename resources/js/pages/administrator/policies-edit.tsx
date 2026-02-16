@@ -61,8 +61,9 @@ export default function PoliciesEdit({
                         Legal & Privacy Policies
                     </h2>
                     <p className="max-w-2xl text-sm text-muted-foreground">
-                        Manage the content for your site's Privacy Policy, Cookie Policy, and Accessibility Statement.
-                        You can use HTML tags for formatting.
+                        Manage the content for your site's Privacy Policy,
+                        Cookie Policy, and Accessibility Statement. You can use
+                        HTML tags for formatting.
                     </p>
                 </header>
 
@@ -72,22 +73,30 @@ export default function PoliciesEdit({
                         <CardHeader>
                             <div className="flex items-center gap-2">
                                 <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                    <ShieldAlert className="size-4" aria-hidden />
+                                    <ShieldAlert
+                                        className="size-4"
+                                        aria-hidden
+                                    />
                                 </span>
                                 <CardTitle className="text-base">
                                     Privacy Policy
                                 </CardTitle>
                             </div>
                             <CardDescription>
-                                Defines how the municipality handles user data and privacy.
+                                Defines how the municipality handles user data
+                                and privacy.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
-                            <Label htmlFor="privacy" className="sr-only">Privacy Policy Content</Label>
+                            <Label htmlFor="privacy" className="sr-only">
+                                Privacy Policy Content
+                            </Label>
                             <textarea
                                 id="privacy"
                                 value={data.privacy}
-                                onChange={(e) => setData('privacy', e.target.value)}
+                                onChange={(e) =>
+                                    setData('privacy', e.target.value)
+                                }
                                 className={textareaClass}
                                 placeholder="Enter Privacy Policy content..."
                             />
@@ -111,11 +120,15 @@ export default function PoliciesEdit({
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
-                            <Label htmlFor="cookies" className="sr-only">Cookie Policy Content</Label>
+                            <Label htmlFor="cookies" className="sr-only">
+                                Cookie Policy Content
+                            </Label>
                             <textarea
                                 id="cookies"
                                 value={data.cookies}
-                                onChange={(e) => setData('cookies', e.target.value)}
+                                onChange={(e) =>
+                                    setData('cookies', e.target.value)
+                                }
                                 className={textareaClass}
                                 placeholder="Enter Cookie Policy content..."
                             />
@@ -128,22 +141,30 @@ export default function PoliciesEdit({
                         <CardHeader>
                             <div className="flex items-center gap-2">
                                 <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                    <Accessibility className="size-4" aria-hidden />
+                                    <Accessibility
+                                        className="size-4"
+                                        aria-hidden
+                                    />
                                 </span>
                                 <CardTitle className="text-base">
                                     Accessibility Statement
                                 </CardTitle>
                             </div>
                             <CardDescription>
-                                Your commitment to making the website accessible for all.
+                                Your commitment to making the website accessible
+                                for all.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
-                            <Label htmlFor="accessibility" className="sr-only">Accessibility Statement Content</Label>
+                            <Label htmlFor="accessibility" className="sr-only">
+                                Accessibility Statement Content
+                            </Label>
                             <textarea
                                 id="accessibility"
                                 value={data.accessibility}
-                                onChange={(e) => setData('accessibility', e.target.value)}
+                                onChange={(e) =>
+                                    setData('accessibility', e.target.value)
+                                }
                                 className={textareaClass}
                                 placeholder="Enter Accessibility Statement content..."
                             />
@@ -175,7 +196,11 @@ export default function PoliciesEdit({
                     </div>
                 </form>
             </div>
-            <Toast open={showToast} onOpenChange={setShowToast} title="Policies Saved" />
+            <Toast
+                open={showToast}
+                onOpenChange={setShowToast}
+                title="Policies Saved"
+            />
         </AppLayout>
     );
 }

@@ -12,9 +12,11 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
- 
+
     const ROLE_ADMIN = 'admin';
+
     const ROLE_EDITOR = 'editor';
+
     const ROLE_USER = 'user';
 
     /**

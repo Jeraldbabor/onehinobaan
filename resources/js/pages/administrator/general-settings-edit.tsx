@@ -519,7 +519,8 @@ export default function GeneralSettingsEdit({
                                 </CardTitle>
                             </div>
                             <CardDescription>
-                                Upload the latest Citizen's Charter PDF document.
+                                Upload the latest Citizen's Charter PDF
+                                document.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">

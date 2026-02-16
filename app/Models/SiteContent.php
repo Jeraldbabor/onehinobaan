@@ -22,8 +22,11 @@ class SiteContent extends Model
     public const KEY_CONTACT = 'contact';
 
     public const KEY_GENERAL_SETTINGS = 'general_settings';
+
     public const KEY_PRIVACY_POLICY = 'privacy_policy';
+
     public const KEY_COOKIES_POLICY = 'cookies_policy';
+
     public const KEY_ACCESSIBILITY_POLICY = 'accessibility_policy';
 
     protected $fillable = ['key', 'content', 'image_path'];

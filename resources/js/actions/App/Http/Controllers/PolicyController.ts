@@ -79,7 +79,7 @@ privacy.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     privacy.form = privacyForm
 /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
 export const accessibility = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ accessibility.definition = {
 
 /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
 accessibility.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ accessibility.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
 accessibility.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ accessibility.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
 accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
 
     /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
     const accessibilityForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
 
             /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
         accessibilityForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
         })
             /**
 * @see \App\Http\Controllers\PolicyController::accessibility
- * @see app/Http/Controllers/PolicyController.php:20
+ * @see app/Http/Controllers/PolicyController.php:21
  * @route '/accessibility'
  */
         accessibilityForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ accessibility.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
     accessibility.form = accessibilityForm
 /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
 export const cookies = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -172,7 +172,7 @@ cookies.definition = {
 
 /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
 cookies.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ cookies.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
 cookies.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -190,7 +190,7 @@ cookies.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
 cookies.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -200,7 +200,7 @@ cookies.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
     const cookiesForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -210,7 +210,7 @@ cookies.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
         cookiesForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -219,7 +219,7 @@ cookies.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\PolicyController::cookies
- * @see app/Http/Controllers/PolicyController.php:29
+ * @see app/Http/Controllers/PolicyController.php:31
  * @route '/cookies'
  */
         cookiesForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

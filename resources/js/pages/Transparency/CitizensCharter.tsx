@@ -24,10 +24,19 @@ export default function CitizensCharter() {
                 <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
                     <nav className="mb-4 flex" aria-label="Breadcrumb">
                         <ol className="flex items-center space-x-2 text-sm text-slate-300">
-                            <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
+                            <li>
+                                <a
+                                    href="/"
+                                    className="transition-colors hover:text-white"
+                                >
+                                    Home
+                                </a>
+                            </li>
                             <li className="flex items-center space-x-2">
                                 <span className="text-slate-500">/</span>
-                                <span className="text-white font-medium">Citizen's Charter</span>
+                                <span className="font-medium text-white">
+                                    Citizen's Charter
+                                </span>
                             </li>
                         </ol>
                     </nav>
@@ -43,48 +52,74 @@ export default function CitizensCharter() {
                         {/* Sidebar/Info */}
                         <div className="lg:col-span-1">
                             <div className="sticky top-24 space-y-6">
-                                <div className="rounded-xl bg-white p-6 shadow-sm border border-slate-200">
-                                    <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                                    <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
                                         <FileText className="size-5 text-blue-600" />
                                         Document Info
                                     </h2>
-                                    <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                                        The Citizen's Charter is a guide on the different services provided by the Municipality of Hinoba-an, including the requirements and processing times.
+                                    <p className="mb-6 text-sm leading-relaxed text-slate-600">
+                                        The Citizen's Charter is a guide on the
+                                        different services provided by the
+                                        Municipality of Hinoba-an, including the
+                                        requirements and processing times.
                                     </p>
 
                                     {charterUrl ? (
                                         <div className="space-y-3">
-                                            <Button asChild className="w-full bg-blue-700 hover:bg-blue-800">
-                                                <a href={charterUrl} download="Citizens_Charter_Hinobaan.pdf">
+                                            <Button
+                                                asChild
+                                                className="w-full bg-blue-700 hover:bg-blue-800"
+                                            >
+                                                <a
+                                                    href={charterUrl}
+                                                    download="Citizens_Charter_Hinobaan.pdf"
+                                                >
                                                     <Download className="mr-2 size-4" />
                                                     Download PDF
                                                 </a>
                                             </Button>
-                                            <Button variant="outline" asChild className="w-full border-slate-300">
-                                                <a href={charterUrl} target="_blank" rel="noopener noreferrer">
+                                            <Button
+                                                variant="outline"
+                                                asChild
+                                                className="w-full border-slate-300"
+                                            >
+                                                <a
+                                                    href={charterUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
                                                     <ExternalLink className="mr-2 size-4" />
                                                     Open in New Tab
                                                 </a>
                                             </Button>
                                         </div>
                                     ) : (
-                                        <div className="rounded-lg bg-amber-50 p-4 border border-amber-200">
+                                        <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
                                             <p className="text-xs text-amber-800 italic">
-                                                The digital copy of the charter is currently being updated. Please check back later.
+                                                The digital copy of the charter
+                                                is currently being updated.
+                                                Please check back later.
                                             </p>
                                         </div>
                                     )}
                                 </div>
 
-                                <div className="rounded-xl bg-blue-900 p-6 text-white shadow-lg overflow-hidden relative">
+                                <div className="relative overflow-hidden rounded-xl bg-blue-900 p-6 text-white shadow-lg">
                                     <div className="absolute -right-4 -bottom-4 opacity-10">
                                         <FileText size={120} />
                                     </div>
-                                    <h3 className="text-lg font-bold mb-2">Need Help?</h3>
-                                    <p className="text-sm text-blue-100 mb-4">
-                                        For inquiries regarding municipal services, feel free to contact our office.
+                                    <h3 className="mb-2 text-lg font-bold">
+                                        Need Help?
+                                    </h3>
+                                    <p className="mb-4 text-sm text-blue-100">
+                                        For inquiries regarding municipal
+                                        services, feel free to contact our
+                                        office.
                                     </p>
-                                    <a href="/contact" className="text-sm font-bold underline hover:text-blue-200">
+                                    <a
+                                        href="/contact"
+                                        className="text-sm font-bold underline hover:text-blue-200"
+                                    >
                                         Contact Us &rarr;
                                     </a>
                                 </div>
@@ -93,17 +128,21 @@ export default function CitizensCharter() {
 
                         {/* PDF Viewer */}
                         <div className="lg:col-span-3">
-                            <div className="rounded-2xl bg-white shadow-xl border border-slate-200 overflow-hidden h-[800px] flex flex-col">
-                                <div className="bg-slate-900 p-4 flex items-center justify-between text-white">
+                            <div className="flex h-[800px] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+                                <div className="flex items-center justify-between bg-slate-900 p-4 text-white">
                                     <div className="flex items-center gap-3">
-                                        <div className="bg-blue-500 p-1.5 rounded">
+                                        <div className="rounded bg-blue-500 p-1.5">
                                             <FileText className="size-4" />
                                         </div>
-                                        <span className="text-sm font-medium">Digital Viewer</span>
+                                        <span className="text-sm font-medium">
+                                            Digital Viewer
+                                        </span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                                        <span className="text-[10px] uppercase tracking-wider font-bold opacity-70">Interactive Mode</span>
+                                        <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+                                        <span className="text-[10px] font-bold tracking-wider uppercase opacity-70">
+                                            Interactive Mode
+                                        </span>
                                     </div>
                                 </div>
 
@@ -114,13 +153,18 @@ export default function CitizensCharter() {
                                         title="Citizen's Charter PDF"
                                     />
                                 ) : (
-                                    <div className="flex-1 flex flex-col items-center justify-center p-12 text-center bg-slate-50">
-                                        <div className="size-20 bg-slate-200 rounded-full flex items-center justify-center mb-6">
+                                    <div className="flex flex-1 flex-col items-center justify-center bg-slate-50 p-12 text-center">
+                                        <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-slate-200">
                                             <FileText className="size-10 text-slate-400" />
                                         </div>
-                                        <h3 className="text-xl font-bold text-slate-900 mb-2">Charter Not Available</h3>
-                                        <p className="text-slate-600 max-w-sm">
-                                            The document is currently unavailable for online viewing. You can visit the Municipal Hall to view the physical copy.
+                                        <h3 className="mb-2 text-xl font-bold text-slate-900">
+                                            Charter Not Available
+                                        </h3>
+                                        <p className="max-w-sm text-slate-600">
+                                            The document is currently
+                                            unavailable for online viewing. You
+                                            can visit the Municipal Hall to view
+                                            the physical copy.
                                         </p>
                                     </div>
                                 )}

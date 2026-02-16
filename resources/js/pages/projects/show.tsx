@@ -60,18 +60,23 @@ export default function ProjectShow({ project }: ProjectShowProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
                 <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
                     <nav className="mb-4 text-sm font-medium text-slate-300">
-                        <Link href="/" className="hover:text-white transition-colors">
+                        <Link
+                            href="/"
+                            className="transition-colors hover:text-white"
+                        >
                             Home
                         </Link>
                         <span className="mx-2">/</span>
                         <span className="text-white">Municipal Projects</span>
                         <span className="mx-2">/</span>
-                        <span className="text-white truncate max-w-[200px] inline-block align-bottom">{project.title}</span>
+                        <span className="inline-block max-w-[200px] truncate align-bottom text-white">
+                            {project.title}
+                        </span>
                     </nav>
                     <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                         {project.title}
                     </h1>
-                    <p className="mt-2 text-lg text-slate-300 max-w-2xl">
+                    <p className="mt-2 max-w-2xl text-lg text-slate-300">
                         Municipality of Hinobaan · Province of Negros Occidental
                     </p>
                 </div>
@@ -119,10 +124,11 @@ export default function ProjectShow({ project }: ProjectShowProps) {
                             <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 md:p-8">
                                 <div className="mb-4 flex flex-wrap items-center gap-3">
                                     <span
-                                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wider uppercase ${project.status === 'completed'
+                                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wider uppercase ${
+                                            project.status === 'completed'
                                                 ? 'bg-green-100 text-green-700'
                                                 : 'bg-blue-100 text-blue-700'
-                                            }`}
+                                        }`}
                                     >
                                         {project.status === 'completed' ? (
                                             <CheckCircle2 className="size-3.5" />
