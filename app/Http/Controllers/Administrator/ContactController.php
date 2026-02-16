@@ -81,6 +81,9 @@ class ContactController extends Controller
             'email' => ['nullable', 'email', 'max:255'],
             'facebook_municipality_url' => ['nullable', 'string', 'max:500'],
             'facebook_mayor_url' => ['nullable', 'string', 'max:500'],
+            'hotlines' => ['nullable', 'array'],
+            'hotlines.*.label' => ['required', 'string', 'max:255'],
+            'hotlines.*.number' => ['required', 'string', 'max:255'],
             'map_embed_url' => [
                 'nullable',
                 'string',
@@ -104,6 +107,7 @@ class ContactController extends Controller
             'map_embed_url' => $request->input('map_embed_url', ''),
             'facebook_municipality_url' => $request->input('facebook_municipality_url', ''),
             'facebook_mayor_url' => $request->input('facebook_mayor_url', ''),
+            'hotlines' => $request->input('hotlines', []),
         ]);
 
         return back()->with('status', 'Contact information updated successfully.');

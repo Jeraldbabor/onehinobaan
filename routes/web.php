@@ -8,9 +8,11 @@ use App\Http\Controllers\Administrator\ContactController;
 use App\Http\Controllers\Administrator\GeneralSettingsController;
 use App\Http\Controllers\Administrator\HistoryController;
 use App\Http\Controllers\Administrator\OfficialsController;
+use App\Http\Controllers\Administrator\PolicyController as AdminPolicyController;
 use App\Http\Controllers\Administrator\TourismController as AdminTourismController;
 use App\Http\Controllers\Administrator\VisionMissionController;
 use App\Http\Controllers\AnnouncementListController;
+use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\TourismController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -130,6 +132,8 @@ Route::get('announcements/{id}', [AnnouncementListController::class, 'showAnnoun
 Route::get('activities', [ActivityListController::class, 'index'])->name('activities.index');
 Route::get('activities/{id}', [ActivityListController::class, 'show'])->name('activities.show')->whereNumber('id');
 Route::get('projects/{id}', [App\Http\Controllers\ProjectController::class, 'show'])->name('projects.show')->whereNumber('id');
+Route::get('jobs', [App\Http\Controllers\JobOpportunityController::class, 'index'])->name('jobs.index');
+Route::get('jobs/{id}', [App\Http\Controllers\JobOpportunityController::class, 'show'])->name('jobs.show')->whereNumber('id');
 
 // Public: Tourism list and item detail (detail route first so {id} is not eaten by {type})
 Route::get('tourism/{type}/{id}', [TourismController::class, 'showItem'])
@@ -143,6 +147,15 @@ Route::get('tourism/{type}', [TourismController::class, 'show'])
 Route::get('transparency/full-disclosure', function () {
     return Inertia::render('Transparency/FullDisclosure');
 })->name('transparency.full-disclosure');
+
+Route::get('transparency/citizens-charter', function () {
+    return Inertia::render('Transparency/CitizensCharter');
+})->name('transparency.citizens-charter');
+
+// Policies
+Route::get('privacy', [PolicyController::class, 'privacy'])->name('privacy');
+Route::get('accessibility', [PolicyController::class, 'accessibility'])->name('accessibility');
+Route::get('cookies', [PolicyController::class, 'cookies'])->name('cookies');
 
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');
@@ -191,6 +204,9 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/general-settings', [GeneralSettingsController::class, 'edit'])->name('general-settings.edit');
     Route::post('dashboard/general-settings', [GeneralSettingsController::class, 'update'])->name('general-settings.update');
 
+    Route::get('dashboard/policies', [AdminPolicyController::class, 'edit'])->name('policies.edit');
+    Route::post('dashboard/policies', [AdminPolicyController::class, 'update'])->name('policies.update');
+
     // News & Announcements
     Route::get('dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
     Route::get('dashboard/announcements/create', [AnnouncementController::class, 'create'])->name('announcements.create');
@@ -214,6 +230,23 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/projects/{id}/edit', [\App\Http\Controllers\Administrator\ProjectController::class, 'edit'])->name('projects.manage.edit');
     Route::put('dashboard/projects/{id}', [\App\Http\Controllers\Administrator\ProjectController::class, 'update'])->name('projects.manage.update');
     Route::delete('dashboard/projects/{id}', [\App\Http\Controllers\Administrator\ProjectController::class, 'destroy'])->name('projects.manage.destroy');
+
+    // Job Opportunities
+    Route::get('dashboard/jobs', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'index'])->name('jobs.manage.index');
+    Route::get('dashboard/jobs/create', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'create'])->name('jobs.manage.create');
+    Route::post('dashboard/jobs', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'store'])->name('jobs.manage.store');
+    Route::get('dashboard/jobs/{id}/edit', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'edit'])->name('jobs.manage.edit');
+    Route::put('dashboard/jobs/{id}', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'update'])->name('jobs.manage.update');
+    Route::delete('dashboard/jobs/{id}', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'destroy'])->name('jobs.manage.destroy');
+
+    // User Management (Super Admin only)
+    Route::middleware(['super-admin'])->group(function () {
+        Route::get('dashboard/users', [\App\Http\Controllers\Administrator\UserController::class, 'index'])->name('users.index');
+        Route::post('dashboard/users', [\App\Http\Controllers\Administrator\UserController::class, 'store'])->name('users.store');
+        Route::put('dashboard/users/{id}', [\App\Http\Controllers\Administrator\UserController::class, 'update'])->name('users.update');
+        Route::delete('dashboard/users/{id}', [\App\Http\Controllers\Administrator\UserController::class, 'destroy'])->name('users.destroy');
+        Route::post('dashboard/users/{id}/reset-password', [\App\Http\Controllers\Administrator\UserController::class, 'resetPassword'])->name('users.reset-password');
+    });
 });
 
 require __DIR__.'/settings.php';

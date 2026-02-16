@@ -13,6 +13,17 @@ export type GeneralSettings = {
     sub_page_banner_url: string;
     full_disclosure_banner_url: string;
     full_disclosure_url: string;
+    citizens_charter_url: string;
+};
+
+export type Contact = {
+    address: string;
+    phone: string;
+    email: string;
+    facebook_municipality_url: string;
+    facebook_mayor_url: string;
+    map_embed_url: string;
+    hotlines: Array<{ label: string; number: string }>;
 };
 
 export type SharedData = {
@@ -20,6 +31,7 @@ export type SharedData = {
     auth: Auth;
     sidebarOpen: boolean;
     generalSettings: GeneralSettings;
+    contact: Contact;
     [key: string]: unknown;
 };
 

@@ -28,4 +28,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('settings/two-factor', [TwoFactorAuthenticationController::class, 'show'])
         ->name('two-factor.show');
+
+    Route::middleware(['super-admin'])->group(function () {
+        Route::get('settings/accounts', [\App\Http\Controllers\Administrator\UserController::class, 'index'])->name('accounts.index');
+    });
 });

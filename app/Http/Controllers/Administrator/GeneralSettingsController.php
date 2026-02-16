@@ -18,6 +18,8 @@ class GeneralSettingsController extends Controller
 
     private const VIDEO_DIR = 'videos';
 
+    private const PDF_DIR = 'documents';
+
     /**
      * Show the admin form to edit general settings.
      */
@@ -35,6 +37,7 @@ class GeneralSettingsController extends Controller
                 'sub_page_banner_url' => $this->storageUrl($settings['sub_page_banner_path']),
                 'full_disclosure_banner_url' => $this->storageUrl($settings['full_disclosure_banner_path']),
                 'full_disclosure_url' => $settings['full_disclosure_url'] ?? 'https://fulldisclosure.dilg.gov.ph/',
+                'citizens_charter_url' => $this->storageUrl($settings['citizens_charter_path']),
             ],
         ]);
     }
@@ -54,6 +57,7 @@ class GeneralSettingsController extends Controller
                 'sub_page_banner' => ['nullable', 'image', 'max:5120'],
                 'full_disclosure_banner' => ['nullable', 'image', 'max:5120'],
                 'full_disclosure_url' => ['nullable', 'url'],
+                'citizens_charter' => ['nullable', 'file', 'mimes:pdf', 'max:10240'], // 10MB
             ]);
 
             $settings = SiteContent::getGeneralSettings();
@@ -88,6 +92,10 @@ class GeneralSettingsController extends Controller
 
             if ($request->filled('full_disclosure_url')) {
                 $settings['full_disclosure_url'] = $request->input('full_disclosure_url');
+            }
+
+            if ($request->hasFile('citizens_charter')) {
+                $settings['citizens_charter_path'] = $this->handleUpload($request->file('citizens_charter'), $settings['citizens_charter_path'], self::PDF_DIR);
             }
 
             SiteContent::setGeneralSettings($settings);

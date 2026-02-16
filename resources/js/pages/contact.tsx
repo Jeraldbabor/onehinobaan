@@ -1,9 +1,10 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { AnnouncementsSidebar } from '@/components/announcements-sidebar';
 import type { AnnouncementItem } from '@/components/announcements-sidebar';
 import { LocationMap } from '@/components/location-map';
 import LandingLayout from '@/layouts/landing-layout';
+import type { PageProps } from '@/types';
 
 type ContactPageProps = {
     contact: {
@@ -11,6 +12,7 @@ type ContactPageProps = {
         phone: string;
         email: string;
         map_embed_url: string;
+        hotlines: Array<{ label: string; number: string }>;
     };
     announcements?: AnnouncementItem[];
 };
@@ -35,20 +37,31 @@ export default function ContactPage({
 
     return (
         <LandingLayout>
-            <Head title="Contact Us - Municipality of Hinobaan" />
-            <section className="border-b-4 border-blue-800 bg-slate-800 text-white">
-                <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-                    <nav className="mb-4 text-sm text-slate-300">
-                        <Link href="/" className="hover:text-white">
+            <Head title="Contact Us" />
+            {/* Banner Section */}
+            <section className="relative h-64 w-full bg-slate-900 text-white">
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+                    style={{
+                        backgroundImage: `url('${usePage<PageProps>().props.generalSettings?.sub_page_banner_url || '/hinobaan-banner/banner2.png'}')`,
+                    }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
+                <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
+                    <nav className="mb-4 text-sm font-medium text-slate-300">
+                        <Link
+                            href="/"
+                            className="transition-colors hover:text-white"
+                        >
                             Home
                         </Link>
                         <span className="mx-2">/</span>
                         <span className="text-white">Contact Us</span>
                     </nav>
-                    <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                    <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                         Contact Us
                     </h1>
-                    <p className="mt-1 text-sm text-slate-300">
+                    <p className="mt-2 max-w-2xl text-lg text-slate-300">
                         Municipality of Hinobaan · Province of Negros Occidental
                     </p>
                 </div>
@@ -141,6 +154,36 @@ export default function ContactPage({
                                 )}
                             </div>
                         </section>
+
+                        {(contact?.hotlines ?? []).length > 0 && (
+                            <section className="bg-slate-50 py-6 sm:py-8">
+                                <div className="max-w-5xl">
+                                    <h2 className={sectionTitleClass}>
+                                        Hotlines
+                                    </h2>
+                                    <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                        {contact.hotlines.map(
+                                            (hotline, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="flex flex-col border border-slate-200 bg-white p-5 shadow-sm"
+                                                >
+                                                    <span className="text-xs font-bold tracking-wider text-blue-800 uppercase">
+                                                        {hotline.label}
+                                                    </span>
+                                                    <a
+                                                        href={`tel:${hotline.number.replace(/\s/g, '')}`}
+                                                        className="mt-1 text-xl font-bold text-slate-900 transition hover:text-blue-800"
+                                                    >
+                                                        {hotline.number}
+                                                    </a>
+                                                </div>
+                                            ),
+                                        )}
+                                    </div>
+                                </div>
+                            </section>
+                        )}
 
                         <section className="bg-slate-50 py-6 sm:py-8">
                             <div className="max-w-5xl">

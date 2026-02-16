@@ -1,0 +1,9 @@
+
+> types
+> tsc --noEmit
+
+resources/js/actions/App/Http/Controllers/Administrator/index.ts(3,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/App/Http/Controllers/Administrator/OfficialsController"' has no default export.
+resources/js/actions/App/Http/Controllers/Administrator/index.ts(9,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/App/Http/Controllers/Administrator/AnnouncementController"' has no default export.
+resources/js/actions/App/Http/Controllers/index.ts(3,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/App/Http/Controllers/AnnouncementListController"' has no default export.
+resources/js/actions/App/Http/Controllers/index.ts(4,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/App/Http/Controllers/ActivityListController"' has no default export.
+resources/js/actions/Laravel/Fortify/Http/Controllers/index.ts(9,8): error TS1192: Module '"C:/xampp1/htdocs/onehinobaan/resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController"' has no default export.

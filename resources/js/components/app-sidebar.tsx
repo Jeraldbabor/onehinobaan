@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import {
     Building2,
     CalendarDays,
@@ -16,6 +16,9 @@ import {
     Users,
     Waves,
     HardHat,
+    Briefcase,
+    ShieldAlert,
+    UserCog,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavUser } from '@/components/nav-user';
@@ -40,6 +43,7 @@ import {
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn } from '@/lib/utils';
+import type { SharedData } from '@/types';
 import AppLogo from './app-logo';
 
 const dashboardUrl = '/dashboard';
@@ -54,9 +58,16 @@ const editTourismFestivalsUrl = '/dashboard/tourism/festivals';
 const announcementsUrl = '/dashboard/announcements';
 const activitiesUrl = '/dashboard/activities';
 const projectsUrl = '/dashboard/projects';
+const jobsUrl = '/dashboard/jobs';
 const editGeneralSettingsUrl = '/dashboard/general-settings';
+const editPoliciesUrl = '/dashboard/policies';
+const usersUrl = '/dashboard/users';
 
 export function AppSidebar() {
+    const { auth } = usePage<SharedData>().props;
+    const userRole = auth.user.role;
+    const isAdmin = userRole === 'admin';
+
     const [aboutOpen, setAboutOpen] = useState(false);
     const [tourismOpen, setTourismOpen] = useState(false);
     const { currentUrl, isCurrentUrl } = useCurrentUrl();
@@ -160,6 +171,20 @@ export function AppSidebar() {
                                 <Link href={projectsUrl} prefetch>
                                     <HardHat className="size-4" />
                                     <span>Municipal Projects</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                asChild
+                                isActive={isCurrentUrl(jobsUrl)}
+                                tooltip={{
+                                    children: 'Job Opportunities',
+                                }}
+                            >
+                                <Link href={jobsUrl} prefetch>
+                                    <Briefcase className="size-4" />
+                                    <span>Job Opportunities</span>
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
@@ -359,22 +384,55 @@ export function AppSidebar() {
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     asChild
-                                    isActive={isCurrentUrl(
-                                        editGeneralSettingsUrl,
-                                    )}
+                                    isActive={isCurrentUrl(editPoliciesUrl)}
                                     tooltip={{
-                                        children: 'General Settings',
+                                        children: 'Legal & Privacy Policies',
                                     }}
                                 >
-                                    <Link
-                                        href={editGeneralSettingsUrl}
-                                        prefetch
-                                    >
-                                        <Settings className="size-4" />
-                                        <span>General Settings</span>
+                                    <Link href={editPoliciesUrl} prefetch>
+                                        <ShieldAlert className="size-4" />
+                                        <span>Legal & Policies</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
+
+                            {isAdmin && (
+                                <>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton
+                                            asChild
+                                            isActive={isCurrentUrl(
+                                                editGeneralSettingsUrl,
+                                            )}
+                                            tooltip={{
+                                                children: 'General Settings',
+                                            }}
+                                        >
+                                            <Link
+                                                href={editGeneralSettingsUrl}
+                                                prefetch
+                                            >
+                                                <Settings className="size-4" />
+                                                <span>General Settings</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton
+                                            asChild
+                                            isActive={isCurrentUrl(usersUrl)}
+                                            tooltip={{
+                                                children: 'User Management',
+                                            }}
+                                        >
+                                            <Link href={usersUrl} prefetch>
+                                                <UserCog className="size-4" />
+                                                <span>User Management</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                </>
+                            )}
                         </Collapsible>
                     </SidebarMenu>
                 </SidebarGroup>

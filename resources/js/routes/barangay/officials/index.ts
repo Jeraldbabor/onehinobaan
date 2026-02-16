@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
 export const store = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -16,7 +16,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
 store.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -44,7 +44,7 @@ store.url = (args: { id: string | number } | [id: string | number ] | string | n
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
 store.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -54,7 +54,7 @@ store.post = (args: { id: string | number } | [id: string | number ] | string | 
 
     /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
     const storeForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -64,7 +64,7 @@ store.post = (args: { id: string | number } | [id: string | number ] | string | 
 
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
         storeForm.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -75,7 +75,7 @@ store.post = (args: { id: string | number } | [id: string | number ] | string | 
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
 export const destroy = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -90,7 +90,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
 destroy.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -118,7 +118,7 @@ destroy.url = (args: { id: string | number } | [id: string | number ] | string |
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
 destroy.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -128,7 +128,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
 
     /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
     const destroyForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -143,7 +143,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
 
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
         destroyForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

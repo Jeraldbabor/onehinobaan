@@ -55,7 +55,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     store.form = storeForm
 /**
- * @see routes/web.php:20
+ * @see routes/web.php:22
  * @route '/portal-admin-1x6114'
  */
 export const portal = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -69,7 +69,7 @@ portal.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:20
+ * @see routes/web.php:22
  * @route '/portal-admin-1x6114'
  */
 portal.url = (options?: RouteQueryOptions) => {
@@ -77,7 +77,7 @@ portal.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:20
+ * @see routes/web.php:22
  * @route '/portal-admin-1x6114'
  */
 portal.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -85,7 +85,7 @@ portal.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:20
+ * @see routes/web.php:22
  * @route '/portal-admin-1x6114'
  */
 portal.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -94,7 +94,7 @@ portal.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:20
+ * @see routes/web.php:22
  * @route '/portal-admin-1x6114'
  */
     const portalForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -103,7 +103,7 @@ portal.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:20
+ * @see routes/web.php:22
  * @route '/portal-admin-1x6114'
  */
         portalForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -111,7 +111,7 @@ portal.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:20
+ * @see routes/web.php:22
  * @route '/portal-admin-1x6114'
  */
         portalForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

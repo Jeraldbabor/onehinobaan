@@ -33,33 +33,34 @@ export default function BarangayPage() {
     return (
         <LandingLayout>
             <Head title="Barangay - Municipality of Hinobaan" />
-            {/* Government-style header with banner */}
-            <section className="relative h-50 border-b-4 border-amber-500/80 text-white sm:h-60">
+            {/* Banner Section */}
+            <section className="relative h-64 w-full bg-slate-900 text-white">
                 <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
                     style={{
                         backgroundImage: `url('${usePage<PageProps>().props.generalSettings?.sub_page_banner_url || '/hinobaan-banner/banner2.png'}')`,
                     }}
                 />
-                <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-8">
-                    <div className="mx-auto w-full max-w-5xl [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]">
-                        <nav className="mb-4 text-sm text-slate-200">
-                            <Link href="/" className="hover:text-white">
-                                Home
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <span className="text-white">About Us</span>
-                            <span className="mx-2">/</span>
-                            <span className="text-white">Barangay</span>
-                        </nav>
-                        <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                            Barangay
-                        </h1>
-                        <p className="mt-1 text-sm text-slate-200">
-                            Municipality of Hinobaan · Province of Negros
-                            Occidental
-                        </p>
-                    </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
+                <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 py-12 sm:px-6 lg:px-8">
+                    <nav className="mb-4 text-sm font-medium text-slate-300">
+                        <Link
+                            href="/"
+                            className="transition-colors hover:text-white"
+                        >
+                            Home
+                        </Link>
+                        <span className="mx-2">/</span>
+                        <span className="text-white">About Us</span>
+                        <span className="mx-2">/</span>
+                        <span className="text-white">Barangay</span>
+                    </nav>
+                    <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                        Barangay
+                    </h1>
+                    <p className="mt-2 max-w-2xl text-lg text-slate-300">
+                        Municipality of Hinobaan · Province of Negros Occidental
+                    </p>
                 </div>
             </section>
 

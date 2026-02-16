@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
-import { Check, Image as ImageIcon, Video } from 'lucide-react';
+import { Check, FileText, Image as ImageIcon, Video } from 'lucide-react';
 import { useState } from 'react';
 import InputError from '@/components/input-error';
 import { Badge } from '@/components/ui/badge';
@@ -33,6 +33,7 @@ type GeneralSettingsProps = {
         sub_page_banner_url: string;
         full_disclosure_banner_url: string;
         full_disclosure_url: string;
+        citizens_charter_url: string;
     };
 };
 
@@ -49,6 +50,7 @@ export default function GeneralSettingsEdit({
             sub_page_banner: null as File | null,
             full_disclosure_banner: null as File | null,
             full_disclosure_url: settings.full_disclosure_url,
+            citizens_charter: null as File | null,
         });
 
     const [fileErrors, setFileErrors] = useState<{ [key: string]: string }>({});
@@ -501,6 +503,92 @@ export default function GeneralSettingsEdit({
                                 </p>
                                 <InputError
                                     message={errors.full_disclosure_url}
+                                />
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <div className="flex items-center gap-2">
+                                <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                    <FileText className="size-4" aria-hidden />
+                                </span>
+                                <CardTitle className="text-base">
+                                    Citizen's Charter
+                                </CardTitle>
+                            </div>
+                            <CardDescription>
+                                Upload the latest Citizen's Charter PDF
+                                document.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="citizens_charter">
+                                    Charter PDF (Max 10MB)
+                                </Label>
+                                <div className="flex flex-col gap-4">
+                                    {settings.citizens_charter_url && (
+                                        <div className="flex items-center gap-2 rounded-md border bg-slate-50 p-3">
+                                            <FileText className="size-5 text-slate-500" />
+                                            <span className="text-sm font-medium text-slate-700">
+                                                Current PDF uploaded
+                                            </span>
+                                            <a
+                                                href={
+                                                    settings.citizens_charter_url
+                                                }
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="ml-auto text-xs font-semibold text-blue-600 hover:underline"
+                                            >
+                                                View PDF
+                                            </a>
+                                        </div>
+                                    )}
+                                    <Input
+                                        id="citizens_charter"
+                                        type="file"
+                                        accept="application/pdf"
+                                        onChange={(e) => {
+                                            const file =
+                                                e.target.files?.[0] || null;
+                                            if (
+                                                file &&
+                                                checkFileSize(
+                                                    file,
+                                                    10,
+                                                    'citizens_charter',
+                                                )
+                                            ) {
+                                                setData(
+                                                    'citizens_charter',
+                                                    file,
+                                                );
+                                            } else if (!file) {
+                                                setData(
+                                                    'citizens_charter',
+                                                    null,
+                                                );
+                                                setFileErrors((prev) => {
+                                                    const newErrors = {
+                                                        ...prev,
+                                                    };
+                                                    delete newErrors[
+                                                        'citizens_charter'
+                                                    ];
+                                                    return newErrors;
+                                                });
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                <InputError
+                                    message={
+                                        errors.citizens_charter ||
+                                        fileErrors.citizens_charter
+                                    }
                                 />
                             </div>
                         </CardContent>

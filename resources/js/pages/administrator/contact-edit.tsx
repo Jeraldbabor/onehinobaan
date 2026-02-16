@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
-import { Check, MapPin, Share2 } from 'lucide-react';
+import { Check, MapPin, Phone, Share2 } from 'lucide-react';
 import { useState } from 'react';
 import InputError from '@/components/input-error';
 import { Badge } from '@/components/ui/badge';
@@ -34,6 +34,7 @@ type ContactEditPageProps = {
         map_embed_url: string;
         facebook_municipality_url?: string;
         facebook_mayor_url?: string;
+        hotlines: Array<{ label: string; number: string }>;
     };
 };
 
@@ -49,6 +50,7 @@ export default function ContactEditPage({ contact }: ContactEditPageProps) {
             map_embed_url: contact?.map_embed_url ?? '',
             facebook_municipality_url: contact?.facebook_municipality_url ?? '',
             facebook_mayor_url: contact?.facebook_mayor_url ?? '',
+            hotlines: contact?.hotlines ?? [],
         });
 
     const [showToast, setShowToast] = useState(false);
@@ -180,6 +182,97 @@ export default function ContactEditPage({ contact }: ContactEditPageProps) {
                                     ). The normal map link will not work here.
                                 </p>
                             </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader className="pb-3">
+                            <div className="flex items-center gap-2">
+                                <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                    <Phone className="size-4" aria-hidden />
+                                </span>
+                                <CardTitle className="text-base">
+                                    Hotlines
+                                </CardTitle>
+                            </div>
+                            <CardDescription>
+                                Emergency hotlines or secondary contact numbers.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {data.hotlines.map((hotline, index) => (
+                                <div
+                                    key={index}
+                                    className="flex items-end gap-3 rounded-lg border bg-neutral-50/50 p-4"
+                                >
+                                    <div className="flex-1 space-y-2">
+                                        <Label>Label</Label>
+                                        <Input
+                                            value={hotline.label}
+                                            onChange={(e) => {
+                                                const newHotlines = [
+                                                    ...data.hotlines,
+                                                ];
+                                                newHotlines[index].label =
+                                                    e.target.value;
+                                                setData(
+                                                    'hotlines',
+                                                    newHotlines,
+                                                );
+                                            }}
+                                            placeholder="e.g. MDRRMO"
+                                            className={inputClass}
+                                        />
+                                    </div>
+                                    <div className="flex-1 space-y-2">
+                                        <Label>Number</Label>
+                                        <Input
+                                            value={hotline.number}
+                                            onChange={(e) => {
+                                                const newHotlines = [
+                                                    ...data.hotlines,
+                                                ];
+                                                newHotlines[index].number =
+                                                    e.target.value;
+                                                setData(
+                                                    'hotlines',
+                                                    newHotlines,
+                                                );
+                                            }}
+                                            placeholder="e.g. 09123456789"
+                                            className={inputClass}
+                                        />
+                                    </div>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        className="mb-[1px] h-10 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                                        onClick={() =>
+                                            setData(
+                                                'hotlines',
+                                                data.hotlines.filter(
+                                                    (_, i) => i !== index,
+                                                ),
+                                            )
+                                        }
+                                    >
+                                        Remove
+                                    </Button>
+                                </div>
+                            ))}
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="w-full border-dashed"
+                                onClick={() =>
+                                    setData('hotlines', [
+                                        ...data.hotlines,
+                                        { label: '', number: '' },
+                                    ])
+                                }
+                            >
+                                + Add hotline
+                            </Button>
                         </CardContent>
                     </Card>
 
