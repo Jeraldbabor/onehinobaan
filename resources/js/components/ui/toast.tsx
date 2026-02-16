@@ -41,13 +41,12 @@ export function Toast({
             leave="transition ease-in duration-200"
             leaveFrom="opacity-100 translate-x-0 scale-100"
             leaveTo="opacity-0 translate-x-4 scale-95"
-            className="fixed bottom-6 right-6 z-50 w-full max-w-sm"
         >
             <div
                 role="status"
                 aria-live="polite"
                 className={cn(
-                    'flex items-start gap-3 rounded-xl border border-border/80 bg-card px-4 py-3.5 shadow-xl ring-1 ring-black/5',
+                    'fixed bottom-6 right-6 z-50 w-full max-w-sm flex items-start gap-3 rounded-xl border border-border/80 bg-card px-4 py-3.5 shadow-xl ring-1 ring-black/5',
                     className
                 )}
             >

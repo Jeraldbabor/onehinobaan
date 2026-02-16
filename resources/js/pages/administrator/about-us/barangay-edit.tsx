@@ -1,6 +1,6 @@
 import { Head, router, useForm } from '@inertiajs/react';
 import { Edit, MapPin, Plus, Trash2, Users } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -89,48 +89,18 @@ export default function BarangayEditPage({ barangays }: BarangayEditPageProps) {
     const [toastOpen, setToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState('Action successful.');
 
-    // Reset form when dialog closes
-    const prevIsDialogOpenRef = useRef(isDialogOpen);
-    useEffect(() => {
-        if (prevIsDialogOpenRef.current && !isDialogOpen) {
-            // Dialog just closed - reset all form state
-
+    const handleOpenChange = (open: boolean) => {
+        setIsDialogOpen(open);
+        if (!open) {
             reset();
-
             clearErrors();
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             setEditingItem(null);
-
             setImagePreview(null);
         }
-        prevIsDialogOpenRef.current = isDialogOpen;
-    }, [isDialogOpen, reset, clearErrors]);
+    };
 
-    // Sync editingItem with barangays prop to reflect changes (adding/removing officials) immediately
-    // We need to keep editingItem in sync with the barangays array when it updates
-    // This is intentional and not a performance issue in this case
-    const editingItemRef = useRef(editingItem);
-
-    useEffect(() => {
-        editingItemRef.current = editingItem;
-    }, [editingItem]);
-
-    useEffect(() => {
-        const currentEditingItem = editingItemRef.current;
-        if (currentEditingItem) {
-            const freshItem = barangays.find(
-                (b) => b.id === currentEditingItem.id,
-            );
-            if (
-                freshItem &&
-                JSON.stringify(freshItem) !== JSON.stringify(currentEditingItem)
-            ) {
-                // We need to update state to reflect changes from server
-
-                setEditingItem(freshItem);
-            }
-        }
-    }, [barangays]);
+    // We removed the sync effect to avoid 'set-state-in-effect' errors. 
+    // Changes from server will be reflected through props.
 
     const openCreateDialog = () => {
         setEditingItem(null);
@@ -373,7 +343,7 @@ export default function BarangayEditPage({ barangays }: BarangayEditPageProps) {
             </div>
 
             {/* Edit/Create Dialog */}
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
                 <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle>
@@ -520,8 +490,8 @@ export default function BarangayEditPage({ barangays }: BarangayEditPageProps) {
                                         ? 'Updating...'
                                         : 'Adding...'
                                     : editingItem
-                                      ? 'Save Changes'
-                                      : 'Add Barangay'}
+                                        ? 'Save Changes'
+                                        : 'Add Barangay'}
                             </Button>
                         </DialogFooter>
                     </form>
@@ -531,7 +501,14 @@ export default function BarangayEditPage({ barangays }: BarangayEditPageProps) {
             {/* Officials Management Dialog */}
             <Dialog
                 open={isOfficialsDialogOpen}
-                onOpenChange={setIsOfficialsDialogOpen}
+                onOpenChange={(open) => {
+                    setIsOfficialsDialogOpen(open);
+                    if (!open) {
+                        setEditingItem(null);
+                        resetOfficial();
+                        setOfficialImagePreview(null);
+                    }
+                }}
             >
                 <DialogContent className="max-h-[90vh] max-w-3xl overflow-y-auto">
                     <DialogHeader>

@@ -176,7 +176,7 @@ showDetail.head = (args: { id: string | number } | [id: string | number ] | stri
     showDetail.form = showDetailForm
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::index
- * @see app/Http/Controllers/Administrator/BarangayController.php:78
+ * @see app/Http/Controllers/Administrator/BarangayController.php:83
  * @route '/dashboard/barangay'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -191,7 +191,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::index
- * @see app/Http/Controllers/Administrator/BarangayController.php:78
+ * @see app/Http/Controllers/Administrator/BarangayController.php:83
  * @route '/dashboard/barangay'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -200,7 +200,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::index
- * @see app/Http/Controllers/Administrator/BarangayController.php:78
+ * @see app/Http/Controllers/Administrator/BarangayController.php:83
  * @route '/dashboard/barangay'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -209,7 +209,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::index
- * @see app/Http/Controllers/Administrator/BarangayController.php:78
+ * @see app/Http/Controllers/Administrator/BarangayController.php:83
  * @route '/dashboard/barangay'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -219,7 +219,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Administrator\BarangayController::index
- * @see app/Http/Controllers/Administrator/BarangayController.php:78
+ * @see app/Http/Controllers/Administrator/BarangayController.php:83
  * @route '/dashboard/barangay'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -229,7 +229,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::index
- * @see app/Http/Controllers/Administrator/BarangayController.php:78
+ * @see app/Http/Controllers/Administrator/BarangayController.php:83
  * @route '/dashboard/barangay'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -238,7 +238,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::index
- * @see app/Http/Controllers/Administrator/BarangayController.php:78
+ * @see app/Http/Controllers/Administrator/BarangayController.php:83
  * @route '/dashboard/barangay'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -254,7 +254,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:107
+ * @see app/Http/Controllers/Administrator/BarangayController.php:112
  * @route '/dashboard/barangay'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -269,7 +269,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:107
+ * @see app/Http/Controllers/Administrator/BarangayController.php:112
  * @route '/dashboard/barangay'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -278,7 +278,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:107
+ * @see app/Http/Controllers/Administrator/BarangayController.php:112
  * @route '/dashboard/barangay'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -288,7 +288,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:107
+ * @see app/Http/Controllers/Administrator/BarangayController.php:112
  * @route '/dashboard/barangay'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -298,7 +298,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::store
- * @see app/Http/Controllers/Administrator/BarangayController.php:107
+ * @see app/Http/Controllers/Administrator/BarangayController.php:112
  * @route '/dashboard/barangay'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -309,99 +309,25 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
+ * @see app/Http/Controllers/Administrator/BarangayController.php:146
  * @route '/dashboard/barangay/{id}'
  */
-const update293654085ff70c1cc372c8d6ea984220 = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: update293654085ff70c1cc372c8d6ea984220.url(args, options),
-    method: 'post',
-})
-
-update293654085ff70c1cc372c8d6ea984220.definition = {
-    methods: ["post"],
-    url: '/dashboard/barangay/{id}',
-} satisfies RouteDefinition<["post"]>
-
-/**
-* @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
- * @route '/dashboard/barangay/{id}'
- */
-update293654085ff70c1cc372c8d6ea984220.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
-    if (typeof args === 'string' || typeof args === 'number') {
-        args = { id: args }
-    }
-
-    
-    if (Array.isArray(args)) {
-        args = {
-                    id: args[0],
-                }
-    }
-
-    args = applyUrlDefaults(args)
-
-    const parsedArgs = {
-                        id: args.id,
-                }
-
-    return update293654085ff70c1cc372c8d6ea984220.definition.url
-            .replace('{id}', parsedArgs.id.toString())
-            .replace(/\/+$/, '') + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
- * @route '/dashboard/barangay/{id}'
- */
-update293654085ff70c1cc372c8d6ea984220.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: update293654085ff70c1cc372c8d6ea984220.url(args, options),
-    method: 'post',
-})
-
-    /**
-* @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
- * @route '/dashboard/barangay/{id}'
- */
-    const update293654085ff70c1cc372c8d6ea984220Form = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: update293654085ff70c1cc372c8d6ea984220.url(args, options),
-        method: 'post',
-    })
-
-            /**
-* @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
- * @route '/dashboard/barangay/{id}'
- */
-        update293654085ff70c1cc372c8d6ea984220Form.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update293654085ff70c1cc372c8d6ea984220.url(args, options),
-            method: 'post',
-        })
-    
-    update293654085ff70c1cc372c8d6ea984220.form = update293654085ff70c1cc372c8d6ea984220Form
-    /**
-* @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
- * @route '/dashboard/barangay/{id}'
- */
-const update293654085ff70c1cc372c8d6ea984220 = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
-    url: update293654085ff70c1cc372c8d6ea984220.url(args, options),
+export const update = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: update.url(args, options),
     method: 'put',
 })
 
-update293654085ff70c1cc372c8d6ea984220.definition = {
+update.definition = {
     methods: ["put"],
     url: '/dashboard/barangay/{id}',
 } satisfies RouteDefinition<["put"]>
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
+ * @see app/Http/Controllers/Administrator/BarangayController.php:146
  * @route '/dashboard/barangay/{id}'
  */
-update293654085ff70c1cc372c8d6ea984220.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
+update.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { id: args }
     }
@@ -419,28 +345,28 @@ update293654085ff70c1cc372c8d6ea984220.url = (args: { id: string | number } | [i
                         id: args.id,
                 }
 
-    return update293654085ff70c1cc372c8d6ea984220.definition.url
+    return update.definition.url
             .replace('{id}', parsedArgs.id.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
+ * @see app/Http/Controllers/Administrator/BarangayController.php:146
  * @route '/dashboard/barangay/{id}'
  */
-update293654085ff70c1cc372c8d6ea984220.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
-    url: update293654085ff70c1cc372c8d6ea984220.url(args, options),
+update.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: update.url(args, options),
     method: 'put',
 })
 
     /**
 * @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
+ * @see app/Http/Controllers/Administrator/BarangayController.php:146
  * @route '/dashboard/barangay/{id}'
  */
-    const update293654085ff70c1cc372c8d6ea984220Form = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: update293654085ff70c1cc372c8d6ea984220.url(args, {
+    const updateForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
                         ...(options?.query ?? options?.mergeQuery ?? {}),
@@ -451,11 +377,11 @@ update293654085ff70c1cc372c8d6ea984220.put = (args: { id: string | number } | [i
 
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::update
- * @see app/Http/Controllers/Administrator/BarangayController.php:141
+ * @see app/Http/Controllers/Administrator/BarangayController.php:146
  * @route '/dashboard/barangay/{id}'
  */
-        update293654085ff70c1cc372c8d6ea984220Form.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update293654085ff70c1cc372c8d6ea984220.url(args, {
+        updateForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
                             ...(options?.query ?? options?.mergeQuery ?? {}),
@@ -464,16 +390,10 @@ update293654085ff70c1cc372c8d6ea984220.put = (args: { id: string | number } | [i
             method: 'post',
         })
     
-    update293654085ff70c1cc372c8d6ea984220.form = update293654085ff70c1cc372c8d6ea984220Form
-
-export const update = {
-    '/dashboard/barangay/{id}': update293654085ff70c1cc372c8d6ea984220,
-    '/dashboard/barangay/{id}': update293654085ff70c1cc372c8d6ea984220,
-}
-
+    update.form = updateForm
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:177
+ * @see app/Http/Controllers/Administrator/BarangayController.php:182
  * @route '/dashboard/barangay/{id}'
  */
 export const destroy = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -488,7 +408,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:177
+ * @see app/Http/Controllers/Administrator/BarangayController.php:182
  * @route '/dashboard/barangay/{id}'
  */
 destroy.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -516,7 +436,7 @@ destroy.url = (args: { id: string | number } | [id: string | number ] | string |
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:177
+ * @see app/Http/Controllers/Administrator/BarangayController.php:182
  * @route '/dashboard/barangay/{id}'
  */
 destroy.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -526,7 +446,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
 
     /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:177
+ * @see app/Http/Controllers/Administrator/BarangayController.php:182
  * @route '/dashboard/barangay/{id}'
  */
     const destroyForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -541,7 +461,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
 
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroy
- * @see app/Http/Controllers/Administrator/BarangayController.php:177
+ * @see app/Http/Controllers/Administrator/BarangayController.php:182
  * @route '/dashboard/barangay/{id}'
  */
         destroyForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -557,7 +477,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
     destroy.form = destroyForm
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::storeOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
 export const storeOfficial = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -572,7 +492,7 @@ storeOfficial.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::storeOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
 storeOfficial.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -600,7 +520,7 @@ storeOfficial.url = (args: { id: string | number } | [id: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::storeOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
 storeOfficial.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -610,7 +530,7 @@ storeOfficial.post = (args: { id: string | number } | [id: string | number ] | s
 
     /**
 * @see \App\Http\Controllers\Administrator\BarangayController::storeOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
     const storeOfficialForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -620,7 +540,7 @@ storeOfficial.post = (args: { id: string | number } | [id: string | number ] | s
 
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::storeOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:200
+ * @see app/Http/Controllers/Administrator/BarangayController.php:205
  * @route '/dashboard/barangay/{id}/officials'
  */
         storeOfficialForm.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -631,7 +551,7 @@ storeOfficial.post = (args: { id: string | number } | [id: string | number ] | s
     storeOfficial.form = storeOfficialForm
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroyOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
 export const destroyOfficial = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -646,7 +566,7 @@ destroyOfficial.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroyOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
 destroyOfficial.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -674,7 +594,7 @@ destroyOfficial.url = (args: { id: string | number } | [id: string | number ] | 
 
 /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroyOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
 destroyOfficial.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -684,7 +604,7 @@ destroyOfficial.delete = (args: { id: string | number } | [id: string | number ]
 
     /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroyOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
     const destroyOfficialForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -699,7 +619,7 @@ destroyOfficial.delete = (args: { id: string | number } | [id: string | number ]
 
             /**
 * @see \App\Http\Controllers\Administrator\BarangayController::destroyOfficial
- * @see app/Http/Controllers/Administrator/BarangayController.php:227
+ * @see app/Http/Controllers/Administrator/BarangayController.php:232
  * @route '/dashboard/barangay/officials/{id}'
  */
         destroyOfficialForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
