@@ -106,7 +106,7 @@ const mobileNavItems: NavItem[] = [
     {
         label: 'Key Officials',
         children: [
-            { label: 'Organizational Chart', href: '#' },
+            { label: 'All Officials', href: '/about/officials' },
             { label: 'Our Mayor', href: '/about/officials/mayor' },
             {
                 label: 'Vice Mayor',
@@ -674,13 +674,16 @@ export function LandingHeader() {
                                     <div className="absolute top-full left-0 z-50 mt-1 w-full rounded-lg border border-neutral-200 bg-white py-1 shadow-lg">
                                         {searchResults.length > 0 ? (
                                             searchResults.map(
-                                                (result: {
-                                                    id: string | number;
-                                                    url: string;
-                                                    title: string;
-                                                }) => (
+                                                (
+                                                    result: {
+                                                        id: string | number;
+                                                        url: string;
+                                                        title: string;
+                                                    },
+                                                    idx,
+                                                ) => (
                                                     <Link
-                                                        key={result.id}
+                                                        key={`search-result-${result.id}-${idx}`}
                                                         href={result.url || '#'}
                                                         className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                                                     >
@@ -830,16 +833,16 @@ export function LandingHeader() {
                         aria-label="Mobile main"
                     >
                         <div className="flex flex-col gap-1">
-                            {mobileNavItems.map((item) => {
-                                const sectionKey = item.label;
+                            {mobileNavItems.map((item, index) => {
+                                const sectionKey = `mobile-section-${item.label}-${index}`;
                                 const isExpanded =
-                                    mobileExpandedSection === sectionKey;
+                                    mobileExpandedSection === item.label;
 
                                 // Simple link without children
                                 if (!hasChildren(item) && !hasGroups(item)) {
                                     return (
                                         <Link
-                                            key={item.href}
+                                            key={`mobile-link-${item.href}`}
                                             href={item.href}
                                             className="rounded-lg px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50"
                                             onClick={() =>
@@ -869,7 +872,7 @@ export function LandingHeader() {
                                                 setMobileExpandedSection(
                                                     isExpanded
                                                         ? null
-                                                        : sectionKey,
+                                                        : item.label,
                                                 )
                                             }
                                             aria-expanded={isExpanded}
@@ -895,11 +898,9 @@ export function LandingHeader() {
                                                 <div className="flex flex-col gap-0.5 pt-1 pb-1 pl-3">
                                                     {hasGroups(item) &&
                                                         item.groups.map(
-                                                            (group) => (
+                                                            (group, gIdx) => (
                                                                 <div
-                                                                    key={
-                                                                        group.sectionTitle
-                                                                    }
+                                                                    key={`mobile-group-${group.sectionTitle}-${gIdx}`}
                                                                     className="flex flex-col"
                                                                 >
                                                                     <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
@@ -912,9 +913,7 @@ export function LandingHeader() {
                                                                             link,
                                                                         ) => (
                                                                             <Link
-                                                                                key={
-                                                                                    link.href
-                                                                                }
+                                                                                key={`mobile-group-link-${link.href}`}
                                                                                 href={
                                                                                     link.href
                                                                                 }
@@ -936,7 +935,7 @@ export function LandingHeader() {
                                                         )}
                                                     {hasChildren(item) &&
                                                         item.children.map(
-                                                            (child) => {
+                                                            (child, cIdx) => {
                                                                 if (
                                                                     hasNestedChildren(
                                                                         child,
@@ -944,9 +943,7 @@ export function LandingHeader() {
                                                                 ) {
                                                                     return (
                                                                         <div
-                                                                            key={
-                                                                                child.label
-                                                                            }
+                                                                            key={`mobile-child-nested-${child.label}-${cIdx}`}
                                                                             className="flex flex-col"
                                                                         >
                                                                             <span className="px-3 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
@@ -959,9 +956,7 @@ export function LandingHeader() {
                                                                                     sub,
                                                                                 ) => (
                                                                                     <Link
-                                                                                        key={
-                                                                                            sub.href
-                                                                                        }
+                                                                                        key={`mobile-sub-link-${sub.href}`}
                                                                                         href={
                                                                                             sub.href
                                                                                         }
@@ -983,12 +978,7 @@ export function LandingHeader() {
                                                                 }
                                                                 return (
                                                                     <Link
-                                                                        key={
-                                                                            (
-                                                                                child as NavLink
-                                                                            )
-                                                                                .href
-                                                                        }
+                                                                        key={`mobile-child-link-${(child as NavLink).href}`}
                                                                         href={
                                                                             (
                                                                                 child as NavLink
