@@ -31,3 +31,5 @@ class PasswordConfirmationTest extends TestCase
         $response->assertRedirect(route('login.portal'));
     }
 }
+
+
