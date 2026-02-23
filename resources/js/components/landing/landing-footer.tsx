@@ -141,9 +141,14 @@ export function LandingFooter() {
 
                     <p className="text-center text-xs text-neutral-500 sm:text-right sm:text-sm">
                         Power By:{' '}
-                        <span className="font-medium text-neutral-400 transition hover:text-white">
+                        <a
+                            href="https://treebyte.vercel.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium text-neutral-400 transition hover:text-white"
+                        >
                             TreeByte Software Development Services
-                        </span>
+                        </a>
                     </p>
                 </div>
             </div>
