@@ -68,8 +68,8 @@ type TourismItemEditorProps = {
     addDescription: string;
     Icon: LucideIcon;
     currentLabel: string;
-    /** When 'attraction' or 'resort', the optional social media URL field is shown. */
-    type?: 'attraction' | 'resort' | 'festival';
+    /** When 'attraction' or 'resort' or 'restaurant', the optional social media URL field is shown. */
+    type?: 'attraction' | 'resort' | 'festival' | 'restaurant';
 };
 
 export function TourismItemEditor({
@@ -87,7 +87,9 @@ export function TourismItemEditor({
     type: editorType,
 }: TourismItemEditorProps) {
     const showSocialMedia =
-        editorType === 'attraction' || editorType === 'resort';
+        editorType === 'attraction' ||
+        editorType === 'resort' ||
+        editorType === 'restaurant';
     const rawErrors =
         (usePage().props.errors as
             | Record<string, string | string[]>

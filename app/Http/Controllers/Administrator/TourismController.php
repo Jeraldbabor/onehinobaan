@@ -29,6 +29,10 @@ class TourismController extends Controller
             return TourismItem::TYPE_FESTIVAL;
         }
 
+        if (str_contains($name, 'restaurants')) {
+            return TourismItem::TYPE_RESTAURANT;
+        }
+
         return TourismItem::TYPE_ATTRACTION;
     }
 
@@ -36,6 +40,7 @@ class TourismController extends Controller
         TourismItem::TYPE_ATTRACTION => 'administrator/tourism/attraction-edit',
         TourismItem::TYPE_RESORT => 'administrator/tourism/resorts-edit',
         TourismItem::TYPE_FESTIVAL => 'administrator/tourism/festivals-edit',
+        TourismItem::TYPE_RESTAURANT => 'administrator/tourism/restaurants-edit',
     ];
 
     /**

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/attraction'
  */
 const index41ef28566d7d941ff3774508a9d967a0 = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index41ef28566d7d941ff3774508a9d967a0.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/attraction'
  */
 index41ef28566d7d941ff3774508a9d967a0.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index41ef28566d7d941ff3774508a9d967a0.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/attraction'
  */
 index41ef28566d7d941ff3774508a9d967a0.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index41ef28566d7d941ff3774508a9d967a0.get = (options?: RouteQueryOptions): Route
 })
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/attraction'
  */
 index41ef28566d7d941ff3774508a9d967a0.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index41ef28566d7d941ff3774508a9d967a0.head = (options?: RouteQueryOptions): Rout
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/attraction'
  */
     const index41ef28566d7d941ff3774508a9d967a0Form = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index41ef28566d7d941ff3774508a9d967a0.head = (options?: RouteQueryOptions): Rout
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/attraction'
  */
         index41ef28566d7d941ff3774508a9d967a0Form.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index41ef28566d7d941ff3774508a9d967a0.head = (options?: RouteQueryOptions): Rout
         })
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/attraction'
  */
         index41ef28566d7d941ff3774508a9d967a0Form.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index41ef28566d7d941ff3774508a9d967a0.head = (options?: RouteQueryOptions): Rout
     index41ef28566d7d941ff3774508a9d967a0.form = index41ef28566d7d941ff3774508a9d967a0Form
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
 const index04383fd9c1919941e1a4425a1adc36e8 = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ index04383fd9c1919941e1a4425a1adc36e8.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
 index04383fd9c1919941e1a4425a1adc36e8.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ index04383fd9c1919941e1a4425a1adc36e8.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
 index04383fd9c1919941e1a4425a1adc36e8.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ index04383fd9c1919941e1a4425a1adc36e8.get = (options?: RouteQueryOptions): Route
 })
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
 index04383fd9c1919941e1a4425a1adc36e8.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ index04383fd9c1919941e1a4425a1adc36e8.head = (options?: RouteQueryOptions): Rout
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
     const index04383fd9c1919941e1a4425a1adc36e8Form = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ index04383fd9c1919941e1a4425a1adc36e8.head = (options?: RouteQueryOptions): Rout
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
         index04383fd9c1919941e1a4425a1adc36e8Form.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ index04383fd9c1919941e1a4425a1adc36e8.head = (options?: RouteQueryOptions): Rout
         })
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
         index04383fd9c1919941e1a4425a1adc36e8Form.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ index04383fd9c1919941e1a4425a1adc36e8.head = (options?: RouteQueryOptions): Rout
     index04383fd9c1919941e1a4425a1adc36e8.form = index04383fd9c1919941e1a4425a1adc36e8Form
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/festivals'
  */
 const index16bb4c8d0ff5438fef9ac3dca19be6bc = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -172,7 +172,7 @@ index16bb4c8d0ff5438fef9ac3dca19be6bc.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/festivals'
  */
 index16bb4c8d0ff5438fef9ac3dca19be6bc.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ index16bb4c8d0ff5438fef9ac3dca19be6bc.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/festivals'
  */
 index16bb4c8d0ff5438fef9ac3dca19be6bc.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -190,7 +190,7 @@ index16bb4c8d0ff5438fef9ac3dca19be6bc.get = (options?: RouteQueryOptions): Route
 })
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/festivals'
  */
 index16bb4c8d0ff5438fef9ac3dca19be6bc.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -200,7 +200,7 @@ index16bb4c8d0ff5438fef9ac3dca19be6bc.head = (options?: RouteQueryOptions): Rout
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/festivals'
  */
     const index16bb4c8d0ff5438fef9ac3dca19be6bcForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -210,7 +210,7 @@ index16bb4c8d0ff5438fef9ac3dca19be6bc.head = (options?: RouteQueryOptions): Rout
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/festivals'
  */
         index16bb4c8d0ff5438fef9ac3dca19be6bcForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -219,7 +219,7 @@ index16bb4c8d0ff5438fef9ac3dca19be6bc.head = (options?: RouteQueryOptions): Rout
         })
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::index
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/festivals'
  */
         index16bb4c8d0ff5438fef9ac3dca19be6bcForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -233,16 +233,95 @@ index16bb4c8d0ff5438fef9ac3dca19be6bc.head = (options?: RouteQueryOptions): Rout
         })
     
     index16bb4c8d0ff5438fef9ac3dca19be6bc.form = index16bb4c8d0ff5438fef9ac3dca19be6bcForm
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::index
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
+ * @route '/dashboard/tourism/restaurants'
+ */
+const indexb6cbf8d40ccda84c2186c587c80ed5fe = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: indexb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+    method: 'get',
+})
+
+indexb6cbf8d40ccda84c2186c587c80ed5fe.definition = {
+    methods: ["get","head"],
+    url: '/dashboard/tourism/restaurants',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::index
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
+ * @route '/dashboard/tourism/restaurants'
+ */
+indexb6cbf8d40ccda84c2186c587c80ed5fe.url = (options?: RouteQueryOptions) => {
+    return indexb6cbf8d40ccda84c2186c587c80ed5fe.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::index
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
+ * @route '/dashboard/tourism/restaurants'
+ */
+indexb6cbf8d40ccda84c2186c587c80ed5fe.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: indexb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::index
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
+ * @route '/dashboard/tourism/restaurants'
+ */
+indexb6cbf8d40ccda84c2186c587c80ed5fe.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: indexb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::index
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
+ * @route '/dashboard/tourism/restaurants'
+ */
+    const indexb6cbf8d40ccda84c2186c587c80ed5feForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: indexb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::index
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
+ * @route '/dashboard/tourism/restaurants'
+ */
+        indexb6cbf8d40ccda84c2186c587c80ed5feForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: indexb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::index
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
+ * @route '/dashboard/tourism/restaurants'
+ */
+        indexb6cbf8d40ccda84c2186c587c80ed5feForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: indexb6cbf8d40ccda84c2186c587c80ed5fe.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    indexb6cbf8d40ccda84c2186c587c80ed5fe.form = indexb6cbf8d40ccda84c2186c587c80ed5feForm
 
 export const index = {
     '/dashboard/tourism/attraction': index41ef28566d7d941ff3774508a9d967a0,
     '/dashboard/tourism/resorts': index04383fd9c1919941e1a4425a1adc36e8,
     '/dashboard/tourism/festivals': index16bb4c8d0ff5438fef9ac3dca19be6bc,
+    '/dashboard/tourism/restaurants': indexb6cbf8d40ccda84c2186c587c80ed5fe,
 }
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/attraction'
  */
 const store41ef28566d7d941ff3774508a9d967a0 = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -257,7 +336,7 @@ store41ef28566d7d941ff3774508a9d967a0.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/attraction'
  */
 store41ef28566d7d941ff3774508a9d967a0.url = (options?: RouteQueryOptions) => {
@@ -266,7 +345,7 @@ store41ef28566d7d941ff3774508a9d967a0.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/attraction'
  */
 store41ef28566d7d941ff3774508a9d967a0.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -276,7 +355,7 @@ store41ef28566d7d941ff3774508a9d967a0.post = (options?: RouteQueryOptions): Rout
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/attraction'
  */
     const store41ef28566d7d941ff3774508a9d967a0Form = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -286,7 +365,7 @@ store41ef28566d7d941ff3774508a9d967a0.post = (options?: RouteQueryOptions): Rout
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/attraction'
  */
         store41ef28566d7d941ff3774508a9d967a0Form.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -297,7 +376,7 @@ store41ef28566d7d941ff3774508a9d967a0.post = (options?: RouteQueryOptions): Rout
     store41ef28566d7d941ff3774508a9d967a0.form = store41ef28566d7d941ff3774508a9d967a0Form
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
 const store04383fd9c1919941e1a4425a1adc36e8 = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -312,7 +391,7 @@ store04383fd9c1919941e1a4425a1adc36e8.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
 store04383fd9c1919941e1a4425a1adc36e8.url = (options?: RouteQueryOptions) => {
@@ -321,7 +400,7 @@ store04383fd9c1919941e1a4425a1adc36e8.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
 store04383fd9c1919941e1a4425a1adc36e8.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -331,7 +410,7 @@ store04383fd9c1919941e1a4425a1adc36e8.post = (options?: RouteQueryOptions): Rout
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
     const store04383fd9c1919941e1a4425a1adc36e8Form = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -341,7 +420,7 @@ store04383fd9c1919941e1a4425a1adc36e8.post = (options?: RouteQueryOptions): Rout
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
         store04383fd9c1919941e1a4425a1adc36e8Form.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -352,7 +431,7 @@ store04383fd9c1919941e1a4425a1adc36e8.post = (options?: RouteQueryOptions): Rout
     store04383fd9c1919941e1a4425a1adc36e8.form = store04383fd9c1919941e1a4425a1adc36e8Form
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/festivals'
  */
 const store16bb4c8d0ff5438fef9ac3dca19be6bc = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -367,7 +446,7 @@ store16bb4c8d0ff5438fef9ac3dca19be6bc.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/festivals'
  */
 store16bb4c8d0ff5438fef9ac3dca19be6bc.url = (options?: RouteQueryOptions) => {
@@ -376,7 +455,7 @@ store16bb4c8d0ff5438fef9ac3dca19be6bc.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/festivals'
  */
 store16bb4c8d0ff5438fef9ac3dca19be6bc.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -386,7 +465,7 @@ store16bb4c8d0ff5438fef9ac3dca19be6bc.post = (options?: RouteQueryOptions): Rout
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/festivals'
  */
     const store16bb4c8d0ff5438fef9ac3dca19be6bcForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -396,7 +475,7 @@ store16bb4c8d0ff5438fef9ac3dca19be6bc.post = (options?: RouteQueryOptions): Rout
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/festivals'
  */
         store16bb4c8d0ff5438fef9ac3dca19be6bcForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -405,16 +484,72 @@ store16bb4c8d0ff5438fef9ac3dca19be6bc.post = (options?: RouteQueryOptions): Rout
         })
     
     store16bb4c8d0ff5438fef9ac3dca19be6bc.form = store16bb4c8d0ff5438fef9ac3dca19be6bcForm
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::store
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
+ * @route '/dashboard/tourism/restaurants'
+ */
+const storeb6cbf8d40ccda84c2186c587c80ed5fe = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: storeb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+    method: 'post',
+})
+
+storeb6cbf8d40ccda84c2186c587c80ed5fe.definition = {
+    methods: ["post"],
+    url: '/dashboard/tourism/restaurants',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::store
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
+ * @route '/dashboard/tourism/restaurants'
+ */
+storeb6cbf8d40ccda84c2186c587c80ed5fe.url = (options?: RouteQueryOptions) => {
+    return storeb6cbf8d40ccda84c2186c587c80ed5fe.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::store
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
+ * @route '/dashboard/tourism/restaurants'
+ */
+storeb6cbf8d40ccda84c2186c587c80ed5fe.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: storeb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::store
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
+ * @route '/dashboard/tourism/restaurants'
+ */
+    const storeb6cbf8d40ccda84c2186c587c80ed5feForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: storeb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::store
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
+ * @route '/dashboard/tourism/restaurants'
+ */
+        storeb6cbf8d40ccda84c2186c587c80ed5feForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: storeb6cbf8d40ccda84c2186c587c80ed5fe.url(options),
+            method: 'post',
+        })
+    
+    storeb6cbf8d40ccda84c2186c587c80ed5fe.form = storeb6cbf8d40ccda84c2186c587c80ed5feForm
 
 export const store = {
     '/dashboard/tourism/attraction': store41ef28566d7d941ff3774508a9d967a0,
     '/dashboard/tourism/resorts': store04383fd9c1919941e1a4425a1adc36e8,
     '/dashboard/tourism/festivals': store16bb4c8d0ff5438fef9ac3dca19be6bc,
+    '/dashboard/tourism/restaurants': storeb6cbf8d40ccda84c2186c587c80ed5fe,
 }
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/attraction/{id}'
  */
 const update28fec01d66f15b6227011c5fb39c8f09 = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -429,7 +564,7 @@ update28fec01d66f15b6227011c5fb39c8f09.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/attraction/{id}'
  */
 update28fec01d66f15b6227011c5fb39c8f09.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -457,7 +592,7 @@ update28fec01d66f15b6227011c5fb39c8f09.url = (args: { id: string | number } | [i
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/attraction/{id}'
  */
 update28fec01d66f15b6227011c5fb39c8f09.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -467,7 +602,7 @@ update28fec01d66f15b6227011c5fb39c8f09.put = (args: { id: string | number } | [i
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/attraction/{id}'
  */
     const update28fec01d66f15b6227011c5fb39c8f09Form = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -482,7 +617,7 @@ update28fec01d66f15b6227011c5fb39c8f09.put = (args: { id: string | number } | [i
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/attraction/{id}'
  */
         update28fec01d66f15b6227011c5fb39c8f09Form.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -498,7 +633,7 @@ update28fec01d66f15b6227011c5fb39c8f09.put = (args: { id: string | number } | [i
     update28fec01d66f15b6227011c5fb39c8f09.form = update28fec01d66f15b6227011c5fb39c8f09Form
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
 const updateef6526e7dad67ec99630a237c554485d = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -513,7 +648,7 @@ updateef6526e7dad67ec99630a237c554485d.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
 updateef6526e7dad67ec99630a237c554485d.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -541,7 +676,7 @@ updateef6526e7dad67ec99630a237c554485d.url = (args: { id: string | number } | [i
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
 updateef6526e7dad67ec99630a237c554485d.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -551,7 +686,7 @@ updateef6526e7dad67ec99630a237c554485d.put = (args: { id: string | number } | [i
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
     const updateef6526e7dad67ec99630a237c554485dForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -566,7 +701,7 @@ updateef6526e7dad67ec99630a237c554485d.put = (args: { id: string | number } | [i
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
         updateef6526e7dad67ec99630a237c554485dForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -582,7 +717,7 @@ updateef6526e7dad67ec99630a237c554485d.put = (args: { id: string | number } | [i
     updateef6526e7dad67ec99630a237c554485d.form = updateef6526e7dad67ec99630a237c554485dForm
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/festivals/{id}'
  */
 const updatedea0f0fd5c817eb0c32f49791f4324a5 = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -597,7 +732,7 @@ updatedea0f0fd5c817eb0c32f49791f4324a5.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/festivals/{id}'
  */
 updatedea0f0fd5c817eb0c32f49791f4324a5.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -625,7 +760,7 @@ updatedea0f0fd5c817eb0c32f49791f4324a5.url = (args: { id: string | number } | [i
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/festivals/{id}'
  */
 updatedea0f0fd5c817eb0c32f49791f4324a5.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -635,7 +770,7 @@ updatedea0f0fd5c817eb0c32f49791f4324a5.put = (args: { id: string | number } | [i
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/festivals/{id}'
  */
     const updatedea0f0fd5c817eb0c32f49791f4324a5Form = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -650,7 +785,7 @@ updatedea0f0fd5c817eb0c32f49791f4324a5.put = (args: { id: string | number } | [i
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/festivals/{id}'
  */
         updatedea0f0fd5c817eb0c32f49791f4324a5Form.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -664,16 +799,101 @@ updatedea0f0fd5c817eb0c32f49791f4324a5.put = (args: { id: string | number } | [i
         })
     
     updatedea0f0fd5c817eb0c32f49791f4324a5.form = updatedea0f0fd5c817eb0c32f49791f4324a5Form
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::update
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+const update92e07a620cab25446468306179d1c3ae = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: update92e07a620cab25446468306179d1c3ae.url(args, options),
+    method: 'put',
+})
+
+update92e07a620cab25446468306179d1c3ae.definition = {
+    methods: ["put"],
+    url: '/dashboard/tourism/restaurants/{id}',
+} satisfies RouteDefinition<["put"]>
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::update
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+update92e07a620cab25446468306179d1c3ae.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { id: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    id: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        id: args.id,
+                }
+
+    return update92e07a620cab25446468306179d1c3ae.definition.url
+            .replace('{id}', parsedArgs.id.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::update
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+update92e07a620cab25446468306179d1c3ae.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: update92e07a620cab25446468306179d1c3ae.url(args, options),
+    method: 'put',
+})
+
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::update
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+    const update92e07a620cab25446468306179d1c3aeForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update92e07a620cab25446468306179d1c3ae.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::update
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+        update92e07a620cab25446468306179d1c3aeForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update92e07a620cab25446468306179d1c3ae.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update92e07a620cab25446468306179d1c3ae.form = update92e07a620cab25446468306179d1c3aeForm
 
 export const update = {
     '/dashboard/tourism/attraction/{id}': update28fec01d66f15b6227011c5fb39c8f09,
     '/dashboard/tourism/resorts/{id}': updateef6526e7dad67ec99630a237c554485d,
     '/dashboard/tourism/festivals/{id}': updatedea0f0fd5c817eb0c32f49791f4324a5,
+    '/dashboard/tourism/restaurants/{id}': update92e07a620cab25446468306179d1c3ae,
 }
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/attraction/images/{imageId}'
  */
 const destroyImage53b0e08a277e95d6ae2bbd7f95039db7 = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -688,7 +908,7 @@ destroyImage53b0e08a277e95d6ae2bbd7f95039db7.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/attraction/images/{imageId}'
  */
 destroyImage53b0e08a277e95d6ae2bbd7f95039db7.url = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -716,7 +936,7 @@ destroyImage53b0e08a277e95d6ae2bbd7f95039db7.url = (args: { imageId: string | nu
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/attraction/images/{imageId}'
  */
 destroyImage53b0e08a277e95d6ae2bbd7f95039db7.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -726,7 +946,7 @@ destroyImage53b0e08a277e95d6ae2bbd7f95039db7.delete = (args: { imageId: string |
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/attraction/images/{imageId}'
  */
     const destroyImage53b0e08a277e95d6ae2bbd7f95039db7Form = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -741,7 +961,7 @@ destroyImage53b0e08a277e95d6ae2bbd7f95039db7.delete = (args: { imageId: string |
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/attraction/images/{imageId}'
  */
         destroyImage53b0e08a277e95d6ae2bbd7f95039db7Form.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -757,7 +977,7 @@ destroyImage53b0e08a277e95d6ae2bbd7f95039db7.delete = (args: { imageId: string |
     destroyImage53b0e08a277e95d6ae2bbd7f95039db7.form = destroyImage53b0e08a277e95d6ae2bbd7f95039db7Form
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
 const destroyImagee9fefd4453298993a61e62788db4fb3e = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -772,7 +992,7 @@ destroyImagee9fefd4453298993a61e62788db4fb3e.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
 destroyImagee9fefd4453298993a61e62788db4fb3e.url = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -800,7 +1020,7 @@ destroyImagee9fefd4453298993a61e62788db4fb3e.url = (args: { imageId: string | nu
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
 destroyImagee9fefd4453298993a61e62788db4fb3e.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -810,7 +1030,7 @@ destroyImagee9fefd4453298993a61e62788db4fb3e.delete = (args: { imageId: string |
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
     const destroyImagee9fefd4453298993a61e62788db4fb3eForm = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -825,7 +1045,7 @@ destroyImagee9fefd4453298993a61e62788db4fb3e.delete = (args: { imageId: string |
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
         destroyImagee9fefd4453298993a61e62788db4fb3eForm.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -841,7 +1061,7 @@ destroyImagee9fefd4453298993a61e62788db4fb3e.delete = (args: { imageId: string |
     destroyImagee9fefd4453298993a61e62788db4fb3e.form = destroyImagee9fefd4453298993a61e62788db4fb3eForm
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/festivals/images/{imageId}'
  */
 const destroyImagea6434bc4e35f00c7430a10777d99069c = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -856,7 +1076,7 @@ destroyImagea6434bc4e35f00c7430a10777d99069c.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/festivals/images/{imageId}'
  */
 destroyImagea6434bc4e35f00c7430a10777d99069c.url = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -884,7 +1104,7 @@ destroyImagea6434bc4e35f00c7430a10777d99069c.url = (args: { imageId: string | nu
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/festivals/images/{imageId}'
  */
 destroyImagea6434bc4e35f00c7430a10777d99069c.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -894,7 +1114,7 @@ destroyImagea6434bc4e35f00c7430a10777d99069c.delete = (args: { imageId: string |
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/festivals/images/{imageId}'
  */
     const destroyImagea6434bc4e35f00c7430a10777d99069cForm = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -909,7 +1129,7 @@ destroyImagea6434bc4e35f00c7430a10777d99069c.delete = (args: { imageId: string |
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/festivals/images/{imageId}'
  */
         destroyImagea6434bc4e35f00c7430a10777d99069cForm.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -923,16 +1143,101 @@ destroyImagea6434bc4e35f00c7430a10777d99069c.delete = (args: { imageId: string |
         })
     
     destroyImagea6434bc4e35f00c7430a10777d99069c.form = destroyImagea6434bc4e35f00c7430a10777d99069cForm
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroyImage
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
+ * @route '/dashboard/tourism/restaurants/images/{imageId}'
+ */
+const destroyImage203a1e58b1620f2d501134ae166af231 = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroyImage203a1e58b1620f2d501134ae166af231.url(args, options),
+    method: 'delete',
+})
+
+destroyImage203a1e58b1620f2d501134ae166af231.definition = {
+    methods: ["delete"],
+    url: '/dashboard/tourism/restaurants/images/{imageId}',
+} satisfies RouteDefinition<["delete"]>
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::destroyImage
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
+ * @route '/dashboard/tourism/restaurants/images/{imageId}'
+ */
+destroyImage203a1e58b1620f2d501134ae166af231.url = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { imageId: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    imageId: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        imageId: args.imageId,
+                }
+
+    return destroyImage203a1e58b1620f2d501134ae166af231.definition.url
+            .replace('{imageId}', parsedArgs.imageId.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::destroyImage
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
+ * @route '/dashboard/tourism/restaurants/images/{imageId}'
+ */
+destroyImage203a1e58b1620f2d501134ae166af231.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroyImage203a1e58b1620f2d501134ae166af231.url(args, options),
+    method: 'delete',
+})
+
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroyImage
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
+ * @route '/dashboard/tourism/restaurants/images/{imageId}'
+ */
+    const destroyImage203a1e58b1620f2d501134ae166af231Form = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroyImage203a1e58b1620f2d501134ae166af231.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroyImage
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
+ * @route '/dashboard/tourism/restaurants/images/{imageId}'
+ */
+        destroyImage203a1e58b1620f2d501134ae166af231Form.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroyImage203a1e58b1620f2d501134ae166af231.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroyImage203a1e58b1620f2d501134ae166af231.form = destroyImage203a1e58b1620f2d501134ae166af231Form
 
 export const destroyImage = {
     '/dashboard/tourism/attraction/images/{imageId}': destroyImage53b0e08a277e95d6ae2bbd7f95039db7,
     '/dashboard/tourism/resorts/images/{imageId}': destroyImagee9fefd4453298993a61e62788db4fb3e,
     '/dashboard/tourism/festivals/images/{imageId}': destroyImagea6434bc4e35f00c7430a10777d99069c,
+    '/dashboard/tourism/restaurants/images/{imageId}': destroyImage203a1e58b1620f2d501134ae166af231,
 }
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/attraction/{id}'
  */
 const destroy28fec01d66f15b6227011c5fb39c8f09 = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -947,7 +1252,7 @@ destroy28fec01d66f15b6227011c5fb39c8f09.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/attraction/{id}'
  */
 destroy28fec01d66f15b6227011c5fb39c8f09.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -975,7 +1280,7 @@ destroy28fec01d66f15b6227011c5fb39c8f09.url = (args: { id: string | number } | [
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/attraction/{id}'
  */
 destroy28fec01d66f15b6227011c5fb39c8f09.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -985,7 +1290,7 @@ destroy28fec01d66f15b6227011c5fb39c8f09.delete = (args: { id: string | number } 
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/attraction/{id}'
  */
     const destroy28fec01d66f15b6227011c5fb39c8f09Form = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -1000,7 +1305,7 @@ destroy28fec01d66f15b6227011c5fb39c8f09.delete = (args: { id: string | number } 
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/attraction/{id}'
  */
         destroy28fec01d66f15b6227011c5fb39c8f09Form.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -1016,7 +1321,7 @@ destroy28fec01d66f15b6227011c5fb39c8f09.delete = (args: { id: string | number } 
     destroy28fec01d66f15b6227011c5fb39c8f09.form = destroy28fec01d66f15b6227011c5fb39c8f09Form
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
 const destroyef6526e7dad67ec99630a237c554485d = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -1031,7 +1336,7 @@ destroyef6526e7dad67ec99630a237c554485d.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
 destroyef6526e7dad67ec99630a237c554485d.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -1059,7 +1364,7 @@ destroyef6526e7dad67ec99630a237c554485d.url = (args: { id: string | number } | [
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
 destroyef6526e7dad67ec99630a237c554485d.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -1069,7 +1374,7 @@ destroyef6526e7dad67ec99630a237c554485d.delete = (args: { id: string | number } 
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
     const destroyef6526e7dad67ec99630a237c554485dForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -1084,7 +1389,7 @@ destroyef6526e7dad67ec99630a237c554485d.delete = (args: { id: string | number } 
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
         destroyef6526e7dad67ec99630a237c554485dForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -1100,7 +1405,7 @@ destroyef6526e7dad67ec99630a237c554485d.delete = (args: { id: string | number } 
     destroyef6526e7dad67ec99630a237c554485d.form = destroyef6526e7dad67ec99630a237c554485dForm
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/festivals/{id}'
  */
 const destroydea0f0fd5c817eb0c32f49791f4324a5 = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -1115,7 +1420,7 @@ destroydea0f0fd5c817eb0c32f49791f4324a5.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/festivals/{id}'
  */
 destroydea0f0fd5c817eb0c32f49791f4324a5.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -1143,7 +1448,7 @@ destroydea0f0fd5c817eb0c32f49791f4324a5.url = (args: { id: string | number } | [
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/festivals/{id}'
  */
 destroydea0f0fd5c817eb0c32f49791f4324a5.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -1153,7 +1458,7 @@ destroydea0f0fd5c817eb0c32f49791f4324a5.delete = (args: { id: string | number } 
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/festivals/{id}'
  */
     const destroydea0f0fd5c817eb0c32f49791f4324a5Form = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -1168,7 +1473,7 @@ destroydea0f0fd5c817eb0c32f49791f4324a5.delete = (args: { id: string | number } 
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/festivals/{id}'
  */
         destroydea0f0fd5c817eb0c32f49791f4324a5Form.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -1182,11 +1487,96 @@ destroydea0f0fd5c817eb0c32f49791f4324a5.delete = (args: { id: string | number } 
         })
     
     destroydea0f0fd5c817eb0c32f49791f4324a5.form = destroydea0f0fd5c817eb0c32f49791f4324a5Form
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroy
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+const destroy92e07a620cab25446468306179d1c3ae = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroy92e07a620cab25446468306179d1c3ae.url(args, options),
+    method: 'delete',
+})
+
+destroy92e07a620cab25446468306179d1c3ae.definition = {
+    methods: ["delete"],
+    url: '/dashboard/tourism/restaurants/{id}',
+} satisfies RouteDefinition<["delete"]>
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::destroy
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+destroy92e07a620cab25446468306179d1c3ae.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { id: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    id: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        id: args.id,
+                }
+
+    return destroy92e07a620cab25446468306179d1c3ae.definition.url
+            .replace('{id}', parsedArgs.id.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Administrator\TourismController::destroy
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+destroy92e07a620cab25446468306179d1c3ae.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroy92e07a620cab25446468306179d1c3ae.url(args, options),
+    method: 'delete',
+})
+
+    /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroy
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+    const destroy92e07a620cab25446468306179d1c3aeForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroy92e07a620cab25446468306179d1c3ae.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Administrator\TourismController::destroy
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
+ * @route '/dashboard/tourism/restaurants/{id}'
+ */
+        destroy92e07a620cab25446468306179d1c3aeForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroy92e07a620cab25446468306179d1c3ae.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroy92e07a620cab25446468306179d1c3ae.form = destroy92e07a620cab25446468306179d1c3aeForm
 
 export const destroy = {
     '/dashboard/tourism/attraction/{id}': destroy28fec01d66f15b6227011c5fb39c8f09,
     '/dashboard/tourism/resorts/{id}': destroyef6526e7dad67ec99630a237c554485d,
     '/dashboard/tourism/festivals/{id}': destroydea0f0fd5c817eb0c32f49791f4324a5,
+    '/dashboard/tourism/restaurants/{id}': destroy92e07a620cab25446468306179d1c3ae,
 }
 
 const TourismController = { index, store, update, destroyImage, destroy }

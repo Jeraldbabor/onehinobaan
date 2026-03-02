@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
- * @see routes/web.php:147
+ * @see routes/web.php:156
  * @route '/transparency/full-disclosure'
  */
 export const fullDisclosure = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ fullDisclosure.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:147
+ * @see routes/web.php:156
  * @route '/transparency/full-disclosure'
  */
 fullDisclosure.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ fullDisclosure.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:147
+ * @see routes/web.php:156
  * @route '/transparency/full-disclosure'
  */
 fullDisclosure.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -30,7 +30,7 @@ fullDisclosure.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:147
+ * @see routes/web.php:156
  * @route '/transparency/full-disclosure'
  */
 fullDisclosure.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -39,7 +39,7 @@ fullDisclosure.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => 
 })
 
     /**
- * @see routes/web.php:147
+ * @see routes/web.php:156
  * @route '/transparency/full-disclosure'
  */
     const fullDisclosureForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -48,7 +48,7 @@ fullDisclosure.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => 
     })
 
             /**
- * @see routes/web.php:147
+ * @see routes/web.php:156
  * @route '/transparency/full-disclosure'
  */
         fullDisclosureForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -56,7 +56,7 @@ fullDisclosure.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => 
             method: 'get',
         })
             /**
- * @see routes/web.php:147
+ * @see routes/web.php:156
  * @route '/transparency/full-disclosure'
  */
         fullDisclosureForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -71,7 +71,7 @@ fullDisclosure.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => 
     
     fullDisclosure.form = fullDisclosureForm
 /**
- * @see routes/web.php:151
+ * @see routes/web.php:160
  * @route '/transparency/citizens-charter'
  */
 export const citizensCharter = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -85,7 +85,7 @@ citizensCharter.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:151
+ * @see routes/web.php:160
  * @route '/transparency/citizens-charter'
  */
 citizensCharter.url = (options?: RouteQueryOptions) => {
@@ -93,7 +93,7 @@ citizensCharter.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:151
+ * @see routes/web.php:160
  * @route '/transparency/citizens-charter'
  */
 citizensCharter.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -101,7 +101,7 @@ citizensCharter.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => (
     method: 'get',
 })
 /**
- * @see routes/web.php:151
+ * @see routes/web.php:160
  * @route '/transparency/citizens-charter'
  */
 citizensCharter.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -110,7 +110,7 @@ citizensCharter.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =>
 })
 
     /**
- * @see routes/web.php:151
+ * @see routes/web.php:160
  * @route '/transparency/citizens-charter'
  */
     const citizensCharterForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -119,7 +119,7 @@ citizensCharter.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =>
     })
 
             /**
- * @see routes/web.php:151
+ * @see routes/web.php:160
  * @route '/transparency/citizens-charter'
  */
         citizensCharterForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -127,7 +127,7 @@ citizensCharter.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =>
             method: 'get',
         })
             /**
- * @see routes/web.php:151
+ * @see routes/web.php:160
  * @route '/transparency/citizens-charter'
  */
         citizensCharterForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

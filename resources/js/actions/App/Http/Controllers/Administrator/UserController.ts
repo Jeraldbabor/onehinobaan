@@ -163,7 +163,7 @@ export const index = {
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::store
- * @see app/Http/Controllers/Administrator/UserController.php:31
+ * @see app/Http/Controllers/Administrator/UserController.php:32
  * @route '/dashboard/users'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -178,7 +178,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::store
- * @see app/Http/Controllers/Administrator/UserController.php:31
+ * @see app/Http/Controllers/Administrator/UserController.php:32
  * @route '/dashboard/users'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -187,7 +187,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::store
- * @see app/Http/Controllers/Administrator/UserController.php:31
+ * @see app/Http/Controllers/Administrator/UserController.php:32
  * @route '/dashboard/users'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -197,7 +197,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\Administrator\UserController::store
- * @see app/Http/Controllers/Administrator/UserController.php:31
+ * @see app/Http/Controllers/Administrator/UserController.php:32
  * @route '/dashboard/users'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -207,7 +207,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\Administrator\UserController::store
- * @see app/Http/Controllers/Administrator/UserController.php:31
+ * @see app/Http/Controllers/Administrator/UserController.php:32
  * @route '/dashboard/users'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -218,7 +218,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\Administrator\UserController::update
- * @see app/Http/Controllers/Administrator/UserController.php:55
+ * @see app/Http/Controllers/Administrator/UserController.php:59
  * @route '/dashboard/users/{id}'
  */
 export const update = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -233,7 +233,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::update
- * @see app/Http/Controllers/Administrator/UserController.php:55
+ * @see app/Http/Controllers/Administrator/UserController.php:59
  * @route '/dashboard/users/{id}'
  */
 update.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -261,7 +261,7 @@ update.url = (args: { id: string | number } | [id: string | number ] | string | 
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::update
- * @see app/Http/Controllers/Administrator/UserController.php:55
+ * @see app/Http/Controllers/Administrator/UserController.php:59
  * @route '/dashboard/users/{id}'
  */
 update.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -271,7 +271,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
 
     /**
 * @see \App\Http\Controllers\Administrator\UserController::update
- * @see app/Http/Controllers/Administrator/UserController.php:55
+ * @see app/Http/Controllers/Administrator/UserController.php:59
  * @route '/dashboard/users/{id}'
  */
     const updateForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -286,7 +286,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
 
             /**
 * @see \App\Http\Controllers\Administrator\UserController::update
- * @see app/Http/Controllers/Administrator/UserController.php:55
+ * @see app/Http/Controllers/Administrator/UserController.php:59
  * @route '/dashboard/users/{id}'
  */
         updateForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -302,7 +302,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\Administrator\UserController::destroy
- * @see app/Http/Controllers/Administrator/UserController.php:79
+ * @see app/Http/Controllers/Administrator/UserController.php:86
  * @route '/dashboard/users/{id}'
  */
 export const destroy = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -317,7 +317,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::destroy
- * @see app/Http/Controllers/Administrator/UserController.php:79
+ * @see app/Http/Controllers/Administrator/UserController.php:86
  * @route '/dashboard/users/{id}'
  */
 destroy.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -345,7 +345,7 @@ destroy.url = (args: { id: string | number } | [id: string | number ] | string |
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::destroy
- * @see app/Http/Controllers/Administrator/UserController.php:79
+ * @see app/Http/Controllers/Administrator/UserController.php:86
  * @route '/dashboard/users/{id}'
  */
 destroy.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -355,7 +355,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
 
     /**
 * @see \App\Http\Controllers\Administrator\UserController::destroy
- * @see app/Http/Controllers/Administrator/UserController.php:79
+ * @see app/Http/Controllers/Administrator/UserController.php:86
  * @route '/dashboard/users/{id}'
  */
     const destroyForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -370,7 +370,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
 
             /**
 * @see \App\Http\Controllers\Administrator\UserController::destroy
- * @see app/Http/Controllers/Administrator/UserController.php:79
+ * @see app/Http/Controllers/Administrator/UserController.php:86
  * @route '/dashboard/users/{id}'
  */
         destroyForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -386,7 +386,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
     destroy.form = destroyForm
 /**
 * @see \App\Http\Controllers\Administrator\UserController::resetPassword
- * @see app/Http/Controllers/Administrator/UserController.php:96
+ * @see app/Http/Controllers/Administrator/UserController.php:103
  * @route '/dashboard/users/{id}/reset-password'
  */
 export const resetPassword = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -401,7 +401,7 @@ resetPassword.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::resetPassword
- * @see app/Http/Controllers/Administrator/UserController.php:96
+ * @see app/Http/Controllers/Administrator/UserController.php:103
  * @route '/dashboard/users/{id}/reset-password'
  */
 resetPassword.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -429,7 +429,7 @@ resetPassword.url = (args: { id: string | number } | [id: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\Administrator\UserController::resetPassword
- * @see app/Http/Controllers/Administrator/UserController.php:96
+ * @see app/Http/Controllers/Administrator/UserController.php:103
  * @route '/dashboard/users/{id}/reset-password'
  */
 resetPassword.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -439,7 +439,7 @@ resetPassword.post = (args: { id: string | number } | [id: string | number ] | s
 
     /**
 * @see \App\Http\Controllers\Administrator\UserController::resetPassword
- * @see app/Http/Controllers/Administrator/UserController.php:96
+ * @see app/Http/Controllers/Administrator/UserController.php:103
  * @route '/dashboard/users/{id}/reset-password'
  */
     const resetPasswordForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -449,7 +449,7 @@ resetPassword.post = (args: { id: string | number } | [id: string | number ] | s
 
             /**
 * @see \App\Http\Controllers\Administrator\UserController::resetPassword
- * @see app/Http/Controllers/Administrator/UserController.php:96
+ * @see app/Http/Controllers/Administrator/UserController.php:103
  * @route '/dashboard/users/{id}/reset-password'
  */
         resetPasswordForm.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -63,6 +63,7 @@ const primaryNavItems: NavItem[] = [
         children: [
             { label: 'Attraction', href: '/tourism/attraction' },
             { label: 'Resorts', href: '/tourism/resorts' },
+            { label: 'Restaurants', href: '/tourism/restaurants' },
             { label: 'Festivals', href: '/tourism/festivals' },
         ],
     },
@@ -120,6 +121,7 @@ const mobileNavItems: NavItem[] = [
         children: [
             { label: 'Attraction', href: '/tourism/attraction' },
             { label: 'Resorts', href: '/tourism/resorts' },
+            { label: 'Restaurants', href: '/tourism/restaurants' },
             { label: 'Festivals', href: '/tourism/festivals' },
         ],
     },
