@@ -18,12 +18,14 @@ class TourismController extends Controller
             'attraction' => TourismItem::TYPE_ATTRACTION,
             'resorts' => TourismItem::TYPE_RESORT,
             'festivals' => TourismItem::TYPE_FESTIVAL,
+            'restaurants' => TourismItem::TYPE_RESTAURANT,
         ];
         $internalType = $typeMap[$type] ?? TourismItem::TYPE_ATTRACTION;
         $titleMap = [
             TourismItem::TYPE_ATTRACTION => 'Attraction',
             TourismItem::TYPE_RESORT => 'Resorts',
             TourismItem::TYPE_FESTIVAL => 'Festivals',
+            TourismItem::TYPE_RESTAURANT => 'Restaurants',
         ];
 
         $items = TourismItem::ofType($internalType)->with('images')->get()->map(fn (TourismItem $item) => [
@@ -54,12 +56,14 @@ class TourismController extends Controller
             'attraction' => TourismItem::TYPE_ATTRACTION,
             'resorts' => TourismItem::TYPE_RESORT,
             'festivals' => TourismItem::TYPE_FESTIVAL,
+            'restaurants' => TourismItem::TYPE_RESTAURANT,
         ];
         $internalType = $typeMap[$type] ?? TourismItem::TYPE_ATTRACTION;
         $titleMap = [
             TourismItem::TYPE_ATTRACTION => 'Attraction',
             TourismItem::TYPE_RESORT => 'Resorts',
             TourismItem::TYPE_FESTIVAL => 'Festivals',
+            TourismItem::TYPE_RESTAURANT => 'Restaurants',
         ];
 
         $item = TourismItem::ofType($internalType)->with('images')->findOrFail($id);

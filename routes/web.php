@@ -64,6 +64,14 @@ Route::get('/', function () {
         'image_url' => $item->image_url,
         'image_urls' => $item->images->map(fn ($img) => $img->image_url)->values()->all(),
     ]);
+    $tourismRestaurants = \App\Models\TourismItem::ofType('restaurant')->with('images')->take(3)->get()->map(fn ($item) => [
+        'id' => $item->id,
+        'title' => $item->title,
+        'description' => $item->description,
+        'address' => $item->address,
+        'image_url' => $item->image_url,
+        'image_urls' => $item->images->map(fn ($img) => $img->image_url)->values()->all(),
+    ]);
     $tourismFestivals = \App\Models\TourismItem::ofType('festival')->with('images')->take(3)->get()->map(fn ($item) => [
         'id' => $item->id,
         'title' => $item->title,
@@ -101,6 +109,7 @@ Route::get('/', function () {
         'tourismAttractions' => $tourismAttractions,
         'tourismResorts' => $tourismResorts,
         'tourismFestivals' => $tourismFestivals,
+        'tourismRestaurants' => $tourismRestaurants,
     ]);
 })->name('home');
 
@@ -137,10 +146,10 @@ Route::get('jobs/{id}', [App\Http\Controllers\JobOpportunityController::class, '
 
 // Public: Tourism list and item detail (detail route first so {id} is not eaten by {type})
 Route::get('tourism/{type}/{id}', [TourismController::class, 'showItem'])
-    ->where('type', 'attraction|resorts|festivals')
+    ->where('type', 'attraction|resorts|festivals|restaurants')
     ->name('tourism.item');
 Route::get('tourism/{type}', [TourismController::class, 'show'])
-    ->where('type', 'attraction|resorts|festivals')
+    ->where('type', 'attraction|resorts|festivals|restaurants')
     ->name('tourism.show');
 
 // Transparency
@@ -163,81 +172,100 @@ Route::get('dashboard', function () {
 
 // Admin: Edit history, vision/mission, officials, barangay, tourism
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('dashboard/tourism/attraction', [AdminTourismController::class, 'index'])->name('tourism.attraction.edit');
-    Route::post('dashboard/tourism/attraction', [AdminTourismController::class, 'store'])->name('tourism.attraction.store');
-    Route::put('dashboard/tourism/attraction/{id}', [AdminTourismController::class, 'update'])->name('tourism.attraction.update');
-    Route::delete('dashboard/tourism/attraction/images/{imageId}', [AdminTourismController::class, 'destroyImage'])->name('tourism.attraction.destroyImage');
-    Route::delete('dashboard/tourism/attraction/{id}', [AdminTourismController::class, 'destroy'])->name('tourism.attraction.destroy');
-    Route::get('dashboard/tourism/resorts', [AdminTourismController::class, 'index'])->name('tourism.resorts.edit');
-    Route::post('dashboard/tourism/resorts', [AdminTourismController::class, 'store'])->name('tourism.resorts.store');
-    Route::put('dashboard/tourism/resorts/{id}', [AdminTourismController::class, 'update'])->name('tourism.resorts.update');
-    Route::delete('dashboard/tourism/resorts/images/{imageId}', [AdminTourismController::class, 'destroyImage'])->name('tourism.resorts.destroyImage');
-    Route::delete('dashboard/tourism/resorts/{id}', [AdminTourismController::class, 'destroy'])->name('tourism.resorts.destroy');
-    Route::get('dashboard/tourism/festivals', [AdminTourismController::class, 'index'])->name('tourism.festivals.edit');
-    Route::post('dashboard/tourism/festivals', [AdminTourismController::class, 'store'])->name('tourism.festivals.store');
-    Route::put('dashboard/tourism/festivals/{id}', [AdminTourismController::class, 'update'])->name('tourism.festivals.update');
-    Route::delete('dashboard/tourism/festivals/images/{imageId}', [AdminTourismController::class, 'destroyImage'])->name('tourism.festivals.destroyImage');
-    Route::delete('dashboard/tourism/festivals/{id}', [AdminTourismController::class, 'destroy'])->name('tourism.festivals.destroy');
+    Route::middleware('permission:manage_tourism')->group(function () {
+        Route::get('dashboard/tourism/attraction', [AdminTourismController::class, 'index'])->name('tourism.attraction.edit');
+        Route::post('dashboard/tourism/attraction', [AdminTourismController::class, 'store'])->name('tourism.attraction.store');
+        Route::put('dashboard/tourism/attraction/{id}', [AdminTourismController::class, 'update'])->name('tourism.attraction.update');
+        Route::delete('dashboard/tourism/attraction/images/{imageId}', [AdminTourismController::class, 'destroyImage'])->name('tourism.attraction.destroyImage');
+        Route::delete('dashboard/tourism/attraction/{id}', [AdminTourismController::class, 'destroy'])->name('tourism.attraction.destroy');
+        Route::get('dashboard/tourism/resorts', [AdminTourismController::class, 'index'])->name('tourism.resorts.edit');
+        Route::post('dashboard/tourism/resorts', [AdminTourismController::class, 'store'])->name('tourism.resorts.store');
+        Route::put('dashboard/tourism/resorts/{id}', [AdminTourismController::class, 'update'])->name('tourism.resorts.update');
+        Route::delete('dashboard/tourism/resorts/images/{imageId}', [AdminTourismController::class, 'destroyImage'])->name('tourism.resorts.destroyImage');
+        Route::delete('dashboard/tourism/resorts/{id}', [AdminTourismController::class, 'destroy'])->name('tourism.resorts.destroy');
+        Route::get('dashboard/tourism/festivals', [AdminTourismController::class, 'index'])->name('tourism.festivals.edit');
+        Route::post('dashboard/tourism/festivals', [AdminTourismController::class, 'store'])->name('tourism.festivals.store');
+        Route::put('dashboard/tourism/festivals/{id}', [AdminTourismController::class, 'update'])->name('tourism.festivals.update');
+        Route::delete('dashboard/tourism/festivals/images/{imageId}', [AdminTourismController::class, 'destroyImage'])->name('tourism.festivals.destroyImage');
+        Route::delete('dashboard/tourism/festivals/{id}', [AdminTourismController::class, 'destroy'])->name('tourism.festivals.destroy');
+        Route::get('dashboard/tourism/restaurants', [AdminTourismController::class, 'index'])->name('tourism.restaurants.edit');
+        Route::post('dashboard/tourism/restaurants', [AdminTourismController::class, 'store'])->name('tourism.restaurants.store');
+        Route::put('dashboard/tourism/restaurants/{id}', [AdminTourismController::class, 'update'])->name('tourism.restaurants.update');
+        Route::delete('dashboard/tourism/restaurants/images/{imageId}', [AdminTourismController::class, 'destroyImage'])->name('tourism.restaurants.destroyImage');
+        Route::delete('dashboard/tourism/restaurants/{id}', [AdminTourismController::class, 'destroy'])->name('tourism.restaurants.destroy');
+    });
 
     // History, Vision/Mission, Officials, Barangay
-    Route::get('dashboard/history', [HistoryController::class, 'edit'])->name('history.edit');
-    Route::put('dashboard/history', [HistoryController::class, 'update'])->name('history.update');
-    Route::get('dashboard/vision-mission', [VisionMissionController::class, 'edit'])->name('vision-mission.edit');
-    Route::put('dashboard/vision-mission', [VisionMissionController::class, 'update'])->name('vision-mission.update');
-    Route::get('dashboard/officials', [OfficialsController::class, 'index'])->name('officials.index');
-    Route::put('dashboard/officials/mayor', [OfficialsController::class, 'updateMayor'])->name('officials.updateMayor');
-    Route::put('dashboard/officials/vice-mayor', [OfficialsController::class, 'updateViceMayor'])->name('officials.updateViceMayor');
-    Route::post('dashboard/officials/sb-members', [OfficialsController::class, 'storeSbMember'])->name('officials.storeSbMember');
-    Route::put('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'updateSbMember'])->name('officials.updateSbMember');
-    Route::delete('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'destroySbMember'])->name('officials.destroySbMember');
-    // Barangay Routes
-    Route::get('dashboard/barangay', [BarangayController::class, 'index'])->name('barangay.index');
-    Route::post('dashboard/barangay', [BarangayController::class, 'store'])->name('barangay.store');
-    Route::put('dashboard/barangay/{id}', [BarangayController::class, 'update'])->name('barangay.update');
-    Route::delete('dashboard/barangay/{id}', [BarangayController::class, 'destroy'])->name('barangay.destroy');
+    Route::middleware('permission:manage_about_us')->group(function () {
+        Route::get('dashboard/history', [HistoryController::class, 'edit'])->name('history.edit');
+        Route::put('dashboard/history', [HistoryController::class, 'update'])->name('history.update');
+        Route::get('dashboard/vision-mission', [VisionMissionController::class, 'edit'])->name('vision-mission.edit');
+        Route::put('dashboard/vision-mission', [VisionMissionController::class, 'update'])->name('vision-mission.update');
+        Route::get('dashboard/officials', [OfficialsController::class, 'index'])->name('officials.index');
+        Route::put('dashboard/officials/mayor', [OfficialsController::class, 'updateMayor'])->name('officials.updateMayor');
+        Route::put('dashboard/officials/vice-mayor', [OfficialsController::class, 'updateViceMayor'])->name('officials.updateViceMayor');
+        Route::post('dashboard/officials/sb-members', [OfficialsController::class, 'storeSbMember'])->name('officials.storeSbMember');
+        Route::put('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'updateSbMember'])->name('officials.updateSbMember');
+        Route::delete('dashboard/officials/sb-members/{id}', [OfficialsController::class, 'destroySbMember'])->name('officials.destroySbMember');
+        // Barangay Routes
+        Route::get('dashboard/barangay', [BarangayController::class, 'index'])->name('barangay.index');
+        Route::post('dashboard/barangay', [BarangayController::class, 'store'])->name('barangay.store');
+        Route::put('dashboard/barangay/{id}', [BarangayController::class, 'update'])->name('barangay.update');
+        Route::delete('dashboard/barangay/{id}', [BarangayController::class, 'destroy'])->name('barangay.destroy');
 
-    // Barangay Officials Routes
-    Route::post('dashboard/barangay/{id}/officials', [BarangayController::class, 'storeOfficial'])->name('barangay.officials.store');
-    Route::delete('dashboard/barangay/officials/{id}', [BarangayController::class, 'destroyOfficial'])->name('barangay.officials.destroy');
-    Route::get('dashboard/contact', [ContactController::class, 'edit'])->name('contact.edit');
-    Route::put('dashboard/contact', [ContactController::class, 'update'])->name('contact.update');
+        // Barangay Officials Routes
+        Route::post('dashboard/barangay/{id}/officials', [BarangayController::class, 'storeOfficial'])->name('barangay.officials.store');
+        Route::delete('dashboard/barangay/officials/{id}', [BarangayController::class, 'destroyOfficial'])->name('barangay.officials.destroy');
+        Route::get('dashboard/contact', [ContactController::class, 'edit'])->name('contact.edit');
+        Route::put('dashboard/contact', [ContactController::class, 'update'])->name('contact.update');
+    });
     Route::get('dashboard/general-settings', [GeneralSettingsController::class, 'edit'])->name('general-settings.edit');
     Route::post('dashboard/general-settings', [GeneralSettingsController::class, 'update'])->name('general-settings.update');
 
-    Route::get('dashboard/policies', [AdminPolicyController::class, 'edit'])->name('policies.edit');
-    Route::post('dashboard/policies', [AdminPolicyController::class, 'update'])->name('policies.update');
+    Route::middleware('permission:manage_policies')->group(function () {
+        Route::get('dashboard/policies', [AdminPolicyController::class, 'edit'])->name('policies.edit');
+        Route::post('dashboard/policies', [AdminPolicyController::class, 'update'])->name('policies.update');
+    });
 
     // News & Announcements
-    Route::get('dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
-    Route::get('dashboard/announcements/create', [AnnouncementController::class, 'create'])->name('announcements.create');
-    Route::post('dashboard/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
-    Route::get('dashboard/announcements/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
-    Route::put('dashboard/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
-    Route::delete('dashboard/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+    Route::middleware('permission:manage_announcements')->group(function () {
+        Route::get('dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+        Route::get('dashboard/announcements/create', [AnnouncementController::class, 'create'])->name('announcements.create');
+        Route::post('dashboard/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
+        Route::get('dashboard/announcements/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
+        Route::put('dashboard/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
+        Route::delete('dashboard/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+    });
 
     // Municipality Activities (separate from News & Announcements)
-    Route::get('dashboard/activities', [AdminActivityController::class, 'index'])->name('activities.manage.index');
-    Route::get('dashboard/activities/create', [AdminActivityController::class, 'create'])->name('activities.manage.create');
-    Route::post('dashboard/activities', [AdminActivityController::class, 'store'])->name('activities.manage.store');
-    Route::get('dashboard/activities/{id}/edit', [AdminActivityController::class, 'edit'])->name('activities.manage.edit');
-    Route::put('dashboard/activities/{id}', [AdminActivityController::class, 'update'])->name('activities.manage.update');
-    Route::delete('dashboard/activities/{id}', [AdminActivityController::class, 'destroy'])->name('activities.manage.destroy');
+    Route::middleware('permission:manage_activities')->group(function () {
+        Route::get('dashboard/activities', [AdminActivityController::class, 'index'])->name('activities.manage.index');
+        Route::get('dashboard/activities/create', [AdminActivityController::class, 'create'])->name('activities.manage.create');
+        Route::post('dashboard/activities', [AdminActivityController::class, 'store'])->name('activities.manage.store');
+        Route::get('dashboard/activities/{id}/edit', [AdminActivityController::class, 'edit'])->name('activities.manage.edit');
+        Route::put('dashboard/activities/{id}', [AdminActivityController::class, 'update'])->name('activities.manage.update');
+        Route::delete('dashboard/activities/{id}', [AdminActivityController::class, 'destroy'])->name('activities.manage.destroy');
+    });
 
     // Municipal Projects
-    Route::get('dashboard/projects', [\App\Http\Controllers\Administrator\ProjectController::class, 'index'])->name('projects.manage.index');
-    Route::get('dashboard/projects/create', [\App\Http\Controllers\Administrator\ProjectController::class, 'create'])->name('projects.manage.create');
-    Route::post('dashboard/projects', [\App\Http\Controllers\Administrator\ProjectController::class, 'store'])->name('projects.manage.store');
-    Route::get('dashboard/projects/{id}/edit', [\App\Http\Controllers\Administrator\ProjectController::class, 'edit'])->name('projects.manage.edit');
-    Route::put('dashboard/projects/{id}', [\App\Http\Controllers\Administrator\ProjectController::class, 'update'])->name('projects.manage.update');
-    Route::delete('dashboard/projects/{id}', [\App\Http\Controllers\Administrator\ProjectController::class, 'destroy'])->name('projects.manage.destroy');
+    Route::middleware('permission:manage_projects')->group(function () {
+        Route::get('dashboard/projects', [\App\Http\Controllers\Administrator\ProjectController::class, 'index'])->name('projects.manage.index');
+        Route::get('dashboard/projects/create', [\App\Http\Controllers\Administrator\ProjectController::class, 'create'])->name('projects.manage.create');
+        Route::post('dashboard/projects', [\App\Http\Controllers\Administrator\ProjectController::class, 'store'])->name('projects.manage.store');
+        Route::get('dashboard/projects/{id}/edit', [\App\Http\Controllers\Administrator\ProjectController::class, 'edit'])->name('projects.manage.edit');
+        Route::put('dashboard/projects/{id}', [\App\Http\Controllers\Administrator\ProjectController::class, 'update'])->name('projects.manage.update');
+        Route::delete('dashboard/projects/{id}', [\App\Http\Controllers\Administrator\ProjectController::class, 'destroy'])->name('projects.manage.destroy');
+    });
 
     // Job Opportunities
-    Route::get('dashboard/jobs', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'index'])->name('jobs.manage.index');
-    Route::get('dashboard/jobs/create', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'create'])->name('jobs.manage.create');
-    Route::post('dashboard/jobs', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'store'])->name('jobs.manage.store');
-    Route::get('dashboard/jobs/{id}/edit', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'edit'])->name('jobs.manage.edit');
-    Route::put('dashboard/jobs/{id}', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'update'])->name('jobs.manage.update');
-    Route::delete('dashboard/jobs/{id}', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'destroy'])->name('jobs.manage.destroy');
+    Route::middleware('permission:manage_jobs')->group(function () {
+        Route::get('dashboard/jobs', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'index'])->name('jobs.manage.index');
+        Route::get('dashboard/jobs/create', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'create'])->name('jobs.manage.create');
+        Route::post('dashboard/jobs', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'store'])->name('jobs.manage.store');
+        Route::get('dashboard/jobs/{id}/edit', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'edit'])->name('jobs.manage.edit');
+        Route::put('dashboard/jobs/{id}', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'update'])->name('jobs.manage.update');
+        Route::delete('dashboard/jobs/{id}', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'destroy'])->name('jobs.manage.destroy');
+    });
 
     // User Management (Super Admin only)
     Route::middleware(['super-admin'])->group(function () {

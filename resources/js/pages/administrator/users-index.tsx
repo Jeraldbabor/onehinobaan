@@ -9,8 +9,10 @@ import {
     Camera,
 } from 'lucide-react';
 import { useState, useRef } from 'react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
     Dialog,
     DialogContent,
@@ -30,6 +32,7 @@ import {
 } from '@/components/ui/select';
 import { Toast } from '@/components/ui/toast';
 import AppLayout from '@/layouts/app-layout';
+import { cn } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
 
 type UserRow = {
@@ -37,9 +40,20 @@ type UserRow = {
     name: string;
     email: string;
     role: 'admin' | 'editor';
+    permissions: string[] | null;
     avatar_url: string | null;
     created_at: string;
 };
+
+const AVAILABLE_PERMISSIONS = [
+    { id: 'manage_announcements', label: 'News & Announcements' },
+    { id: 'manage_activities', label: 'Municipality Activities' },
+    { id: 'manage_projects', label: 'Municipal Projects' },
+    { id: 'manage_jobs', label: 'Job Opportunities' },
+    { id: 'manage_about_us', label: 'About Us (History, Officials, etc.)' },
+    { id: 'manage_tourism', label: 'Tourism (Attractions, Resorts, etc.)' },
+    { id: 'manage_policies', label: 'Legal & Policies' },
+];
 
 type UsersIndexProps = {
     users: UserRow[];
@@ -66,6 +80,7 @@ export default function UsersIndex({ users }: UsersIndexProps) {
         name: '',
         email: '',
         role: 'editor' as 'admin' | 'editor',
+        permissions: [] as string[],
         password: '',
         password_confirmation: '',
         avatar: null as File | null,
@@ -94,6 +109,7 @@ export default function UsersIndex({ users }: UsersIndexProps) {
         name: '',
         email: '',
         role: 'editor' as 'admin' | 'editor',
+        permissions: [] as string[],
         avatar: null as File | null,
         _method: 'put',
     });
@@ -175,6 +191,33 @@ export default function UsersIndex({ users }: UsersIndexProps) {
         });
     };
 
+    const handleTogglePermission = (
+        user: UserRow,
+        permId: string,
+        checked: boolean,
+    ) => {
+        const currentPerms = user.permissions || [];
+        const newPerms = checked
+            ? [...currentPerms, permId]
+            : currentPerms.filter((p) => p !== permId);
+
+        router.put(
+            `/dashboard/users/${user.id}`,
+            {
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                permissions: newPerms,
+            },
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    triggerToast('Permissions updated.');
+                },
+            },
+        );
+    };
+
     const openAddDialog = () => {
         addForm.reset();
         setAddAvatarPreview(null);
@@ -187,6 +230,7 @@ export default function UsersIndex({ users }: UsersIndexProps) {
             name: user.name,
             email: user.email,
             role: user.role,
+            permissions: user.permissions || [],
             avatar: null,
             _method: 'put',
         });
@@ -286,6 +330,55 @@ export default function UsersIndex({ users }: UsersIndexProps) {
                                                 <p className="text-xs text-muted-foreground/60">
                                                     Joined {user.created_at}
                                                 </p>
+                                                {user.role === 'editor' && (
+                                                    <div className="mt-2 space-y-2 rounded-md border p-3">
+                                                        <h4 className="text-xs font-semibold text-muted-foreground">
+                                                            Editor Permissions
+                                                        </h4>
+                                                        <div className="flex flex-wrap gap-2 pt-1">
+                                                            {AVAILABLE_PERMISSIONS.map(
+                                                                (perm) => {
+                                                                    const isGranted =
+                                                                        (
+                                                                            user.permissions ||
+                                                                            []
+                                                                        ).includes(
+                                                                            perm.id,
+                                                                        );
+                                                                    return (
+                                                                        <Badge
+                                                                            key={
+                                                                                perm.id
+                                                                            }
+                                                                            variant={
+                                                                                isGranted
+                                                                                    ? 'default'
+                                                                                    : 'outline'
+                                                                            }
+                                                                            className={cn(
+                                                                                'cursor-pointer transition-colors select-none',
+                                                                                isGranted
+                                                                                    ? 'hover:bg-primary/90'
+                                                                                    : 'text-muted-foreground hover:bg-muted',
+                                                                            )}
+                                                                            onClick={() =>
+                                                                                handleTogglePermission(
+                                                                                    user,
+                                                                                    perm.id,
+                                                                                    !isGranted,
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                perm.label
+                                                                            }
+                                                                        </Badge>
+                                                                    );
+                                                                },
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
 
@@ -436,6 +529,7 @@ export default function UsersIndex({ users }: UsersIndexProps) {
                                 </SelectContent>
                             </Select>
                         </div>
+
                         <div className="space-y-2">
                             <Label htmlFor="add-password">Password</Label>
                             <Input
@@ -594,6 +688,54 @@ export default function UsersIndex({ users }: UsersIndexProps) {
                                 </SelectContent>
                             </Select>
                         </div>
+
+                        {editForm.data.role === 'editor' && (
+                            <div className="space-y-4 rounded-md border p-4">
+                                <h4 className="text-sm font-medium">
+                                    Editor Permissions
+                                </h4>
+                                <div className="grid gap-3">
+                                    {AVAILABLE_PERMISSIONS.map((perm) => (
+                                        <div
+                                            key={perm.id}
+                                            className="flex items-center space-x-2"
+                                        >
+                                            <Checkbox
+                                                id={`edit-perm-${perm.id}`}
+                                                checked={editForm.data.permissions.includes(
+                                                    perm.id,
+                                                )}
+                                                onCheckedChange={(checked) => {
+                                                    const current =
+                                                        editForm.data
+                                                            .permissions;
+                                                    editForm.setData(
+                                                        'permissions',
+                                                        checked
+                                                            ? [
+                                                                  ...current,
+                                                                  perm.id,
+                                                              ]
+                                                            : current.filter(
+                                                                  (p) =>
+                                                                      p !==
+                                                                      perm.id,
+                                                              ),
+                                                    );
+                                                }}
+                                            />
+                                            <Label
+                                                htmlFor={`edit-perm-${perm.id}`}
+                                                className="text-sm font-normal"
+                                            >
+                                                {perm.label}
+                                            </Label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         <DialogFooter className="pt-4">
                             <Button
                                 type="button"

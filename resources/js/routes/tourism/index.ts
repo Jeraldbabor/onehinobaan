@@ -2,9 +2,10 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
 import attraction from './attraction'
 import resorts from './resorts'
 import festivals from './festivals'
+import restaurants from './restaurants'
 /**
 * @see \App\Http\Controllers\TourismController::item
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
 export const item = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -19,7 +20,7 @@ item.definition = {
 
 /**
 * @see \App\Http\Controllers\TourismController::item
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
 item.url = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions) => {
@@ -45,7 +46,7 @@ item.url = (args: { type: string | number, id: string | number } | [type: string
 
 /**
 * @see \App\Http\Controllers\TourismController::item
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
 item.get = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -54,7 +55,7 @@ item.get = (args: { type: string | number, id: string | number } | [type: string
 })
 /**
 * @see \App\Http\Controllers\TourismController::item
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
 item.head = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -64,7 +65,7 @@ item.head = (args: { type: string | number, id: string | number } | [type: strin
 
     /**
 * @see \App\Http\Controllers\TourismController::item
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
     const itemForm = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -74,7 +75,7 @@ item.head = (args: { type: string | number, id: string | number } | [type: strin
 
             /**
 * @see \App\Http\Controllers\TourismController::item
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
         itemForm.get = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -83,7 +84,7 @@ item.head = (args: { type: string | number, id: string | number } | [type: strin
         })
             /**
 * @see \App\Http\Controllers\TourismController::item
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
         itemForm.head = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -200,6 +201,7 @@ show: Object.assign(show, show),
 attraction: Object.assign(attraction, attraction),
 resorts: Object.assign(resorts, resorts),
 festivals: Object.assign(festivals, festivals),
+restaurants: Object.assign(restaurants, restaurants),
 }
 
 export default tourism

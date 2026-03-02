@@ -30,6 +30,7 @@ class User extends Authenticatable
         'password',
         'role',
         'avatar_path',
+        'permissions',
     ];
 
     /**
@@ -55,6 +56,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
+            'permissions' => 'array',
         ];
     }
 
@@ -71,6 +73,19 @@ class User extends Authenticatable
     public function hasDashboardAccess(): bool
     {
         return in_array($this->role, [self::ROLE_ADMIN, self::ROLE_EDITOR]);
+    }
+
+    public function hasPermission(string $permission): bool
+    {
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        if (! is_array($this->permissions)) {
+            return false;
+        }
+
+        return in_array($permission, $this->permissions);
     }
 
     public function avatarUrl(): ?string

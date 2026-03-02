@@ -55,6 +55,7 @@ const editContactUrl = '/dashboard/contact';
 const editTourismAttractionUrl = '/dashboard/tourism/attraction';
 const editTourismResortsUrl = '/dashboard/tourism/resorts';
 const editTourismFestivalsUrl = '/dashboard/tourism/festivals';
+const editTourismRestaurantsUrl = '/dashboard/tourism/restaurants';
 const announcementsUrl = '/dashboard/announcements';
 const activitiesUrl = '/dashboard/activities';
 const projectsUrl = '/dashboard/projects';
@@ -66,7 +67,16 @@ const usersUrl = '/dashboard/users';
 export function AppSidebar() {
     const { auth } = usePage<SharedData>().props;
     const userRole = auth.user.role;
+    const userPermissions: string[] = (auth.user.permissions as string[]) || [];
     const isAdmin = userRole === 'admin';
+
+    const hasPermission = (permission: string) => {
+        if (isAdmin) return true;
+        return (
+            Array.isArray(userPermissions) &&
+            userPermissions.includes(permission)
+        );
+    };
 
     const [aboutOpen, setAboutOpen] = useState(false);
     const [tourismOpen, setTourismOpen] = useState(false);
@@ -97,7 +107,9 @@ export function AppSidebar() {
             currentUrl === editTourismResortsUrl ||
             currentUrl.startsWith(editTourismResortsUrl + '/') ||
             currentUrl === editTourismFestivalsUrl ||
-            currentUrl.startsWith(editTourismFestivalsUrl + '/');
+            currentUrl.startsWith(editTourismFestivalsUrl + '/') ||
+            currentUrl === editTourismRestaurantsUrl ||
+            currentUrl.startsWith(editTourismRestaurantsUrl + '/');
         if (isTourismPage) {
             const id = setTimeout(() => setTourismOpen(true), 0);
             return () => clearTimeout(id);
@@ -134,19 +146,23 @@ export function AppSidebar() {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton
-                                asChild
-                                isActive={isCurrentUrl(announcementsUrl)}
-                                tooltip={{ children: 'News & Announcements' }}
-                            >
-                                <Link href={announcementsUrl} prefetch>
-                                    <Megaphone className="size-4" />
-                                    <span>News & Announcements</span>
-                                </Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
+                        {hasPermission('manage_announcements') && (
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={isCurrentUrl(announcementsUrl)}
+                                    tooltip={{
+                                        children: 'News & Announcements',
+                                    }}
+                                >
+                                    <Link href={announcementsUrl} prefetch>
+                                        <Megaphone className="size-4" />
+                                        <span>News & Announcements</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        )}
+                        {hasPermission('manage_activities') && (
                             <SidebarMenuButton
                                 asChild
                                 isActive={isCurrentUrl(activitiesUrl)}
@@ -159,228 +175,267 @@ export function AppSidebar() {
                                     <span>Municipality Activities</span>
                                 </Link>
                             </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton
-                                asChild
-                                isActive={isCurrentUrl(projectsUrl)}
-                                tooltip={{
-                                    children: 'Municipal Projects',
-                                }}
-                            >
-                                <Link href={projectsUrl} prefetch>
-                                    <HardHat className="size-4" />
-                                    <span>Municipal Projects</span>
-                                </Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton
-                                asChild
-                                isActive={isCurrentUrl(jobsUrl)}
-                                tooltip={{
-                                    children: 'Job Opportunities',
-                                }}
-                            >
-                                <Link href={jobsUrl} prefetch>
-                                    <Briefcase className="size-4" />
-                                    <span>Job Opportunities</span>
-                                </Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
+                        )}
+                        {hasPermission('manage_projects') && (
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={isCurrentUrl(projectsUrl)}
+                                    tooltip={{
+                                        children: 'Municipal Projects',
+                                    }}
+                                >
+                                    <Link href={projectsUrl} prefetch>
+                                        <HardHat className="size-4" />
+                                        <span>Municipal Projects</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        )}
+                        {hasPermission('manage_jobs') && (
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={isCurrentUrl(jobsUrl)}
+                                    tooltip={{
+                                        children: 'Job Opportunities',
+                                    }}
+                                >
+                                    <Link href={jobsUrl} prefetch>
+                                        <Briefcase className="size-4" />
+                                        <span>Job Opportunities</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        )}
                     </SidebarMenu>
                 </SidebarGroup>
 
                 <SidebarGroup className="px-2 py-0">
                     <SidebarGroupLabel>Page content editor</SidebarGroupLabel>
                     <SidebarMenu>
-                        <Collapsible
-                            open={aboutOpen}
-                            onOpenChange={setAboutOpen}
-                        >
-                            <SidebarMenuItem>
-                                <CollapsibleTrigger asChild>
-                                    <SidebarMenuButton
-                                        isActive={false}
-                                        tooltip={{ children: 'About Us' }}
-                                    >
-                                        <Info className="size-4" />
-                                        <span>About Us</span>
-                                        <ChevronDown
-                                            className={cn(
-                                                'ml-auto size-4 shrink-0 transition-transform',
-                                                aboutOpen && 'rotate-180',
-                                            )}
-                                        />
-                                    </SidebarMenuButton>
-                                </CollapsibleTrigger>
-                                <CollapsibleContent>
-                                    <SidebarMenuSub>
-                                        <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton
-                                                asChild
-                                                isActive={isCurrentUrl(
-                                                    editHistoryUrl,
+                        {hasPermission('manage_about_us') && (
+                            <Collapsible
+                                open={aboutOpen}
+                                onOpenChange={setAboutOpen}
+                            >
+                                <SidebarMenuItem>
+                                    <CollapsibleTrigger asChild>
+                                        <SidebarMenuButton
+                                            isActive={false}
+                                            tooltip={{ children: 'About Us' }}
+                                        >
+                                            <Info className="size-4" />
+                                            <span>About Us</span>
+                                            <ChevronDown
+                                                className={cn(
+                                                    'ml-auto size-4 shrink-0 transition-transform',
+                                                    aboutOpen && 'rotate-180',
                                                 )}
-                                            >
-                                                <Link
-                                                    href={editHistoryUrl}
-                                                    prefetch
+                                            />
+                                        </SidebarMenuButton>
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent>
+                                        <SidebarMenuSub>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editHistoryUrl,
+                                                    )}
                                                 >
-                                                    <History className="size-4" />
-                                                    <span>Edit History</span>
-                                                </Link>
-                                            </SidebarMenuSubButton>
-                                        </SidebarMenuSubItem>
-                                        <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton
-                                                asChild
-                                                isActive={isCurrentUrl(
-                                                    editVisionMissionUrl,
+                                                    <Link
+                                                        href={editHistoryUrl}
+                                                        prefetch
+                                                    >
+                                                        <History className="size-4" />
+                                                        <span>
+                                                            Edit History
+                                                        </span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editVisionMissionUrl,
+                                                    )}
+                                                >
+                                                    <Link
+                                                        href={
+                                                            editVisionMissionUrl
+                                                        }
+                                                        prefetch
+                                                    >
+                                                        <Target className="size-4" />
+                                                        <span>
+                                                            Edit Vision &
+                                                            Mission
+                                                        </span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editOfficialsUrl,
+                                                    )}
+                                                >
+                                                    <Link
+                                                        href={editOfficialsUrl}
+                                                        prefetch
+                                                    >
+                                                        <Users className="size-4" />
+                                                        <span>
+                                                            Edit Key Officials
+                                                        </span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editBarangayUrl,
+                                                    )}
+                                                >
+                                                    <Link
+                                                        href={editBarangayUrl}
+                                                        prefetch
+                                                    >
+                                                        <Building2 className="size-4" />
+                                                        <span>
+                                                            Edit Barangay
+                                                        </span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editContactUrl,
+                                                    )}
+                                                >
+                                                    <Link
+                                                        href={editContactUrl}
+                                                        prefetch
+                                                    >
+                                                        <Phone className="size-4" />
+                                                        <span>
+                                                            Edit Contact Us
+                                                        </span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                        </SidebarMenuSub>
+                                    </CollapsibleContent>
+                                </SidebarMenuItem>
+                            </Collapsible>
+                        )}
+                        {hasPermission('manage_tourism') && (
+                            <Collapsible
+                                open={tourismOpen}
+                                onOpenChange={setTourismOpen}
+                            >
+                                <SidebarMenuItem>
+                                    <CollapsibleTrigger asChild>
+                                        <SidebarMenuButton
+                                            isActive={false}
+                                            tooltip={{ children: 'Tourism' }}
+                                        >
+                                            <Landmark className="size-4" />
+                                            <span>Tourism</span>
+                                            <ChevronDown
+                                                className={cn(
+                                                    'ml-auto size-4 shrink-0 transition-transform',
+                                                    tourismOpen && 'rotate-180',
                                                 )}
-                                            >
-                                                <Link
-                                                    href={editVisionMissionUrl}
-                                                    prefetch
+                                            />
+                                        </SidebarMenuButton>
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent>
+                                        <SidebarMenuSub>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editTourismAttractionUrl,
+                                                    )}
                                                 >
-                                                    <Target className="size-4" />
-                                                    <span>
-                                                        Edit Vision & Mission
-                                                    </span>
-                                                </Link>
-                                            </SidebarMenuSubButton>
-                                        </SidebarMenuSubItem>
-                                        <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton
-                                                asChild
-                                                isActive={isCurrentUrl(
-                                                    editOfficialsUrl,
-                                                )}
-                                            >
-                                                <Link
-                                                    href={editOfficialsUrl}
-                                                    prefetch
+                                                    <Link
+                                                        href={
+                                                            editTourismAttractionUrl
+                                                        }
+                                                        prefetch
+                                                    >
+                                                        <MapPin className="size-4" />
+                                                        <span>Attraction</span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editTourismResortsUrl,
+                                                    )}
                                                 >
-                                                    <Users className="size-4" />
-                                                    <span>
-                                                        Edit Key Officials
-                                                    </span>
-                                                </Link>
-                                            </SidebarMenuSubButton>
-                                        </SidebarMenuSubItem>
-                                        <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton
-                                                asChild
-                                                isActive={isCurrentUrl(
-                                                    editBarangayUrl,
-                                                )}
-                                            >
-                                                <Link
-                                                    href={editBarangayUrl}
-                                                    prefetch
+                                                    <Link
+                                                        href={
+                                                            editTourismResortsUrl
+                                                        }
+                                                        prefetch
+                                                    >
+                                                        <Waves className="size-4" />
+                                                        <span>Resorts</span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editTourismFestivalsUrl,
+                                                    )}
                                                 >
-                                                    <Building2 className="size-4" />
-                                                    <span>Edit Barangay</span>
-                                                </Link>
-                                            </SidebarMenuSubButton>
-                                        </SidebarMenuSubItem>
-                                        <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton
-                                                asChild
-                                                isActive={isCurrentUrl(
-                                                    editContactUrl,
-                                                )}
-                                            >
-                                                <Link
-                                                    href={editContactUrl}
-                                                    prefetch
+                                                    <Link
+                                                        href={
+                                                            editTourismFestivalsUrl
+                                                        }
+                                                        prefetch
+                                                    >
+                                                        <PartyPopper className="size-4" />
+                                                        <span>Festivals</span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton
+                                                    asChild
+                                                    isActive={isCurrentUrl(
+                                                        editTourismRestaurantsUrl,
+                                                    )}
                                                 >
-                                                    <Phone className="size-4" />
-                                                    <span>Edit Contact Us</span>
-                                                </Link>
-                                            </SidebarMenuSubButton>
-                                        </SidebarMenuSubItem>
-                                    </SidebarMenuSub>
-                                </CollapsibleContent>
-                            </SidebarMenuItem>
-                        </Collapsible>
-                        <Collapsible
-                            open={tourismOpen}
-                            onOpenChange={setTourismOpen}
-                        >
-                            <SidebarMenuItem>
-                                <CollapsibleTrigger asChild>
-                                    <SidebarMenuButton
-                                        isActive={false}
-                                        tooltip={{ children: 'Tourism' }}
-                                    >
-                                        <Landmark className="size-4" />
-                                        <span>Tourism</span>
-                                        <ChevronDown
-                                            className={cn(
-                                                'ml-auto size-4 shrink-0 transition-transform',
-                                                tourismOpen && 'rotate-180',
-                                            )}
-                                        />
-                                    </SidebarMenuButton>
-                                </CollapsibleTrigger>
-                                <CollapsibleContent>
-                                    <SidebarMenuSub>
-                                        <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton
-                                                asChild
-                                                isActive={isCurrentUrl(
-                                                    editTourismAttractionUrl,
-                                                )}
-                                            >
-                                                <Link
-                                                    href={
-                                                        editTourismAttractionUrl
-                                                    }
-                                                    prefetch
-                                                >
-                                                    <MapPin className="size-4" />
-                                                    <span>Attraction</span>
-                                                </Link>
-                                            </SidebarMenuSubButton>
-                                        </SidebarMenuSubItem>
-                                        <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton
-                                                asChild
-                                                isActive={isCurrentUrl(
-                                                    editTourismResortsUrl,
-                                                )}
-                                            >
-                                                <Link
-                                                    href={editTourismResortsUrl}
-                                                    prefetch
-                                                >
-                                                    <Waves className="size-4" />
-                                                    <span>Resorts</span>
-                                                </Link>
-                                            </SidebarMenuSubButton>
-                                        </SidebarMenuSubItem>
-                                        <SidebarMenuSubItem>
-                                            <SidebarMenuSubButton
-                                                asChild
-                                                isActive={isCurrentUrl(
-                                                    editTourismFestivalsUrl,
-                                                )}
-                                            >
-                                                <Link
-                                                    href={
-                                                        editTourismFestivalsUrl
-                                                    }
-                                                    prefetch
-                                                >
-                                                    <PartyPopper className="size-4" />
-                                                    <span>Festivals</span>
-                                                </Link>
-                                            </SidebarMenuSubButton>
-                                        </SidebarMenuSubItem>
-                                    </SidebarMenuSub>
-                                </CollapsibleContent>
-                            </SidebarMenuItem>
+                                                    <Link
+                                                        href={
+                                                            editTourismRestaurantsUrl
+                                                        }
+                                                        prefetch
+                                                    >
+                                                        <LayoutGrid className="size-4" />
+                                                        <span>Restaurants</span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                        </SidebarMenuSub>
+                                    </CollapsibleContent>
+                                </SidebarMenuItem>
+                            </Collapsible>
+                        )}
+                        {hasPermission('manage_policies') && (
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     asChild
@@ -395,45 +450,45 @@ export function AppSidebar() {
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
+                        )}
 
-                            {isAdmin && (
-                                <>
-                                    <SidebarMenuItem>
-                                        <SidebarMenuButton
-                                            asChild
-                                            isActive={isCurrentUrl(
-                                                editGeneralSettingsUrl,
-                                            )}
-                                            tooltip={{
-                                                children: 'General Settings',
-                                            }}
+                        {isAdmin && (
+                            <>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={isCurrentUrl(
+                                            editGeneralSettingsUrl,
+                                        )}
+                                        tooltip={{
+                                            children: 'General Settings',
+                                        }}
+                                    >
+                                        <Link
+                                            href={editGeneralSettingsUrl}
+                                            prefetch
                                         >
-                                            <Link
-                                                href={editGeneralSettingsUrl}
-                                                prefetch
-                                            >
-                                                <Settings className="size-4" />
-                                                <span>General Settings</span>
-                                            </Link>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                    <SidebarMenuItem>
-                                        <SidebarMenuButton
-                                            asChild
-                                            isActive={isCurrentUrl(usersUrl)}
-                                            tooltip={{
-                                                children: 'User Management',
-                                            }}
-                                        >
-                                            <Link href={usersUrl} prefetch>
-                                                <UserCog className="size-4" />
-                                                <span>User Management</span>
-                                            </Link>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                </>
-                            )}
-                        </Collapsible>
+                                            <Settings className="size-4" />
+                                            <span>General Settings</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={isCurrentUrl(usersUrl)}
+                                        tooltip={{
+                                            children: 'User Management',
+                                        }}
+                                    >
+                                        <Link href={usersUrl} prefetch>
+                                            <UserCog className="size-4" />
+                                            <span>User Management</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </>
+                        )}
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>

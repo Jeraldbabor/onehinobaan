@@ -22,6 +22,7 @@ class UserController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'role' => $user->role,
+                    'permissions' => $user->permissions,
                     'avatar_url' => $user->avatarUrl(),
                     'created_at' => $user->created_at->format('M d, Y'),
                 ]),
@@ -34,6 +35,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'role' => ['required', Rule::in([User::ROLE_ADMIN, User::ROLE_EDITOR])],
+            'permissions' => 'nullable|array',
+            'permissions.*' => 'string',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -41,6 +44,7 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'role' => $validated['role'],
+            'permissions' => $validated['permissions'] ?? [],
             'password' => $validated['password'],
         ]);
 
@@ -60,9 +64,12 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'role' => ['required', Rule::in([User::ROLE_ADMIN, User::ROLE_EDITOR])],
+            'permissions' => 'nullable|array',
+            'permissions.*' => 'string',
         ]);
 
         $user->fill($request->only(['name', 'email', 'role']));
+        $user->permissions = $validated['permissions'] ?? [];
 
         if ($request->hasFile('avatar')) {
             if ($user->avatar_path) {

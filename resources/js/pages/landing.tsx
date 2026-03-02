@@ -61,6 +61,7 @@ type LandingProps = SharedData & {
     tourismAttractions?: TourismItem[];
     tourismResorts?: TourismItem[];
     tourismFestivals?: TourismItem[];
+    tourismRestaurants?: TourismItem[];
     projects?: ProjectItem[];
     generalSettings?: {
         main_logo_url: string;
@@ -125,6 +126,7 @@ export default function Landing() {
         tourismAttractions = [],
         tourismResorts = [],
         tourismFestivals = [],
+        tourismRestaurants = [],
         projects = [],
         generalSettings,
     } = usePage<LandingProps>().props;
@@ -671,9 +673,9 @@ export default function Landing() {
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/attraction/${item.id}`}
-                                                className="w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
+                                                className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
                                             >
-                                                <div className="h-28 overflow-hidden bg-slate-100 sm:h-32">
+                                                <div className="h-28 shrink-0 overflow-hidden bg-slate-100 sm:h-32">
                                                     {item.image_url ? (
                                                         <img
                                                             src={item.image_url}
@@ -686,7 +688,7 @@ export default function Landing() {
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="p-2 sm:p-3">
+                                                <div className="flex flex-1 flex-col p-2 sm:p-3">
                                                     <div className="truncate text-xs font-bold text-blue-800 sm:text-sm">
                                                         {item.title}
                                                     </div>
@@ -709,9 +711,9 @@ export default function Landing() {
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/resorts/${item.id}`}
-                                                className="w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
+                                                className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
                                             >
-                                                <div className="h-28 overflow-hidden bg-slate-100 sm:h-32">
+                                                <div className="h-28 shrink-0 overflow-hidden bg-slate-100 sm:h-32">
                                                     {item.image_url ? (
                                                         <img
                                                             src={item.image_url}
@@ -724,7 +726,7 @@ export default function Landing() {
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="p-2 sm:p-3">
+                                                <div className="flex flex-1 flex-col p-2 sm:p-3">
                                                     <div className="truncate text-xs font-bold text-blue-800 sm:text-sm">
                                                         {item.title}
                                                     </div>
@@ -748,9 +750,9 @@ export default function Landing() {
                                             <Link
                                                 key={item.id}
                                                 href={`/tourism/festivals/${item.id}`}
-                                                className="w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
+                                                className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
                                             >
-                                                <div className="h-28 overflow-hidden bg-slate-100 sm:h-32">
+                                                <div className="h-28 shrink-0 overflow-hidden bg-slate-100 sm:h-32">
                                                     {item.image_url ? (
                                                         <img
                                                             src={item.image_url}
@@ -763,7 +765,46 @@ export default function Landing() {
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="p-2 sm:p-3">
+                                                <div className="flex flex-1 flex-col p-2 sm:p-3">
+                                                    <div className="truncate text-xs font-bold text-blue-800 sm:text-sm">
+                                                        {item.title}
+                                                    </div>
+                                                    <div className="truncate text-[10px] text-slate-500 sm:text-xs">
+                                                        {item.address}
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Restaurants */}
+                                <div>
+                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:text-lg">
+                                        Restaurants
+                                    </h4>
+
+                                    <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
+                                        {tourismRestaurants?.map((item) => (
+                                            <Link
+                                                key={item.id}
+                                                href={`/tourism/restaurants/${item.id}`}
+                                                className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
+                                            >
+                                                <div className="h-28 shrink-0 overflow-hidden bg-slate-100 sm:h-32">
+                                                    {item.image_url ? (
+                                                        <img
+                                                            src={item.image_url}
+                                                            alt=""
+                                                            className="h-full w-full object-cover"
+                                                        />
+                                                    ) : (
+                                                        <div className="flex h-full w-full items-center justify-center text-slate-400">
+                                                            <FileText className="size-8 sm:size-10" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="flex flex-1 flex-col p-2 sm:p-3">
                                                     <div className="truncate text-xs font-bold text-blue-800 sm:text-sm">
                                                         {item.title}
                                                     </div>

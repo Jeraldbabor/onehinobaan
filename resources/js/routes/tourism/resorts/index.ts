@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::edit
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::edit
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
 edit.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ edit.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::edit
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::edit
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::edit
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
     const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::edit
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
         editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::edit
- * @see app/Http/Controllers/Administrator/TourismController.php:44
+ * @see app/Http/Controllers/Administrator/TourismController.php:49
  * @route '/dashboard/tourism/resorts'
  */
         editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -94,7 +94,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -123,7 +123,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::store
- * @see app/Http/Controllers/Administrator/TourismController.php:79
+ * @see app/Http/Controllers/Administrator/TourismController.php:84
  * @route '/dashboard/tourism/resorts'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -134,7 +134,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
 export const update = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -149,7 +149,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
 update.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -177,7 +177,7 @@ update.url = (args: { id: string | number } | [id: string | number ] | string | 
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
 update.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -187,7 +187,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
     const updateForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -202,7 +202,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::update
- * @see app/Http/Controllers/Administrator/TourismController.php:128
+ * @see app/Http/Controllers/Administrator/TourismController.php:133
  * @route '/dashboard/tourism/resorts/{id}'
  */
         updateForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -218,7 +218,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
 export const destroyImage = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -233,7 +233,7 @@ destroyImage.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
 destroyImage.url = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -261,7 +261,7 @@ destroyImage.url = (args: { imageId: string | number } | [imageId: string | numb
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
 destroyImage.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -271,7 +271,7 @@ destroyImage.delete = (args: { imageId: string | number } | [imageId: string | n
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
     const destroyImageForm = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -286,7 +286,7 @@ destroyImage.delete = (args: { imageId: string | number } | [imageId: string | n
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroyImage
- * @see app/Http/Controllers/Administrator/TourismController.php:196
+ * @see app/Http/Controllers/Administrator/TourismController.php:201
  * @route '/dashboard/tourism/resorts/images/{imageId}'
  */
         destroyImageForm.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -302,7 +302,7 @@ destroyImage.delete = (args: { imageId: string | number } | [imageId: string | n
     destroyImage.form = destroyImageForm
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
 export const destroy = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -317,7 +317,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
 destroy.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -345,7 +345,7 @@ destroy.url = (args: { id: string | number } | [id: string | number ] | string |
 
 /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
 destroy.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -355,7 +355,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
 
     /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
     const destroyForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -370,7 +370,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
 
             /**
 * @see \App\Http\Controllers\Administrator\TourismController::destroy
- * @see app/Http/Controllers/Administrator/TourismController.php:181
+ * @see app/Http/Controllers/Administrator/TourismController.php:186
  * @route '/dashboard/tourism/resorts/{id}'
  */
         destroyForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

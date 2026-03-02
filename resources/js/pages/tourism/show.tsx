@@ -94,9 +94,9 @@ export default function TourismShowPage({
                                                 <li key={item.id}>
                                                     <Link
                                                         href={`/tourism/${type}/${item.id}`}
-                                                        className="group block border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-700 hover:shadow-md"
+                                                        className="group flex h-full flex-col overflow-hidden border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-700 hover:shadow-md"
                                                     >
-                                                        <div className="relative aspect-4/3 w-full overflow-hidden bg-slate-100">
+                                                        <div className="relative aspect-4/3 w-full shrink-0 overflow-hidden bg-slate-100">
                                                             {primaryImage(
                                                                 item,
                                                             ) ? (
@@ -130,7 +130,7 @@ export default function TourismShowPage({
                                                                 </div>
                                                             )}
                                                         </div>
-                                                        <div className="border-t border-slate-100 p-4">
+                                                        <div className="flex flex-1 flex-col border-t border-slate-100 p-4">
                                                             <h2 className="font-semibold text-slate-900 group-hover:text-blue-800">
                                                                 {item.title}
                                                             </h2>

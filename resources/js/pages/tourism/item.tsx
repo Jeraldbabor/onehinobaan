@@ -29,8 +29,8 @@ type TourismItemPageProps = {
     announcements?: AnnouncementItem[];
 };
 
-/** Only attraction and resort show the map section. */
-const SHOW_MAP_TYPES = ['attraction', 'resorts'];
+/** Only attraction, resort, and restaurant show the map section. */
+const SHOW_MAP_TYPES = ['attraction', 'resorts', 'restaurants'];
 
 export default function TourismItemPage({
     type,

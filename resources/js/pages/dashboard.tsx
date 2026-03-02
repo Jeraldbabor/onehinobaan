@@ -1,7 +1,10 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import {
     Building2,
+    Briefcase,
+    CalendarDays,
     ChevronRight,
+    HardHat,
     History,
     Landmark,
     LayoutGrid,
@@ -9,12 +12,15 @@ import {
     Megaphone,
     PartyPopper,
     Phone,
+    Settings,
+    ShieldAlert,
     Target,
+    UserCog,
     Users,
     Waves,
 } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, SharedData } from '@/types';
 
 const dashboardUrl = '/dashboard';
 
@@ -22,13 +28,35 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: dashboardUrl },
 ];
 
-const quickLinks = [
+const ALL_QUICK_LINKS = [
     {
         title: 'News & Announcements',
         href: '/dashboard/announcements',
         description:
             'Post news, updates, and announcements for the public site.',
         icon: Megaphone,
+        permission: 'manage_announcements',
+    },
+    {
+        title: 'Municipality Activities',
+        href: '/dashboard/activities',
+        description: 'View and manage upcoming municipality activities.',
+        icon: CalendarDays,
+        permission: 'manage_activities',
+    },
+    {
+        title: 'Municipal Projects',
+        href: '/dashboard/projects',
+        description: 'Update public infrastructure projects and progress.',
+        icon: HardHat,
+        permission: 'manage_projects',
+    },
+    {
+        title: 'Job Opportunities',
+        href: '/dashboard/jobs',
+        description: 'Manage current job openings for the public.',
+        icon: Briefcase,
+        permission: 'manage_jobs',
     },
     {
         title: 'About Us',
@@ -36,6 +64,7 @@ const quickLinks = [
         description:
             'Edit History, Vision & Mission, Key Officials, and Barangay.',
         icon: LayoutGrid,
+        permission: 'manage_about_us',
         subLinks: [
             { label: 'History', href: '/dashboard/history', icon: History },
             {
@@ -55,8 +84,9 @@ const quickLinks = [
     {
         title: 'Tourism',
         href: '/dashboard/tourism/attraction',
-        description: 'Manage Attractions, Resorts, and Festivals.',
+        description: 'Manage Attractions, Resorts, Festivals, and Restaurants.',
         icon: Landmark,
+        permission: 'manage_tourism',
         subLinks: [
             {
                 label: 'Attraction',
@@ -73,11 +103,54 @@ const quickLinks = [
                 href: '/dashboard/tourism/festivals',
                 icon: PartyPopper,
             },
+            {
+                label: 'Restaurants',
+                href: '/dashboard/tourism/restaurants',
+                icon: LayoutGrid,
+            },
         ],
+    },
+    {
+        title: 'Legal & Policies',
+        href: '/dashboard/policies',
+        description: 'Update the legal documents and municipality policies.',
+        icon: ShieldAlert,
+        permission: 'manage_policies',
+    },
+    {
+        title: 'General Settings',
+        href: '/dashboard/general-settings',
+        description: 'Manage core site settings.',
+        icon: Settings,
+        permission: 'admin', // Requires Admin
+    },
+    {
+        title: 'User Management',
+        href: '/dashboard/users',
+        description: 'Manage admins, editors, and permissions.',
+        icon: UserCog,
+        permission: 'admin', // Requires Admin
     },
 ];
 
 export default function Dashboard() {
+    const { auth } = usePage<SharedData>().props;
+    const userRole = auth.user.role;
+    const userPermissions: string[] = (auth.user.permissions as string[]) || [];
+    const isAdmin = userRole === 'admin';
+
+    const hasPermission = (permission: string) => {
+        if (isAdmin) return true;
+        if (permission === 'admin') return false;
+        return (
+            Array.isArray(userPermissions) &&
+            userPermissions.includes(permission)
+        );
+    };
+
+    const quickLinks = ALL_QUICK_LINKS.filter((link) =>
+        hasPermission(link.permission),
+    );
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />

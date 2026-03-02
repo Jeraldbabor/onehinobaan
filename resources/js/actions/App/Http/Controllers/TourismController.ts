@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\TourismController::showItem
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
 export const showItem = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ showItem.definition = {
 
 /**
 * @see \App\Http\Controllers\TourismController::showItem
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
 showItem.url = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions) => {
@@ -42,7 +42,7 @@ showItem.url = (args: { type: string | number, id: string | number } | [type: st
 
 /**
 * @see \App\Http\Controllers\TourismController::showItem
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
 showItem.get = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -51,7 +51,7 @@ showItem.get = (args: { type: string | number, id: string | number } | [type: st
 })
 /**
 * @see \App\Http\Controllers\TourismController::showItem
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
 showItem.head = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -61,7 +61,7 @@ showItem.head = (args: { type: string | number, id: string | number } | [type: s
 
     /**
 * @see \App\Http\Controllers\TourismController::showItem
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
     const showItemForm = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -71,7 +71,7 @@ showItem.head = (args: { type: string | number, id: string | number } | [type: s
 
             /**
 * @see \App\Http\Controllers\TourismController::showItem
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
         showItemForm.get = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -80,7 +80,7 @@ showItem.head = (args: { type: string | number, id: string | number } | [type: s
         })
             /**
 * @see \App\Http\Controllers\TourismController::showItem
- * @see app/Http/Controllers/TourismController.php:51
+ * @see app/Http/Controllers/TourismController.php:53
  * @route '/tourism/{type}/{id}'
  */
         showItemForm.head = (args: { type: string | number, id: string | number } | [type: string | number, id: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

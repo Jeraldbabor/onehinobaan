@@ -13,6 +13,8 @@ class TourismItem extends Model
 
     public const TYPE_FESTIVAL = 'festival';
 
+    public const TYPE_RESTAURANT = 'restaurant';
+
     protected $fillable = [
         'type',
         'title',
@@ -62,6 +64,7 @@ class TourismItem extends Model
             self::TYPE_ATTRACTION => 'Attraction',
             self::TYPE_RESORT => 'Resort',
             self::TYPE_FESTIVAL => 'Festival',
+            self::TYPE_RESTAURANT => 'Restaurant',
         ];
     }
 }
