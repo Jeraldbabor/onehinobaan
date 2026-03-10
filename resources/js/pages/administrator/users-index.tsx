@@ -50,6 +50,7 @@ const AVAILABLE_PERMISSIONS = [
     { id: 'manage_activities', label: 'Municipality Activities' },
     { id: 'manage_projects', label: 'Municipal Projects' },
     { id: 'manage_jobs', label: 'Job Opportunities' },
+    { id: 'manage_downloadable_files', label: 'Downloadable Files' },
     { id: 'manage_about_us', label: 'About Us (History, Officials, etc.)' },
     { id: 'manage_tourism', label: 'Tourism (Attractions, Resorts, etc.)' },
     { id: 'manage_policies', label: 'Legal & Policies' },

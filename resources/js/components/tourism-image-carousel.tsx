@@ -1,4 +1,5 @@
-import { X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -18,14 +19,24 @@ export function TourismImageCarousel({
 
     const count = images.length;
 
+    const handleNext = React.useCallback(() => {
+        setIndex((prev) => (prev + 1) % count);
+    }, [count]);
+
+    const handlePrev = React.useCallback(() => {
+        setIndex((prev) => (prev - 1 + count) % count);
+    }, [count]);
+
     useEffect(() => {
         if (!lightboxOpen) return;
         const onKey = (e: KeyboardEvent) => {
             if (e.key === 'Escape') setLightboxOpen(false);
+            if (e.key === 'ArrowRight') handleNext();
+            if (e.key === 'ArrowLeft') handlePrev();
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-    }, [lightboxOpen]);
+    }, [lightboxOpen, handleNext, handlePrev]);
 
     if (count === 0) return null;
 
@@ -73,21 +84,52 @@ export function TourismImageCarousel({
                 >
                     <button
                         type="button"
-                        onClick={() => setLightboxOpen(false)}
-                        className="absolute top-4 right-4 z-10 flex size-12 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/25 focus:ring-2 focus:ring-white focus:outline-none sm:top-6 sm:right-6"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setLightboxOpen(false);
+                        }}
+                        className="absolute top-4 right-4 z-10 flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 focus:ring-2 focus:ring-white focus:outline-none sm:top-6 sm:right-6"
                         aria-label="Close"
                     >
-                        <X className="size-7" />
+                        <X className="size-6" />
                     </button>
 
+                    {count > 1 && (
+                        <>
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handlePrev();
+                                }}
+                                className="absolute left-4 z-10 flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 focus:ring-2 focus:ring-white focus:outline-none sm:left-8"
+                                aria-label="Previous image"
+                            >
+                                <ChevronLeft className="size-6" />
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleNext();
+                                }}
+                                className="absolute right-4 z-10 flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 focus:ring-2 focus:ring-white focus:outline-none sm:right-8"
+                                aria-label="Next image"
+                            >
+                                <ChevronRight className="size-6" />
+                            </button>
+                        </>
+                    )}
+
                     <div
-                        className="flex h-[70vh] w-full max-w-4xl items-center justify-center"
+                        className="flex h-[80vh] w-full max-w-5xl items-center justify-center"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <img
                             src={currentSrc}
                             alt={`${alt} — ${index + 1} of ${count}`}
-                            className="max-h-full max-w-full rounded-lg object-contain shadow-2xl"
+                            className="max-h-full max-w-full rounded-lg object-contain shadow-2xl select-none"
                             draggable={false}
                         />
                     </div>

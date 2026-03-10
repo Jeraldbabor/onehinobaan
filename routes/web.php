@@ -143,6 +143,10 @@ Route::get('activities/{id}', [ActivityListController::class, 'show'])->name('ac
 Route::get('projects/{id}', [App\Http\Controllers\ProjectController::class, 'show'])->name('projects.show')->whereNumber('id');
 Route::get('jobs', [App\Http\Controllers\JobOpportunityController::class, 'index'])->name('jobs.index');
 Route::get('jobs/{id}', [App\Http\Controllers\JobOpportunityController::class, 'show'])->name('jobs.show')->whereNumber('id');
+Route::get('downloads', [\App\Http\Controllers\Public\DownloadableController::class, 'index'])->name('downloads.index');
+Route::get('downloads/{id}/preview', [\App\Http\Controllers\Public\DownloadableController::class, 'preview'])->name('downloads.preview');
+Route::get('downloads/{id}/file', [\App\Http\Controllers\Public\DownloadableController::class, 'download'])->name('downloads.file');
+Route::post('downloads/{id}/view', [\App\Http\Controllers\Public\DownloadableController::class, 'view'])->name('downloads.view');
 
 // Public: Tourism list and item detail (detail route first so {id} is not eaten by {type})
 Route::get('tourism/{type}/{id}', [TourismController::class, 'showItem'])
@@ -265,6 +269,14 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
         Route::get('dashboard/jobs/{id}/edit', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'edit'])->name('jobs.manage.edit');
         Route::put('dashboard/jobs/{id}', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'update'])->name('jobs.manage.update');
         Route::delete('dashboard/jobs/{id}', [\App\Http\Controllers\Administrator\JobOpportunityController::class, 'destroy'])->name('jobs.manage.destroy');
+    });
+
+    // Downloadable Files
+    Route::middleware('permission:manage_downloadable_files')->group(function () {
+        Route::get('dashboard/downloadable-files', [\App\Http\Controllers\Administrator\DownloadableFileController::class, 'index'])->name('downloadable-files.index');
+        Route::post('dashboard/downloadable-files', [\App\Http\Controllers\Administrator\DownloadableFileController::class, 'store'])->name('downloadable-files.store');
+        Route::put('dashboard/downloadable-files/{id}', [\App\Http\Controllers\Administrator\DownloadableFileController::class, 'update'])->name('downloadable-files.update');
+        Route::delete('dashboard/downloadable-files/{id}', [\App\Http\Controllers\Administrator\DownloadableFileController::class, 'destroy'])->name('downloadable-files.destroy');
     });
 
     // User Management (Super Admin only)

@@ -198,55 +198,89 @@ export default function TourismItemPage({
                                                 item.email ||
                                                 item.contact_number ||
                                                 item.social_media_url) && (
-                                                <div className="border border-slate-200 bg-slate-50 p-5 shadow-sm">
-                                                    <ul className="space-y-4">
+                                                <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm ring-1 ring-slate-100/50">
+                                                    <ul className="divide-y divide-slate-100">
                                                         {item.address && (
-                                                            <li className="flex items-start gap-3 text-slate-700">
-                                                                <MapPin className="mt-0.5 size-5 shrink-0 text-blue-800" />
-                                                                <span className="text-sm leading-relaxed sm:text-base">
-                                                                    {
-                                                                        item.address
-                                                                    }
-                                                                </span>
+                                                            <li className="flex items-start gap-4 p-4 transition-colors hover:bg-slate-50 sm:px-6">
+                                                                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                                                                    <MapPin className="size-5" />
+                                                                </div>
+                                                                <div className="flex flex-col gap-1 py-0.5">
+                                                                    <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                                                                        Address
+                                                                    </span>
+                                                                    <span className="text-sm leading-relaxed text-slate-700 sm:text-base">
+                                                                        {
+                                                                            item.address
+                                                                        }
+                                                                    </span>
+                                                                </div>
                                                             </li>
                                                         )}
                                                         {item.contact_number && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Phone className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={`tel:${item.contact_number.replace(/\s/g, '')}`}
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    {
-                                                                        item.contact_number
-                                                                    }
-                                                                </a>
+                                                            <li className="flex items-start gap-4 p-4 transition-colors hover:bg-slate-50 sm:px-6">
+                                                                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                                                                    <Phone className="size-5" />
+                                                                </div>
+                                                                <div className="flex flex-col gap-1 py-0.5">
+                                                                    <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                                                                        Contact
+                                                                        Number
+                                                                    </span>
+                                                                    <a
+                                                                        href={`tel:${item.contact_number.replace(/\s/g, '')}`}
+                                                                        className="text-sm font-medium break-all text-blue-700 hover:text-blue-800 hover:underline sm:text-base"
+                                                                    >
+                                                                        {
+                                                                            item.contact_number
+                                                                        }
+                                                                    </a>
+                                                                </div>
                                                             </li>
                                                         )}
                                                         {item.email && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Mail className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={`mailto:${item.email}`}
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    {item.email}
-                                                                </a>
+                                                            <li className="flex items-start gap-4 p-4 transition-colors hover:bg-slate-50 sm:px-6">
+                                                                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                                                                    <Mail className="size-5" />
+                                                                </div>
+                                                                <div className="flex flex-col gap-1 py-0.5">
+                                                                    <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                                                                        Email
+                                                                        Address
+                                                                    </span>
+                                                                    <a
+                                                                        href={`mailto:${item.email}`}
+                                                                        className="text-sm font-medium break-all text-blue-700 hover:text-blue-800 hover:underline sm:text-base"
+                                                                    >
+                                                                        {
+                                                                            item.email
+                                                                        }
+                                                                    </a>
+                                                                </div>
                                                             </li>
                                                         )}
                                                         {item.social_media_url && (
-                                                            <li className="flex items-center gap-3 text-slate-700">
-                                                                <Share2 className="size-5 shrink-0 text-blue-800" />
-                                                                <a
-                                                                    href={
-                                                                        item.social_media_url
-                                                                    }
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="text-sm text-blue-800 hover:underline sm:text-base"
-                                                                >
-                                                                    Social media
-                                                                </a>
+                                                            <li className="flex items-start gap-4 p-4 transition-colors hover:bg-slate-50 sm:px-6">
+                                                                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                                                                    <Share2 className="size-5" />
+                                                                </div>
+                                                                <div className="flex flex-col gap-1 py-0.5">
+                                                                    <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                                                                        Social
+                                                                        Media
+                                                                    </span>
+                                                                    <a
+                                                                        href={
+                                                                            item.social_media_url
+                                                                        }
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="text-sm font-medium break-all text-blue-700 hover:text-blue-800 hover:underline sm:text-base"
+                                                                    >
+                                                                        Visit
+                                                                        profile
+                                                                    </a>
+                                                                </div>
                                                             </li>
                                                         )}
                                                     </ul>

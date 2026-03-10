@@ -73,6 +73,12 @@ const primaryNavItems: NavItem[] = [
         label: 'More',
         groups: [
             {
+                sectionTitle: 'Downloadable File',
+                links: [
+                    { label: 'Click here to download', href: '/downloads' },
+                ],
+            },
+            {
                 sectionTitle: 'Opportunities',
                 links: [{ label: 'Job Opportunities', href: '/jobs' }],
             },

@@ -3,6 +3,7 @@ import {
     Building2,
     CalendarDays,
     ChevronDown,
+    FileDown,
     History,
     Info,
     Landmark,
@@ -60,6 +61,7 @@ const announcementsUrl = '/dashboard/announcements';
 const activitiesUrl = '/dashboard/activities';
 const projectsUrl = '/dashboard/projects';
 const jobsUrl = '/dashboard/jobs';
+const downloadableFilesUrl = '/dashboard/downloadable-files';
 const editGeneralSettingsUrl = '/dashboard/general-settings';
 const editPoliciesUrl = '/dashboard/policies';
 const usersUrl = '/dashboard/users';
@@ -146,6 +148,22 @@ export function AppSidebar() {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
+                        {hasPermission('manage_downloadable_files') && (
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={isCurrentUrl(
+                                        downloadableFilesUrl,
+                                    )}
+                                    tooltip={{ children: 'Downloadable Files' }}
+                                >
+                                    <Link href={downloadableFilesUrl} prefetch>
+                                        <FileDown className="size-4" />
+                                        <span>Downloadable Files</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        )}
                         {hasPermission('manage_announcements') && (
                             <SidebarMenuItem>
                                 <SidebarMenuButton
