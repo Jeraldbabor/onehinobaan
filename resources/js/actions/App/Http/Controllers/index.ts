@@ -4,6 +4,7 @@ import AnnouncementListController from './AnnouncementListController'
 import ActivityListController from './ActivityListController'
 import ProjectController from './ProjectController'
 import JobOpportunityController from './JobOpportunityController'
+import Public from './Public'
 import TourismController from './TourismController'
 import PolicyController from './PolicyController'
 import Settings from './Settings'
@@ -14,6 +15,7 @@ AnnouncementListController: Object.assign(AnnouncementListController, Announceme
 ActivityListController: Object.assign(ActivityListController, ActivityListController),
 ProjectController: Object.assign(ProjectController, ProjectController),
 JobOpportunityController: Object.assign(JobOpportunityController, JobOpportunityController),
+Public: Object.assign(Public, Public),
 TourismController: Object.assign(TourismController, TourismController),
 PolicyController: Object.assign(PolicyController, PolicyController),
 Settings: Object.assign(Settings, Settings),

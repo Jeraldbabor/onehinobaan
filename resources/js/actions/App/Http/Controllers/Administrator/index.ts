@@ -10,6 +10,7 @@ import AnnouncementController from './AnnouncementController'
 import ActivityController from './ActivityController'
 import ProjectController from './ProjectController'
 import JobOpportunityController from './JobOpportunityController'
+import DownloadableFileController from './DownloadableFileController'
 import UserController from './UserController'
 const Administrator = {
     HistoryController: Object.assign(HistoryController, HistoryController),
@@ -24,6 +25,7 @@ AnnouncementController: Object.assign(AnnouncementController, AnnouncementContro
 ActivityController: Object.assign(ActivityController, ActivityController),
 ProjectController: Object.assign(ProjectController, ProjectController),
 JobOpportunityController: Object.assign(JobOpportunityController, JobOpportunityController),
+DownloadableFileController: Object.assign(DownloadableFileController, DownloadableFileController),
 UserController: Object.assign(UserController, UserController),
 }
 

@@ -235,11 +235,11 @@ export function TourismItemEditor({
         setEditItem((prev) =>
             prev
                 ? {
-                      ...prev,
-                      image_urls: prev.image_urls.filter(
-                          (img) => img.id !== imageId,
-                      ),
-                  }
+                    ...prev,
+                    image_urls: prev.image_urls.filter(
+                        (img) => img.id !== imageId,
+                    ),
+                }
                 : null,
         );
         router.delete(`${baseUrl}/images/${imageId}`);
@@ -275,8 +275,10 @@ export function TourismItemEditor({
                     <CardContent className="space-y-4">
                         <form onSubmit={handleAdd} className="space-y-4">
                             <div className="grid gap-4 sm:grid-cols-2">
-                                <div className="space-y-2">
-                                    <Label htmlFor="add-title">Title</Label>
+                                <div>
+                                    <Label htmlFor="add-title">
+                                        Title <span className="text-red-500">*</span>
+                                    </Label>
                                     <input
                                         id="add-title"
                                         type="text"
@@ -300,7 +302,7 @@ export function TourismItemEditor({
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="add-images">
-                                        Images (1, 2, or more)
+                                        Images (1, 2, or more) <span className="text-red-500">*</span>
                                     </Label>
                                     <div className="flex flex-col gap-2">
                                         <label
@@ -340,10 +342,10 @@ export function TourismItemEditor({
                                                         (file, i) => {
                                                             const url =
                                                                 file instanceof
-                                                                File
+                                                                    File
                                                                     ? URL.createObjectURL(
-                                                                          file,
-                                                                      )
+                                                                        file,
+                                                                    )
                                                                     : null;
                                                             return (
                                                                 <div
@@ -610,13 +612,18 @@ export function TourismItemEditor({
                                     type="submit"
                                     disabled={
                                         addForm.processing ||
-                                        addForm.data.images.length === 0
+                                        addForm.data.images.length === 0 ||
+                                        !addForm.data.title.trim()
                                     }
                                     size="lg"
                                 >
                                     {addForm.processing
                                         ? 'Adding...'
-                                        : `Add ${currentLabel}`}
+                                        : addForm.data.images.length === 0
+                                            ? 'Select an image first'
+                                            : !addForm.data.title.trim()
+                                                ? 'Enter a title first'
+                                                : `Add ${currentLabel}`}
                                 </Button>
                                 <Transition
                                     show={addForm.recentlySuccessful}
@@ -755,7 +762,9 @@ export function TourismItemEditor({
                     >
                         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-1">
                             <div className="space-y-2">
-                                <Label htmlFor="edit-title">Title</Label>
+                                <Label htmlFor="edit-title">
+                                    Title <span className="text-red-500">*</span>
+                                </Label>
                                 <input
                                     id="edit-title"
                                     type="text"
@@ -1070,9 +1079,23 @@ export function TourismItemEditor({
                             </Button>
                             <Button
                                 type="submit"
-                                disabled={editForm.processing}
+                                disabled={
+                                    editForm.processing ||
+                                    (editItem &&
+                                        editForm.data.images.length === 0 &&
+                                        editItem.image_urls.length === 0) ||
+                                    !editForm.data.title.trim()
+                                }
                             >
-                                {editForm.processing ? 'Saving...' : 'Save'}
+                                {editForm.processing
+                                    ? 'Saving...'
+                                    : (editItem &&
+                                        editForm.data.images.length === 0 &&
+                                        editItem.image_urls.length === 0)
+                                        ? 'Select an image first'
+                                        : !editForm.data.title.trim()
+                                            ? 'Enter a title first'
+                                            : 'Save Changes'}
                             </Button>
                         </DialogFooter>
                     </form>

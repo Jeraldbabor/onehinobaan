@@ -544,11 +544,10 @@ export default function Landing() {
                                         key={index}
                                         type="button"
                                         onClick={() => scrollToIndex(index)}
-                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${
-                                            index === currentIndex
-                                                ? 'scale-125 bg-blue-800'
-                                                : 'bg-slate-300 hover:bg-slate-400'
-                                        }`}
+                                        className={`size-2.5 rounded-full transition focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 focus:ring-offset-slate-50 focus:outline-none ${index === currentIndex
+                                            ? 'scale-125 bg-blue-800'
+                                            : 'bg-slate-300 hover:bg-slate-400'
+                                            }`}
                                         aria-label={`Go to official ${index + 1}`}
                                         aria-current={
                                             index === currentIndex
@@ -665,9 +664,17 @@ export default function Landing() {
                             <div className="mt-8 space-y-6 sm:mt-12 sm:space-y-8">
                                 {/* Attractions */}
                                 <div>
-                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:text-lg">
-                                        Attractions
-                                    </h4>
+                                    <div className="mb-3 flex items-center justify-between border-b-2 border-blue-800 pb-1">
+                                        <h4 className="text-base font-bold text-blue-800 sm:text-lg">
+                                            Attractions
+                                        </h4>
+                                        <Link
+                                            href="/tourism/attraction"
+                                            className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline sm:text-sm"
+                                        >
+                                            View all &rarr;
+                                        </Link>
+                                    </div>
                                     <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
                                         {tourismAttractions?.map((item) => (
                                             <Link
@@ -703,9 +710,17 @@ export default function Landing() {
 
                                 {/* Resorts */}
                                 <div>
-                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:text-lg">
-                                        Resorts
-                                    </h4>
+                                    <div className="mb-3 flex items-center justify-between border-b-2 border-blue-800 pb-1">
+                                        <h4 className="text-base font-bold text-blue-800 sm:text-lg">
+                                            Resorts
+                                        </h4>
+                                        <Link
+                                            href="/tourism/resorts"
+                                            className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline sm:text-sm"
+                                        >
+                                            View all &rarr;
+                                        </Link>
+                                    </div>
                                     <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
                                         {tourismResorts?.map((item) => (
                                             <Link
@@ -741,9 +756,17 @@ export default function Landing() {
 
                                 {/* Festivals */}
                                 <div>
-                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:text-lg">
-                                        Festivals
-                                    </h4>
+                                    <div className="mb-3 flex items-center justify-between border-b-2 border-blue-800 pb-1">
+                                        <h4 className="text-base font-bold text-blue-800 sm:text-lg">
+                                            Festivals
+                                        </h4>
+                                        <Link
+                                            href="/tourism/festivals"
+                                            className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline sm:text-sm"
+                                        >
+                                            View all &rarr;
+                                        </Link>
+                                    </div>
 
                                     <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
                                         {tourismFestivals?.map((item) => (
@@ -780,9 +803,17 @@ export default function Landing() {
 
                                 {/* Restaurants */}
                                 <div>
-                                    <h4 className="mb-3 border-b-2 border-blue-800 pb-1 text-base font-bold text-blue-800 sm:text-lg">
-                                        Restaurants
-                                    </h4>
+                                    <div className="mb-3 flex items-center justify-between border-b-2 border-blue-800 pb-1">
+                                        <h4 className="text-base font-bold text-blue-800 sm:text-lg">
+                                            Restaurants
+                                        </h4>
+                                        <Link
+                                            href="/tourism/restaurants"
+                                            className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline sm:text-sm"
+                                        >
+                                            View all &rarr;
+                                        </Link>
+                                    </div>
 
                                     <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
                                         {tourismRestaurants?.map((item) => (
@@ -861,12 +892,11 @@ export default function Landing() {
                                                                 )}
                                                                 <div className="absolute top-2 left-2">
                                                                     <span
-                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${
-                                                                            item.status ===
+                                                                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm ${item.status ===
                                                                             'completed'
-                                                                                ? 'bg-green-500 text-white'
-                                                                                : 'bg-blue-600 text-white'
-                                                                        }`}
+                                                                            ? 'bg-green-500 text-white'
+                                                                            : 'bg-blue-600 text-white'
+                                                                            }`}
                                                                     >
                                                                         {
                                                                             item.status
