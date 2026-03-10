@@ -206,13 +206,13 @@ export default function DownloadsIndexPage({
                                 value={officeFilter}
                                 onValueChange={setOfficeFilter}
                             >
-                                <SelectTrigger className="h-11 rounded-xl border-slate-200 focus:ring-blue-600">
+                                <SelectTrigger className="h-11 rounded-xl border-slate-200 bg-white text-slate-900 focus:ring-blue-600">
                                     <div className="flex items-center gap-2">
                                         <Filter className="size-4 text-slate-400" />
                                         <SelectValue placeholder="Filter by Department" />
                                     </div>
                                 </SelectTrigger>
-                                <SelectContent className="rounded-xl border-slate-200 shadow-xl">
+                                <SelectContent className="rounded-xl border-slate-200 bg-white text-slate-900 shadow-xl">
                                     {offices.map((office) => (
                                         <SelectItem
                                             key={office}
