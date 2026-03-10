@@ -144,6 +144,7 @@ const mobileNavItems: NavItem[] = [
             },
         ],
     },
+    { label: 'Downloadable File', href: '/downloads' },
     { label: 'Job Opportunities', href: '/jobs' },
     { label: 'Contact Us', href: '/contact' },
 ];
