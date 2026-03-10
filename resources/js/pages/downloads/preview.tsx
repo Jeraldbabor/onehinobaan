@@ -1,5 +1,5 @@
 import { Head, usePage } from '@inertiajs/react';
-import { Download, FileText, ExternalLink, Calendar, Info, MapPin } from 'lucide-react';
+import { Calendar, Download, FileText, Info, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LandingLayout from '@/layouts/landing-layout';
 import type { PageProps } from '@/types';

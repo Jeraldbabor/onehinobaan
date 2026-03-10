@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -18,6 +19,14 @@ export function TourismImageCarousel({
 
     const count = images.length;
 
+    const handleNext = React.useCallback(() => {
+        setIndex((prev) => (prev + 1) % count);
+    }, [count]);
+
+    const handlePrev = React.useCallback(() => {
+        setIndex((prev) => (prev - 1 + count) % count);
+    }, [count]);
+
     useEffect(() => {
         if (!lightboxOpen) return;
         const onKey = (e: KeyboardEvent) => {
@@ -27,21 +36,13 @@ export function TourismImageCarousel({
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-    }, [lightboxOpen]);
+    }, [lightboxOpen, handleNext, handlePrev]);
 
     if (count === 0) return null;
 
     const openPreview = (i: number) => {
         setIndex(i);
         setLightboxOpen(true);
-    };
-
-    const handleNext = () => {
-        setIndex((prev) => (prev + 1) % count);
-    };
-
-    const handlePrev = () => {
-        setIndex((prev) => (prev - 1 + count) % count);
     };
 
     const currentSrc = images[index];
