@@ -129,7 +129,7 @@ export function TourismImageCarousel({
                         <img
                             src={currentSrc}
                             alt={`${alt} — ${index + 1} of ${count}`}
-                            className="max-h-full max-w-full select-none rounded-lg object-contain shadow-2xl"
+                            className="max-h-full max-w-full rounded-lg object-contain shadow-2xl select-none"
                             draggable={false}
                         />
                     </div>

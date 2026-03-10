@@ -1,5 +1,17 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { Calendar, Download, Eye, FileDown, FileText, ImageIcon, Info, Search, Filter, Table, X } from 'lucide-react';
+import {
+    Calendar,
+    Download,
+    Eye,
+    FileDown,
+    FileText,
+    ImageIcon,
+    Info,
+    Search,
+    Filter,
+    Table,
+    X,
+} from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -59,7 +71,9 @@ export default function DownloadsIndexPage({
     const [officeFilter, setOfficeFilter] = useState('all');
 
     const offices = useMemo(() => {
-        const uniqueOffices = new Set(downloadableFiles.map(f => f.office).filter(Boolean));
+        const uniqueOffices = new Set(
+            downloadableFiles.map((f) => f.office).filter(Boolean),
+        );
         return ['all', ...Array.from(uniqueOffices).sort()];
     }, [downloadableFiles]);
 
@@ -67,9 +81,13 @@ export default function DownloadsIndexPage({
         return downloadableFiles.filter((file) => {
             const matchesSearch =
                 file.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                (file.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false);
+                (file.description
+                    ?.toLowerCase()
+                    .includes(searchQuery.toLowerCase()) ??
+                    false);
 
-            const matchesOffice = officeFilter === 'all' || file.office === officeFilter;
+            const matchesOffice =
+                officeFilter === 'all' || file.office === officeFilter;
 
             return matchesSearch && matchesOffice;
         });
@@ -89,16 +107,20 @@ export default function DownloadsIndexPage({
     const getFileIcon = (type: string) => {
         if (type.includes('pdf')) return <FileText className="size-6" />;
         if (type.includes('image')) return <ImageIcon className="size-6" />;
-        if (type.includes('word') || type.includes('officedocument.word')) return <FileText className="size-6 text-blue-600" />;
-        if (type.includes('excel') || type.includes('spreadsheet')) return <Table className="size-6 text-green-600" />;
+        if (type.includes('word') || type.includes('officedocument.word'))
+            return <FileText className="size-6 text-blue-600" />;
+        if (type.includes('excel') || type.includes('spreadsheet'))
+            return <Table className="size-6 text-green-600" />;
         return <FileDown className="size-6" />;
     };
 
     const getIconContainerClass = (type: string) => {
         if (type.includes('pdf')) return 'bg-red-50 text-red-600';
         if (type.includes('image')) return 'bg-blue-50 text-blue-600';
-        if (type.includes('word') || type.includes('officedocument.word')) return 'bg-blue-50 text-blue-600';
-        if (type.includes('excel') || type.includes('spreadsheet')) return 'bg-green-50 text-green-600';
+        if (type.includes('word') || type.includes('officedocument.word'))
+            return 'bg-blue-50 text-blue-600';
+        if (type.includes('excel') || type.includes('spreadsheet'))
+            return 'bg-green-50 text-green-600';
         return 'bg-slate-50 text-slate-600';
     };
 
@@ -130,47 +152,61 @@ export default function DownloadsIndexPage({
                         Resources & Downloads
                     </h1>
                     <p className="mt-2 max-w-2xl text-lg text-slate-300">
-                        Access official forms, documents, and reports from the Municipality of Hinobaan.
+                        Access official forms, documents, and reports from the
+                        Municipality of Hinobaan.
                     </p>
                 </div>
             </section>
 
             <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
                 <div className="mb-10 flex flex-col gap-6">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                         <div>
-                            <h2 className="text-2xl font-bold text-slate-900 group flex items-center gap-2">
+                            <h2 className="group flex items-center gap-2 text-2xl font-bold text-slate-900">
                                 <FileText className="size-6 text-blue-600" />
                                 Available Documents
                             </h2>
-                            <p className="text-slate-500 text-sm mt-1">
-                                {filteredFiles.length} {filteredFiles.length === 1 ? 'file' : 'files'} found
-                                {officeFilter !== 'all' && <span> in <span className="font-semibold text-slate-900 uppercase">{officeFilter}</span></span>}
+                            <p className="mt-1 text-sm text-slate-500">
+                                {filteredFiles.length}{' '}
+                                {filteredFiles.length === 1 ? 'file' : 'files'}{' '}
+                                found
+                                {officeFilter !== 'all' && (
+                                    <span>
+                                        {' '}
+                                        in{' '}
+                                        <span className="font-semibold text-slate-900 uppercase">
+                                            {officeFilter}
+                                        </span>
+                                    </span>
+                                )}
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex flex-col gap-4 md:flex-row">
                         <div className="relative flex-1">
-                            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+                            <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-slate-400" />
                             <Input
                                 placeholder="Search by title or description..."
-                                className="pl-10 h-11 border-slate-200 focus-visible:ring-blue-600 rounded-xl"
+                                className="h-11 rounded-xl border-slate-200 pl-10 focus-visible:ring-blue-600"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                             {searchQuery && (
                                 <button
                                     onClick={() => setSearchQuery('')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                    className="absolute top-1/2 right-3 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                                 >
                                     <X className="size-4" />
                                 </button>
                             )}
                         </div>
                         <div className="w-full md:w-64">
-                            <Select value={officeFilter} onValueChange={setOfficeFilter}>
-                                <SelectTrigger className="h-11 border-slate-200 focus:ring-blue-600 rounded-xl">
+                            <Select
+                                value={officeFilter}
+                                onValueChange={setOfficeFilter}
+                            >
+                                <SelectTrigger className="h-11 rounded-xl border-slate-200 focus:ring-blue-600">
                                     <div className="flex items-center gap-2">
                                         <Filter className="size-4 text-slate-400" />
                                         <SelectValue placeholder="Filter by Department" />
@@ -181,9 +217,11 @@ export default function DownloadsIndexPage({
                                         <SelectItem
                                             key={office}
                                             value={office ?? 'all'}
-                                            className="uppercase text-xs font-semibold tracking-wide py-2.5 cursor-pointer"
+                                            className="cursor-pointer py-2.5 text-xs font-semibold tracking-wide uppercase"
                                         >
-                                            {office === 'all' ? 'All Departments' : office}
+                                            {office === 'all'
+                                                ? 'All Departments'
+                                                : office}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
@@ -195,12 +233,18 @@ export default function DownloadsIndexPage({
                 {filteredFiles.length === 0 ? (
                     <div className="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 px-8 py-20 text-center">
                         <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-slate-100 text-slate-400">
-                            {downloadableFiles.length === 0 ? <FileDown className="size-8" /> : <Search className="size-8" />}
+                            {downloadableFiles.length === 0 ? (
+                                <FileDown className="size-8" />
+                            ) : (
+                                <Search className="size-8" />
+                            )}
                         </div>
                         <h3 className="mt-4 text-lg font-semibold text-slate-900">
-                            {downloadableFiles.length === 0 ? 'No documents found' : 'No matching results'}
+                            {downloadableFiles.length === 0
+                                ? 'No documents found'
+                                : 'No matching results'}
                         </h3>
-                        <p className="mt-2 text-slate-500 max-w-sm mx-auto">
+                        <p className="mx-auto mt-2 max-w-sm text-slate-500">
                             {downloadableFiles.length === 0
                                 ? 'Access official forms and reports will be available soon. Please check back later.'
                                 : `We couldn't find anything matching "${searchQuery}" ${officeFilter !== 'all' ? `in ${officeFilter}` : ''}. Try adjusting your filters.`}
@@ -208,7 +252,7 @@ export default function DownloadsIndexPage({
                         {downloadableFiles.length > 0 && (
                             <Button
                                 variant="outline"
-                                className="mt-6 border-slate-300 rounded-xl"
+                                className="mt-6 rounded-xl border-slate-300"
                                 onClick={() => {
                                     setSearchQuery('');
                                     setOfficeFilter('all');
@@ -218,7 +262,11 @@ export default function DownloadsIndexPage({
                             </Button>
                         )}
                         {downloadableFiles.length === 0 && (
-                            <Button asChild variant="outline" className="mt-6 border-slate-300 rounded-xl">
+                            <Button
+                                asChild
+                                variant="outline"
+                                className="mt-6 rounded-xl border-slate-300"
+                            >
                                 <Link href="/">Return to Home</Link>
                             </Button>
                         )}
@@ -232,41 +280,59 @@ export default function DownloadsIndexPage({
                             >
                                 <div className="p-6">
                                     <div className="flex items-start justify-between">
-                                        <div className={`flex size-12 items-center justify-center rounded-xl ${getIconContainerClass(file.file_type)}`}>
+                                        <div
+                                            className={`flex size-12 items-center justify-center rounded-xl ${getIconContainerClass(file.file_type)}`}
+                                        >
                                             {getFileIcon(file.file_type)}
                                         </div>
                                         {file.office && (
-                                            <Badge variant="secondary" className="bg-slate-100 text-slate-600 border-none font-medium">
+                                            <Badge
+                                                variant="secondary"
+                                                className="border-none bg-slate-100 font-medium text-slate-600"
+                                            >
                                                 {file.office}
                                             </Badge>
                                         )}
                                     </div>
 
-                                    <h3 className="mt-4 text-xl font-bold text-slate-900 leading-snug group-hover:text-blue-700 transition-colors">
+                                    <h3 className="mt-4 text-xl leading-snug font-bold text-slate-900 transition-colors group-hover:text-blue-700">
                                         {file.title}
                                     </h3>
 
                                     {file.description && (
-                                        <p className="mt-3 line-clamp-2 text-sm text-slate-600 leading-relaxed">
+                                        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-slate-600">
                                             {file.description}
                                         </p>
                                     )}
 
                                     <div className="mt-4 flex flex-col gap-1.5 border-t border-slate-100 pt-4">
-                                        <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
+                                        <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
                                             <Calendar className="size-3.5" />
-                                            <span>Posted on: {formatDateTime(file.created_at)}</span>
+                                            <span>
+                                                Posted on:{' '}
+                                                {formatDateTime(
+                                                    file.created_at,
+                                                )}
+                                            </span>
                                         </div>
                                     </div>
 
                                     <div className="mt-4 grid grid-cols-2 gap-4 rounded-lg bg-slate-50 p-3 text-center">
                                         <div className="flex flex-col border-r border-slate-200">
-                                            <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Previews</span>
-                                            <span className="text-sm font-bold text-slate-700">{file.view_count}</span>
+                                            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                                                Previews
+                                            </span>
+                                            <span className="text-sm font-bold text-slate-700">
+                                                {file.view_count}
+                                            </span>
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Downloads</span>
-                                            <span className="text-sm font-bold text-slate-700">{file.download_count}</span>
+                                            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                                                Downloads
+                                            </span>
+                                            <span className="text-sm font-bold text-slate-700">
+                                                {file.download_count}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -300,10 +366,15 @@ export default function DownloadsIndexPage({
                                             // Analytics call is handled by the redirect route
                                         }}
                                     >
-                                        <a href={`/downloads/${file.id}/file`} target="_blank">
+                                        <a
+                                            href={`/downloads/${file.id}/file`}
+                                            target="_blank"
+                                        >
                                             <Download className="size-4" />
                                             Download
-                                            <span className="ml-1 opacity-60 text-[10px] font-normal">({formatBytes(file.file_size)})</span>
+                                            <span className="ml-1 text-[10px] font-normal opacity-60">
+                                                ({formatBytes(file.file_size)})
+                                            </span>
                                         </a>
                                     </Button>
                                 </div>

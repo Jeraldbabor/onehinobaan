@@ -152,7 +152,9 @@ export function AppSidebar() {
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     asChild
-                                    isActive={isCurrentUrl(downloadableFilesUrl)}
+                                    isActive={isCurrentUrl(
+                                        downloadableFilesUrl,
+                                    )}
                                     tooltip={{ children: 'Downloadable Files' }}
                                 >
                                     <Link href={downloadableFilesUrl} prefetch>

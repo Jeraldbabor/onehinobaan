@@ -55,75 +55,101 @@ export default function DownloadPreview({ file }: PreviewProps) {
                     <nav className="mb-4 flex" aria-label="Breadcrumb">
                         <ol className="flex items-center space-x-2 text-sm text-slate-300">
                             <li>
-                                <a href="/" className="transition-colors hover:text-white">Home</a>
+                                <a
+                                    href="/"
+                                    className="transition-colors hover:text-white"
+                                >
+                                    Home
+                                </a>
                             </li>
                             <li className="flex items-center space-x-2">
                                 <span className="text-slate-500">/</span>
-                                <a href="/downloads" className="transition-colors hover:text-white">Downloads</a>
+                                <a
+                                    href="/downloads"
+                                    className="transition-colors hover:text-white"
+                                >
+                                    Downloads
+                                </a>
                             </li>
                             <li className="flex items-center space-x-2">
                                 <span className="text-slate-500">/</span>
-                                <span className="font-medium text-white truncate max-w-[200px]">
+                                <span className="max-w-[200px] truncate font-medium text-white">
                                     {file.title}
                                 </span>
                             </li>
                         </ol>
                     </nav>
-                    <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl truncate">
+                    <h1 className="truncate text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                         {file.title}
                     </h1>
                 </div>
             </section>
 
-            <div className="bg-slate-50 py-12 sm:py-16 min-h-[calc(100vh-256px)]">
+            <div className="min-h-[calc(100vh-256px)] bg-slate-50 py-12 sm:py-16">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid gap-8 lg:grid-cols-4">
                         {/* Sidebar/Info */}
                         <div className="lg:col-span-1">
                             <div className="sticky top-24 space-y-6">
                                 <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                                    <h2 className="mb-6 flex items-center gap-2 text-lg font-bold text-slate-900 border-b pb-4">
+                                    <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-lg font-bold text-slate-900">
                                         <Info className="size-5 text-blue-600" />
                                         Document Details
                                     </h2>
 
                                     <div className="space-y-4">
                                         <div>
-                                            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Department / Office</label>
-                                            <p className="flex items-center gap-2 text-sm font-semibold text-slate-700 mt-1 uppercase">
+                                            <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                                                Department / Office
+                                            </label>
+                                            <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-slate-700 uppercase">
                                                 <MapPin className="size-3.5 text-blue-500" />
                                                 {file.office || 'General'}
                                             </p>
                                         </div>
 
                                         <div>
-                                            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Posted On</label>
-                                            <p className="flex items-center gap-2 text-sm font-medium text-slate-600 mt-1">
+                                            <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                                                Posted On
+                                            </label>
+                                            <p className="mt-1 flex items-center gap-2 text-sm font-medium text-slate-600">
                                                 <Calendar className="size-3.5 text-blue-500" />
-                                                {formatDateTime(file.created_at)}
+                                                {formatDateTime(
+                                                    file.created_at,
+                                                )}
                                             </p>
                                         </div>
 
                                         <div>
-                                            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">File Size</label>
-                                            <p className="text-sm font-medium text-slate-600 mt-1">
+                                            <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                                                File Size
+                                            </label>
+                                            <p className="mt-1 text-sm font-medium text-slate-600">
                                                 {formatBytes(file.file_size)}
                                             </p>
                                         </div>
 
                                         {file.description && (
                                             <div>
-                                                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Description</label>
-                                                <p className="text-sm leading-relaxed text-slate-600 mt-1 italic">
+                                                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                                                    Description
+                                                </label>
+                                                <p className="mt-1 text-sm leading-relaxed text-slate-600 italic">
                                                     "{file.description}"
                                                 </p>
                                             </div>
                                         )}
                                     </div>
 
-                                    <div className="mt-8 space-y-3 pt-6 border-t">
-                                        <Button asChild className="w-full bg-blue-700 hover:bg-blue-800 h-11">
-                                            <a href={`/downloads/${file.id}/file`} target="_blank">
+                                    <div className="mt-8 space-y-3 border-t pt-6">
+                                        <Button
+                                            asChild
+                                            className="h-11 w-full bg-blue-700 hover:bg-blue-800"
+                                        >
+                                            <a
+                                                href={`/downloads/${file.id}/file`}
+                                                target="_blank"
+                                            >
                                                 <Download className="mr-2 size-4" />
                                                 Download PDF
                                             </a>
@@ -131,17 +157,23 @@ export default function DownloadPreview({ file }: PreviewProps) {
                                     </div>
                                 </div>
 
-                                <div className="relative overflow-hidden rounded-xl bg-slate-900 p-6 text-white shadow-lg border border-slate-800">
+                                <div className="relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900 p-6 text-white shadow-lg">
                                     <div className="absolute -right-4 -bottom-4 opacity-10">
                                         <FileText size={120} />
                                     </div>
                                     <h3 className="mb-2 text-lg font-bold">
                                         Document Assistance
                                     </h3>
-                                    <p className="mb-6 text-xs text-slate-400 leading-relaxed">
-                                        If you're looking for a specific form that isn't listed here, please visit the relevant department's office.
+                                    <p className="mb-6 text-xs leading-relaxed text-slate-400">
+                                        If you're looking for a specific form
+                                        that isn't listed here, please visit the
+                                        relevant department's office.
                                     </p>
-                                    <Button variant="outline" asChild className="w-full border-slate-700 bg-transparent hover:bg-slate-800 hover:text-white text-xs h-9">
+                                    <Button
+                                        variant="outline"
+                                        asChild
+                                        className="h-9 w-full border-slate-700 bg-transparent text-xs hover:bg-slate-800 hover:text-white"
+                                    >
                                         <a href="/contact">Contact Support</a>
                                     </Button>
                                 </div>

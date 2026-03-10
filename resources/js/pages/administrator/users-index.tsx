@@ -714,14 +714,14 @@ export default function UsersIndex({ users }: UsersIndexProps) {
                                                         'permissions',
                                                         checked
                                                             ? [
-                                                                ...current,
-                                                                perm.id,
-                                                            ]
+                                                                  ...current,
+                                                                  perm.id,
+                                                              ]
                                                             : current.filter(
-                                                                (p) =>
-                                                                    p !==
-                                                                    perm.id,
-                                                            ),
+                                                                  (p) =>
+                                                                      p !==
+                                                                      perm.id,
+                                                              ),
                                                     );
                                                 }}
                                             />

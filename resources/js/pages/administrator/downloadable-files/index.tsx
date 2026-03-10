@@ -1,7 +1,7 @@
 import { Head, router } from '@inertiajs/react';
 import { useForm } from '@inertiajs/react';
 import { Calendar, FileDown, Pencil, Plus, Trash2 } from 'lucide-react';
-import type { FormEventHandler} from 'react';
+import type { FormEventHandler } from 'react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -75,15 +75,18 @@ export default function DownloadableFilesIndexPage({
     const [showToast, setShowToast] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
     const [formModalOpen, setFormModalOpen] = useState(false);
-    const [editingFile, setEditingFile] = useState<DownloadableFileRow | null>(null);
+    const [editingFile, setEditingFile] = useState<DownloadableFileRow | null>(
+        null,
+    );
 
-    const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
-        title: '',
-        description: '',
-        office: '',
-        file: null as File | null,
-        is_active: true,
-    });
+    const { data, setData, post, put, processing, errors, reset, clearErrors } =
+        useForm({
+            title: '',
+            description: '',
+            office: '',
+            file: null as File | null,
+            is_active: true,
+        });
 
     const openCreateModal = () => {
         setEditingFile(null);
@@ -126,7 +129,11 @@ export default function DownloadableFilesIndexPage({
     };
 
     const handleDelete = (id: number) => {
-        if (!confirm('Remove this file? It will no longer be available for download.'))
+        if (
+            !confirm(
+                'Remove this file? It will no longer be available for download.',
+            )
+        )
             return;
         setDeletingId(id);
         router.delete(`${downloadablesUrl}/${id}`, {
@@ -145,7 +152,8 @@ export default function DownloadableFilesIndexPage({
                             Downloadable Files
                         </h1>
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Manage files available for public download, such as forms, reports, or policies.
+                            Manage files available for public download, such as
+                            forms, reports, or policies.
                         </p>
                     </div>
                     <Button onClick={openCreateModal}>
@@ -175,21 +183,38 @@ export default function DownloadableFilesIndexPage({
                                     <CardHeader className="py-4">
                                         <div className="flex items-start justify-between gap-2">
                                             <div className="min-w-0 flex-1">
-                                                <CardTitle className="truncate text-base" title={f.title}>
+                                                <CardTitle
+                                                    className="truncate text-base"
+                                                    title={f.title}
+                                                >
                                                     {f.title}
                                                 </CardTitle>
                                                 <CardDescription className="mt-1 flex flex-wrap items-center gap-2">
-                                                    <span>{formatBytes(f.file_size)}</span>
+                                                    <span>
+                                                        {formatBytes(
+                                                            f.file_size,
+                                                        )}
+                                                    </span>
                                                     <span>·</span>
-                                                    <span>{f.is_active ? 'Active' : 'Hidden'}</span>
-                                                    <div className="flex items-center gap-1.5 ml-1">
+                                                    <span>
+                                                        {f.is_active
+                                                            ? 'Active'
+                                                            : 'Hidden'}
+                                                    </span>
+                                                    <div className="ml-1 flex items-center gap-1.5">
                                                         <Calendar className="size-3" />
-                                                        <span>{formatDateTime(f.created_at)}</span>
+                                                        <span>
+                                                            {formatDateTime(
+                                                                f.created_at,
+                                                            )}
+                                                        </span>
                                                     </div>
                                                     {f.office && (
                                                         <>
                                                             <span>·</span>
-                                                            <span className="text-blue-600 font-medium">{f.office}</span>
+                                                            <span className="font-medium text-blue-600">
+                                                                {f.office}
+                                                            </span>
                                                         </>
                                                     )}
                                                 </CardDescription>
@@ -208,8 +233,15 @@ export default function DownloadableFilesIndexPage({
                                         </div>
                                     </CardHeader>
                                     <CardContent className="flex flex-1 flex-col border-t py-3">
-                                        <p className="line-clamp-2 flex-1 text-sm text-muted-foreground" title={f.description || ''}>
-                                            {f.description || <span className="italic opacity-50">No description</span>}
+                                        <p
+                                            className="line-clamp-2 flex-1 text-sm text-muted-foreground"
+                                            title={f.description || ''}
+                                        >
+                                            {f.description || (
+                                                <span className="italic opacity-50">
+                                                    No description
+                                                </span>
+                                            )}
                                         </p>
                                         <div className="mt-4 flex gap-2">
                                             <Button
@@ -225,7 +257,9 @@ export default function DownloadableFilesIndexPage({
                                                 variant="destructive"
                                                 size="sm"
                                                 className="w-full"
-                                                onClick={() => handleDelete(f.id)}
+                                                onClick={() =>
+                                                    handleDelete(f.id)
+                                                }
                                                 disabled={deletingId === f.id}
                                             >
                                                 <Trash2 className="mr-2 size-3.5" />
@@ -243,22 +277,34 @@ export default function DownloadableFilesIndexPage({
             <Dialog open={formModalOpen} onOpenChange={setFormModalOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{editingFile ? 'Edit File Details' : 'Upload File'}</DialogTitle>
+                        <DialogTitle>
+                            {editingFile ? 'Edit File Details' : 'Upload File'}
+                        </DialogTitle>
                         <DialogDescription>
-                            {editingFile ? 'Update the details for this downloadable file.' : 'Upload a new file for the public to download.'}
+                            {editingFile
+                                ? 'Update the details for this downloadable file.'
+                                : 'Upload a new file for the public to download.'}
                         </DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleFormSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="title">Title <span className="text-red-500">*</span></Label>
+                            <Label htmlFor="title">
+                                Title <span className="text-red-500">*</span>
+                            </Label>
                             <Input
                                 id="title"
                                 value={data.title}
-                                onChange={(e) => setData('title', e.target.value)}
+                                onChange={(e) =>
+                                    setData('title', e.target.value)
+                                }
                                 placeholder="e.g. Business Permit Form 2024"
                                 required
                             />
-                            {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
+                            {errors.title && (
+                                <p className="text-sm text-red-500">
+                                    {errors.title}
+                                </p>
+                            )}
                         </div>
 
                         <div className="space-y-2">
@@ -266,39 +312,68 @@ export default function DownloadableFilesIndexPage({
                             <Input
                                 id="office"
                                 value={data.office}
-                                onChange={(e) => setData('office', e.target.value)}
+                                onChange={(e) =>
+                                    setData('office', e.target.value)
+                                }
                                 placeholder="e.g. Mayor's Office, MPDC, etc."
                             />
-                            {errors.office && <p className="text-sm text-red-500">{errors.office}</p>}
+                            {errors.office && (
+                                <p className="text-sm text-red-500">
+                                    {errors.office}
+                                </p>
+                            )}
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="description">Description (Optional)</Label>
+                            <Label htmlFor="description">
+                                Description (Optional)
+                            </Label>
                             <textarea
                                 id="description"
                                 value={data.description}
-                                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setData('description', e.target.value)}
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLTextAreaElement>,
+                                ) => setData('description', e.target.value)}
                                 placeholder="Briefly describe what this file is for..."
                                 rows={3}
-                                className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                             />
-                            {errors.description && <p className="text-sm text-red-500">{errors.description}</p>}
+                            {errors.description && (
+                                <p className="text-sm text-red-500">
+                                    {errors.description}
+                                </p>
+                            )}
                         </div>
 
                         {!editingFile && (
                             <div className="space-y-2">
-                                <Label htmlFor="file">File <span className="text-red-500">*</span></Label>
+                                <Label htmlFor="file">
+                                    File <span className="text-red-500">*</span>
+                                </Label>
                                 <Input
                                     id="file"
                                     type="file"
                                     accept="application/pdf"
-                                    onChange={(e) => setData('file', e.target.files?.[0] || null)}
+                                    onChange={(e) =>
+                                        setData(
+                                            'file',
+                                            e.target.files?.[0] || null,
+                                        )
+                                    }
                                     required={!editingFile}
                                 />
-                                {errors.file && <p className="text-sm text-red-500">{errors.file}</p>}
-                                <div className="mt-2 rounded-md bg-blue-50 p-3 text-[11px] text-blue-700 border border-blue-100 italic">
-                                    <p className="font-bold mb-1 uppercase tracking-wider text-[9px]">Requirement:</p>
-                                    Only **PDF files** are allowed for upload to ensure the best Interactive Viewer experience.
+                                {errors.file && (
+                                    <p className="text-sm text-red-500">
+                                        {errors.file}
+                                    </p>
+                                )}
+                                <div className="mt-2 rounded-md border border-blue-100 bg-blue-50 p-3 text-[11px] text-blue-700 italic">
+                                    <p className="mb-1 text-[9px] font-bold tracking-wider uppercase">
+                                        Requirement:
+                                    </p>
+                                    Only **PDF files** are allowed for upload to
+                                    ensure the best Interactive Viewer
+                                    experience.
                                 </div>
                             </div>
                         )}
@@ -308,10 +383,15 @@ export default function DownloadableFilesIndexPage({
                                 type="checkbox"
                                 id="is_active"
                                 checked={data.is_active}
-                                onChange={(e) => setData('is_active', e.target.checked)}
+                                onChange={(e) =>
+                                    setData('is_active', e.target.checked)
+                                }
                                 className="size-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                             />
-                            <Label htmlFor="is_active" className="cursor-pointer">
+                            <Label
+                                htmlFor="is_active"
+                                className="cursor-pointer"
+                            >
                                 Active (visible to the public)
                             </Label>
                         </div>

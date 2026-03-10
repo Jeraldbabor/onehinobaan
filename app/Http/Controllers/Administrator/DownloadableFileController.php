@@ -13,6 +13,7 @@ use Inertia\Response;
 class DownloadableFileController extends Controller
 {
     private const FILE_DISK = 'public';
+
     private const FILE_DIR = 'downloadables';
 
     public function index(): Response
@@ -28,7 +29,7 @@ class DownloadableFileController extends Controller
                 'file_size' => $file->file_size,
                 'file_type' => $file->file_type,
                 'is_active' => $file->is_active,
-                'file_url' => '/storage/' . $file->file_path,
+                'file_url' => '/storage/'.$file->file_path,
                 'created_at' => $file->created_at->toISOString(),
             ]);
 
@@ -48,7 +49,7 @@ class DownloadableFileController extends Controller
         ]);
 
         $file = $request->file('file');
-        
+
         $path = $file->store(self::FILE_DIR, self::FILE_DISK);
 
         DownloadableFile::create([
@@ -75,7 +76,7 @@ class DownloadableFileController extends Controller
         ]);
 
         $downloadableFile = DownloadableFile::findOrFail($id);
-        
+
         $downloadableFile->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -89,11 +90,11 @@ class DownloadableFileController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         $downloadableFile = DownloadableFile::findOrFail($id);
-        
+
         if ($downloadableFile->file_path) {
             Storage::disk(self::FILE_DISK)->delete($downloadableFile->file_path);
         }
-        
+
         $downloadableFile->delete();
 
         return redirect()->back()->with('status', 'File removed successfully.');
