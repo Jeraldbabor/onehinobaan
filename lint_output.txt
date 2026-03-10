@@ -1,0 +1,13 @@
+
+> lint
+> eslint . --fix
+
+
+C:\xampp1\htdocs\onehinobaan\resources\js\pages\downloads\preview.tsx
+  2:10  error  'ArrowLeft' is defined but never used  @typescript-eslint/no-unused-vars
+  2:41  error  'FileDown' is defined but never used   @typescript-eslint/no-unused-vars
+  2:61  error  'ImageIcon' is defined but never used  @typescript-eslint/no-unused-vars
+  2:78  error  'Shield' is defined but never used     @typescript-eslint/no-unused-vars
+
+✖ 4 problems (4 errors, 0 warnings)
+

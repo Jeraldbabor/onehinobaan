@@ -1,6 +1,8 @@
 import { Head, router } from '@inertiajs/react';
-import { Calendar, FileDown, Pencil, Plus, Trash2, X } from 'lucide-react';
-import { FormEventHandler, useState } from 'react';
+import { useForm } from '@inertiajs/react';
+import { Calendar, FileDown, Pencil, Plus, Trash2 } from 'lucide-react';
+import type { FormEventHandler} from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -21,7 +23,6 @@ import { Label } from '@/components/ui/label';
 import { Toast } from '@/components/ui/toast';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import { useForm } from '@inertiajs/react';
 
 const dashboardUrl = '/dashboard';
 const downloadablesUrl = '/dashboard/downloadable-files';
