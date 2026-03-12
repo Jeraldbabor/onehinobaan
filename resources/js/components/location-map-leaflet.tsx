@@ -29,19 +29,21 @@ export function LocationMapLeaflet({
     const position: LatLngExpression = marker;
 
     return (
-        <MapContainer
-            center={center}
-            zoom={13}
-            scrollWheelZoom={true}
-            style={{ height: '100%', width: '100%', borderRadius: '0.5rem' }}
-        >
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={position} icon={markerIcon}>
-                {markerTitle && <Popup>{markerTitle}</Popup>}
-            </Marker>
-        </MapContainer>
+        <div style={{ height: '100%', width: '100%', isolation: 'isolate' }}>
+            <MapContainer
+                center={center}
+                zoom={13}
+                scrollWheelZoom={true}
+                style={{ height: '100%', width: '100%', borderRadius: '0.5rem' }}
+            >
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={position} icon={markerIcon}>
+                    {markerTitle && <Popup>{markerTitle}</Popup>}
+                </Marker>
+            </MapContainer>
+        </div>
     );
 }
