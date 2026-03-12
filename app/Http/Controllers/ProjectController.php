@@ -9,6 +9,30 @@ use Inertia\Response;
 class ProjectController extends Controller
 {
     /**
+     * Display a listing of all published projects.
+     */
+    public function index(): Response
+    {
+        $projects = Project::published()
+            ->orderByRaw('COALESCE(published_at, created_at) DESC')
+            ->paginate(12)
+            ->through(fn (Project $p) => [
+                'id'           => $p->id,
+                'title'        => $p->title,
+                'description'  => $p->description,
+                'status'       => $p->status,
+                'link_url'     => $p->link_url,
+                'image_url'    => $p->image_path ? '/storage/'.$p->image_path : null,
+                'video_url'    => $p->video_path ? '/storage/'.$p->video_path : null,
+                'published_at' => $p->published_at?->toISOString(),
+            ]);
+
+        return Inertia::render('projects/index', [
+            'projects' => $projects,
+        ]);
+    }
+
+    /**
      * Display the specified project.
      */
     public function show(int $id): Response

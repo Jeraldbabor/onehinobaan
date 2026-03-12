@@ -83,7 +83,7 @@ Route::get('/', function () {
 
     $projects = \App\Models\Project::published()
         ->orderByRaw('COALESCE(published_at, created_at) DESC')
-        ->take(3)
+        ->take(10)
         ->get()
         ->map(fn (\App\Models\Project $p) => [
             'id' => $p->id,
@@ -140,6 +140,7 @@ Route::get('announcements', [AnnouncementListController::class, 'announcements']
 Route::get('announcements/{id}', [AnnouncementListController::class, 'showAnnouncement'])->name('announcements.show')->whereNumber('id');
 Route::get('activities', [ActivityListController::class, 'index'])->name('activities.index');
 Route::get('activities/{id}', [ActivityListController::class, 'show'])->name('activities.show')->whereNumber('id');
+Route::get('projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('projects.index');
 Route::get('projects/{id}', [App\Http\Controllers\ProjectController::class, 'show'])->name('projects.show')->whereNumber('id');
 Route::get('jobs', [App\Http\Controllers\JobOpportunityController::class, 'index'])->name('jobs.index');
 Route::get('jobs/{id}', [App\Http\Controllers\JobOpportunityController::class, 'show'])->name('jobs.show')->whereNumber('id');
