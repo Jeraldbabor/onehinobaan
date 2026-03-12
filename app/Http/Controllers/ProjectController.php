@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Project;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -28,7 +29,8 @@ class ProjectController extends Controller
             ]);
 
         return Inertia::render('projects/index', [
-            'projects' => $projects,
+            'projects'      => $projects,
+            'announcements' => Announcement::forSidebar(),
         ]);
     }
 
