@@ -189,4 +189,7 @@ destroy.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     destroy.form = destroyForm
 const AuthenticatedSessionController = { create, store, destroy }
 
+export default AuthenticatedSessionControllerrm = destroyForm
+const AuthenticatedSessionController = { create, store, destroy }
+
 export default AuthenticatedSessionController

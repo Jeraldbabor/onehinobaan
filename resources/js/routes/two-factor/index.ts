@@ -631,5 +631,4 @@ recoveryCodes: Object.assign(recoveryCodes, recoveryCodes),
 regenerateRecoveryCodes: Object.assign(regenerateRecoveryCodes, regenerateRecoveryCodes),
 show: Object.assign(show, show),
 }
-
 export default twoFactor
