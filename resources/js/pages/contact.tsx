@@ -219,10 +219,11 @@ export default function ContactPage({
                                     </>
                                 ) : (
                                     <div className="mt-4 space-y-3">
-                                        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+                                        <div className="h-80 overflow-hidden rounded-lg border border-slate-200 shadow-sm">
                                             <LocationMap
                                                 markerTitle="Municipality of Hinoba-an"
                                                 height={320}
+                                                className="h-full w-full"
                                             />
                                         </div>
                                         <a
