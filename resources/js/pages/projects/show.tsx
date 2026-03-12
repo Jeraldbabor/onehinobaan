@@ -237,7 +237,7 @@ export default function ProjectShow({ project }: ProjectShowProps) {
                                         community-driven initiatives.
                                     </p>
                                     <Link
-                                        href="/"
+                                        href="/projects"
                                         className="text-xs font-bold tracking-widest text-blue-300 uppercase transition hover:text-white"
                                     >
                                         View more projects
