@@ -34,7 +34,11 @@ export function LocationMapLeaflet({
                 center={center}
                 zoom={13}
                 scrollWheelZoom={true}
-                style={{ height: '100%', width: '100%', borderRadius: '0.5rem' }}
+                style={{
+                    height: '100%',
+                    width: '100%',
+                    borderRadius: '0.5rem',
+                }}
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
