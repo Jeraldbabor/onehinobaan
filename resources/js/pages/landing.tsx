@@ -755,14 +755,14 @@ export default function Landing() {
                                     </div>
                                 </div>
 
-                                {/* Festivals */}
+                                {/* Restaurants */}
                                 <div>
                                     <div className="mb-3 flex items-center justify-between border-b-2 border-blue-800 pb-1">
                                         <h4 className="text-base font-bold text-blue-800 sm:text-lg">
-                                            Festivals
+                                            Restaurants
                                         </h4>
                                         <Link
-                                            href="/tourism/festivals"
+                                            href="/tourism/restaurants"
                                             className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline sm:text-sm"
                                         >
                                             View all &rarr;
@@ -770,10 +770,10 @@ export default function Landing() {
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
-                                        {tourismFestivals?.map((item) => (
+                                        {tourismRestaurants?.map((item) => (
                                             <Link
                                                 key={item.id}
-                                                href={`/tourism/festivals/${item.id}`}
+                                                href={`/tourism/restaurants/${item.id}`}
                                                 className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
                                             >
                                                 <div className="h-28 shrink-0 overflow-hidden bg-slate-100 sm:h-32">
@@ -802,14 +802,14 @@ export default function Landing() {
                                     </div>
                                 </div>
 
-                                {/* Restaurants */}
+                                {/* Festivals */}
                                 <div>
                                     <div className="mb-3 flex items-center justify-between border-b-2 border-blue-800 pb-1">
                                         <h4 className="text-base font-bold text-blue-800 sm:text-lg">
-                                            Restaurants
+                                            Festivals
                                         </h4>
                                         <Link
-                                            href="/tourism/restaurants"
+                                            href="/tourism/festivals"
                                             className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline sm:text-sm"
                                         >
                                             View all &rarr;
@@ -817,10 +817,10 @@ export default function Landing() {
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4 sm:overflow-x-auto sm:pb-2">
-                                        {tourismRestaurants?.map((item) => (
+                                        {tourismFestivals?.map((item) => (
                                             <Link
                                                 key={item.id}
-                                                href={`/tourism/restaurants/${item.id}`}
+                                                href={`/tourism/festivals/${item.id}`}
                                                 className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md sm:w-56 sm:shrink-0 sm:rounded"
                                             >
                                                 <div className="h-28 shrink-0 overflow-hidden bg-slate-100 sm:h-32">
@@ -939,6 +939,14 @@ export default function Landing() {
                                                 ),
                                             )}
                                         </ul>
+                                        <div className="mt-6">
+                                            <Link
+                                                href="/projects"
+                                                className="inline-flex items-center rounded border-2 border-blue-800 bg-white px-4 py-2 text-sm font-semibold text-blue-800 transition hover:bg-blue-50"
+                                            >
+                                                View all projects
+                                            </Link>
+                                        </div>
                                     </div>
                                 )}
                             </div>
